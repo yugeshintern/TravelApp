@@ -1,11 +1,15 @@
-// client/pages/Signup.js
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Checkbox } from "@/components/ui/checkbox";
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+  StatusBar,
+} from "react-native";
 
-export default function Signup() {
+const Signup = ({ navigation }) => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -14,61 +18,208 @@ export default function Signup() {
     agree: false,
   });
 
-  const handleChange = (e) => {
-    const { name, type, checked, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: type === "checkbox" ? checked : value,
-    }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Signup data:", formData);
-  };
-
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-lg overflow-hidden">
+    <View style={styles.container}>
+      <StatusBar barStyle="dark-content" />
 
-        <div className="px-6 pt-6 pb-4">
-          <h1 className="text-blue-600 text-2xl font-semibold">Signup</h1>
-        </div>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {/* HEADER */}
+        <View style={styles.header}>
+          <Text style={styles.headerTitle}>Signup</Text>
+        </View>
 
-        <div className="h-32 bg-gradient-to-br from-teal-700 via-teal-600 to-teal-700 rounded-b-3xl -mb-16 relative"></div>
+        {/* TEAL BLOB */}
+        <View style={styles.blob} />
 
-        <div className="px-6 pt-24 pb-8">
-          <div className="mb-8">
-            <h2 className="text-3xl font-bold text-gray-800 mb-2">Hello!</h2>
-            <p className="text-gray-400">Welcome to Travel App</p>
-          </div>
+        {/* CARD */}
+        <View style={styles.card}>
+          <Text style={styles.title}>Hello!</Text>
+          <Text style={styles.subtitle}>Welcome to Travel App</Text>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          {/* INPUTS */}
+          <TextInput
+            placeholder="Enter Name"
+            style={styles.input}
+            value={formData.name}
+            onChangeText={(text) =>
+              setFormData({ ...formData, name: text })
+            }
+          />
 
-            <Input name="name" placeholder="Enter Name" value={formData.name} onChange={handleChange} />
-            <Input name="email" placeholder="Enter Email Address" value={formData.email} onChange={handleChange} />
-            <Input type="password" name="password" placeholder="Enter Your Password" value={formData.password} onChange={handleChange} />
-            <Input type="password" name="confirmPassword" placeholder="Confirm Your Password" value={formData.confirmPassword} onChange={handleChange} />
+          <TextInput
+            placeholder="Enter Email Address"
+            style={styles.input}
+            value={formData.email}
+            onChangeText={(text) =>
+              setFormData({ ...formData, email: text })
+            }
+          />
 
-            <div className="flex items-center gap-3 my-6">
-              <Checkbox name="agree" checked={formData.agree} onCheckedChange={(checked) =>
-                setFormData(prev => ({ ...prev, agree: checked }))
-              } />
-              <label className="text-gray-600 text-sm">Agree with Terms & Conditions</label>
-            </div>
+          <TextInput
+            placeholder="Enter Your Password"
+            secureTextEntry
+            style={styles.input}
+            value={formData.password}
+            onChangeText={(text) =>
+              setFormData({ ...formData, password: text })
+            }
+          />
 
-            <Button type="submit" className="w-full">Signup</Button>
+          <TextInput
+            placeholder="Confirm Your Password"
+            secureTextEntry
+            style={styles.input}
+            value={formData.confirmPassword}
+            onChangeText={(text) =>
+              setFormData({
+                ...formData,
+                confirmPassword: text,
+              })
+            }
+          />
 
-            <div className="text-center mt-6 text-gray-600">
+          {/* CHECKBOX */}
+          <TouchableOpacity
+            style={styles.checkboxRow}
+            onPress={() =>
+              setFormData({
+                ...formData,
+                agree: !formData.agree,
+              })
+            }
+          >
+            <View
+              style={[
+                styles.checkbox,
+                formData.agree && styles.checkboxActive,
+              ]}
+            />
+            <Text style={styles.checkboxText}>
+              Agree with Terms & Conditions
+            </Text>
+          </TouchableOpacity>
+
+          {/* BUTTON */}
+          <TouchableOpacity style={styles.button}>
+            <Text style={styles.buttonText}>Signup</Text>
+          </TouchableOpacity>
+
+          {/* LOGIN LINK */}
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Login")}
+          >
+            <Text style={styles.loginText}>
               Already have an account?{" "}
-              <Link to="/login" className="text-teal-700 font-semibold">
-                Login
-              </Link>
-            </div>
-
-          </form>
-        </div>
-      </div>
-    </div>
+              <Text style={styles.loginLink}>Login</Text>
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+    </View>
   );
-}
+};
+
+export default Signup;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#F4F5F7",
+  },
+
+  header: {
+    paddingTop: 50,
+    paddingHorizontal: 20,
+  },
+
+  headerTitle: {
+    fontSize: 20,
+    fontWeight: "600",
+    color: "#2F80ED",
+  },
+
+  blob: {
+    height: 120,
+    backgroundColor: "#0F7A6C",
+    borderBottomLeftRadius: 40,
+    borderBottomRightRadius: 40,
+    marginTop: 10,
+  },
+
+  card: {
+    backgroundColor: "#fff",
+    marginHorizontal: 16,
+    borderRadius: 20,
+    padding: 20,
+    marginTop: -60,
+    elevation: 4,
+  },
+
+  title: {
+    fontSize: 26,
+    fontWeight: "700",
+  },
+
+  subtitle: {
+    fontSize: 14,
+    color: "#888",
+    marginBottom: 20,
+  },
+
+  input: {
+    borderWidth: 1,
+    borderColor: "#E5E5E5",
+    borderRadius: 12,
+    padding: 14,
+    marginBottom: 12,
+    fontSize: 14,
+  },
+
+  checkboxRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginVertical: 10,
+  },
+
+  checkbox: {
+    width: 18,
+    height: 18,
+    borderWidth: 1,
+    borderColor: "#999",
+    borderRadius: 4,
+    marginRight: 10,
+  },
+
+  checkboxActive: {
+    backgroundColor: "#0F7A6C",
+  },
+
+  checkboxText: {
+    fontSize: 13,
+    color: "#555",
+  },
+
+  button: {
+    backgroundColor: "#0F7A6C",
+    paddingVertical: 16,
+    borderRadius: 30,
+    alignItems: "center",
+    marginTop: 10,
+  },
+
+  buttonText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "600",
+  },
+
+  loginText: {
+    marginTop: 18,
+    textAlign: "center",
+    color: "#666",
+  },
+
+  loginLink: {
+    color: "#0F7A6C",
+    fontWeight: "600",
+  },
+});

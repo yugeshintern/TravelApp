@@ -1,74 +1,75 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import Signup from "../screens/auth/Signup.js";
-import Login from "../screens/auth/LoginScreen";
-import Home from "../screens/home/HomeScreen";
-import LocationAccess from "../screens/common/LocationAccess";
-import SearchLocation from "../screens/common/SearchLocation";
-import VehicleChoosing from "../screens/home/VehicleChoosing";
-import LookingForRider from "../screens/home/LookingForRider";
-import ExtraCash from "../screens/home/ExtraCash";
-import RiderPickup from "../screens/home/RiderPickup";
-import MessageWithRider from "../screens/common/MessageWithRider";
-import ReviewRider from "../screens/home/ReviewRider";
-import ProfileScreen from "../screens/home/ProfileScreen";
-import ProfileEdit from "../screens/home/ProfileEdit";
-import ReferFriends from "../screens/reward/ReferFriends";
-import RewardsScreen from "../screens/reward/RewardsScreen";
-import PowerPass from "../screens/reward/PowerPass";
-import ClaimInsurance from "../screens/reward/ClaimInsurance";
-import SettingsScreen from "../screens/reward/SettingsScreen";
-import NotificationsScreen from "../screens/reward/NotificationsScreen";
-import RideHistory from "../screens/reward/RideHistory";
-import SafetyToolkit from "../screens/reward/SafetyToolkit";
-import PaymentsScreen from "../screens/reward/PaymentsScreen";
-import CancelReasonScreen from "../screens/reward/CancelReasonScreen";
-import CouponsScreen from "../screens/reward/CouponsScreen";
-import CouponsEmptyScreen from "../screens/reward/CouponsEmptyScreen";
-import ServicesScreen from "../screens/reward/ServicesScreen";
-import MetroScreen from "../screens/reward/MetroScreen";
-import MetroTicketScreen from "../screens/reward/MetroTicketScreen";
-import MetroPaymentScreen from "../screens/reward/MetroPaymentScreen";
-import PaymentSuccessScreen from "../screens/reward/PaymentSuccessScreen";
-import ParcelScreen from "../screens/reward/ParcelScreen";
-import DropLocationScreen from "../screens/reward/DropLocationScreen";
-import AddressAddingScreen from "../screens/parcel/AddressAddingScreen";
-import ParcelVehicleScreen from "../screens/parcel/ParcelVehicleScreen";
-import ParcelLookingRiderScreen from "../screens/parcel/ParcelLookingRiderScreen";
-import ParcelAddExtraMoneyScreen from "../screens/parcel/ParcelAddExtraMoneyScreen";
-import ParcelPickupScreen from "../screens/parcel/ParcelPickupScreen";
-import ParcelChatScreen from "../screens/parcel/ParcelChatScreen";
-import ParcelReviewScreen from "../screens/parcel/ParcelReviewScreen";
-import TravelMainScreen from "../screens/travel/TravelMainScreen";
-import BusBookingScreen from "../screens/travel/BusBookingScreen";
-import SearchBusScreen from "../screens/travel/SearchBusScreen";
-import BusListScreen from "../screens/travel/BusListScreen";
-import SeatSelectionScreen from "../screens/travel/SeatSelectionScreen";
-import BoardingDroppingScreen from "../screens/travel/BoardingDroppingScreen";
-import PassengerDetailsScreen from "../screens/travel/PassengerDetailsScreen";
-import TravelPaymentScreen from "../screens/travel/TravelPaymentScreen";
-import TravelPaymentSuccessScreen from "../screens/travel/TravelPaymentSuccessScreen";
-import PorterHomeScreen from "../screens/porter/PorterHomeScreen";
-import LocationPinScreen from "../screens/porter/LocationPinScreen";
-import AddressDetailsScreen from "../screens/porter/AddressDetailsScreen";
-import SelectVehicleScreen from "../screens/porter/SelectVehicleScreen";
-import SelectGoodsTypeScreen from '../screens/porter/SelectGoodsTypeScreen';
-import ReviewBookingScreen from '../screens/porter/ReviewBookingScreen';
-import DriverSearchingScreen from '../screens/porter/DriverSearchingScreen';
-import DriverPickupScreen from '../screens/porter/DriverPickupScreen';
-import CancellationReasonScreen from '../screens/porter/CancellationReasonScreen';
-import ChatWithDriverScreen from '../screens/porter/ChatWithDriverScreen';
-import ReviewForDriverScreen from '../screens/porter/ReviewForDriverScreen';
+import Signup from "../components/screens/auth/Signup";
+import Login from "../components/screens/auth/LoginScreen";
+import Home from "../components/screens/home/HomeScreen";
+import LocationAccess from "../components/screens/common/LocationAccess";
+import SearchLocation from "../components/screens/common/SearchLocation";
+import VehicleChoosing from "../components/screens/home/VehicleChoosing";
+import LookingForRider from "../components/screens/home/LookingForRider";
+import ExtraCash from "../components/screens/home/ExtraCash";
+import RiderPickup from "../components/screens/home/RiderPickup";
+import MessageWithRider from "../components/screens/common/MessageWithRider";
+import ReviewRider from "../components/screens/home/ReviewRider";
+import ProfileScreen from "../components/screens/home/ProfileScreen";
+import ProfileEdit from "../components/screens/home/ProfileEdit";
+import ReferFriends from "../components/screens/reward/ReferFriends";
+import RewardsScreen from "../components/screens/reward/RewardsScreen";
+import PowerPass from "../components/screens/reward/PowerPass";
+import ClaimInsurance from "../components/screens/reward/ClaimInsurance";
+import SettingsScreen from "../components/screens/reward/SettingsScreen";
+import NotificationsScreen from "../components/screens/reward/NotificationsScreen";
+import RideHistory from "../components/screens/reward/RideHistory";
+import SafetyToolkit from "../components/screens/reward/SafetyToolkit";
+import PaymentsScreen from "../components/screens/reward/PaymentsScreen";
+import CancelReasonScreen from "../components/screens/reward/CancelReasonScreen";
+import CouponsScreen from "../components/screens/reward/CouponsScreen";
+import CouponsEmptyScreen from "../components/screens/reward/CouponsEmptyScreen";
+import ServicesScreen from "../components/screens/reward/ServicesScreen";
+import MetroScreen from "../components/screens/reward/MetroScreen";
+import MetroTicketScreen from "../components/screens/reward/MetroTicketScreen";
+import MetroPaymentScreen from "../components/screens/reward/MetroPaymentScreen";
+import PaymentSuccessScreen from "../components/screens/reward/PaymentSuccessScreen";
+import ParcelScreen from "../components/screens/reward/ParcelScreen";
+import DropLocationScreen from "../components/screens/reward/DropLocationScreen";
+
+import AddressAddingScreen from "../components/screens/parcel/AddressAddingScreen";
+import ParcelVehicleScreen from "../components/screens/parcel/ParcelVehicleScreen";
+import ParcelLookingRiderScreen from "../components/screens/parcel/ParcelLookingRiderScreen";
+import ParcelAddExtraMoneyScreen from "../components/screens/parcel/ParcelAddExtraMoneyScreen";
+import ParcelPickupScreen from "../components/screens/parcel/ParcelPickupScreen";
+import ParcelChatScreen from "../components/screens/parcel/ParcelChatScreen";
+import ParcelReviewScreen from "../components/screens/parcel/ParcelReviewScreen";
+
+import TravelMainScreen from "../components/screens/travel/TravelMainScreen";
+import BusBookingScreen from "../components/screens/travel/BusBookingScreen";
+import SearchBusScreen from "../components/screens/travel/SearchBusScreen";
+import BusListScreen from "../components/screens/travel/BusListScreen";
+import SeatSelectionScreen from "../components/screens/travel/SeatSelectionScreen";
+import BoardingDroppingScreen from "../components/screens/travel/BoardingDroppingScreen";
+import PassengerDetailsScreen from "../components/screens/travel/PassengerDetailsScreen";
+import TravelPaymentScreen from "../components/screens/travel/TravelPaymentScreen";
+import TravelPaymentSuccessScreen from "../components/screens/travel/PaymentSuccessScreen";
+
+import PorterHomeScreen from "../components/screens/porter/PorterHomeScreen";
+import LocationPinScreen from "../components/screens/porter/LocationPinScreen";
+import AddressDetailsScreen from "../components/screens/porter/AddressDetailsScreen";
+import SelectVehicleScreen from "../components/screens/porter/SelectVehicleScreen";
+import SelectGoodsTypeScreen from '../components/screens/porter/SelectGoodsTypeScreen';
+import ReviewBookingScreen from '../components/screens/porter/ReviewBookingScreen';
+// import DriverSearchingScreen from '../components/screens/porter/DriverSearchingScreen';
+import DriverPickupScreen from '../components/screens/porter/DriverPickupScreen';
+import CancellationReasonScreen from '../components/screens/porter/CancellationReasonScreen';
+import ChatWithDriverScreen from '../components/screens/porter/ChatWithDriverScreen';
+import ReviewForDriverScreen from '../components/screens/porter/ReviewForDriverScreen';
+
 import FlightsHomeScreen from '../screens/flights/FlightsHomeScreen';
 import TravellerClassScreen from '../screens/flights/TravellerClassScreen';
 import RoundTripFlightsScreen from '../screens/flights/RoundTripFlightsScreen';
 import FlightsListScreen from '../screens/flights/FlightsListScreen';
 import FlightDetailsScreen from '../screens/flights/FlightDetailsScreen';
 import MultiCityFlightsScreen from '../screens/flights/MultiCityFlightsScreen';
-
-
-
 
 
 
@@ -131,7 +132,6 @@ export default function AppNavigator() {
       <Stack.Screen name="SelectVehicle" component={SelectVehicleScreen} options={{ headerShown: false }}/>
       <Stack.Screen name="SelectGoodsType" component={SelectGoodsTypeScreen} options={{ headerShown: false }}/>
       <Stack.Screen name="ReviewBooking" component={ReviewBookingScreen} options={{ headerShown: false }}/>
-      <Stack.Screen name="DriverSearching" component={DriverSearchingScreen} options={{ headerShown: false }}/>
       <Stack.Screen name="DriverPickup" component={DriverPickupScreen} options={{ headerShown: false }}/>
       <Stack.Screen name="CancellationReason" component={CancellationReasonScreen} options={{ headerShown: false }}/>
       <Stack.Screen name="ChatWithDriver" component={ChatWithDriverScreen} options={{ headerShown: false }}/>
