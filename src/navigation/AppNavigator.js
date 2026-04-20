@@ -1,7 +1,7 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import Signup from "../screens/auth/Signup";
+import Signup from "../screens/auth/Signup.js";
 import Login from "../screens/auth/LoginScreen";
 import Home from "../screens/home/HomeScreen";
 import LocationAccess from "../screens/common/LocationAccess";
@@ -60,6 +60,14 @@ import DriverPickupScreen from '../screens/porter/DriverPickupScreen';
 import CancellationReasonScreen from '../screens/porter/CancellationReasonScreen';
 import ChatWithDriverScreen from '../screens/porter/ChatWithDriverScreen';
 import ReviewForDriverScreen from '../screens/porter/ReviewForDriverScreen';
+import FlightsHomeScreen from '../screens/flights/FlightsHomeScreen';
+import TravellerClassScreen from '../screens/flights/TravellerClassScreen';
+import RoundTripFlightsScreen from '../screens/flights/RoundTripFlightsScreen';
+import FlightsListScreen from '../screens/flights/FlightsListScreen';
+import FlightDetailsScreen from '../screens/flights/FlightDetailsScreen';
+import MultiCityFlightsScreen from '../screens/flights/MultiCityFlightsScreen';
+
+
 
 
 
@@ -128,6 +136,12 @@ export default function AppNavigator() {
       <Stack.Screen name="CancellationReason" component={CancellationReasonScreen} options={{ headerShown: false }}/>
       <Stack.Screen name="ChatWithDriver" component={ChatWithDriverScreen} options={{ headerShown: false }}/>
       <Stack.Screen name="ReviewForDriver" component={ReviewForDriverScreen} options={{ headerShown: false, presentation: 'transparentModal' }}/>
+      <Stack.Screen name="FlightsHome" component={FlightsHomeScreen} options={{ headerShown: false }}/>
+      <Stack.Screen name="TravellerClass" component={TravellerClassScreen} options={{ headerShown: false,  presentation: 'transparentModal',}}/>
+      <Stack.Screen name="RoundTripFlights" component={RoundTripFlightsScreen} options={{ headerShown: false }}/>
+      <Stack.Screen name="FlightsList" component={FlightsListScreen} options={{ headerShown: false }}/>
+      <Stack.Screen name="FlightDetails" component={FlightDetailsScreen} options={{ headerShown: false }}/>
+      <Stack.Screen name="MultiCityFlights" component={MultiCityFlightsScreen} options={{ headerShown: false }}/>
 
 
     </Stack.Navigator>
