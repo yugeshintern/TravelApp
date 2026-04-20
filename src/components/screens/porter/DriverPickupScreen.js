@@ -12,10 +12,10 @@ const DriverPickupScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       {/* MAP */}
-      <Image
+      {/* <Image
         source={require('../../assets/map.png')} // replace with your map
         style={styles.map}
-      />
+      /> */}
 
       {/* BACK BUTTON */}
       <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>

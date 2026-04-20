@@ -27,11 +27,11 @@ const CancellationReasonScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       {/* MAP BACKGROUND */}
-      <Image
+      {/* <Image
         source={require('../../assets/map.png')} // replace if needed
         style={styles.map}
         blurRadius={1}
-      />
+      /> */}
 
       {/* BACK BUTTON */}
       <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>

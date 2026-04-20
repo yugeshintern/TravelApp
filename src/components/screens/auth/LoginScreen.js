@@ -8,11 +8,11 @@ import {
   StatusBar,
 } from 'react-native';
 
-import AppInput from '../../components/inputs/AppInput';
-import PrimaryButton from '../../components/buttons/PrimaryButton';
-import SocialLoginRow from '../../components/common/SocialLoginRow';
-import TealBlob from '../../components/common/TealBlob';
-import {AuthContext} from '../../context/AuthContext';
+import AppInput from '../../inputs/AppInput';
+import PrimaryButton from '../../buttons/PrimaryButton';
+import SocialLoginRow from '../../../components/common/SocialLoginRow';
+import TealBlob from '../../../components/common/TealBlob';
+import {AuthContext} from '../../../context/AuthContext';
 
 
 const LoginScreen = ({navigation}) => {

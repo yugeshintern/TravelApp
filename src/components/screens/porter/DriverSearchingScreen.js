@@ -12,11 +12,11 @@ const DriverSearchingScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       {/* MAP */}
-      <Image
+      {/* <Image
         source={require('../../assets/map.png')} // replace with your map image
         style={styles.map}
         resizeMode="cover"
-      />
+      /> */}
 
       {/* BACK BUTTON */}
       <TouchableOpacity
