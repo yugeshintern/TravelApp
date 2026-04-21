@@ -64,12 +64,42 @@ import CancellationReasonScreen from '../components/screens/porter/CancellationR
 import ChatWithDriverScreen from '../components/screens/porter/ChatWithDriverScreen';
 import ReviewForDriverScreen from '../components/screens/porter/ReviewForDriverScreen';
 
-import FlightsHomeScreen from '../screens/flights/FlightsHomeScreen';
-import TravellerClassScreen from '../screens/flights/TravellerClassScreen';
-import RoundTripFlightsScreen from '../screens/flights/RoundTripFlightsScreen';
-import FlightsListScreen from '../screens/flights/FlightsListScreen';
-import FlightDetailsScreen from '../screens/flights/FlightDetailsScreen';
-import MultiCityFlightsScreen from '../screens/flights/MultiCityFlightsScreen';
+import FlightsHomeScreen from '../components/screens/flights/FlightsHomeScreen';
+import TravellerClassScreen from '../components/screens/flights/TravellerClassScreen';
+import RoundTripFlightsScreen from '../components/screens/flights/RoundTripFlightsScreen';
+import FlightsListScreen from '../components/screens/flights/FlightsListScreen';
+import FlightDetailsScreen from '../components/screens/flights/FlightDetailsScreen';
+import MultiCityFlightsScreen from '../components/screens/flights/MultiCityFlightsScreen';
+import ConfirmTravellerDetailsScreen from '../components/screens/flights/ConfirmTravellerDetailsScreen';
+import FlightSeatSelectionScreen from "../components/screens/flights/FlightSeatSelectionScreen";
+import MealSelectionScreen from '../components/screens/flights/MealSelectionScreen';
+
+import HotelsHomeScreen from '../components/screens/hotels/HotelsHomeScreen';
+import HotelsListScreen from '../components/screens/hotels/HotelsListScreen';
+import HotelDetailsScreen from '../components/screens/hotels/HotelDetailsScreen';
+import RoomSelectionScreen from '../components/screens/hotels/RoomSelectionScreen';
+import HotelReviewBookingScreen from '../components/screens/hotels/ReviewBookingScreen';
+
+import TrainBookingScreen from '../components/screens/train/TrainBookingScreen';
+import SearchTrainScreen from '../components/screens/train/SearchTrainScreen';
+import TrainListScreen from '../components/screens/train/TrainListScreen';
+import TrainAvailabilityScreen from '../components/screens/train/TrainAvailabilityScreen';
+import AddPassengersScreen from '../components/screens/train/AddPassengersScreen';
+
+import PackersHomeScreen from '../components/screens/packers/PackersHomeScreen';
+import PackersLocationScreen from '../components/screens/packers/PackersLocationScreen';
+import PackersItemsScreen from '../components/screens/packers/PackersItemsScreen';
+import PackersDateScreen from '../components/screens/packers/PackersDateScreen';
+import PackersSlotScreen from '../components/screens/packers/PackersSlotScreen';
+import PackersConfirmScreen from '../components/screens/packers/PackersConfirmScreen';
+import PackersBookingDetailsScreen from '../components/screens/packers/PackersBookingDetailsScreen';
+import OrderSummaryScreen from '../components/screens/packers/OrderSummaryScreen';
+
+
+
+
+
+
 
 
 
@@ -142,6 +172,28 @@ export default function AppNavigator() {
       <Stack.Screen name="FlightsList" component={FlightsListScreen} options={{ headerShown: false }}/>
       <Stack.Screen name="FlightDetails" component={FlightDetailsScreen} options={{ headerShown: false }}/>
       <Stack.Screen name="MultiCityFlights" component={MultiCityFlightsScreen} options={{ headerShown: false }}/>
+      <Stack.Screen name="ConfirmTravellerDetails" component={ConfirmTravellerDetailsScreen}  options={{ headerShown: false }}/>
+      <Stack.Screen name="SeatSelection" component={SeatSelectionScreen} options={{ headerShown: false }}/>
+      <Stack.Screen name="FlightSeatSelection" component={FlightSeatSelectionScreen} options={{ headerShown: false }}/>
+      <Stack.Screen name="MealSelection" component={MealSelectionScreen} options={{ headerShown: false }}/>
+      <Stack.Screen name="HotelsHome" component={HotelsHomeScreen} options={{ headerShown: false }}/>
+      <Stack.Screen name="HotelsList" component={HotelsListScreen} options={{ headerShown: false }}/>
+      <Stack.Screen name="HotelDetails" component={HotelDetailsScreen} options={{ headerShown: false }}/>
+      <Stack.Screen name="RoomSelection" component={RoomSelectionScreen} options={{ headerShown: false }}/>
+      <Stack.Screen name="ReviewBooking" component={HotelReviewBookingScreen} options={{ headerShown: false }}/>
+      <Stack.Screen name="TrainBooking" component={TrainBookingScreen} options={{ headerShown: false }}/>
+      <Stack.Screen name="SearchTrain" component={SearchTrainScreen} options={{ headerShown: false }}/>
+      <Stack.Screen name="TrainList" component={TrainListScreen} options={{ headerShown: false }}/>
+      <Stack.Screen name="TrainAvailability" component={TrainAvailabilityScreen} options={{ headerShown: false }}/>
+      <Stack.Screen name="AddPassengers" component={AddPassengersScreen} options={{ headerShown: false }}/>
+      <Stack.Screen name="PackersHome" component={PackersHomeScreen} options={{ headerShown: false }}/>
+      <Stack.Screen name="PackersLocation" component={PackersLocationScreen} options={{ headerShown: false }}/>
+      <Stack.Screen name="PackersItems" component={PackersItemsScreen} options={{ headerShown: false }}/>
+      <Stack.Screen name="PackersDate" component={PackersDateScreen} options={{ headerShown: false }}/>
+      <Stack.Screen name="PackersSlot" component={PackersSlotScreen} options={{ headerShown: false }}/>
+      <Stack.Screen name="PackersConfirm" component={PackersConfirmScreen} options={{ headerShown: false }}/>
+      <Stack.Screen name="PackersBookingDetails" component={PackersBookingDetailsScreen} options={{ headerShown: false }}/>
+      <Stack.Screen name="OrderSummary" component={OrderSummaryScreen} options={{ headerShown: false }}/>
 
 
     </Stack.Navigator>
