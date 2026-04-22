@@ -18,7 +18,16 @@ import {AuthContext} from '../../../context/AuthContext';
 const LoginScreen = ({navigation}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const {login} = useContext(AuthContext);
+  //const {login} = useContext(AuthContext);
+
+  const auth = useContext(AuthContext);
+
+if (!auth) {
+  console.log("AuthContext is undefined ❌");
+  return null;
+}
+
+const { login } = auth;
 
   const handleLogin = () => {
     login({name: username || 'User'});

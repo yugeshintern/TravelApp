@@ -8,7 +8,7 @@ import {
   ScrollView
 } from "react-native";
 
-export default function HomeScreen() {
+export default function HomeScreen({ navigation }) {
   const [selected, setSelected] = useState("ride");
 
   const locations = [
@@ -25,14 +25,21 @@ export default function HomeScreen() {
         <View style={styles.toggle}>
           <TouchableOpacity
             style={selected === "ride" ? styles.active : styles.inactive}
-            onPress={() => setSelected("ride")}
+            onPress={() => {
+                setSelected("ride");
+                navigation.navigate("Home");
+              }}
           >
             <Text>🚗 Ride</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={selected === "porter" ? styles.active : styles.inactive}
-            onPress={() => setSelected("porter")}
+            onPress={() => {
+              setSelected("porter");
+              navigation.navigate("PorterHome");
+            }}
+          
           >
             <Text>🚚 Porter</Text>
           </TouchableOpacity>
@@ -52,22 +59,61 @@ export default function HomeScreen() {
 
         <Text style={styles.section}>Services</Text>
 
-        <View style={styles.grid}>
-          <Text style={styles.box}>🚆 Metro</Text>
-          <Text style={styles.box}>🛵 Scooty</Text>
-          <Text style={styles.box}>📦 Parcel</Text>
-          <Text style={styles.box}>🚐 All</Text>
-        </View>
+      <View style={styles.grid}>
+  <TouchableOpacity
+    style={styles.card}
+    onPress={() => navigation.navigate("MetroScreen")}
+  >
+    <Text style={styles.box}>🚆 Metro</Text>
+  </TouchableOpacity>
+
+  <TouchableOpacity style={styles.card}>
+    <Text style={styles.box}>🛵 Scooty</Text>
+  </TouchableOpacity>
+
+  <TouchableOpacity style={styles.card}>
+    <Text style={styles.box}>📦 Parcel</Text>
+  </TouchableOpacity>
+
+  <TouchableOpacity style={styles.card}>
+    <Text style={styles.box}>🚐 All</Text>
+  </TouchableOpacity>
+</View>
 
       </ScrollView>
 
       {/* BOTTOM NAV */}
       <View style={styles.nav}>
+        <TouchableOpacity
+        onPress={()=> navigation.navigate("Home")}
+        >
         <Text>🏠</Text>
-        <Text>🗺️</Text>
-        <Text>🌊</Text>
-        <Text>📍</Text>
-        <Text>👤</Text>
+        </TouchableOpacity>
+        
+        <TouchableOpacity
+        onPress={()=> navigation.navigate("SearchLocation")}
+        >
+          <Text>🗺️</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+        onPress={()=> navigation.navigate("Services")}
+        >
+          <Text>🌊</Text>
+        </TouchableOpacity>
+        
+        <TouchableOpacity
+        onPress={()=> navigation.navigate("LocationPin")}
+        >
+          <Text>📍</Text>
+        </TouchableOpacity>
+        
+        <TouchableOpacity
+        onPress={()=> navigation.navigate("Profile")}
+        >
+          <Text>👤</Text>
+        </TouchableOpacity>
+        
       </View>
 
     </View>
@@ -84,19 +130,25 @@ const styles = StyleSheet.create({
   content: { padding: 15 },
   location: { marginBottom: 10 },
   section: { fontSize: 18, fontWeight: "bold", marginVertical: 10 },
-  grid: { flexDirection: "row", flexWrap: "wrap" },
-  box: {
-    width: "45%",
-    backgroundColor: "#fff",
-    margin: 5,
-    padding: 15,
-    borderRadius: 10,
-    textAlign: "center",
+  grid: { flexDirection: "row", flexWrap: "wrap",justifyContent: "space-between" },
+box: {
+  backgroundColor: "#fff",
+  padding: 20,
+  borderRadius: 12,
+  textAlign: "center",
+  elevation: 3,
+},
+nav: {
+  flexDirection: "row",
+  justifyContent: "space-around",
+  paddingVertical: 12,
+  backgroundColor: "#fff",
+  borderTopWidth: 0.5,
+  borderColor: "#ccc",
+},
+    card: {
+  width: "48%",
+  marginBottom: 15,
+},
   },
-  nav: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    padding: 10,
-    backgroundColor: "#fff",
-  },
-});
+);

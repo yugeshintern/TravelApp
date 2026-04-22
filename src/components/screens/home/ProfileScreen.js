@@ -8,19 +8,19 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/Feather";
 
-export default function ProfileScreen() {
+export default function ProfileScreen({navigation}) {
   const menuItems = [
-    "Help",
-    "Payment",
-    "Parcel - Send Items",
-    "My Rides",
-    "Safety",
-    "Refer and Earn",
-    "My Rewards",
-    "Power Pass",
-    "Notifications",
-    "Claims",
-    "Settings",
+    {id:"help", label:"Help", screen:"Help"},
+    {id:"payments", label:"Payments", screen:"Payments"},
+    {id:"parcel", label:"Parcel", screen:"Parcel"},
+    {id:"rides", label:"Ride History", screen:"RideHistory"},
+    {id:"safety", label:"Safety", screen:"SafetyToolkit"},
+    {id:"refer", label:"Refer and Earn", screen:"ReferFriends"},
+    {id:"rewards", label:"My Rewards", screen:"Rewards"},
+    {id:"powerpass", label:"Power Pass", screen:"PowerPass"},
+    {id:"notifications", label:"Notifications", screen:"Notifications"},
+    {id:"claims", label:"Claims", screen:"ClaimInsurance"},
+    { id:"settings", label:"Settings", screen:"Settings" },
   ];
 
   return (
@@ -59,12 +59,17 @@ export default function ProfileScreen() {
         </View>
 
         {/* MENU LIST */}
-        {menuItems.map((item, index) => (
-          <TouchableOpacity key={index} style={styles.menuItem}>
-            <Text style={styles.menuText}>{item}</Text>
-            <Icon name="chevron-right" size={18} />
-          </TouchableOpacity>
-        ))}
+
+      {menuItems.map((item) => (
+        <TouchableOpacity
+          key={item.id}
+          style={styles.menuItem}
+          onPress={() => navigation.navigate(item.screen)}
+        >
+          <Text style={styles.menuText}>{item.label}</Text>
+          <Icon name="chevron-right" size={18} />
+        </TouchableOpacity>
+      ))}
 
         {/* BANNER */}
         <View style={styles.banner}>
