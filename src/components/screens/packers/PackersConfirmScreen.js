@@ -151,7 +151,8 @@ const PackersConfirmScreen = ({ navigation }) => {
           <Text style={styles.totalPrice}>₹{total}</Text>
         </View>
 
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button}
+        onPress={() => navigation.navigate("PackersBookingDetails")}>
           <Text style={styles.buttonText}>Confirm Your Book</Text>
         </TouchableOpacity>
       </View>

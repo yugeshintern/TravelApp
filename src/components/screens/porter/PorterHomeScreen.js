@@ -62,6 +62,8 @@ export default function PorterHomeScreen({ navigation }) {
         {/* GRID */}
         <View style={styles.grid}>
           <View style={styles.card}>
+             <TouchableOpacity
+          onPress={()=> navigation.navigate("LocationPin")}>
             <Text style={styles.cardTitle}>
               Two{"\n"}Wheeler
             </Text>
@@ -71,7 +73,9 @@ export default function PorterHomeScreen({ navigation }) {
               }}
               style={styles.cardImg}
             />
+            </TouchableOpacity>
           </View>
+        
 
           <View style={styles.card}>
             <Text style={styles.cardTitle}>Trucks</Text>
@@ -83,7 +87,10 @@ export default function PorterHomeScreen({ navigation }) {
             />
           </View>
 
+          
           <View style={styles.card}>
+            <TouchableOpacity
+          onPress={() => navigation.navigate("PackersHome")}>
             <Text style={styles.cardTitle}>
               Packers &{"\n"}Movers
             </Text>
@@ -93,6 +100,7 @@ export default function PorterHomeScreen({ navigation }) {
               }}
               style={styles.cardImg}
             />
+            </TouchableOpacity>
           </View>
         </View>
 

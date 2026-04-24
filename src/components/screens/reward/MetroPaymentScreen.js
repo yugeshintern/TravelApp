@@ -141,7 +141,8 @@ export default function MetroPaymentScreen({ navigation }) {
           <Text style={styles.amount}>₹100</Text>
         </View>
 
-        <TouchableOpacity style={styles.payBtn}>
+        <TouchableOpacity style={styles.payBtn}
+        onPress={()=> navigation.navigate("PaymentSuccess")}>
           <Text style={styles.payText}>
             Proceed to Pay ₹100
           </Text>

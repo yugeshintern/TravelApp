@@ -51,6 +51,8 @@ export default function MetroScreen({ navigation }) {
 
         {/* INPUT CARD */}
         <View style={styles.inputCard}>
+          <TouchableOpacity
+          onPress={()=> navigation.navigate("MetroTicket")}>
           <View style={styles.row}>
             <View style={styles.greenDot} />
             <Text style={styles.placeholder}>From</Text>
@@ -62,6 +64,7 @@ export default function MetroScreen({ navigation }) {
             <View style={styles.redDot} />
             <Text style={styles.placeholder}>To</Text>
           </View>
+          </TouchableOpacity>
         </View>
 
         {/* STATIONS */}

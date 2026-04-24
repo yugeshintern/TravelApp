@@ -137,7 +137,8 @@ const SelectGoodsTypeScreen = ({ navigation }) => {
 
       {/* CTA */}
       <View style={styles.footer}>
-        <TouchableOpacity style={styles.ctaBtn}>
+        <TouchableOpacity style={styles.ctaBtn}
+        onPress={()=> navigation.navigate("ReviewBooking")}>
           <Text style={styles.ctaText}>Choose Goods Type</Text>
         </TouchableOpacity>
       </View>

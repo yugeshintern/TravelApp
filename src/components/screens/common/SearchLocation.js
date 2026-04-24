@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/Feather";
 
-export default function SearchLocation() {
+export default function SearchLocation({navigation}) {
   const [selected, setSelected] = useState("ride");
 
   const locations = [
@@ -33,13 +33,14 @@ export default function SearchLocation() {
   return (
     <View style={styles.container}>
       {/* HEADER */}
-      <Text style={styles.header}>Search_for_location</Text>
+      <Text style={styles.header}>Search for location</Text>
 
       {/* MAIN CARD */}
       <View style={styles.card}>
         {/* TOP BAR */}
         <View style={styles.topBar}>
-          <TouchableOpacity style={styles.backBtn}>
+          <TouchableOpacity style={styles.backBtn}
+          onPress={()=> navigation.goBack()}>
             <Icon name="arrow-left" size={18} />
           </TouchableOpacity>
           <Text style={styles.dropText}>Drop</Text>
@@ -70,6 +71,8 @@ export default function SearchLocation() {
 
         {/* LOCATION INPUT */}
         <View style={styles.inputBox}>
+          <TouchableOpacity
+          onPress={()=> navigation.navigate("VehicleChoosing")}>
           <View style={styles.dotColumn}>
             <View style={styles.greenDot} />
             <View style={styles.line} />
@@ -87,6 +90,7 @@ export default function SearchLocation() {
               style={styles.input}
             />
           </View>
+          </TouchableOpacity>
         </View>
 
         {/* MAP BUTTONS */}

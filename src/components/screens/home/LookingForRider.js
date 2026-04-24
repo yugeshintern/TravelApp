@@ -23,7 +23,8 @@ export default function LookingForRider({ navigation }) {
       <Text style={styles.header}>Looking_for_rider</Text>
 
       {/* BACK BUTTON */}
-      <TouchableOpacity style={styles.backBtn}>
+      <TouchableOpacity style={styles.backBtn}
+      onPress={()=>navigation.goBack()}>
         <Icon name="arrow-left" size={18} />
       </TouchableOpacity>
 
@@ -41,6 +42,8 @@ export default function LookingForRider({ navigation }) {
         {/* LOCATION DETAILS */}
         <Text style={styles.section}>Location Details</Text>
 
+         <TouchableOpacity
+          onPress={()=> navigation.navigate("ExtraCash")}>
         <View style={styles.locationBox}>
           <View style={styles.dotColumn}>
             <View style={styles.greenDot} />
@@ -64,6 +67,7 @@ export default function LookingForRider({ navigation }) {
             </Text>
           </View>
         </View>
+        </TouchableOpacity>
 
         {/* FARE BOX */}
         <View style={styles.fareBox}>
@@ -71,8 +75,10 @@ export default function LookingForRider({ navigation }) {
             <Text style={styles.fareTitle}>Total Fare</Text>
             <Text style={styles.farePrice}>₹287.0</Text>
           </View>
-
+          <TouchableOpacity
+          onPress={()=> navigation.navigate("Payments")}>
           <Text style={styles.payment}>💵 Paying via cash</Text>
+          </TouchableOpacity>
         </View>
 
         {/* BUTTONS */}
@@ -83,7 +89,8 @@ export default function LookingForRider({ navigation }) {
           <Text style={styles.backText}>Back</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.cancelButton}>
+        <TouchableOpacity style={styles.cancelButton}
+        onPress={()=> navigation.navigate("CancelReason")}>
           <Text style={styles.cancelText}>Cancel Ride</Text>
         </TouchableOpacity>
       </View>

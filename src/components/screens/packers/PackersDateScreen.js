@@ -162,7 +162,8 @@ const PackersDateScreen = ({ navigation }) => {
           <Text style={styles.totalPrice}>₹{getTotal()}</Text>
         </View>
 
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button}
+        onPress={() => navigation.navigate("PackersSlot")}>
           <Text style={styles.buttonText}>Select pickup slot</Text>
         </TouchableOpacity>
       </View>

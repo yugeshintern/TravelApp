@@ -53,6 +53,8 @@ export default function LocationPinScreen({ navigation }) {
       </View>
 
       {/* LOCATION BOX */}
+      <TouchableOpacity
+        onPress={()=>navigation.navigate("AddressDetails")}>
       <View style={styles.locationBox}>
         <View style={styles.dotRow}>
           <View style={styles.greenDot} />
@@ -72,6 +74,7 @@ export default function LocationPinScreen({ navigation }) {
           />
         </View>
       </View>
+      </TouchableOpacity>
 
       {/* MAP OPTIONS */}
       <View style={styles.mapRow}>

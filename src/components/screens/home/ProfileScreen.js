@@ -41,8 +41,11 @@ export default function ProfileScreen({navigation}) {
             <Icon name="user" size={22} />
 
             <View style={{ marginLeft: 10, flex: 1 }}>
+              <TouchableOpacity
+              onPress={()=> navigation.navigate("ProfileEdit")}>
               <Text style={styles.name}>Dexter</Text>
               <Text style={styles.phone}>6625025660</Text>
+              </TouchableOpacity>
             </View>
 
             <Icon name="chevron-right" size={18} />

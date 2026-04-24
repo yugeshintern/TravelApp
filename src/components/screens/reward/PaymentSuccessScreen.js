@@ -14,9 +14,9 @@ export default function PaymentSuccessScreen({ navigation }) {
       <View style={styles.headerRow}>
         <TouchableOpacity
           style={styles.backBtn}
-          onPress={() => navigation.goBack()}
+          onPress={() => navigation.navigate("Home")}
         >
-          <Icon name="arrow-left" size={18} />
+          <Icon name="arrow-left" size={18} color={"#000"} />
         </TouchableOpacity>
       </View>
 

@@ -106,7 +106,8 @@ const PackersItemsScreen = ({ navigation }) => {
       />
 
       {/* BUTTON */}
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button}
+      onPress={() => navigation.navigate("PackersDate")}>
         <Text style={styles.buttonText}>Select shifting Date</Text>
       </TouchableOpacity>
 

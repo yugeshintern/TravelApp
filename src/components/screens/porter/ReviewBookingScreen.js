@@ -137,7 +137,8 @@ const ReviewBookingScreen = ({ navigation }) => {
           </TouchableOpacity>
         </View>
 
-        <TouchableOpacity style={styles.cta}>
+        <TouchableOpacity style={styles.cta}
+        onPress={()=> navigation.navigate("DriverSearching")}>
           <Text style={styles.ctaText}>Book 2 wheeler</Text>
         </TouchableOpacity>
       </View>

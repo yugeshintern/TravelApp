@@ -112,7 +112,8 @@ const PackersSlotScreen = ({ navigation }) => {
         </ScrollView>
 
         {/* BUTTON */}
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button}
+        onPress={() => navigation.navigate("PackersConfirm")}>
           <Text style={styles.buttonText}>Confirm slot</Text>
         </TouchableOpacity>
 

@@ -131,6 +131,11 @@ export default function PaymentsScreen({ navigation }) {
             <Radio value="cash" />
           </TouchableOpacity>
         </View>
+
+         <TouchableOpacity style={styles.button}
+                onPress={() => navigation.navigate("PaymentSuccess")}>
+                  <Text style={styles.buttonText}>Proceed to Pay</Text>
+                </TouchableOpacity>
       </ScrollView>
     </View>
   );

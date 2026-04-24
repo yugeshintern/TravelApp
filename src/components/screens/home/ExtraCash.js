@@ -60,10 +60,13 @@ export default function ExtraCash({ navigation }) {
 
         {/* BOOST BOX */}
         <View style={styles.boostBox}>
+          <TouchableOpacity
+          onPress={()=> navigation.navigate("RiderPickup")}>
           <Text style={styles.boostText}>
             Captains aren’t accepting at ₹287.{"\n"}
             Try adding more
           </Text>
+          </TouchableOpacity>
 
           <View style={styles.optionsRow}>
             {options.map((item) => (

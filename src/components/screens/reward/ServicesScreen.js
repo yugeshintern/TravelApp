@@ -69,8 +69,19 @@ export default function ServicesScreen({ navigation }) {
           data={rideServices}
           numColumns={4}
           keyExtractor={(item, index) => index.toString()}
-          renderItem={renderItem}
+          renderItem={({item}) =>(
+            <TouchableOpacity
+                style={styles.serviceItem}
+                onPress={() => navigation.navigate("SearchLocation")} // 👈 SAME PAGE
+            >
+            <View style={styles.iconCircle}>
+              <Text style={{ fontSize: 20 }}>🚗</Text>
+            </View>
+              <Text style={styles.label}>{item}</Text>
+            </TouchableOpacity>
+          )}
           scrollEnabled={false}
+          
         />
 
         {/* PORTER */}
@@ -79,7 +90,17 @@ export default function ServicesScreen({ navigation }) {
           data={porterServices}
           numColumns={4}
           keyExtractor={(item, index) => index.toString()}
-          renderItem={renderItem}
+          renderItem={({item}) =>(
+            <TouchableOpacity
+                style={styles.serviceItem}
+                onPress={() => navigation.navigate("SearchLocation")} // 👈 SAME PAGE
+            >
+            <View style={styles.iconCircle}>
+              <Text style={{ fontSize: 20 }}>🚗</Text>
+            </View>
+              <Text style={styles.label}>{item}</Text>
+            </TouchableOpacity>
+          )}
           scrollEnabled={false}
         />
 

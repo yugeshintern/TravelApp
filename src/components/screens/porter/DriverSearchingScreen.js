@@ -86,7 +86,8 @@ const DriverSearchingScreen = ({ navigation }) => {
           <Text style={styles.backText}>Back</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.cancelBtn}>
+        <TouchableOpacity style={styles.cancelBtn}
+        onPress={()=> navigation.navigate("CancellationReason")}>
           <Text style={styles.cancelText}>Cancel Trip</Text>
         </TouchableOpacity>
       </View>

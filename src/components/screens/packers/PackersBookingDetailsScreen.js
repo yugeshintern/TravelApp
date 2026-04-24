@@ -117,10 +117,10 @@ const PackersBookingDetailsScreen = ({ navigation }) => {
         </View>
 
         {/* BUTTON */}
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button}
+        onPress={() => navigation.navigate("OrderSummary")}>
           <Text style={styles.buttonText}>Proceed</Text>
         </TouchableOpacity>
-
       </ScrollView>
     </View>
   );

@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/Feather";
 
-export default function ReviewRider() {
+export default function ReviewRider({navigation}) {
   const [rating, setRating] = useState(0);
 
   return (
@@ -19,7 +19,8 @@ export default function ReviewRider() {
       <View style={styles.bg} />
 
       {/* SKIP BUTTON */}
-      <TouchableOpacity style={styles.skip}>
+      <TouchableOpacity style={styles.skip}
+      onPress={()=> navigation.navigate("Home")}>
         <Text style={styles.skipText}>Skip</Text>
       </TouchableOpacity>
 
@@ -61,7 +62,8 @@ export default function ReviewRider() {
         </View>
 
         {/* DONE BUTTON */}
-        <TouchableOpacity style={styles.doneBtn}>
+        <TouchableOpacity style={styles.doneBtn}
+        onPress={()=> navigation.navigate("Home")}>
           <Text style={styles.doneText}>Done</Text>
         </TouchableOpacity>
       </View>

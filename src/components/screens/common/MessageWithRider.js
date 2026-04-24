@@ -81,18 +81,22 @@ export default function MessageWithRider({ navigation }) {
 
       {/* DRIVER INFO */}
       <View style={styles.profileRow}>
-        <View style={styles.avatar} />
-
+        <TouchableOpacity
+        onPress={()=>navigation.navigate("ReviewRider")}>
+        <View style={styles.avatar}/>
+        </TouchableOpacity>
         <View style={{ flex: 1 }}>
           <Text style={styles.name}>John Franx</Text>
           <Text style={styles.status}>online</Text>
         </View>
 
-        <TouchableOpacity style={styles.iconBtn}>
+        <TouchableOpacity style={styles.iconBtn}
+        onPress={()=> navigation.navigate("CallScreen")}>
           <Icon name="phone" size={18} />
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.iconBtn}>
+        <TouchableOpacity style={styles.iconBtn}
+        onPress={()=> navigation.navigate("VideoCallScreen")}>
           <Icon name="video" size={18} />
         </TouchableOpacity>
       </View>

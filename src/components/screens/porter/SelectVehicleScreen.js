@@ -112,7 +112,8 @@ export default function SelectVehicleScreen({ navigation }) {
       />
 
       {/* CTA */}
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button}
+      onPress={()=> navigation.navigate("SelectGoodsType")}>
         <Text style={styles.buttonText}>
           Confirm and Proceed
         </Text>

@@ -69,7 +69,13 @@ const { login } = auth;
           </TouchableOpacity>
 
           {/* Button */}
-          <PrimaryButton label="Login" onPress={handleLogin} />
+         
+            <PrimaryButton 
+            label="Login" onPress={handleLogin}
+            onPress={()=> navigation.navigate("Location")}>
+
+            </PrimaryButton>
+          
         </View>
 
         {/* Social */}
@@ -80,7 +86,8 @@ const { login } = auth;
           <Text style={styles.signupText}>
             Don’t have an Account?{' '}
           </Text>
-          <TouchableOpacity>
+          <TouchableOpacity
+          onPress={()=> navigation.navigate("Signup")}>
             <Text style={styles.signupLink}>Sign up</Text>
           </TouchableOpacity>
         </View>

@@ -93,7 +93,8 @@ const OrderSummaryScreen = ({ navigation }) => {
       </ScrollView>
 
       {/* BUTTON */}
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button}
+      onPress={()=> navigation.navigate("Payments")}>
         <Text style={styles.buttonText}>Book Now</Text>
       </TouchableOpacity>
     </View>

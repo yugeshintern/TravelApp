@@ -83,7 +83,8 @@ export default function MetroTicketScreen({ navigation }) {
           <Text style={styles.amount}>₹100</Text>
         </View>
 
-        <TouchableOpacity style={styles.payBtn}>
+        <TouchableOpacity style={styles.payBtn}
+        onPress={()=> navigation.navigate("MetroPayment")}>
           <Text style={styles.payText}>Proceed to Pay</Text>
         </TouchableOpacity>
       </View>

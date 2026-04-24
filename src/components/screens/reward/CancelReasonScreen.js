@@ -56,6 +56,7 @@ export default function CancelReasonScreen({ navigation }) {
             <TouchableOpacity
               style={styles.item}
               onPress={() => setSelected(item)}
+              onPress={()=> navigation.navigate("SearchLocation")}
             >
               <Text style={styles.itemText}>{item}</Text>
 

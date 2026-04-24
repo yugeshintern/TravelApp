@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/Feather";
 
-export default function VehicleChoosing() {
+export default function VehicleChoosing({navigation}) {
   const [selected, setSelected] = useState(0);
 
   const vehicles = [
@@ -111,12 +111,16 @@ export default function VehicleChoosing() {
           </View>
 
           <View style={styles.chip}>
+            <TouchableOpacity
+            onPress={()=> navigation.navigate("Coupons")}>
             <Text>% Ride50</Text>
+            </TouchableOpacity>
           </View>
         </View>
 
         {/* BOOK BUTTON */}
-        <TouchableOpacity style={styles.bookBtn}>
+        <TouchableOpacity style={styles.bookBtn}
+        onPress={()=> navigation.navigate("LookingForRider")}>
           <Text style={styles.bookText}>Book Bike</Text>
         </TouchableOpacity>
       </View>

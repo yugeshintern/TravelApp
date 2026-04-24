@@ -67,15 +67,19 @@ export default function HomeScreen({ navigation }) {
     <Text style={styles.box}>🚆 Metro</Text>
   </TouchableOpacity>
 
-  <TouchableOpacity style={styles.card}>
+  <TouchableOpacity style={styles.card}
+  onPress={()=> navigation.navigate("SearchLocation")}>
     <Text style={styles.box}>🛵 Scooty</Text>
   </TouchableOpacity>
 
-  <TouchableOpacity style={styles.card}>
+  <TouchableOpacity 
+  style={styles.card}
+  onPress={() => navigation.navigate("PackersHome")}>
     <Text style={styles.box}>📦 Parcel</Text>
   </TouchableOpacity>
 
-  <TouchableOpacity style={styles.card}>
+  <TouchableOpacity style={styles.card}
+  onPress={()=> navigation.navigate("Services")}>
     <Text style={styles.box}>🚐 All</Text>
   </TouchableOpacity>
 </View>

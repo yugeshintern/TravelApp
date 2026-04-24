@@ -109,7 +109,8 @@ export default function AddressDetailsScreen({ navigation }) {
           </View>
 
           {/* CTA */}
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button}
+          onPress={()=> navigation.navigate("SelectVehicle")}>
             <Text style={styles.buttonText}>
               Confirm and Proceed
             </Text>

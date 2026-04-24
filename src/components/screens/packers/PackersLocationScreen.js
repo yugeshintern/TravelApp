@@ -54,6 +54,7 @@ const PackersLocationScreen = ({ navigation }) => {
             !isIntercity && styles.activeToggle,
           ]}
           onPress={() => setIsIntercity(false)}
+          onPress={() => navigation.navigate("PackersItems")}
         >
           <Text style={!isIntercity ? styles.activeText : styles.text}>
             Within city
@@ -66,6 +67,7 @@ const PackersLocationScreen = ({ navigation }) => {
             isIntercity && styles.activeToggle,
           ]}
           onPress={() => setIsIntercity(true)}
+          onPress={() => navigation.navigate("PackersItems")}
         >
           <Text style={isIntercity ? styles.activeText : styles.text}>
             Between cities

@@ -31,17 +31,18 @@ const PackersHomeScreen = ({ navigation }) => {
       <View style={styles.grid}>
 
         {/* CARD 1 */}
-        <TouchableOpacity style={styles.card}>
+        <TouchableOpacity style={styles.card}
+        onPress={() => navigation.navigate("PackersLocation")}>
           <Text style={styles.blueTag}>Within city only</Text>
           <Text style={styles.cardTitle}>
             Intracity house shifting
           </Text>
 
-          <Image
+          {/* <Image
             source={require('../../../assets/packers/truck.png')}
             style={styles.image}
             resizeMode="contain"
-          />
+          /> */}
         </TouchableOpacity>
 
         {/* CARD 2 */}
@@ -51,11 +52,11 @@ const PackersHomeScreen = ({ navigation }) => {
             Intracity house shifting
           </Text>
 
-          <Image
+          {/* <Image
             source={require('../../../assets/packers/truck.png')}
             style={styles.image}
             resizeMode="contain"
-          />
+          /> */}
         </TouchableOpacity>
 
         {/* CARD 3 */}
@@ -65,11 +66,11 @@ const PackersHomeScreen = ({ navigation }) => {
             Mini truck with 2 labor
           </Text>
 
-          <Image
+          {/* <Image
             source={require('../../../assets/packers/truck.png')}
             style={styles.image}
             resizeMode="contain"
-          />
+          /> */}
         </TouchableOpacity>
 
       </View>

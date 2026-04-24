@@ -39,7 +39,7 @@ export default function CouponsScreen({ navigation }) {
       <View style={styles.headerRow}>
         <TouchableOpacity
           style={styles.backBtn}
-          onPress={() => navigation.goBack()}
+          onPress={() => navigation.navigate("Home")}
         >
           <Icon name="arrow-left" size={18} />
         </TouchableOpacity>

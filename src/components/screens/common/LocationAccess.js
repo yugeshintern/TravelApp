@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 
-export default function LocationAccess() {
+export default function LocationAccess({navigation}) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Allow Location Access</Text>
@@ -11,15 +11,18 @@ export default function LocationAccess() {
           Allow Travel app to access your location?
         </Text>
 
-        <TouchableOpacity style={styles.btn}>
+        <TouchableOpacity style={styles.btn}
+        onPress={()=> navigation.navigate("Home")}>
           <Text>While using app</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.btn}>
+        <TouchableOpacity style={styles.btn}
+        onPress={()=> navigation.navigate("Home")}>
           <Text>Only this time</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.btn}>
+        <TouchableOpacity style={styles.btn}
+        onPress={()=> navigation.navigate("Home")}>
           <Text>Don't allow</Text>
         </TouchableOpacity>
       </View>

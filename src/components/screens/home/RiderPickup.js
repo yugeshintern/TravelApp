@@ -71,7 +71,8 @@ export default function RiderPickup({ navigation }) {
             <Text style={styles.vehicleSub}>HONDA CB350</Text>
             <Text style={styles.name}>John Franx</Text>
 
-            <TouchableOpacity style={styles.messageBtn}>
+            <TouchableOpacity style={styles.messageBtn}
+            onPress={()=>navigation.navigate("MessageWithRider")}>
               <Text>📩 Message John</Text>
             </TouchableOpacity>
           </View>
