@@ -143,7 +143,8 @@ const FlightDetailsScreen = ({ navigation }) => {
           For 1 Adult <Text style={styles.bold}>₹5,718</Text>
         </Text>
 
-        <TouchableOpacity style={styles.cta}>
+        <TouchableOpacity style={styles.cta}
+        onPress={()=> navigation.navigate("AddTraveller")}>
           <Text style={styles.ctaText}>Continue</Text>
         </TouchableOpacity>
       </View>

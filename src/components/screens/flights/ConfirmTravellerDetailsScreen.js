@@ -157,7 +157,8 @@ const ConfirmTravellerDetailsScreen = ({ navigation }) => {
           <Text style={styles.bold}>₹5,718</Text>
         </View>
 
-        <TouchableOpacity style={styles.cta}>
+        <TouchableOpacity style={styles.cta}
+        onPress={()=> navigation.navigate("FlightSeatSelection")}>
           <Text style={styles.ctaText}>Continue</Text>
         </TouchableOpacity>
       </View>

@@ -120,7 +120,8 @@ export default function SeatSelectionScreen({ navigation }) {
         </Text>
         <Text style={styles.footerPrice}>₹{total}</Text>
 
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button}
+        onPress={()=> navigation.navigate("BoardingDropping")}>
           <Text style={styles.buttonText}>
             Select boarding & droping Points
           </Text>

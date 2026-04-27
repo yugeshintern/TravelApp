@@ -54,7 +54,8 @@ const MultiCityFlightsScreen = ({ navigation }) => {
         </TouchableOpacity>
 
         {/* TRAVELLER */}
-        <TouchableOpacity style={styles.travellerBox}>
+        <TouchableOpacity style={styles.travellerBox}
+            onPress={()=> navigation.navigate("TravellerClass")}>
           <Text style={styles.label}>Traveller & Class</Text>
           <Text style={styles.value}>1, Eco/Prem. Eco</Text>
         </TouchableOpacity>
@@ -102,7 +103,8 @@ const MultiCityFlightsScreen = ({ navigation }) => {
 
       {/* CTA */}
       <View style={styles.footer}>
-        <TouchableOpacity style={styles.cta}>
+        <TouchableOpacity style={styles.cta}
+        onPress={()=> navigation.navigate("FlightsList")}>
           <Text style={styles.ctaText}>Search Flights</Text>
         </TouchableOpacity>
       </View>

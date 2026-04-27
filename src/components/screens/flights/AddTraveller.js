@@ -112,7 +112,8 @@ const AddTraveller = ({ navigation }) => {
         </TouchableOpacity>
 
         {/* BUTTON */}
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button}
+        onPress={()=> navigation.navigate("ConfirmTravellerDetails")}>
           <Text style={styles.buttonText}>Confirm</Text>
         </TouchableOpacity>
 

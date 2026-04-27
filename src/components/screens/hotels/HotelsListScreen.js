@@ -53,6 +53,8 @@ const HotelsListScreen = ({ navigation }) => {
 
       <ScrollView showsVerticalScrollIndicator={false}>
         {hotels.map((item, index) => (
+          <TouchableOpacity
+          onPress={()=> navigation.navigate("HotelDetails")}>
           <View key={index} style={styles.card}>
             
             {/* IMAGE */}
@@ -86,8 +88,8 @@ const HotelsListScreen = ({ navigation }) => {
               <Text style={styles.featureHeart}>♥ Couple Friendly</Text>
               <Text style={styles.feature}>✓ Breakfast available at extra charges</Text>
             </View>
-
           </View>
+          </TouchableOpacity>
         ))}
       </ScrollView>
 

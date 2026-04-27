@@ -89,7 +89,8 @@ const MealSelectionScreen = ({ navigation }) => {
           </View>
         </View>
 
-        <TouchableOpacity style={styles.cta}>
+        <TouchableOpacity style={styles.cta}
+        onPress={()=> navigation.navigate("Payments")}>
           <Text style={styles.ctaText}>Continue booking</Text>
         </TouchableOpacity>
       </View>

@@ -44,9 +44,9 @@ const TrainAvailabilityScreen = ({ navigation }) => {
 
         {/* GENERAL */}
         <Text style={styles.section}>General</Text>
-        {generalData.map((item, index) => (
-          <Row item={item} key={index} />
-        ))}
+      {generalData.map((item, index) => (
+  <Row item={item} key={index} navigation={navigation} />
+))}
 
         {/* SENIOR */}
         <Text style={styles.section}>Senior Citizen</Text>
@@ -66,7 +66,7 @@ const TrainAvailabilityScreen = ({ navigation }) => {
 };
 
 export default TrainAvailabilityScreen;
-const Row = ({ item }) => {
+const Row = ({ item, navigation }) => {
   return (
     <View style={styles.row}>
 
@@ -89,13 +89,15 @@ const Row = ({ item }) => {
 
       {/* BUTTONS */}
       <View style={{ flexDirection: 'row', gap: 10 }}>
-        <TouchableOpacity style={styles.bookBtn}>
+        <TouchableOpacity style={styles.bookBtn}
+        onPress={()=> navigation.navigate("AddPassengers")}>
           <Text style={styles.bookText}>Book</Text>
           <Text style={styles.price}>₹2770</Text>
         </TouchableOpacity>
 
         {item.alt && (
-          <TouchableOpacity style={styles.altBtn}>
+          <TouchableOpacity style={styles.altBtn}
+          onPress={()=> navigation.navigate("AddPassengers")}>
             <Text style={styles.altText}>Alternate</Text>
             <Text style={styles.price}>₹3920</Text>
           </TouchableOpacity>

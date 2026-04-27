@@ -83,6 +83,8 @@ export default function SearchBusScreen({ navigation }) {
         </View>
 
         {/* SEARCH BAR */}
+        <TouchableOpacity
+        onPress={()=> navigation.navigate("BusList")}>
         <View style={styles.searchBar}>
           <Icon name="search" size={16} color="#888" />
           <TextInput
@@ -92,6 +94,7 @@ export default function SearchBusScreen({ navigation }) {
             style={styles.searchInput}
           />
         </View>
+        </TouchableOpacity>
 
         {/* LIST */}
         <FlatList

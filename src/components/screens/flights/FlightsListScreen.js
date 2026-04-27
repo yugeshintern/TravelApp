@@ -19,7 +19,12 @@ const flightsData = [
 
 const FlightsListScreen = ({ navigation }) => {
   const renderItem = ({ item }) => (
-    <TouchableOpacity style={styles.card}>
+    <TouchableOpacity
+    style={styles.card}
+    onPress={() =>
+      navigation.navigate("FlightDetails", { flight: item })
+    }
+  >
       {/* TOP ROW */}
       <View style={styles.topRow}>
         <View style={[styles.logo, { backgroundColor: item.color }]}>
@@ -86,14 +91,13 @@ const FlightsListScreen = ({ navigation }) => {
         </View>
       </View>
 
-      {/* LIST */}
-      <FlatList
-        data={flightsData}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={renderItem}
-        contentContainerStyle={{ paddingBottom: 20 }}
-        showsVerticalScrollIndicator={false}
-      />
+              {/* LIST */}
+        <FlatList
+          data={flightsData}
+          keyExtractor={(item) => item.id.toString()}
+          showsVerticalScrollIndicator={false}
+          renderItem={renderItem}
+        />
     </View>
   );
 };

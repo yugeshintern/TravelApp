@@ -42,7 +42,8 @@ export default function TravelMainScreen({ navigation }) {
       {/* GRID */}
       <View style={styles.grid}>
         {/* BUS */}
-        <TouchableOpacity style={styles.card}>
+        <TouchableOpacity style={styles.card}
+        onPress={()=> navigation.navigate("BusBooking")}>
           <Text style={styles.offer}>🟢 Upto ₹4000 off</Text>
           <Text style={styles.label}>Bus</Text>
           <Image
@@ -54,7 +55,8 @@ export default function TravelMainScreen({ navigation }) {
         </TouchableOpacity>
 
         {/* FLIGHT */}
-        <TouchableOpacity style={styles.card}>
+        <TouchableOpacity style={styles.card}
+        onPress={()=> navigation.navigate("FlightsHome")}>
           <Text style={styles.offer}>🟢 Upto ₹4000 Off</Text>
           <Text style={styles.label}>Flight</Text>
           <Image
@@ -66,7 +68,8 @@ export default function TravelMainScreen({ navigation }) {
         </TouchableOpacity>
 
         {/* HOTEL */}
-        <TouchableOpacity style={styles.card}>
+        <TouchableOpacity style={styles.card}
+        onPress={()=> navigation.navigate("HotelsHome")}>
           <Text style={styles.offer}>🟢 Upto 55% off</Text>
           <Text style={styles.label}>Hotel</Text>
           <Image
@@ -78,7 +81,8 @@ export default function TravelMainScreen({ navigation }) {
         </TouchableOpacity>
 
         {/* TRAIN */}
-        <TouchableOpacity style={styles.card}>
+        <TouchableOpacity style={styles.card}
+        onPress={()=> navigation.navigate("TrainBooking")}>
           <Text style={styles.offer}>🟢 Zero Service Fee</Text>
           <Text style={styles.label}>Train</Text>
           <Image

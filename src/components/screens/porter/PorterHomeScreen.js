@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -9,22 +9,58 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/Feather";
 
+
 export default function PorterHomeScreen({ navigation }) {
+  const [selected, setSelected] = useState("porter");
+  const navItems = [
+  {
+    icon: require("../../../assets/home.png"),
+    screen: "Home",
+  },
+  {
+    icon: require("../../../assets/metro.png"),
+    screen: "MetroScreen",
+  },
+  {
+    icon: require("../../../assets/travel.png"),
+    screen: "TravelMain",
+  },
+  {
+    icon: require("../../../assets/profile.png"),
+    screen: "Profile",
+  },
+];
   return (
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* TOP TOGGLE */}
-        <View style={styles.topRow}>
-          <View style={styles.toggle}>
-            <Icon name="activity" size={18} />
-            <Text style={styles.toggleText}>RIDE</Text>
-          </View>
-
-          <View style={styles.toggle}>
-            <Icon name="truck" size={18} />
-            <Text style={styles.toggleText}>PORTER</Text>
-          </View>
-        </View>
+      <View style={styles.toggleContainer}>
+                <TouchableOpacity
+                  style={[
+                    styles.toggleBtn,
+                    selected === "ride" && styles.activeToggle,
+                  ]}
+                  onPress={() =>{
+                    setSelected("ride");
+                  navigation.navigate("Home");
+                }}
+                >
+                  <Text style={styles.toggleText}>🚗 RIDE</Text>
+                </TouchableOpacity>
+      
+                <TouchableOpacity
+                  style={[
+                    styles.toggleBtn,
+                    selected === "porter" && styles.activeToggle,
+                  ]}
+                  onPress={() => {
+                    setSelected("porter");
+                    navigation.navigate("PorterHome");
+                  }}
+                >
+                  <Text style={styles.toggleText}>🚚 PORTER</Text>
+                </TouchableOpacity>
+              </View>
 
         {/* SEARCH */}
         <TouchableOpacity style={styles.search}>
@@ -134,18 +170,17 @@ export default function PorterHomeScreen({ navigation }) {
 
       {/* BOTTOM NAV */}
       <View style={styles.bottomNav}>
-        {[
-          { icon: "home", label: "Home" },
-          { icon: "truck", label: "Ride" },
-          { icon: "map-pin", label: "Track" },
-          { icon: "user", label: "Profile" },
-        ].map((item, i) => (
-          <TouchableOpacity key={i} style={styles.navItem}>
-            <Icon name={item.icon} size={18} color="#fff" />
-            <Text style={styles.navText}>{item.label}</Text>
-          </TouchableOpacity>
-        ))}
-      </View>
+        {navItems.map((item, i) => (
+      <TouchableOpacity
+      key={i}
+      style={styles.navItem}
+      onPress={() => navigation.navigate(item.screen)}
+    >
+      <Image source={item.icon} style={styles.navIcon} />
+    </TouchableOpacity>
+  ))}
+</View>
+     
     </View>
   );
 }
@@ -160,14 +195,28 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
 
-  toggle: {
+   toggleContainer: {
     flexDirection: "row",
-    alignItems: "center",
-    gap: 6,
+    backgroundColor: "#eee",
+    borderRadius: 25,
+    padding: 5,
+    marginBottom: 12,
   },
 
-  toggleText: {
-    fontWeight: "600",
+   toggleBtn: {
+    flex: 1,
+    padding: 10,
+    borderRadius: 20,
+    alignItems: "center",
+  },
+
+  activeToggle: {
+    backgroundColor: "#fff",
+    elevation: 2,
+  },
+
+   toggleText: {
+    fontWeight: "bold",
   },
 
   search: {
@@ -273,21 +322,28 @@ const styles = StyleSheet.create({
     fontStyle: "italic",
   },
 
-  bottomNav: {
-    position: "absolute",
-    bottom: 10,
-    left: 20,
-    right: 20,
-    backgroundColor: "#0f766e",
-    borderRadius: 30,
-    flexDirection: "row",
-    justifyContent: "space-around",
-    paddingVertical: 12,
-  },
+bottomNav: {
+  position: "absolute",
+  bottom: 10,
+  left: 20,
+  right: 20,
+  backgroundColor: "#0f766e",
+  borderRadius: 25,   // slightly smaller
+  flexDirection: "row",
+  justifyContent: "space-around",
+  alignItems: "center", // IMPORTANT
+  paddingVertical: 12,   // 🔥 reduced from 12
+},
 
   navItem: {
     alignItems: "center",
   },
+
+  navIcon: {
+  width: 20,   
+  height: 30,
+  marginBottom: 2, 
+},
 
   navText: {
     color: "#fff",

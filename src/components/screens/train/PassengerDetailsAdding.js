@@ -143,7 +143,8 @@ const PassengerDetailsAdding = ({ navigation }) => {
           />
 
           {/* BUTTON */}
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button}
+          onPress={()=> navigation.navigate("AddPassengers")}>
             <Text style={styles.buttonText}>Save Passenger</Text>
           </TouchableOpacity>
 

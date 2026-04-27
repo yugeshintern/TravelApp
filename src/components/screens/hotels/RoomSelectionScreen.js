@@ -133,7 +133,8 @@ const RoomSelectionScreen = ({ navigation }) => {
         </View>
       </View>
 
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button}
+      onPress={()=> navigation.navigate("HotelReviewBooking")}>
         <Text style={styles.buttonText}>Continue</Text>
       </TouchableOpacity>
 

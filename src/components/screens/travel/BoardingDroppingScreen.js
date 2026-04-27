@@ -141,7 +141,8 @@ export default function BoardingDroppingScreen({ navigation }) {
           <Text style={styles.footerPrice}>₹550</Text>
         </View>
 
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button}
+        onPress={()=> navigation.navigate("PassengerDetails")}>
           <Text style={styles.buttonText}>
             Fill Passenger details
           </Text>

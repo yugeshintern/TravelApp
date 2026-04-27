@@ -30,6 +30,8 @@ const SearchTrainScreen = ({ navigation }) => {
       </View>
 
       {/* ROUTE CARD */}
+      <TouchableOpacity
+      onPress={()=> navigation.navigate("TrainList")}>
       <View style={styles.routeCard}>
         <View style={styles.routeRow}>
           <View style={styles.leftIndicator}>
@@ -53,6 +55,7 @@ const SearchTrainScreen = ({ navigation }) => {
           </View>
         </View>
       </View>
+      </TouchableOpacity>
 
       {/* NEARBY HEADER */}
       <View style={styles.nearbyHeader}>

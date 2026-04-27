@@ -173,7 +173,7 @@ export default function PassengerDetailsScreen({ navigation }) {
 
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate("PaymentScreen")}
+          onPress={() => navigation.navigate("TravelPayment")}
         >
           <Text style={styles.buttonText}>
             Continue booking

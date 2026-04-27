@@ -46,7 +46,8 @@ const AddPassengersScreen = ({ navigation }) => {
         {/* PASSENGERS */}
         <Text style={styles.sectionTitle}>Select Passengers</Text>
 
-        <TouchableOpacity style={styles.addBtn}>
+        <TouchableOpacity style={styles.addBtn}
+        onPress={()=> navigation.navigate("PassengerBookingDetails")}>
           <Text style={styles.addBtnText}>+ Add New Passengers</Text>
         </TouchableOpacity>
 
@@ -76,7 +77,8 @@ const AddPassengersScreen = ({ navigation }) => {
       </ScrollView>
 
       {/* BOTTOM BUTTON */}
-      <TouchableOpacity style={styles.payBtn}>
+      <TouchableOpacity style={styles.payBtn}
+      onPress={()=> navigation.navigate("Payments")}>
         <Text style={styles.payText}>Proceed to Payment</Text>
       </TouchableOpacity>
     </View>

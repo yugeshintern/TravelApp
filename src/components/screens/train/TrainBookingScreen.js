@@ -59,7 +59,8 @@ const TrainBookingScreen = ({ navigation }) => {
         </View>
 
         {/* SEARCH BUTTON */}
-        <TouchableOpacity style={styles.searchBtn}>
+        <TouchableOpacity style={styles.searchBtn}
+        onPress={()=> navigation.navigate("SearchTrain")}>
           <Icon name="search" size={18} color="#444" />
           <Text style={styles.searchText}>Search Trains</Text>
         </TouchableOpacity>

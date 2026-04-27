@@ -120,7 +120,8 @@ const FlightSeatSelectionScreen = ({ navigation }) => {
           </View>
         </View>
 
-        <TouchableOpacity style={styles.cta}>
+        <TouchableOpacity style={styles.cta}
+        onPress={()=> navigation.navigate("MealSelection")}>
           <Text style={styles.ctaText}>Next</Text>
         </TouchableOpacity>
       </View>

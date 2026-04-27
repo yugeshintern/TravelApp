@@ -120,7 +120,8 @@ const HotelDetailsScreen = ({ navigation }) => {
         </View>
       </View>
 
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button}
+      onPress={()=>navigation.navigate("RoomSelection")}>
         <Text style={styles.buttonText}>Select Room</Text>
       </TouchableOpacity>
 

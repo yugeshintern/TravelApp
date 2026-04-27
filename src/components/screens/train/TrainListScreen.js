@@ -62,7 +62,13 @@ const TrainListScreen = ({ navigation }) => {
       <FlatList
         data={trains}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <TrainCard item={item} />}
+       renderItem={({ item }) => (
+            <TouchableOpacity
+              onPress={() => navigation.navigate("TrainAvailability", { trainId: item.id })}
+            >
+              <TrainCard item={item} />
+            </TouchableOpacity>
+          )}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 20 }}
       />

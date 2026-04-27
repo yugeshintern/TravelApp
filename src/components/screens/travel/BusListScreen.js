@@ -132,7 +132,14 @@ export default function BusListScreen({ navigation }) {
       <FlatList
         data={buses}
         keyExtractor={(item) => item.id}
-        renderItem={renderItem}
+        renderItem = {({item}) =>(
+        <TouchableOpacity
+          style={styles.card}
+          onPress={() =>
+            navigation.navigate("SeatSelection", { bus: item })
+          }
+        />
+        )}
         contentContainerStyle={{ paddingBottom: 20 }}
         showsVerticalScrollIndicator={false}
       />

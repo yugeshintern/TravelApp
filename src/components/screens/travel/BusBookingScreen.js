@@ -54,6 +54,8 @@ export default function BusBookingScreen({ navigation }) {
       </View>
 
       {/* SEARCH BAR */}
+      <TouchableOpacity
+      onPress={()=> navigation.navigate("SearchBus")}>
       <View style={styles.searchBar}>
         <Icon name="search" size={16} color="#888" />
         <TextInput
@@ -61,6 +63,7 @@ export default function BusBookingScreen({ navigation }) {
           style={styles.searchInput}
         />
       </View>
+      </TouchableOpacity>
 
       {/* PROMO CARD */}
       <View style={styles.promoCard}>

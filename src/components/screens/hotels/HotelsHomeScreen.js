@@ -68,7 +68,8 @@ const HotelsHomeScreen = ({ navigation }) => {
       </View>
 
       {/* CTA BUTTON */}
-      <TouchableOpacity style={styles.searchBtn}>
+      <TouchableOpacity style={styles.searchBtn}
+      onPress={()=> navigation.navigate("HotelsList")}>
         <Text style={styles.searchText}>Search</Text>
       </TouchableOpacity>
 

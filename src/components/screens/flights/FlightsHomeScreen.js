@@ -32,7 +32,14 @@ const FlightsHomeScreen = ({ navigation }) => {
                 styles.segmentItem,
                 tripType === type && styles.segmentActive,
               ]}
-              onPress={() => setTripType(type)}
+              onPress={() => {
+                    setTripType(type);
+                      if (type === "roundtrip") {
+                        navigation.navigate("RoundTripFlights");
+                      } else if (type === "multicity") {
+                        navigation.navigate("MultiCityFlights");
+                      }
+                  }}
             >
               <Text
                 style={[
@@ -84,10 +91,13 @@ const FlightsHomeScreen = ({ navigation }) => {
         </View>
 
         {/* TRAVELLER */}
+        <TouchableOpacity
+        onPress={()=> navigation.navigate("TravellerClass")}>
         <View style={styles.fullBox}>
           <Text style={styles.label}>Traveller & Class</Text>
           <Text style={styles.value}>1, <Text style={styles.sub}>Eco/Prem. Eco</Text></Text>
         </View>
+        </TouchableOpacity>
 
         {/* SPECIAL FARES */}
         <Text style={styles.section}>Special Fares</Text>
@@ -126,7 +136,8 @@ const FlightsHomeScreen = ({ navigation }) => {
 
       {/* CTA */}
       <View style={styles.footer}>
-        <TouchableOpacity style={styles.cta}>
+        <TouchableOpacity style={styles.cta}
+        onPress={()=> navigation.navigate("FlightsList")}>
           <Text style={styles.ctaText}>Search Flights</Text>
         </TouchableOpacity>
       </View>
