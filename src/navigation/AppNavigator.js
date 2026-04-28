@@ -122,6 +122,11 @@ import DutyDashboard from '../components/screens/admin/DutyDashboard';
 import AdminNotification from '../components/screens/admin/AdminNotification';
 import GoOnDuty from '../components/screens/admin/GoOnDuty';
 import OnDutyDashboard from '../components/screens/admin/OnDutyDashboard';
+import OrderPage from '../components/screens/admin/OrderPage';
+import StartYourTrip from '../components/screens/admin/StartYourTrip';
+import RidePaymentComplete from '../components/screens/admin/RidePaymentComplete';
+import AdminProfile from '../components/screens/admin/AdminProfile';
+import AdminEditProfile from '../components/screens/admin/AdminEditProfile';
 
 
 
@@ -261,6 +266,11 @@ export default function AppNavigator() {
       <Stack.Screen name="AdminNotification" component={AdminNotification} options={{ headerShown: false }}/>
       <Stack.Screen name="GoOnDuty" component={GoOnDuty} options={{ headerShown: false }}/>
       <Stack.Screen name="OnDutyDashboard" component={OnDutyDashboard} options={{ headerShown: false }}/>
+      <Stack.Screen name="OrderPage" component={OrderPage} options={{ headerShown: false }}/>
+      <Stack.Screen name="StartYourTrip" component={StartYourTrip} options={{ headerShown: false }}/>
+      <Stack.Screen name="RidePaymentComplete" component={RidePaymentComplete} options={{ headerShown: false }}/>
+      <Stack.Screen name="AdminProfile" component={AdminProfile} options={{ headerShown: false }}/>
+      <Stack.Screen name="AdminEditProfile" component={AdminEditProfile} options={{ headerShown: false }}/>
 
 
     </Stack.Navigator>
