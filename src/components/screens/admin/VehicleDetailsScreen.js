@@ -68,7 +68,8 @@ const VehicleDetailsScreen = ({ navigation }) => {
         />
 
         {/* SUBMIT */}
-        <TouchableOpacity style={styles.submitBtn}>
+        <TouchableOpacity style={styles.submitBtn}
+        onPress={() => navigation.navigate('AadharProfile')}>
           <Text style={styles.submitText}>Submit</Text>
         </TouchableOpacity>
 

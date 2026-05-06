@@ -51,14 +51,16 @@ const ContactDetailsScreen = ({ navigation }) => {
       </View>
 
       {/* CHANGE NUMBER BUTTON */}
-      <TouchableOpacity style={styles.secondaryBtn}>
+      <TouchableOpacity style={styles.secondaryBtn}
+      onPress={() => navigation.navigate('RegisterNewContact')}
+      >
         <Text style={styles.secondaryText}>Changed registered number</Text>
       </TouchableOpacity>
 
       {/* PROCEED BUTTON */}
       <TouchableOpacity
         style={styles.primaryBtn}
-        onPress={() => navigation.navigate('OTP')} // update route
+        onPress={() => navigation.navigate('Whichcity')} // update route
       >
         <Text style={styles.primaryText}>Proceed</Text>
       </TouchableOpacity>

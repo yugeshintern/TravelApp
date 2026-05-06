@@ -72,7 +72,8 @@ const DriverLicenseScreen = ({ navigation }) => {
       </ScrollView>
 
       {/* SUBMIT BUTTON */}
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button}
+      onPress={() => navigation.navigate('TakeSelfie')}>
         <Text style={styles.buttonText}>Submit</Text>
       </TouchableOpacity>
 

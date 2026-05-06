@@ -62,7 +62,7 @@ const LanguageSelectionScreen = ({ navigation }) => {
         {/* BUTTON */}
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate('LocationPermission')}
+          onPress={() => navigation.navigate('DriverEntry')}
         >
           <Text style={styles.buttonText}>Confirm</Text>
         </TouchableOpacity>

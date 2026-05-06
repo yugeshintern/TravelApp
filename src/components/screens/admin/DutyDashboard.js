@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 
-const DutyDashboard = () => {
+const DutyDashboard = ({navigation}) => {
   const [isOnDuty, setIsOnDuty] = useState(false);
 
   const toggleSwitch = () => {
@@ -20,10 +20,23 @@ const DutyDashboard = () => {
     <SafeAreaView style={styles.container}>
 
       {/* TOP BAR */}
-      <View style={styles.topBar}>
-        <Feather name="menu" size={26} color="#333" />
-        <Feather name="bell" size={24} color="#333" />
-      </View>
+           <View style={styles.topBar}>
+                 <TouchableOpacity
+                 onPress={() => navigation.navigate('Profile')}>
+                   <Image
+                     source={require('../../../assets/menu.png')}   
+                     style={styles.icon}
+                   />
+                 </TouchableOpacity>
+     
+                 <TouchableOpacity
+                 onPress={() => navigation.navigate('Profile')}>
+                    <Image
+                       source={require('../../../assets/bell.png')}  
+                       style={styles.icon}
+                     />
+                 </TouchableOpacity>
+             </View>
 
       {/* TOGGLE SECTION */}
       <View style={styles.toggleWrapper}>
@@ -41,7 +54,14 @@ const DutyDashboard = () => {
               styles.switch,
               isOnDuty && styles.switchActive,
             ]}
-            onPress={toggleSwitch}
+            onPress={() => {
+                  const newState = !isOnDuty;
+                  setIsOnDuty(newState);
+
+                  if (newState) {
+                    navigation.navigate("OnDutyDashboard");
+                  }
+                }}
           >
             <View
               style={[
@@ -63,7 +83,7 @@ const DutyDashboard = () => {
       {/* ILLUSTRATION */}
       <View style={styles.imageContainer}>
         <Image
-          source={require('../../../assets/scooter.png')} // replace with your asset
+          source={require('../../../assets/ride.jpg')} // replace with your asset
           style={styles.image}
           resizeMode="contain"
         />
@@ -72,13 +92,22 @@ const DutyDashboard = () => {
       {/* BOTTOM NAV */}
       <View style={styles.bottomNav}>
         <View style={styles.navItem}>
-          <Feather name="home" size={26} color="#0F7A7A" />
-          <Text style={styles.navActive}>Home</Text>
+          <TouchableOpacity>
+          <Image
+            source={require('../../../assets/home_black.png')}  
+            style={styles.icon}
+          />
+          </TouchableOpacity>
         </View>
 
         <View style={styles.navItem}>
-          <Feather name="file-text" size={26} color="#555" />
-          <Text style={styles.navText}>Orders</Text>
+          <TouchableOpacity
+          onPress={()=> navigation.navigate("OrderSummary")}>
+          <Image
+            source={require('../../../assets/order.png')}  
+            style={styles.icon}
+          />
+          </TouchableOpacity>
         </View>
       </View>
 
@@ -126,6 +155,12 @@ const styles = StyleSheet.create({
     color: '#333',
     marginRight: 15,
   },
+
+  icon: {
+  width: 56,
+  height: 56,
+  resizeMode: 'contain',
+},
 
   /* SWITCH TRACK */
   switch: {

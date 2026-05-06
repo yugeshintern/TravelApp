@@ -88,7 +88,8 @@ const SearchCityScreen = ({ navigation }) => {
       </ScrollView>
 
       {/* CTA BUTTON */}
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button}
+      onPress={() => navigation.navigate('selectAdminvehicle')}>
         <Text style={styles.buttonText}>Confirm City</Text>
       </TouchableOpacity>
 

@@ -43,7 +43,7 @@ const RegisterNewContactScreen = ({ navigation }) => {
       <View style={styles.bottomContainer}>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate('OTP')} // update route
+          onPress={() => navigation.navigate('EnterOTP')} // update route
         >
           <Text style={styles.buttonText}>Send OTP</Text>
         </TouchableOpacity>

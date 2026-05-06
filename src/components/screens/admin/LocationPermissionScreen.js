@@ -78,15 +78,18 @@ const LocationPermissionScreen = ({ navigation }) => {
           </View>
 
           {/* BUTTONS */}
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button}
+          onPress={()=> navigation.navigate("LanguageSelection")}>
             <Text style={styles.buttonText}>While using the app</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button}
+          onPress={()=> navigation.navigate("LanguageSelection")}>
             <Text style={styles.buttonText}>Only this time</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button}
+          onPress={()=> navigation.navigate("LanguageSelection")}>
             <Text style={styles.buttonText}>Don’t allow</Text>
           </TouchableOpacity>
 

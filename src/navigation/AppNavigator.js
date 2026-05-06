@@ -109,7 +109,7 @@ import RegisterNewContactScreen from '../components/screens/admin/RegisterNewCon
 import EnterOTPScreen from '../components/screens/admin/EnterOTPScreen';
 import WhichCityScreen from '../components/screens/admin/WhichCityScreen';
 import SearchCityScreen from '../components/screens/admin/SearchCityScreen';
-import SelectadminVehicleScreen from '../components/screens/admin/SelectadminVehicleScreen';
+import SelectAdminVehicleScreen from '../components/screens/admin/SelectAdminVehicleScreen';
 import RideOrPorterScreen from '../components/screens/admin/RideOrPorterScreen';
 import DriverLicenseScreen from '../components/screens/admin/DriverLicenseScreen';
 import TakeSelfieScreen from '../components/screens/admin/TakeSelfieScreen';
@@ -124,6 +124,11 @@ import DutyDashboard from '../components/screens/admin/DutyDashboard';
 import AdminNotification from '../components/screens/admin/AdminNotification';
 import GoOnDuty from '../components/screens/admin/GoOnDuty';
 import OnDutyDashboard from '../components/screens/admin/OnDutyDashboard';
+import OrderPage from '../components/screens/admin/OrderPage';
+import StartYourTrip from '../components/screens/admin/StartYourTrip';
+import RidePaymentComplete from '../components/screens/admin/RidePaymentComplete';
+import AdminProfile from '../components/screens/admin/AdminProfile';
+import AdminEditProfile from '../components/screens/admin/AdminEditProfile';
 
 
 
@@ -169,7 +174,7 @@ export default function AppNavigator() {
       <Stack.Screen name="Coupons" component={CouponsScreen} />
       <Stack.Screen name="CouponsEmpty" component={CouponsEmptyScreen} />
       <Stack.Screen name="Services" component={ServicesScreen} options={{ headerShown: false }}/>
-      <Stack.Screen name="Metro" component={MetroScreen} options={{ headerShown: false }}/>
+      <Stack.Screen name="MetroScreen" component={MetroScreen} options={{ headerShown: false }}/>
       <Stack.Screen name="MetroTicket" component={MetroTicketScreen} options={{ headerShown: false }} />
       <Stack.Screen name="MetroPayment" component={MetroPaymentScreen}  options={{ headerShown: false }}/>
       <Stack.Screen name="PaymentSuccess" component={PaymentSuccessScreen} options={{ headerShown: false }} />
@@ -190,7 +195,6 @@ export default function AppNavigator() {
       <Stack.Screen name="BoardingDropping" component={BoardingDroppingScreen} options={{ headerShown: false }}/>
       <Stack.Screen name="PassengerDetails" component={PassengerDetailsScreen} options={{ headerShown: false }}/>
       <Stack.Screen name="TravelPayment" component={TravelPaymentScreen} options={{ headerShown: false }}/>
-      <Stack.Screen name="PaymentSuccess" component={TravelPaymentSuccessScreen} options={{ headerShown: false }}/>
       <Stack.Screen name="PorterHome" component={PorterHomeScreen} options={{ headerShown: false }}/>
       <Stack.Screen name="LocationPin" component={LocationPinScreen} options={{ headerShown: false }}/>
       <Stack.Screen name="AddressDetails" component={AddressDetailsScreen} options={{ headerShown: false }}/>
@@ -209,14 +213,12 @@ export default function AppNavigator() {
       <Stack.Screen name="AddTraveller"  component={AddTraveller} options={{ headerShown: false }}/>
       <Stack.Screen name="MultiCityFlights" component={MultiCityFlightsScreen} options={{ headerShown: false }}/>
       <Stack.Screen name="ConfirmTravellerDetails" component={ConfirmTravellerDetailsScreen}  options={{ headerShown: false }}/>
-      <Stack.Screen name="SeatSelection" component={SeatSelectionScreen} options={{ headerShown: false }}/>
       <Stack.Screen name="FlightSeatSelection" component={FlightSeatSelectionScreen} options={{ headerShown: false }}/>
       <Stack.Screen name="MealSelection" component={MealSelectionScreen} options={{ headerShown: false }}/>
       <Stack.Screen name="HotelsHome" component={HotelsHomeScreen} options={{ headerShown: false }}/>
       <Stack.Screen name="HotelsList" component={HotelsListScreen} options={{ headerShown: false }}/>
       <Stack.Screen name="HotelDetails" component={HotelDetailsScreen} options={{ headerShown: false }}/>
       <Stack.Screen name="RoomSelection" component={RoomSelectionScreen} options={{ headerShown: false }}/>
-      <Stack.Screen name="ReviewBooking" component={HotelReviewBookingScreen} options={{ headerShown: false }}/>
       <Stack.Screen name="PassengerDetailsAdding" component={PassengerDetailsAdding} options={{ headerShown: false }}/>
       <Stack.Screen name="TrainBooking" component={TrainBookingScreen} options={{ headerShown: false }}/>
       <Stack.Screen name="SearchTrain" component={SearchTrainScreen} options={{ headerShown: false }}/>
@@ -240,7 +242,7 @@ export default function AppNavigator() {
       <Stack.Screen name="EnterOTP" component={EnterOTPScreen} options={{ headerShown: false }}/>
       <Stack.Screen name="Whichcity" component={WhichCityScreen} options={{ headerShown: false }}/>
       <Stack.Screen name="searchcity" component={SearchCityScreen} options={{ headerShown: false }}/>
-      <Stack.Screen name="selectadminvehicle" component={SelectadminVehicleScreen} options={{ headerShown: false }}/>
+      <Stack.Screen name="selectAdminvehicle" component={SelectAdminVehicleScreen} options={{ headerShown: false }}/>
       <Stack.Screen name="RideOrPorter" component={RideOrPorterScreen} options={{ headerShown: false }}/>
       <Stack.Screen name="DriverLicense" component={DriverLicenseScreen} options={{ headerShown: false }}/>
       <Stack.Screen name="TakeSelfie" component={TakeSelfieScreen} options={{ headerShown: false }}/>
@@ -255,80 +257,12 @@ export default function AppNavigator() {
       <Stack.Screen name="AdminNotification" component={AdminNotification} options={{ headerShown: false }}/>
       <Stack.Screen name="GoOnDuty" component={GoOnDuty} options={{ headerShown: false }}/>
       <Stack.Screen name="OnDutyDashboard" component={OnDutyDashboard} options={{ headerShown: false }}/>
+      <Stack.Screen name="OrderPage" component={OrderPage} options={{ headerShown: false }}/>
+      <Stack.Screen name="StartYourTrip" component={StartYourTrip} options={{ headerShown: false }}/>
+      <Stack.Screen name="RidePaymentComplete" component={RidePaymentComplete} options={{ headerShown: false }}/>
+      <Stack.Screen name="AdminProfile" component={AdminProfile} options={{ headerShown: false }}/>
+      <Stack.Screen name="AdminEditProfile" component={AdminEditProfile} options={{ headerShown: false }}/>
 
-
-
-
-      <Stack.Screen name="Services" component={ServicesScreen} />
-      <Stack.Screen name="MetroScreen" component={MetroScreen} />
-      <Stack.Screen name="MetroTicket" component={MetroTicketScreen} />
-      <Stack.Screen name="MetroPayment" component={MetroPaymentScreen} />
-      <Stack.Screen name="PaymentSuccess" component={PaymentSuccessScreen} />
-
-
-      <Stack.Screen name="Parcel" component={ParcelScreen} />
-      <Stack.Screen name="DropLocation" component={DropLocationScreen} />
-      <Stack.Screen name="AddressAdding" component={AddressAddingScreen} />
-      <Stack.Screen name="ParcelVehicle" component={ParcelVehicleScreen} />
-      <Stack.Screen name="ParcelLookingRider" component={ParcelLookingRiderScreen} />
-      <Stack.Screen name="ParcelAddExtraMoney" component={ParcelAddExtraMoneyScreen} />
-      <Stack.Screen name="ParcelPickup" component={ParcelPickupScreen} />
-      <Stack.Screen name="ParcelChat" component={ParcelChatScreen} />
-      <Stack.Screen name="ParcelReview" component={ParcelReviewScreen} />
-
-      <Stack.Screen name="TravelMain" component={TravelMainScreen} />
-      <Stack.Screen name="BusBooking" component={BusBookingScreen} />
-      <Stack.Screen name="SearchBus" component={SearchBusScreen} />
-      <Stack.Screen name="BusList" component={BusListScreen} />
-      <Stack.Screen name="SeatSelection" component={SeatSelectionScreen} />
-      <Stack.Screen name="BoardingDropping" component={BoardingDroppingScreen} />
-      <Stack.Screen name="PassengerDetails" component={PassengerDetailsScreen} />
-      <Stack.Screen name="TravelPayment" component={TravelPaymentScreen} />
-
-      <Stack.Screen name="PorterHome" component={PorterHomeScreen} />
-      <Stack.Screen name="LocationPin" component={LocationPinScreen} />
-      <Stack.Screen name="AddressDetails" component={AddressDetailsScreen} />
-      <Stack.Screen name="SelectVehicle" component={SelectVehicleScreen} />
-      <Stack.Screen name="SelectGoodsType" component={SelectGoodsTypeScreen} />
-      <Stack.Screen name="ReviewBooking" component={ReviewBookingScreen} />
-      <Stack.Screen name="DriverSearching" component={DriverSearchingScreen}/>
-      <Stack.Screen name="DriverPickup" component={DriverPickupScreen} />
-      <Stack.Screen name="CancellationReason" component={CancellationReasonScreen} />
-      <Stack.Screen name="ChatWithDriver" component={ChatWithDriverScreen} />
-      <Stack.Screen name="ReviewForDriver" component={ReviewForDriverScreen} />
-
-      <Stack.Screen name="FlightsHome" component={FlightsHomeScreen} />
-      <Stack.Screen name="TravellerClass" component={TravellerClassScreen} />
-      <Stack.Screen name="RoundTripFlights" component={RoundTripFlightsScreen} />
-      <Stack.Screen name="FlightsList" component={FlightsListScreen} />
-      <Stack.Screen name="FlightDetails" component={FlightDetailsScreen} />
-      <Stack.Screen name="MultiCityFlights" component={MultiCityFlightsScreen} />
-      <Stack.Screen name="ConfirmTravellerDetails" component={ConfirmTravellerDetailsScreen} />
-      <Stack.Screen name="FlightSeatSelection" component={FlightSeatSelectionScreen} />
-      <Stack.Screen name="MealSelection" component={MealSelectionScreen} />
-
-      <Stack.Screen name="HotelsHome" component={HotelsHomeScreen} />
-      <Stack.Screen name="HotelsList" component={HotelsListScreen} />
-      <Stack.Screen name="HotelDetails" component={HotelDetailsScreen} />
-      <Stack.Screen name="RoomSelection" component={RoomSelectionScreen} />
-      <Stack.Screen name="HotelReviewBooking" component={HotelReviewBookingScreen} />
-
-      <Stack.Screen name="TrainBooking" component={TrainBookingScreen} />
-      <Stack.Screen name="SearchTrain" component={SearchTrainScreen} />
-      <Stack.Screen name="TrainList" component={TrainListScreen} />
-      <Stack.Screen name="TrainAvailability" component={TrainAvailabilityScreen} />
-      <Stack.Screen name="AddPassengers" component={AddPassengersScreen} />
-
-      <Stack.Screen name="PackersHome" component={PackersHomeScreen} />
-      <Stack.Screen name="PackersLocation" component={PackersLocationScreen} />
-      <Stack.Screen name="PackersItems" component={PackersItemsScreen} />
-      <Stack.Screen name="PackersDate" component={PackersDateScreen} />
-      <Stack.Screen name="PackersSlot" component={PackersSlotScreen} />
-      <Stack.Screen name="PackersConfirm" component={PackersConfirmScreen} />
-      <Stack.Screen name="PackersBookingDetails" component={PackersBookingDetailsScreen} />
-      <Stack.Screen name="OrderSummary" component={OrderSummaryScreen} />
-
-      
 
     </Stack.Navigator>
   );

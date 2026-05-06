@@ -42,7 +42,8 @@ const TakeSelfieScreen = ({ navigation }) => {
 
       {/* SHUTTER BUTTON */}
       <View style={styles.bottomContainer}>
-        <TouchableOpacity style={styles.shutterOuter}>
+        <TouchableOpacity style={styles.shutterOuter}
+        onPress={() => navigation.navigate('ConfirmSelfie')}>
           <View style={styles.shutterInner} />
         </TouchableOpacity>
       </View>

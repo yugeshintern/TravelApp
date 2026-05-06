@@ -11,7 +11,7 @@ const AdminIntroScreen = ({ navigation }) => {
   // Auto navigate after 2.5s (optional)
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigation.replace('Home'); // change to your next screen
+      navigation.replace('LocationPermission'); // change to your next screen
     }, 2500);
 
     return () => clearTimeout(timer);

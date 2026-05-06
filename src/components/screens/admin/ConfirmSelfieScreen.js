@@ -42,11 +42,13 @@ const ConfirmSelfieScreen = ({ navigation }) => {
 
       {/* ACTION BUTTONS */}
       <View style={styles.actions}>
-        <TouchableOpacity style={styles.retakeBtn}>
+        <TouchableOpacity style={styles.retakeBtn}
+        onPress={() => navigation.navigate('TakeSelfie')}>
           <Text style={styles.retakeText}>Retake</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.uploadBtn}>
+        <TouchableOpacity style={styles.uploadBtn}
+        onPress={() => navigation.navigate('EditProfile')}>
           <Text style={styles.uploadText}>Upload</Text>
         </TouchableOpacity>
       </View>

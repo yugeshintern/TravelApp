@@ -94,7 +94,8 @@ const AadharProfile = ({ navigation }) => {
       </ScrollView>
 
       {/* SUBMIT BUTTON */}
-      <TouchableOpacity style={styles.submitBtn}>
+      <TouchableOpacity style={styles.submitBtn}
+      onPress={() => navigation.navigate('PermitUpload')}>
         <Text style={styles.submitText}>Submit</Text>
       </TouchableOpacity>
 

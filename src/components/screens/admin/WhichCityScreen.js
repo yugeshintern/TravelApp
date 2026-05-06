@@ -43,14 +43,16 @@ const WhichCityScreen = ({ navigation }) => {
             <Text style={styles.cityText}>Chennai</Text>
           </View>
 
-          <TouchableOpacity>
+          <TouchableOpacity
+          onPress={() => navigation.navigate('searchcity')}>
             <Text style={styles.changeText}>CHANGE</Text>
           </TouchableOpacity>
         </View>
       </View>
 
       {/* CTA BUTTON */}
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button}
+      onPress={() => navigation.navigate('selectAdminvehicle')}>
         <Text style={styles.buttonText}>Confirm City</Text>
       </TouchableOpacity>
 

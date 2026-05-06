@@ -107,7 +107,8 @@ const EditProfileScreen = ({ navigation }) => {
       </View>
 
       {/* SUBMIT BUTTON */}
-      <TouchableOpacity style={styles.submitBtn}>
+      <TouchableOpacity style={styles.submitBtn}
+      onPress={() => navigation.navigate('VehicleDetails')}>
         <Text style={styles.submitText}>Submit</Text>
       </TouchableOpacity>
 

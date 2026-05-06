@@ -38,7 +38,8 @@ const PermitUpload = ({ navigation }) => {
 
       {/* SUBMIT BUTTON */}
       <View style={styles.bottom}>
-        <TouchableOpacity style={styles.submitBtn}>
+        <TouchableOpacity style={styles.submitBtn}
+        onPress={() => navigation.navigate('VehicleInsuranceUpload')}>
           <Text style={styles.submitText}>Submit</Text>
         </TouchableOpacity>
       </View>

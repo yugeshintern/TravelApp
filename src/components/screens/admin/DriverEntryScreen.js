@@ -21,7 +21,7 @@ const DriverEntryScreen = ({ navigation }) => {
       {/* ILLUSTRATION */}
       <View style={styles.imageContainer}>
         <Image
-          source={require('../../../assets/ride.png')} // replace with your scooter image
+          source={require('../../../assets/ride.jpg')} // replace with your scooter image
           style={styles.image}
           resizeMode="contain"
         />
@@ -36,7 +36,7 @@ const DriverEntryScreen = ({ navigation }) => {
       {/* PRIMARY BUTTON */}
       <TouchableOpacity
         style={styles.primaryButton}
-        onPress={() => navigation.navigate('DriverLogin')} // change route if needed
+        onPress={() => navigation.navigate('ContactDetails')} 
       >
         <Text style={styles.primaryText}>Start Driving</Text>
       </TouchableOpacity>

@@ -4,6 +4,7 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
+  Image,
   ScrollView,
 } from "react-native";
 import Icon from "react-native-vector-icons/Feather";
@@ -27,8 +28,12 @@ export default function ProfileScreen({navigation}) {
     <View style={styles.container}>
       {/* HEADER */}
       <View style={styles.headerRow}>
-        <TouchableOpacity style={styles.backBtn}>
-          <Icon name="arrow-left" size={18} />
+        <TouchableOpacity style={styles.backBtn}
+        onPress={()=> navigation.goBack()}>
+            <Image
+            source={require('../../../assets/back.png')} // 👈 your local image path
+            style={styles.backIcon}
+          />
         </TouchableOpacity>
 
         <Text style={styles.header}>Profile</Text>
@@ -75,6 +80,8 @@ export default function ProfileScreen({navigation}) {
       ))}
 
         {/* BANNER */}
+        <TouchableOpacity
+        onPress={()=> navigation.navigate("AdminIntro")}>
         <View style={styles.banner}>
           <View style={{ flex: 1 }}>
             <Text style={styles.bannerTitle}>
@@ -87,6 +94,7 @@ export default function ProfileScreen({navigation}) {
 
           <Text style={styles.emoji}>🛵</Text>
         </View>
+        </TouchableOpacity>
       </ScrollView>
     </View>
   );
@@ -106,10 +114,16 @@ const styles = StyleSheet.create({
 
   backBtn: {
     backgroundColor: "#e5e7eb",
-    padding: 8,
+    color:"#000",
     borderRadius: 20,
     marginRight: 10,
   },
+
+  backIcon: {
+  width: 40,
+  height: 40,
+  resizeMode: 'contain',
+},
 
   header: {
     fontSize: 18,

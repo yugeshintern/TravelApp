@@ -10,7 +10,7 @@ import {
 import Feather from 'react-native-vector-icons/Feather';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-const OnDutyDashboard = () => {
+const OnDutyDashboard = ({navigation}) => {
   const [isOnDuty, setIsOnDuty] = useState(true);
 
   const toggleDuty = () => {
@@ -22,18 +22,38 @@ const OnDutyDashboard = () => {
 
       {/* TOP BAR */}
       <View style={styles.topBar}>
-        <Feather name="menu" size={26} color="#333" />
-        <Feather name="bell" size={24} color="#333" />
-      </View>
+            <TouchableOpacity
+            onPress={() => navigation.navigate('Profile')}>
+              <Image
+                source={require('../../../assets/menu.png')}   
+                style={styles.icon}
+              />
+            </TouchableOpacity>
+
+            <TouchableOpacity
+            onPress={() => navigation.navigate('AdminNotification')}>
+               <Image
+                  source={require('../../../assets/bell.png')}  
+                  style={styles.icon}
+                />
+            </TouchableOpacity>
+        </View>
 
       {/* TOGGLE */}
       <TouchableOpacity
         activeOpacity={0.9}
-        onPress={toggleDuty}
         style={[
           styles.toggleWrapper,
           isOnDuty && styles.toggleWrapperActive,
         ]}
+          onPress={() => {
+              const newState = !isOnDuty;
+              setIsOnDuty(newState);
+
+              if (!newState) {
+                navigation.navigate("DutyDashboard");
+              }
+            }}
       >
         <Text
           style={[
@@ -60,13 +80,14 @@ const OnDutyDashboard = () => {
       </TouchableOpacity>
 
       {/* MAP IMAGE */}
+      <TouchableOpacity
+      onPress={()=> navigation.navigate("OrderPage")}>
       <Image
-        source={{
-          uri: 'https://maps.gstatic.com/tactile/basepage/pegman_sherlock.png',
-        }}
+        source={require('../../../assets/city_map.png')}
         style={styles.map}
         resizeMode="cover"
       />
+      </TouchableOpacity>
 
       {/* FILTER BUTTONS */}
       <View style={styles.filterContainer}>
@@ -82,13 +103,22 @@ const OnDutyDashboard = () => {
       {/* BOTTOM TAB */}
       <View style={styles.bottomTab}>
         <View style={styles.tabItem}>
-          <MaterialIcons name="home" size={28} color="#117A7A" />
-          <Text style={styles.tabTextActive}>Home</Text>
+             <TouchableOpacity>
+              <Image
+                source={require('../../../assets/home_black.png')}  
+                style={styles.icon}
+             />
+            </TouchableOpacity>
         </View>
 
         <View style={styles.tabItem}>
-          <MaterialIcons name="receipt" size={26} color="#555" />
-          <Text style={styles.tabText}>Orders</Text>
+          <TouchableOpacity
+          onPress={()=> navigation.navigate("OrderSummary")}>
+              <Image
+              source={require('../../../assets/order.png')}  
+              style={styles.icon}
+              />
+          </TouchableOpacity>
         </View>
       </View>
 
@@ -132,6 +162,11 @@ const styles = StyleSheet.create({
   toggleWrapperActive: {
     borderColor: '#117A7A',
   },
+  icon: {
+  width: 56,
+  height: 56,
+  resizeMode: 'contain',
+},
 
   toggleText: {
     fontSize: 18,

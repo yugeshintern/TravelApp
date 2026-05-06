@@ -44,7 +44,7 @@ const EnterOTPScreen = ({ navigation }) => {
       {/* IMAGE */}
       <View style={styles.imageContainer}>
         <Image
-          source={require('../../../assets/otp_phone.png')} // replace with your asset
+          source={require('../../../assets/phone.png')} // replace with your asset
           style={styles.image}
           resizeMode="contain"
         />
