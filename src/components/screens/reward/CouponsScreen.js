@@ -1,4 +1,3 @@
-import React from "react";
 import {
   View,
   Text,
@@ -6,8 +5,8 @@ import {
   TouchableOpacity,
   ScrollView,
   TextInput,
+  Image,
 } from "react-native";
-import Icon from "react-native-vector-icons/Feather";
 
 const coupons = [
   {
@@ -38,11 +37,14 @@ export default function CouponsScreen({ navigation }) {
       {/* HEADER */}
       <View style={styles.headerRow}>
         <TouchableOpacity
-          style={styles.backBtn}
-          onPress={() => navigation.navigate("Home")}
-        >
-          <Icon name="arrow-left" size={18} />
-        </TouchableOpacity>
+  style={styles.backBtn}
+  onPress={() => navigation.navigate("Home")}
+>
+  <Image
+    source={require("../../../assets/back.png")}
+    style={styles.backIcon}
+  />
+</TouchableOpacity>
 
         <Text style={styles.header}>Coupons & Offers</Text>
       </View>
@@ -98,17 +100,27 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#f3f4f6" },
 
   headerRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    padding: 15,
-  },
+  flexDirection: "row",
+  alignItems: "center",
+  paddingHorizontal: 15,
+  paddingTop: 55,
+  paddingBottom: 18,
+},
 
-  backBtn: {
-    backgroundColor: "#e5e7eb",
-    padding: 8,
-    borderRadius: 20,
-    marginRight: 10,
-  },
+backBtn: {
+  width: 42,
+  height: 42,
+  borderRadius: 21,
+  backgroundColor: "#e5e7eb",
+  justifyContent: "center",
+  alignItems: "center",
+  marginRight: 14,
+},
+backIcon: {
+  width: 22,
+  height: 22,
+  resizeMode: "contain",
+},
 
   header: { fontSize: 16, fontWeight: "600" },
 

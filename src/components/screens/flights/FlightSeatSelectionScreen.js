@@ -134,67 +134,84 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#F6F7F9' },
 
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 50,
-    paddingHorizontal: 16,
-  },
+  flexDirection: 'row',
+  alignItems: 'center',
+  marginTop: 64,
+  paddingHorizontal: 18,
+  marginBottom: 10,
+},
 
   backBtn: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
-    backgroundColor: '#EDEDED',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginRight: 12,
-  },
+  width: 46,
+  height: 46,
+  borderRadius: 23,
+  backgroundColor: '#ECEEEE',
+  alignItems: 'center',
+  justifyContent: 'center',
+  marginRight: 18,
+},
 
-  tripLabel: { fontSize: 13, color: '#777' },
-  tripCity: { fontSize: 18, fontWeight: '700' },
+  tripLabel: {
+  fontSize: 15,
+  color: '#8A8A8A',
+  marginBottom: 2,
+},
+
+tripCity: {
+  fontSize: 19,
+  fontWeight: '700',
+  color: '#222',
+},
 
   title: {
-    marginTop: 20,
-    marginLeft: 16,
-    fontSize: 15,
-    fontWeight: '600',
-  },
+  marginTop: 26,
+  marginLeft: 18,
+  fontSize: 17,
+  fontWeight: '700',
+  color: '#222',
+},
 
   columns: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginTop: 20,
-    paddingHorizontal: 16,
-  },
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  marginTop: 28,
+  paddingHorizontal: 30,
+  marginBottom: 8,
+},
 
   columnText: {
-    width: 40,
-    textAlign: 'center',
-    fontWeight: '600',
-    color: '#444',
-  },
+  width: 44,
+  textAlign: 'center',
+  fontWeight: '700',
+  color: '#444',
+  fontSize: 16,
+},
 
   grid: {
-    paddingHorizontal: 16,
-    paddingBottom: 120,
-  },
+  paddingHorizontal: 20,
+  paddingBottom: 170,
+  alignItems: 'center',
+},
 
   seat: {
-    width: 42,
-    height: 42,
-    borderRadius: 10,
-    margin: 6,
-  },
+  width: 54,
+  height: 54,
+  borderRadius: 12,
+  marginHorizontal: 7,
+  marginVertical: 9,
+},
 
   footer: {
-    position: 'absolute',
-    bottom: 0,
-    width: '100%',
-    backgroundColor: '#fff',
-    padding: 16,
-    borderTopWidth: 1,
-    borderColor: '#eee',
-  },
+  position: 'absolute',
+  bottom: 0,
+  width: '100%',
+  backgroundColor: '#fff',
+  paddingTop: 14,
+  paddingHorizontal: 18,
+  paddingBottom: 24,
+  borderTopWidth: 1,
+  borderColor: '#ECECEC',
+},
 
   footerRow: {
     flexDirection: 'row',
@@ -202,21 +219,35 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
 
-  footerTitle: { fontWeight: '600' },
-  footerSub: { fontSize: 12, color: '#777' },
+  footerTitle: {
+  fontWeight: '700',
+  fontSize: 16,
+  color: '#222',
+},
 
-  price: { fontWeight: '700', fontSize: 16 },
+footerSub: {
+  fontSize: 13,
+  color: '#777',
+  marginTop: 2,
+},
+
+price: {
+  fontWeight: '700',
+  fontSize: 17,
+  color: '#222',
+},
 
   cta: {
-    backgroundColor: '#0F7A6C',
-    paddingVertical: 16,
-    borderRadius: 30,
-    alignItems: 'center',
-  },
+  backgroundColor: '#0B7F83',
+  paddingVertical: 18,
+  borderRadius: 34,
+  alignItems: 'center',
+  marginTop: 6,
+},
 
   ctaText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: '600',
-  },
+  color: '#fff',
+  fontSize: 18,
+  fontWeight: '700',
+},
 });

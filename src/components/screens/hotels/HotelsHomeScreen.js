@@ -4,229 +4,403 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
+  Image,
+  SafeAreaView,
 } from 'react-native';
+
 import Icon from 'react-native-vector-icons/Feather';
 
 const HotelsHomeScreen = ({ navigation }) => {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
 
       {/* HEADER */}
       <View style={styles.header}>
-        <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>
-          <Icon name="arrow-left" size={20} />
+
+        <TouchableOpacity
+          style={styles.backBtn}
+          onPress={() => navigation.goBack()}
+        >
+          <TouchableOpacity
+  style={styles.backBtn}
+  onPress={() => navigation.goBack()}
+>
+  <Image
+    source={require("../../../assets/back.png")}
+    style={styles.backIcon}
+  />
+</TouchableOpacity>
         </TouchableOpacity>
 
-        <Text style={styles.headerTitle}>Hotels Booking</Text>
+        <Text style={styles.headerTitle}>
+          Hotels Booking
+        </Text>
+
+        <View style={{ width: 52 }} />
       </View>
 
-      {/* ICON + TITLE */}
+      {/* HOTEL TITLE */}
       <View style={styles.titleRow}>
-        <Icon name="home" size={28} />
-        <Text style={styles.title}>Hotels & Homestays</Text>
+
+        {/* HOTEL ICON */}
+        <View style={styles.hotelIconWrap}>
+          <Image
+            source={require('../../../assets/hotel-ic.png')}
+            style={styles.hotelIcon}
+          />
+        </View>
+
+        <Text style={styles.title}>
+          Hotels & Homestays
+        </Text>
       </View>
 
-      {/* CARD */}
+      {/* MAIN CARD */}
       <View style={styles.card}>
 
-        {/* LOCATION */}
+        {/* TOP LOCATION ROW */}
         <View style={styles.locationRow}>
-          <View>
-            <Text style={styles.label}>City, Area or Property Name</Text>
-            <Text style={styles.city}>Chennai</Text>
+
+          <View style={styles.locationLeft}>
+            <Text style={styles.label}>
+              City, Area or Property Name
+            </Text>
+
+            <Text style={styles.city}>
+              Chennai
+            </Text>
           </View>
 
+          {/* MAP BUTTON */}
           <TouchableOpacity style={styles.mapBtn}>
-            <Icon name="plus" size={14} color="#2D3A8C" />
-            <Text style={styles.mapText}> Select on map</Text>
+
+            <Image
+              source={require('../../../assets/beta.png')}
+              style={styles.mapIcon}
+            />
+
+            <Text style={styles.mapText}>
+              Select on map
+            </Text>
+
           </TouchableOpacity>
         </View>
 
         {/* DIVIDER */}
         <View style={styles.divider} />
 
-        {/* DATE + ROOM */}
-        <View style={styles.rowSplit}>
-          
-          {/* LEFT */}
-          <View style={styles.leftBlock}>
-            <Text style={styles.date}>26 Feb – 27 Feb</Text>
-            <Text style={styles.sub}>1 Night</Text>
+        {/* BOTTOM ROW */}
+        <View style={styles.bottomRow}>
+
+          {/* LEFT SIDE */}
+          <View style={styles.leftSection}>
+
+            <Text style={styles.date}>
+              26 Feb – 27 Feb
+            </Text>
+
+            <Text style={styles.sub}>
+              1 Night
+            </Text>
 
             <TouchableOpacity style={styles.todayBtn}>
-              <Text style={styles.todayText}>Today</Text>
+              <Text style={styles.todayText}>
+                Today
+              </Text>
             </TouchableOpacity>
           </View>
 
-          {/* RIGHT */}
-          <View style={styles.rightBlock}>
-            <Text style={styles.room}>1 Room</Text>
-            <Text style={styles.sub}>2 Adults</Text>
+          {/* VERTICAL DIVIDER */}
+          <View style={styles.verticalDivider} />
+
+          {/* RIGHT SIDE */}
+          <View style={styles.rightSection}>
+
+            <Text style={styles.room}>
+              1 Room
+            </Text>
+
+            <Text style={styles.subRight}>
+              2 Adults
+            </Text>
           </View>
 
         </View>
       </View>
 
-      {/* CTA BUTTON */}
-      <TouchableOpacity style={styles.searchBtn}
-      onPress={()=> navigation.navigate("HotelsList")}>
-        <Text style={styles.searchText}>Search</Text>
+      {/* SEARCH BUTTON */}
+      <TouchableOpacity
+        style={styles.searchBtn}
+        onPress={() => navigation.navigate('HotelsList')}
+      >
+        <Text style={styles.searchText}>
+          Search
+        </Text>
       </TouchableOpacity>
 
-    </View>
+    </SafeAreaView>
   );
 };
 
 export default HotelsHomeScreen;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F5F6F8',
   },
 
+  /* HEADER */
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 50,
-    paddingHorizontal: 16,
+    justifyContent: 'space-between',
+
+    paddingHorizontal: 24,
+    marginTop: 58,
   },
 
   backBtn: {
-    width: 38,
-    height: 38,
-    borderRadius: 19,
-    backgroundColor: '#EDEDED',
+    width: 52,
+    height: 52,
+    borderRadius: 26,
+
+    backgroundColor: '#EEF1F1',
+
     alignItems: 'center',
     justifyContent: 'center',
   },
 
   headerTitle: {
-    flex: 1,
-    textAlign: 'center',
-    fontSize: 16,
-    fontWeight: '600',
-    marginRight: 38,
+    fontSize: 20,
+    fontWeight: '700',
+    color: '#333',
   },
 
+  /* TITLE ROW */
   titleRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 30,
-    paddingHorizontal: 24,
+
+    marginTop: 54,
+    paddingHorizontal: 28,
+  },
+
+  hotelIconWrap: {
+    width: 44,
+    height: 44,
+
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  hotelIcon: {
+    width: 36,
+    height: 36,
+    resizeMode: 'contain',
   },
 
   title: {
-    fontSize: 18,
-    fontWeight: '600',
-    marginLeft: 10,
+    fontSize: 22,
+    fontWeight: '700',
+    color: '#000',
+
+    marginLeft: 14,
   },
 
+  /* CARD */
   card: {
-    backgroundColor: '#fff',
-    marginHorizontal: 16,
-    marginTop: 30,
-    borderRadius: 18,
-    padding: 16,
+    backgroundColor: '#FFFFFF',
+
+    marginHorizontal: 26,
+    marginTop: 38,
+
+    borderRadius: 28,
+
+    paddingTop: 26,
+    paddingBottom: 24,
+
+    shadowColor: '#000',
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
+
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+
     elevation: 5,
   },
 
+  /* LOCATION ROW */
   locationRow: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
+    justifyContent: 'space-between',
+
+    paddingHorizontal: 28,
+  },
+
+  locationLeft: {
+    flex: 1,
   },
 
   label: {
-    fontSize: 12,
-    color: '#777',
+    fontSize: 14,
+    color: '#7A7A7A',
+    marginBottom: 8,
   },
 
   city: {
-    fontSize: 18,
-    fontWeight: '600',
-    marginTop: 2,
+    fontSize: 24,
+    fontWeight: '700',
+    color: '#000',
   },
 
+  /* MAP BTN */
   mapBtn: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
+
     borderWidth: 1,
-    borderColor: '#D1D5DB',
-    borderRadius: 20,
-    paddingHorizontal: 12,
-    paddingVertical: 6,
+    borderColor: '#D7D7D7',
+
+    borderRadius: 26,
+
+    paddingHorizontal: 18,
+    paddingVertical: 12,
+
+    backgroundColor: '#FFF',
+  },
+
+  mapIcon: {
+    width: 18,
+    height: 18,
+    resizeMode: 'contain',
+    marginRight: 8,
   },
 
   mapText: {
-    fontSize: 12,
-    color: '#2D3A8C',
-    fontWeight: '500',
+    fontSize: 14,
+    color: '#2C318F',
+    fontWeight: '600',
   },
 
+  /* DIVIDER */
   divider: {
     height: 1,
-    backgroundColor: '#EEE',
-    marginVertical: 14,
+    backgroundColor: '#ECECEC',
+
+    marginTop: 24,
   },
 
-  rowSplit: {
+  /* BOTTOM ROW */
+  bottomRow: {
     flexDirection: 'row',
+    alignItems: 'stretch',
   },
 
-  leftBlock: {
+  /* LEFT */
+  leftSection: {
     flex: 1,
-  },
-
-  rightBlock: {
-    flex: 1,
-    alignItems: 'flex-end',
+    paddingTop: 28,
+    paddingHorizontal: 28,
   },
 
   date: {
-    fontSize: 16,
-    fontWeight: '600',
-  },
-
-  room: {
-    fontSize: 16,
-    fontWeight: '600',
+    fontSize: 20,
+    fontWeight: '700',
+    color: '#222',
   },
 
   sub: {
-    fontSize: 13,
-    color: '#777',
-    marginTop: 4,
+    marginTop: 10,
+
+    fontSize: 15,
+    color: '#7B7B7B',
   },
 
+  /* TODAY BTN */
   todayBtn: {
-    marginTop: 12,
-    borderWidth: 1,
-    borderColor: '#3B82F6',
-    borderRadius: 10,
-    paddingVertical: 6,
-    paddingHorizontal: 18,
+    marginTop: 24,
+
+    borderWidth: 1.5,
+    borderColor: '#4D8DFF',
+
+    backgroundColor: '#EDF4FF',
+
+    borderRadius: 14,
+
     alignSelf: 'flex-start',
-    backgroundColor: '#EAF2FF',
+
+    paddingHorizontal: 32,
+    paddingVertical: 12,
   },
 
   todayText: {
-    color: '#3B82F6',
-    fontWeight: '600',
+    color: '#4D8DFF',
+    fontSize: 15,
+    fontWeight: '700',
   },
 
+  /* VERTICAL DIVIDER */
+  verticalDivider: {
+    width: 1,
+    backgroundColor: '#ECECEC',
+  },
+
+  /* RIGHT */
+  rightSection: {
+    width: 150,
+
+    alignItems: 'flex-end',
+
+    paddingTop: 28,
+    paddingHorizontal: 24,
+  },
+
+  room: {
+    fontSize: 20,
+    fontWeight: '700',
+    color: '#222',
+  },
+
+  subRight: {
+    marginTop: 10,
+
+    fontSize: 15,
+    color: '#7B7B7B',
+  },
+
+  /* SEARCH BUTTON */
   searchBtn: {
-    backgroundColor: '#0F7A6C',
-    marginHorizontal: 60,
-    marginTop: 30,
-    paddingVertical: 16,
-    borderRadius: 30,
+    backgroundColor: '#087F86',
+
+    marginHorizontal: 70,
+    marginTop: -28,
+
+    borderRadius: 36,
+
+    paddingVertical: 20,
+
     alignItems: 'center',
-    elevation: 4,
+
+    shadowColor: '#000',
+    shadowOpacity: 0.15,
+    shadowRadius: 6,
+
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+
+    elevation: 6,
   },
 
   searchText: {
-    color: '#fff',
-    fontSize: 18,
-    fontWeight: '600',
+    color: '#FFF',
+    fontSize: 22,
+    fontWeight: '700',
   },
 });

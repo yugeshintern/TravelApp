@@ -5,6 +5,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
+  Image,
 } from "react-native";
 import Icon from "react-native-vector-icons/Feather";
 
@@ -52,20 +53,32 @@ export default function BoardingDroppingScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        {/* HEADER */}
-        <View style={styles.header}>
-          <TouchableOpacity
-            style={styles.backBtn}
-            onPress={() => navigation.goBack()}
-          >
-            <Icon name="arrow-left" size={18} />
-          </TouchableOpacity>
+  <ScrollView showsVerticalScrollIndicator={false}>
+    
+    {/* HEADER */}
+    <View style={styles.header}>
+      
+      {/* BACK BUTTON */}
+      <TouchableOpacity
+        style={styles.backBtn}
+        onPress={() => navigation.goBack()}
+      >
+        <Image
+          source={require("../../../assets/back.png")}
+          style={styles.backIcon}
+        />
+      </TouchableOpacity>
 
-          <Text style={styles.route}>
-            Tambaram <Text style={{ fontSize: 16 }}>→</Text> Salem
-          </Text>
-        </View>
+      {/* ROUTE */}
+      <View style={styles.routeContainer}>
+        <Text style={styles.routeText}>Tambaram</Text>
+
+        <Text style={styles.arrow}>→</Text>
+
+        <Text style={styles.routeText}>Salem</Text>
+      </View>
+
+    </View>
 
         <Text style={styles.step}>
           2. Select boarding & dropping
@@ -160,17 +173,53 @@ const styles = StyleSheet.create({
   },
 
   header: {
-    padding: 15,
-  },
+  paddingTop: 55,
+  paddingHorizontal: 18,
+  marginBottom: 20,
+},
 
-  backBtn: {
-    backgroundColor: "#fff",
-    padding: 8,
-    borderRadius: 20,
-    width: 36,
-    alignItems: "center",
-    marginBottom: 10,
+backBtn: {
+  width: 46,
+  height: 46,
+  borderRadius: 23,
+  backgroundColor: "#eef1ef",
+  justifyContent: "center",
+  alignItems: "center",
+  elevation: 3,
+  shadowColor: "#000",
+  shadowOpacity: 0.08,
+  shadowOffset: {
+    width: 0,
+    height: 2,
   },
+  shadowRadius: 4,
+},
+
+backIcon: {
+  width: 18,
+  height: 18,
+  resizeMode: "contain",
+},
+
+routeContainer: {
+  flexDirection: "row",
+  justifyContent: "center",
+  alignItems: "center",
+  marginTop: -34,
+},
+
+routeText: {
+  fontSize: 20,
+  fontWeight: "700",
+  color: "#2d2d2d",
+},
+
+arrow: {
+  fontSize: 26,
+  fontWeight: "700",
+  color: "#000",
+  marginHorizontal: 14,
+},
 
   route: {
     textAlign: "center",
@@ -184,6 +233,7 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     marginBottom: 10,
   },
+  
 
   card: {
     backgroundColor: "#fff",

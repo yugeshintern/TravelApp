@@ -5,8 +5,8 @@ import {
   StyleSheet,
   TouchableOpacity,
   FlatList,
+  Image,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Feather';
 
 const flightsData = [
   { id: 1, airline: 'Air India', color: '#E21B23' },
@@ -27,11 +27,16 @@ const FlightsListScreen = ({ navigation }) => {
   >
       {/* TOP ROW */}
       <View style={styles.topRow}>
-        <View style={[styles.logo, { backgroundColor: item.color }]}>
-          <Text style={styles.logoText}>
-            {item.airline === 'Air India' ? 'AI' : '6E'}
-          </Text>
-        </View>
+        <View style={styles.logoContainer}>
+  <Image
+    source={
+      item.airline === 'Air India'
+        ? require("../../../assets/airindia.png")
+        : require("../../../assets/indigo.png")
+    }
+    style={styles.airlineLogo}
+  />
+</View>
 
         <Text style={styles.airline}>{item.airline}</Text>
       </View>
@@ -73,11 +78,14 @@ const FlightsListScreen = ({ navigation }) => {
       {/* HEADER */}
       <View style={styles.header}>
         <TouchableOpacity
-          style={styles.backBtn}
-          onPress={() => navigation.goBack()}
-        >
-          <Icon name="arrow-left" size={20} />
-        </TouchableOpacity>
+  style={styles.backBtn}
+  onPress={() => navigation.goBack()}
+>
+  <Image
+    source={require("../../../assets/back.png")}
+    style={styles.backIcon}
+  />
+</TouchableOpacity>
 
         <View>
           <Text style={styles.route}>New Delhi → Chennai</Text>
@@ -127,6 +135,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 
+  backIcon: {
+  width: 20,
+  height: 20,
+  resizeMode: 'contain',
+},
+
   route: {
     fontSize: 16,
     fontWeight: '600',
@@ -164,19 +178,22 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
 
-  logo: {
-    width: 36,
-    height: 36,
-    borderRadius: 8,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginRight: 10,
-  },
+  logoContainer: {
+  width: 42,
+  height: 42,
+  borderRadius: 10,
+  overflow: 'hidden',
+  marginRight: 10,
+  backgroundColor: '#fff',
+  alignItems: 'center',
+  justifyContent: 'center',
+},
 
-  logoText: {
-    color: '#fff',
-    fontWeight: '700',
-  },
+airlineLogo: {
+  width: 42,
+  height: 42,
+  resizeMode: 'contain',
+},
 
   airline: {
     fontSize: 14,

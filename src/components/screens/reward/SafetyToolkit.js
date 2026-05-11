@@ -2,26 +2,30 @@ import React from "react";
 import {
   View,
   Text,
-  StyleSheet,
+ StyleSheet,
   TouchableOpacity,
   ScrollView,
+  Image,
 } from "react-native";
-import Icon from "react-native-vector-icons/Feather";
 
 export default function SafetyToolkit({ navigation }) {
   return (
     <View style={styles.container}>
       {/* HEADER */}
-      <View style={styles.headerRow}>
-        <TouchableOpacity
-          style={styles.backBtn}
-          onPress={() => navigation.goBack()}
-        >
-          <Icon name="arrow-left" size={18} />
-        </TouchableOpacity>
+      {/* HEADER */}
+<View style={styles.headerRow}>
+  <TouchableOpacity
+    style={styles.backBtn}
+    onPress={() => navigation.goBack()}
+  >
+    <Image
+      source={require("../../../assets/back.png")}
+      style={styles.backIcon}
+    />
+  </TouchableOpacity>
 
-        <Text style={styles.header}>Safety toolkit</Text>
-      </View>
+  <Text style={styles.header}>Safety toolkit</Text>
+</View>
 
       <ScrollView contentContainerStyle={styles.content}>
         {/* INTRO */}
@@ -31,9 +35,13 @@ export default function SafetyToolkit({ navigation }) {
         </Text>
 
         {/* IMAGE CARD */}
-        <View style={styles.imageCard}>
-          <Text style={{ fontSize: 60 }}>👨‍💻</Text>
-        </View>
+        {/* IMAGE CARD */}
+<View style={styles.imageCard}>
+  <Image
+    source={require("../../../assets/call-banner.png")}
+    style={styles.bannerImage}
+  />
+</View>
 
         {/* BULLETS */}
         <View style={styles.bullets}>
@@ -54,7 +62,10 @@ export default function SafetyToolkit({ navigation }) {
               Share ride trip details with your loved ones in a single tap
             </Text>
           </View>
-          <Icon name="chevron-right" size={18} />
+          <Image
+  source={require("../../../assets/right.png")}
+  style={styles.rightIcon}
+/>
         </TouchableOpacity>
 
         {/* WHAT WE OFFER */}
@@ -80,7 +91,8 @@ export default function SafetyToolkit({ navigation }) {
           <View style={styles.textBox}>
             <Text style={styles.title}>24X7 Call masking</Text>
             <Text style={styles.sub}>
-              We keep identity and contact number confidential from Captains.
+              We keep the identity and contact number of women
+customers confidential from Captains.
             </Text>
           </View>
         </View>
@@ -90,7 +102,7 @@ export default function SafetyToolkit({ navigation }) {
           <View style={styles.textBox}>
             <Text style={styles.title}>SOS button</Text>
             <Text style={styles.sub}>
-              Emergency response team will guide you instantly.
+              A button that calls our Central Emergency Response Team who then guide you to onground help.
             </Text>
           </View>
         </View>
@@ -102,7 +114,8 @@ export default function SafetyToolkit({ navigation }) {
               Late night ride completion check
             </Text>
             <Text style={styles.sub}>
-              Calls after rides between 10pm – 5am
+                            We call you post ride completion for feedback, each time you ride between 10pm - 5am
+
             </Text>
           </View>
         </View>
@@ -112,7 +125,7 @@ export default function SafetyToolkit({ navigation }) {
           <View style={styles.textBox}>
             <Text style={styles.title}>Trip insurance</Text>
             <Text style={styles.sub}>
-              All trips are insured from start to finish.
+              From start to finish, all trips are insured by leading insurance players.
             </Text>
           </View>
         </View>
@@ -130,37 +143,37 @@ export default function SafetyToolkit({ navigation }) {
           {
             title: "Helmet always",
             desc:
-              "Always ask for a helmet. Inform us if not provided.",
+              "While riding a Bike-Taxi, always ask for a helmet. In case you don’t receive one, inform us via feedback.",
             icon: "🪖",
           },
           {
             title: "Live location sharing",
             desc:
-              "Let family track your ride in real-time.",
+              "For friends & family to track the live status of your ride.",
             icon: "📡",
           },
           {
             title: "Your ride. Your rules",
             desc:
-              "You can ask the captain to drive as per your comfort.",
+              "You have every right to ask the captain to drive as per your comfort, within traffic rules.",
             icon: "🏍️",
           },
           {
             title: "Add trusted Contacts",
             desc:
-              "Reach your loved ones easily in emergencies.",
+              "Make sure to add contacts of your loved ones as trusted contacts. This will help you reach out to them easily.",
             icon: "🛡️",
           },
           {
             title: "Don’t share personal information",
             desc:
-              "Avoid sharing number or location outside app.",
+              "Do not share your contact details with the captain. Do not share location via whatsapp or any third party app.Use communication methods available on the app only.",
             icon: "🔒",
           },
           {
             title: "Always share feedback",
             desc:
-              "Help us improve safety and experience.",
+              "After every ride, help us known about your experiences so we can make our service safer and more pleasant.",
             icon: "💬",
           },
         ].map((item, i) => (
@@ -178,25 +191,51 @@ export default function SafetyToolkit({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#f3f4f6" },
+  container: {
+  flex: 1,
+  backgroundColor: "#f3f4f6",
+  paddingTop: 50,
+},
 
-  headerRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    padding: 15,
-  },
+headerRow: {
+  flexDirection: "row",
+  alignItems: "center",
+  paddingHorizontal: 15,
+  marginBottom: 10,
+},
 
-  backBtn: {
-    backgroundColor: "#e5e7eb",
-    padding: 8,
-    borderRadius: 20,
-    marginRight: 10,
-  },
+backBtn: {
+  width: 42,
+  height: 42,
+  borderRadius: 21,
+  backgroundColor: "#e9eceb",
+  alignItems: "center",
+  justifyContent: "center",
+  marginRight: 12,
+},
 
-  header: {
-    fontSize: 16,
-    fontWeight: "600",
-  },
+header: {
+  fontSize: 18,
+  fontWeight: "700",
+  color: "#222",
+},
+backIcon: {
+  width: 18,
+  height: 18,
+  resizeMode: "contain",
+},
+
+bannerImage: {
+  width: 180,
+  height: 160,
+  resizeMode: "contain",
+},
+
+rightIcon: {
+  width: 16,
+  height: 16,
+  resizeMode: "contain",
+},
 
   content: {
     padding: 15,

@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   TextInput,
   ScrollView,
+  Image,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 
@@ -20,7 +21,15 @@ const AddPassengersScreen = ({ navigation }) => {
             style={styles.backBtn}
             onPress={() => navigation.goBack()}
           >
-            <Icon name="arrow-left" size={20} color="#000" />
+            <TouchableOpacity
+  style={styles.backBtn}
+  onPress={() => navigation.goBack()}
+>
+  <Image
+    source={require("../../../assets/back.png")}
+    style={styles.backIcon}
+  />
+</TouchableOpacity>
           </TouchableOpacity>
 
           <Text style={styles.title}>20605 Ms Tcn Sf Exp</Text>
@@ -55,7 +64,10 @@ const AddPassengersScreen = ({ navigation }) => {
         <Text style={styles.sectionTitle}>Contact Details</Text>
 
         <View style={styles.contactRow}>
-          <Icon name="mail" size={20} color="#333" />
+          <Image
+    source={require('../../../assets/msg.png')}
+    style={styles.contactIcon}
+  />
           <Text style={styles.contactText}>
             Your booking details will be sent here
           </Text>

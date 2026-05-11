@@ -5,8 +5,8 @@ import {
   StyleSheet,
   TouchableOpacity,
   FlatList,
+  Image,
 } from "react-native";
-import Icon from "react-native-vector-icons/Feather";
 
 export default function CancelReasonScreen({ navigation }) {
   const [selected, setSelected] = useState(null);
@@ -24,17 +24,23 @@ export default function CancelReasonScreen({ navigation }) {
   return (
     <View style={styles.container}>
       {/* MAP BACKGROUND (FAKE) */}
-      <View style={styles.map}>
-        <Text style={{ fontSize: 60 }}>📍</Text>
+      {/* MAP BACKGROUND */}
+        <Image
+          source={require("../../../assets/review_bg.png")}
+          style={styles.map}
+        >
+        </Image>
 
         {/* BACK BUTTON */}
         <TouchableOpacity
           style={styles.backBtn}
           onPress={() => navigation.goBack()}
         >
-          <Icon name="arrow-left" size={18} />
+          <Image
+            source={require("../../../assets/back.png")}
+            style={styles.backIcon}
+          />
         </TouchableOpacity>
-      </View>
 
       {/* BOTTOM SHEET */}
       <View style={styles.sheet}>
@@ -54,16 +60,15 @@ export default function CancelReasonScreen({ navigation }) {
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => (
             <TouchableOpacity
-              style={styles.item}
-              onPress={() => setSelected(item)}
-              onPress={()=> navigation.navigate("SearchLocation")}
-            >
+  style={styles.item}
+  onPress={() => {
+    setSelected(item);
+    navigation.navigate("SearchLocation");
+  }}
+>
               <Text style={styles.itemText}>{item}</Text>
 
-              {selected === item && (
-                <Icon name="check" size={18} color="#0f766e" />
-              )}
-            </TouchableOpacity>
+              </TouchableOpacity>
           )}
         />
       </View>
@@ -72,35 +77,47 @@ export default function CancelReasonScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#ddd" },
+  container: {
+  flex: 1,
+  backgroundColor: "#ddd",
+},
 
-  map: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#d1d5db",
-  },
+map: {
+  width: "100%",
+  height: "100%",
+  position: "absolute",
+  resizeMode: "cover",
+},
 
-  backBtn: {
-    position: "absolute",
-    top: 40,
-    left: 20,
-    backgroundColor: "#fff",
-    padding: 8,
-    borderRadius: 20,
-    elevation: 3,
-  },
+backBtn: {
+  position: "absolute",
+  top: 55,
+  left: 20,
+  width: 48,
+  height: 48,
+  borderRadius: 24,
+  backgroundColor: "#fff",
+  alignItems: "center",
+  justifyContent: "center",
+  elevation: 4,
+},
 
-  sheet: {
-    position: "absolute",
-    bottom: 0,
-    width: "100%",
-    backgroundColor: "#fff",
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    padding: 20,
-    maxHeight: "65%",
-  },
+sheet: {
+  position: "absolute",
+  bottom: 0,
+  width: "100%",
+  backgroundColor: "#fff",
+  borderTopLeftRadius: 28,
+  borderTopRightRadius: 28,
+  padding: 22,
+  maxHeight: "68%",
+},
+
+backIcon: {
+  width: 18,
+  height: 18,
+  resizeMode: "contain",
+},
 
   title: {
     fontSize: 16,

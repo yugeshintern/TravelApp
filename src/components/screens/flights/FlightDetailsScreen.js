@@ -5,8 +5,8 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
+  Image,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Feather';
 
 const FlightDetailsScreen = ({ navigation }) => {
   const [selected, setSelected] = useState(false);
@@ -17,11 +17,14 @@ const FlightDetailsScreen = ({ navigation }) => {
         {/* HEADER */}
         <View style={styles.header}>
           <TouchableOpacity
-            style={styles.backBtn}
-            onPress={() => navigation.goBack()}
-          >
-            <Icon name="arrow-left" size={20} />
-          </TouchableOpacity>
+  style={styles.backBtn}
+  onPress={() => navigation.goBack()}
+>
+  <Image
+    source={require("../../../assets/back.png")}
+    style={styles.backIcon}
+  />
+</TouchableOpacity>
 
           <View>
             <Text style={styles.tripLabel}>Trip to</Text>
@@ -31,9 +34,12 @@ const FlightDetailsScreen = ({ navigation }) => {
 
         {/* AIRLINE */}
         <View style={styles.airlineRow}>
-          <View style={styles.logo}>
-            <Text style={styles.logoText}>AI</Text>
-          </View>
+          <View style={styles.logoContainer}>
+  <Image
+    source={require("../../../assets/airindia.png")}
+    style={styles.airIndiaLogo}
+  />
+</View>
           <Text style={styles.airline}>Air India | AI-537</Text>
         </View>
 
@@ -160,12 +166,12 @@ const styles = StyleSheet.create({
   },
 
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 50,
-    paddingHorizontal: 16,
-    marginBottom: 20,
-  },
+  flexDirection: 'row',
+  alignItems: 'center',
+  marginTop: 62,
+  paddingHorizontal: 16,
+  marginBottom: 28,
+},
 
   backBtn: {
     width: 36,
@@ -176,6 +182,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginRight: 12,
   },
+
+  backIcon: {
+  width: 20,
+  height: 20,
+  resizeMode: 'contain',
+},
 
   tripLabel: {
     fontSize: 13,
@@ -188,26 +200,28 @@ const styles = StyleSheet.create({
   },
 
   airlineRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 16,
-    marginBottom: 16,
-  },
+  flexDirection: 'row',
+  alignItems: 'center',
+  paddingHorizontal: 16,
+  marginBottom: 26,
+},
 
-  logo: {
-    width: 40,
-    height: 40,
-    borderRadius: 8,
-    backgroundColor: '#E21B23',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginRight: 10,
-  },
+  logoContainer: {
+  width: 52,
+  height: 52,
+  borderRadius: 12,
+  overflow: 'hidden',
+  marginRight: 12,
+  backgroundColor: '#fff',
+  alignItems: 'center',
+  justifyContent: 'center',
+},
 
-  logoText: {
-    color: '#fff',
-    fontWeight: '700',
-  },
+airIndiaLogo: {
+  width: 52,
+  height: 52,
+  resizeMode: 'contain',
+},
 
   airline: {
     fontSize: 15,

@@ -4,8 +4,8 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
+  Image,
 } from "react-native";
-import Icon from "react-native-vector-icons/Feather";
 
 export default function RewardsScreen({ navigation }) {
   return (
@@ -13,12 +13,16 @@ export default function RewardsScreen({ navigation }) {
       {/* TOP YELLOW HEADER */}
       <View style={styles.header}>
         {/* BACK */}
-        <TouchableOpacity
-          style={styles.backBtn}
-          onPress={() => navigation.goBack()}
-        >
-          <Icon name="arrow-left" size={18} />
-        </TouchableOpacity>
+        {/* BACK */}
+<TouchableOpacity
+  style={styles.backBtn}
+  onPress={() => navigation.goBack()}
+>
+  <Image
+    source={require("../../../assets/back.png")}
+    style={styles.backIcon}
+  />
+</TouchableOpacity>
 
         {/* TITLE */}
         <Text style={styles.headerTitle}>Rewards</Text>
@@ -79,6 +83,11 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     fontSize: 16,
   },
+  backIcon: {
+  width: 20,
+  height: 20,
+  resizeMode: "contain",
+},
 
   gift: {
     position: "absolute",

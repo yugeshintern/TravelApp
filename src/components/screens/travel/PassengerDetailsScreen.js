@@ -7,18 +7,34 @@ import {
   ScrollView,
   TextInput,
   Switch,
+  Image,
 } from "react-native";
-import Icon from "react-native-vector-icons/Feather";
 
-export default function PassengerDetailsScreen({ navigation }) {
-  const [whatsapp, setWhatsapp] = useState(false);
+export default function PassengerDetailsScreen({
+  navigation,
+}) {
+  const [whatsapp, setWhatsapp] =
+    useState(false);
 
-  const [passengers, setPassengers] = useState([
-    { name: "", age: "", gender: "" },
-    { name: "", age: "", gender: "" },
-  ]);
+  const [passengers, setPassengers] =
+    useState([
+      {
+        name: "",
+        age: "",
+        gender: "",
+      },
+      {
+        name: "",
+        age: "",
+        gender: "",
+      },
+    ]);
 
-  const updatePassenger = (index, field, value) => {
+  const updatePassenger = (
+    index,
+    field,
+    value
+  ) => {
     const updated = [...passengers];
     updated[index][field] = value;
     setPassengers(updated);
@@ -26,156 +42,371 @@ export default function PassengerDetailsScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView
+        showsVerticalScrollIndicator={
+          false
+        }
+        contentContainerStyle={{
+          paddingBottom: 180,
+        }}
+      >
         {/* HEADER */}
         <View style={styles.header}>
           <TouchableOpacity
             style={styles.backBtn}
-            onPress={() => navigation.goBack()}
+            onPress={() =>
+              navigation.goBack()
+            }
           >
-            <Icon name="arrow-left" size={18} />
+            <Image
+              source={require("../../../assets/back.png")}
+              style={styles.backIcon}
+            />
           </TouchableOpacity>
 
-          <Text style={styles.route}>
-            Tambaram <Text>→</Text> Salem
-          </Text>
+          <View
+            style={styles.routeContainer}
+          >
+            <Text style={styles.route}>
+              Tambaram
+            </Text>
+
+            <Text
+              style={styles.arrow}
+            >
+              →
+            </Text>
+
+            <Text style={styles.route}>
+              Salem
+            </Text>
+          </View>
         </View>
 
-        <Text style={styles.step}>3. Fill Passenger details</Text>
+        {/* STEP */}
+        <Text style={styles.step}>
+          3. Fill Passenger details
+        </Text>
 
         {/* TRIP CARD */}
         <View style={styles.card}>
           <View style={styles.tripRow}>
             <View>
-              <Text style={styles.time}>26 Feb 00:00</Text>
-              <Text style={styles.sub}>Tambaram</Text>
+              <Text style={styles.time}>
+                26 Feb 00:00
+              </Text>
+
+              <Text style={styles.sub}>
+                Tambaram
+              </Text>
             </View>
 
-            <Text style={{ fontSize: 18 }}>→</Text>
+            <Text
+              style={styles.tripArrow}
+            >
+              →
+            </Text>
 
             <View>
-              <Text style={styles.time}>26 Feb 05:20</Text>
+              <Text style={styles.time}>
+                26 Feb 05:20
+              </Text>
+
               <Text style={styles.sub}>
-                Near Salem{`\n`}Kondalampatti Bye pass
+                Near Salem
+              </Text>
+
+              <Text style={styles.sub}>
+                Kondalampatti Bye
+                pass
               </Text>
             </View>
           </View>
 
           <View style={styles.seatRow}>
-            <Icon name="user" size={16} />
-            <Text style={{ marginLeft: 6 }}>2 Seats</Text>
+            <Image
+              source={require("../../../assets/seat-icon.png")}
+              style={styles.seatIcon}
+            />
+
+            <Text
+              style={styles.seatText}
+            >
+              2 Seats
+            </Text>
           </View>
         </View>
 
         {/* CONTACT DETAILS */}
         <View style={styles.card}>
-          <Text style={styles.sectionTitle}>Contact details</Text>
-          <Text style={styles.sub}>
-            Ticket details will be sent to
+          <Text
+            style={styles.sectionTitle}
+          >
+            Contact details
           </Text>
 
-          <TextInput placeholder="Phone Number" style={styles.input} />
-          <TextInput placeholder="Email ID" style={styles.input} />
-          <TextInput placeholder="State of Residence" style={styles.input} />
-
-          <Text style={styles.smallText}>
-            Required for GST Tax Invoicing
+          <Text style={styles.desc}>
+            Ticket details will be
+            sent to
           </Text>
 
-          <View style={styles.whatsappRow}>
-            <Text style={{ flex: 1 }}>
-              Send booking details and trip updates on WhatsApp
-            </Text>
+          <TextInput
+            placeholder="Phone Number"
+            placeholderTextColor="#8a8a8a"
+            style={styles.input}
+          />
+
+          <TextInput
+            placeholder="Email ID"
+            placeholderTextColor="#8a8a8a"
+            style={styles.input}
+          />
+
+          <TextInput
+            placeholder="State of Residence"
+            placeholderTextColor="#8a8a8a"
+            style={styles.input}
+          />
+
+          <Text
+            style={styles.invoiceText}
+          >
+            Required for GST Tax
+            Invoicing
+          </Text>
+
+          <View
+            style={styles.whatsappRow}
+          >
+            <View
+              style={
+                styles.whatsappLeft
+              }
+            >
+              <Image
+                source={require("../../../assets/whatsapp.png")}
+                style={
+                  styles.whatsappIcon
+                }
+              />
+
+              <Text
+                style={
+                  styles.whatsappText
+                }
+              >
+                Send booking details
+                and trip updates on
+                WhatsApp
+              </Text>
+            </View>
+
             <Switch
               value={whatsapp}
-              onValueChange={setWhatsapp}
+              onValueChange={
+                setWhatsapp
+              }
+              trackColor={{
+                false: "#d6d6d6",
+                true: "#cceae7",
+              }}
+              thumbColor={
+                whatsapp
+                  ? "#73c8c0"
+                  : "#999"
+              }
             />
           </View>
         </View>
 
         {/* PASSENGERS */}
-        {passengers.map((p, index) => (
-          <View key={index} style={styles.card}>
-            <Text style={styles.sectionTitle}>
-              Passenger details
-            </Text>
+        {passengers.map(
+          (p, index) => (
+            <View
+              key={index}
+              style={styles.card}
+            >
+              <Text
+                style={
+                  styles.sectionTitle
+                }
+              >
+                Passenger details
+              </Text>
 
-            <View style={styles.passengerHeader}>
-              <Icon name="user" size={18} />
-              <View style={{ marginLeft: 8 }}>
-                <Text style={styles.passengerTitle}>
-                  Passenger {index + 1}
-                </Text>
-                <Text style={styles.sub}>
-                  Seat 6, Lower Deck
-                </Text>
+              <View
+                style={
+                  styles.passengerHeader
+                }
+              >
+                <Image
+                  source={require("../../../assets/prog.png")}
+                  style={
+                    styles.passengerIcon
+                  }
+                />
+
+                <View
+                  style={{
+                    marginLeft: 12,
+                  }}
+                >
+                  <Text
+                    style={
+                      styles.passengerTitle
+                    }
+                  >
+                    Passenger{" "}
+                    {index + 1}
+                  </Text>
+
+                  <Text
+                    style={
+                      styles.sub
+                    }
+                  >
+                    Seat 6, Lower
+                    Deck
+                  </Text>
+                </View>
+              </View>
+
+              <TextInput
+                placeholder="Name"
+                placeholderTextColor="#8a8a8a"
+                style={styles.input}
+                value={p.name}
+                onChangeText={(
+                  val
+                ) =>
+                  updatePassenger(
+                    index,
+                    "name",
+                    val
+                  )
+                }
+              />
+
+              <TextInput
+                placeholder="Age"
+                placeholderTextColor="#8a8a8a"
+                keyboardType="numeric"
+                style={styles.input}
+                value={p.age}
+                onChangeText={(
+                  val
+                ) =>
+                  updatePassenger(
+                    index,
+                    "age",
+                    val
+                  )
+                }
+              />
+
+              <Text
+                style={
+                  styles.genderLabel
+                }
+              >
+                Gender
+              </Text>
+
+              <View
+                style={
+                  styles.genderRow
+                }
+              >
+                {[
+                  "Male",
+                  "Female",
+                ].map((g) => (
+                  <TouchableOpacity
+                    key={g}
+                    style={[
+                      styles.genderBtn,
+                      p.gender ===
+                        g &&
+                        styles.genderActive,
+                    ]}
+                    onPress={() =>
+                      updatePassenger(
+                        index,
+                        "gender",
+                        g
+                      )
+                    }
+                  >
+                    <Text
+                      style={[
+                        styles.genderText,
+                        p.gender ===
+                          g && {
+                            color:
+                              "#0f766e",
+                            fontWeight:
+                              "700",
+                          },
+                      ]}
+                    >
+                      {g}
+                    </Text>
+
+                    <View
+                      style={[
+                        styles.radio,
+                        p.gender ===
+                          g &&
+                          styles.radioActive,
+                      ]}
+                    />
+                  </TouchableOpacity>
+                ))}
               </View>
             </View>
-
-            <TextInput
-              placeholder="Name"
-              style={styles.input}
-              value={p.name}
-              onChangeText={(val) =>
-                updatePassenger(index, "name", val)
-              }
-            />
-
-            <TextInput
-              placeholder="Age"
-              style={styles.input}
-              keyboardType="numeric"
-              value={p.age}
-              onChangeText={(val) =>
-                updatePassenger(index, "age", val)
-              }
-            />
-
-            <Text style={styles.genderLabel}>Gender</Text>
-
-            <View style={styles.genderRow}>
-              {["Male", "Female"].map((g) => (
-                <TouchableOpacity
-                  key={g}
-                  style={[
-                    styles.genderBtn,
-                    p.gender === g && styles.genderActive,
-                  ]}
-                  onPress={() =>
-                    updatePassenger(index, "gender", g)
-                  }
-                >
-                  <Text>{g}</Text>
-                  <View
-                    style={[
-                      styles.radio,
-                      p.gender === g && styles.radioActive,
-                    ]}
-                  />
-                </TouchableOpacity>
-              ))}
-            </View>
-          </View>
-        ))}
-
-        <View style={{ height: 120 }} />
+          )
+        )}
       </ScrollView>
 
       {/* FOOTER */}
       <View style={styles.footer}>
-        <View style={styles.footerRow}>
+        <View
+          style={styles.footerRow}
+        >
           <View>
-            <Text>2 Seats</Text>
-            <Text style={styles.sub}>(Tax excluded)</Text>
+            <Text
+              style={
+                styles.footerSeats
+              }
+            >
+              2 Seats
+            </Text>
+
+            <Text
+              style={styles.taxText}
+            >
+              (Tax excluded)
+            </Text>
           </View>
-          <Text style={styles.price}>₹550</Text>
+
+          <Text
+            style={styles.price}
+          >
+            ₹550
+          </Text>
         </View>
 
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate("TravelPayment")}
+          onPress={() =>
+            navigation.navigate(
+              "Payments"
+            )
+          }
         >
-          <Text style={styles.buttonText}>
+          <Text
+            style={styles.buttonText}
+          >
             Continue booking
           </Text>
         </TouchableOpacity>
@@ -186,158 +417,310 @@ export default function PassengerDetailsScreen({ navigation }) {
 
 /* STYLES */
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#f3f3f3" },
+  container: {
+    flex: 1,
+    backgroundColor: "#f3f3f3",
+  },
 
-  header: { padding: 15 },
+  /* HEADER */
+  header: {
+    paddingTop: 55,
+    paddingHorizontal: 16,
+    marginBottom: 12,
+  },
 
   backBtn: {
-    backgroundColor: "#fff",
-    padding: 8,
-    borderRadius: 20,
-    width: 36,
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: "#eef1ef",
+    justifyContent: "center",
     alignItems: "center",
-    marginBottom: 10,
+    elevation: 2,
+    marginBottom: 20,
+  },
+
+  backIcon: {
+    width: 18,
+    height: 18,
+    resizeMode: "contain",
+  },
+
+  routeContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
   },
 
   route: {
-    textAlign: "center",
-    fontWeight: "600",
-    fontSize: 16,
+    fontSize: 20,
+    fontWeight: "700",
+    color: "#222",
+  },
+
+  arrow: {
+    fontSize: 24,
+    fontWeight: "700",
+    marginHorizontal: 14,
+    color: "#000",
   },
 
   step: {
-    marginLeft: 15,
-    marginBottom: 10,
-    fontSize: 14,
-    fontWeight: "500",
+    marginHorizontal: 18,
+    marginBottom: 14,
+    fontSize: 18,
+    fontWeight: "700",
+    color: "#222",
   },
 
+  /* CARD */
   card: {
     backgroundColor: "#fff",
-    margin: 15,
-    borderRadius: 15,
-    padding: 15,
-    elevation: 3,
+    marginHorizontal: 16,
+    marginBottom: 18,
+    borderRadius: 24,
+    padding: 18,
+    elevation: 4,
+    shadowColor: "#000",
+    shadowOpacity: 0.08,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowRadius: 5,
   },
 
   tripRow: {
     flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    justifyContent:
+      "space-between",
+    alignItems: "flex-start",
   },
 
-  time: { fontWeight: "600" },
+  time: {
+    fontSize: 18,
+    fontWeight: "700",
+    color: "#222",
+  },
 
-  sub: { fontSize: 12, color: "#777" },
+  sub: {
+    fontSize: 14,
+    color: "#707070",
+    marginTop: 4,
+  },
+
+  tripArrow: {
+    fontSize: 28,
+    fontWeight: "700",
+    color: "#111",
+    marginTop: 10,
+  },
 
   seatRow: {
     flexDirection: "row",
-    marginTop: 10,
     alignItems: "center",
+    marginTop: 18,
   },
 
-  sectionTitle: {
+  seatIcon: {
+    width: 20,
+    height: 20,
+    resizeMode: "contain",
+  },
+
+  seatText: {
+    marginLeft: 10,
     fontSize: 16,
-    fontWeight: "600",
-    marginBottom: 8,
+    fontWeight: "700",
+    color: "#333",
   },
 
-  input: {
-    borderWidth: 1,
-    borderColor: "#ddd",
-    borderRadius: 10,
-    padding: 12,
-    marginTop: 10,
-  },
-
-  smallText: {
-    fontSize: 12,
-    color: "#777",
-    marginTop: 10,
-  },
-
-  whatsappRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginTop: 10,
-  },
-
-  passengerHeader: {
-    flexDirection: "row",
-    alignItems: "center",
+  /* TEXT */
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: "700",
+    color: "#222",
     marginBottom: 10,
   },
 
-  passengerTitle: {
-    fontWeight: "600",
+  desc: {
+    fontSize: 15,
+    color: "#707070",
+    marginBottom: 10,
   },
 
+  invoiceText: {
+    fontSize: 14,
+    color: "#707070",
+    marginTop: 16,
+    marginBottom: 10,
+  },
+
+  /* INPUT */
+  input: {
+    height: 58,
+    borderWidth: 1.2,
+    borderColor: "#d5d5d5",
+    borderRadius: 16,
+    paddingHorizontal: 18,
+    marginTop: 12,
+    fontSize: 16,
+    color: "#222",
+    backgroundColor: "#fff",
+  },
+
+  /* WHATSAPP */
+  whatsappRow: {
+    flexDirection: "row",
+    justifyContent:
+      "space-between",
+    alignItems: "center",
+    marginTop: 8,
+  },
+
+  whatsappLeft: {
+    flexDirection: "row",
+    alignItems: "center",
+    flex: 1,
+    paddingRight: 10,
+  },
+
+  whatsappIcon: {
+    width: 22,
+    height: 22,
+    resizeMode: "contain",
+    marginRight: 10,
+  },
+
+  whatsappText: {
+    fontSize: 14,
+    color: "#222",
+    lineHeight: 22,
+    flex: 1,
+  },
+
+  /* PASSENGER */
+  passengerHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 12,
+  },
+
+  passengerIcon: {
+    width: 24,
+    height: 24,
+    resizeMode: "contain",
+  },
+
+  passengerTitle: {
+    fontSize: 18,
+    fontWeight: "700",
+    color: "#222",
+  },
+
+  /* GENDER */
   genderLabel: {
-    marginTop: 10,
-    marginBottom: 5,
+    marginTop: 18,
+    marginBottom: 10,
+    fontSize: 16,
+    fontWeight: "500",
+    color: "#222",
   },
 
   genderRow: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent:
+      "space-between",
   },
 
   genderBtn: {
-    flex: 1,
-    borderWidth: 1,
-    borderColor: "#ccc",
-    padding: 12,
-    borderRadius: 10,
-    marginRight: 10,
+    width: "47%",
+    height: 56,
+    borderWidth: 1.4,
+    borderColor: "#d2d2d2",
+    borderRadius: 16,
     flexDirection: "row",
-    justifyContent: "space-between",
+    alignItems: "center",
+    justifyContent:
+      "space-between",
+    paddingHorizontal: 18,
+    backgroundColor: "#fff",
   },
 
   genderActive: {
     borderColor: "#0f766e",
+    backgroundColor: "#e7f6f3",
+  },
+
+  genderText: {
+    fontSize: 16,
+    color: "#333",
   },
 
   radio: {
-    width: 18,
-    height: 18,
-    borderRadius: 9,
+    width: 28,
+    height: 28,
+    borderRadius: 14,
     borderWidth: 2,
-    borderColor: "#ccc",
+    borderColor: "#c9c9c9",
+    backgroundColor: "#fff",
   },
 
   radioActive: {
-    backgroundColor: "#0f766e",
     borderColor: "#0f766e",
+    backgroundColor: "#0f766e",
   },
 
+  /* FOOTER */
   footer: {
     position: "absolute",
     bottom: 0,
     width: "100%",
     backgroundColor: "#fff",
-    padding: 15,
+    borderTopWidth: 1,
+    borderTopColor: "#ececec",
+    paddingHorizontal: 16,
+    paddingTop: 14,
+    paddingBottom: 20,
   },
 
   footerRow: {
     flexDirection: "row",
-    justifyContent: "space-between",
-    marginBottom: 10,
+    justifyContent:
+      "space-between",
+    alignItems: "center",
+    marginBottom: 14,
+  },
+
+  footerSeats: {
+    fontSize: 18,
+    fontWeight: "700",
+    color: "#222",
+  },
+
+  taxText: {
+    fontSize: 14,
+    color: "#707070",
+    marginTop: 2,
   },
 
   price: {
+    fontSize: 22,
     fontWeight: "700",
-    fontSize: 16,
+    color: "#111",
   },
 
   button: {
-    backgroundColor: "#0f766e",
-    padding: 15,
-    borderRadius: 25,
+    height: 58,
+    backgroundColor: "#0b7f81",
+    borderRadius: 30,
+    justifyContent: "center",
     alignItems: "center",
   },
 
   buttonText: {
     color: "#fff",
-    fontWeight: "600",
+    fontSize: 20,
+    fontWeight: "700",
   },
 });

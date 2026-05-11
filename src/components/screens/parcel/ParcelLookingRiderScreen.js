@@ -4,21 +4,30 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
+  Image,
+  ImageBackground,
 } from "react-native";
-import Icon from "react-native-vector-icons/Feather";
 
 export default function ParcelLookingRiderScreen({ navigation }) {
   return (
     <View style={styles.container}>
       {/* MAP */}
-      <View style={styles.map}>
+      <ImageBackground
+        source={require("../../../assets/review_bg.png")}
+        style={styles.map}
+        resizeMode="cover"
+      >
+        {/* BACK BUTTON */}
         <TouchableOpacity
           style={styles.backBtn}
           onPress={() => navigation.goBack()}
         >
-          <Icon name="arrow-left" size={18} />
+          <Image
+            source={require("../../../assets/back.png")}
+            style={styles.backIcon}
+          />
         </TouchableOpacity>
-      </View>
+      </ImageBackground>
 
       {/* BOTTOM SHEET */}
       <View style={styles.sheet}>
@@ -27,7 +36,11 @@ export default function ParcelLookingRiderScreen({ navigation }) {
 
         {/* HEADER */}
         <View style={styles.row}>
-          <Icon name="truck" size={18} />
+          <Image
+            source={require("../../../assets/bike-icon.png")}
+            style={styles.bikeIcon}
+          />
+
           <View style={{ marginLeft: 10 }}>
             <Text style={styles.small}>Looking for your</Text>
             <Text style={styles.bold}>Bike ride</Text>
@@ -37,12 +50,21 @@ export default function ParcelLookingRiderScreen({ navigation }) {
         {/* LOCATION DETAILS */}
         <Text style={styles.section}>Location Details</Text>
 
-        <View style={styles.locationCard}>
+        {/* CLICKABLE LOCATION CARD */}
+        <TouchableOpacity
+          style={styles.locationCard}
+          activeOpacity={0.8}
+          onPress={() =>
+            navigation.navigate("ParcelAddExtraMoney")
+          }
+        >
           <View style={styles.row}>
             {/* DOTS */}
             <View style={styles.lineBox}>
               <View style={styles.greenDot} />
+
               <View style={styles.dashedLine} />
+
               <View style={styles.redDot} />
             </View>
 
@@ -50,40 +72,65 @@ export default function ParcelLookingRiderScreen({ navigation }) {
               <Text style={styles.locTitle}>
                 Egmore Railway Station
               </Text>
-              <Text style={styles.locSub}>
-                Gandhi Irwin Road, Chennai...
+
+              <Text
+                style={styles.locSub}
+                numberOfLines={1}
+              >
+                Gandhi Irwin Road, Egmore, Chennai, Tamil Nadu,...
               </Text>
 
-              <Text style={[styles.locTitle, { marginTop: 10 }]}>
+              <Text
+                style={[
+                  styles.locTitle,
+                  { marginTop: 12 },
+                ]}
+              >
                 Koyambedu Bus Stand
               </Text>
-              <Text style={styles.locSub}>
-                Koyambedu bus terminus...
+
+              <Text
+                style={styles.locSub}
+                numberOfLines={1}
+              >
+                Koyambedu bus terminus, Koyambedu, Chennai,...
               </Text>
             </View>
           </View>
-        </View>
+        </TouchableOpacity>
 
         {/* FARE */}
         <View style={styles.fareCard}>
           <View style={styles.rowBetween}>
-            <Text style={styles.bold}>Total Fare</Text>
-            <Text style={styles.bold}>₹287.0</Text>
+            <Text style={styles.fareTitle}>Total Fare</Text>
+
+            <Text style={styles.farePrice}>₹287.0</Text>
           </View>
 
-          <View style={styles.row}>
-            <Icon name="credit-card" size={14} />
-            <Text style={styles.subText}> Paying via cash</Text>
+          <View style={[styles.row, { marginTop: 10 }]}>
+            <Image
+              source={require("../../../assets/payment.png")}
+              style={styles.cashIcon}
+            />
+
+            <Text style={styles.subText}>
+              Paying via cash
+            </Text>
           </View>
         </View>
 
         {/* BUTTONS */}
-        <TouchableOpacity style={styles.primaryBtn}>
+        <TouchableOpacity
+          style={styles.primaryBtn}
+          onPress={() => navigation.goBack()}
+        >
           <Text style={styles.primaryText}>Back</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.outlineBtn}>
-          <Text style={styles.outlineText}>Cancel Ride</Text>
+          <Text style={styles.outlineText}>
+            Cancel Ride
+          </Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -91,39 +138,49 @@ export default function ParcelLookingRiderScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#fff" },
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+  },
 
   map: {
-    height: 260,
-    backgroundColor: "#ddd",
+    height: 340,
+    paddingTop: 55,
+    paddingHorizontal: 15,
   },
 
   backBtn: {
-    position: "absolute",
-    top: 20,
-    left: 15,
+    width: 42,
+    height: 42,
+    borderRadius: 21,
     backgroundColor: "#fff",
-    padding: 8,
-    borderRadius: 20,
-    elevation: 3,
+    justifyContent: "center",
+    alignItems: "center",
+    elevation: 4,
+  },
+
+  backIcon: {
+    width: 18,
+    height: 18,
+    resizeMode: "contain",
   },
 
   sheet: {
     flex: 1,
-    backgroundColor: "#f3f4f6",
-    borderTopLeftRadius: 25,
-    borderTopRightRadius: 25,
-    padding: 15,
-    marginTop: -20,
+    backgroundColor: "#f8f8f8",
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    padding: 18,
+    marginTop: -25,
   },
 
   dragBar: {
-    width: 40,
-    height: 4,
-    backgroundColor: "#ccc",
+    width: 70,
+    height: 5,
+    backgroundColor: "#d4d4d4",
     alignSelf: "center",
     borderRadius: 10,
-    marginBottom: 10,
+    marginBottom: 22,
   },
 
   row: {
@@ -137,99 +194,139 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 
-  small: { fontSize: 12, color: "#555" },
-  bold: { fontSize: 15, fontWeight: "600" },
+  bikeIcon: {
+    width: 22,
+    height: 22,
+    resizeMode: "contain",
+  },
+
+  small: {
+    fontSize: 14,
+    color: "#555",
+  },
+
+  bold: {
+    fontSize: 18,
+    fontWeight: "700",
+    color: "#111",
+  },
 
   section: {
-    marginTop: 15,
-    fontSize: 13,
-    fontWeight: "600",
+    marginTop: 22,
+    fontSize: 15,
+    fontWeight: "700",
+    color: "#111",
   },
 
   locationCard: {
-    backgroundColor: "#e5e7eb",
-    borderRadius: 15,
-    padding: 12,
-    marginTop: 10,
+    backgroundColor: "#e9eceb",
+    borderRadius: 18,
+    padding: 16,
+    marginTop: 14,
   },
 
   lineBox: {
     alignItems: "center",
-    marginRight: 10,
+    marginRight: 14,
   },
 
   greenDot: {
-    width: 14,
-    height: 14,
-    borderRadius: 7,
-    borderWidth: 3,
+    width: 18,
+    height: 18,
+    borderRadius: 9,
+    borderWidth: 4,
     borderColor: "green",
+    backgroundColor: "#fff",
   },
 
   redDot: {
-    width: 14,
-    height: 14,
-    borderRadius: 7,
-    borderWidth: 3,
-    borderColor: "darkred",
+    width: 18,
+    height: 18,
+    borderRadius: 9,
+    borderWidth: 4,
+    borderColor: "#8b0000",
+    backgroundColor: "#fff",
   },
 
   dashedLine: {
-    height: 35,
-    borderLeftWidth: 1,
+    height: 42,
+    borderLeftWidth: 1.5,
     borderStyle: "dashed",
+    borderColor: "#000",
     marginVertical: 2,
   },
 
   locTitle: {
-    fontSize: 13,
-    fontWeight: "600",
+    fontSize: 16,
+    fontWeight: "700",
+    color: "#111",
   },
 
   locSub: {
-    fontSize: 11,
+    fontSize: 13,
     color: "#666",
+    marginTop: 2,
+    width: "95%",
   },
 
   fareCard: {
-    backgroundColor: "#e5e7eb",
-    borderRadius: 15,
-    padding: 12,
-    marginTop: 15,
+    backgroundColor: "#e9eceb",
+    borderRadius: 18,
+    padding: 16,
+    marginTop: 18,
+  },
+
+  fareTitle: {
+    fontSize: 18,
+    fontWeight: "700",
+    color: "#111",
+  },
+
+  farePrice: {
+    fontSize: 18,
+    fontWeight: "700",
+    color: "#111",
+  },
+
+  cashIcon: {
+    width: 18,
+    height: 18,
+    resizeMode: "contain",
   },
 
   subText: {
-    fontSize: 12,
-    color: "#555",
-    marginLeft: 5,
+    fontSize: 15,
+    color: "#444",
+    marginLeft: 8,
   },
 
   primaryBtn: {
-    backgroundColor: "#0f766e",
-    paddingVertical: 14,
-    borderRadius: 30,
+    backgroundColor: "#0b7f83",
+    paddingVertical: 18,
+    borderRadius: 35,
     alignItems: "center",
-    marginTop: 15,
+    marginTop: 24,
   },
 
   primaryText: {
     color: "#fff",
-    fontSize: 15,
-    fontWeight: "600",
+    fontSize: 18,
+    fontWeight: "700",
   },
 
   outlineBtn: {
-    borderWidth: 1.5,
-    borderColor: "red",
-    paddingVertical: 14,
-    borderRadius: 30,
+    borderWidth: 2,
+    borderColor: "#a40000",
+    paddingVertical: 18,
+    borderRadius: 35,
     alignItems: "center",
-    marginTop: 10,
+    marginTop: 14,
+    backgroundColor: "#fff",
   },
 
   outlineText: {
-    color: "red",
-    fontSize: 15,
-    fontWeight: "600",
+    color: "#a40000",
+    fontSize: 18,
+    fontWeight: "700",
   },
 });

@@ -6,6 +6,9 @@ import {
   TouchableOpacity,
   FlatList,
   TextInput,
+  Image,
+  KeyboardAvoidingView,
+  Platform,
 } from "react-native";
 import Icon from "react-native-vector-icons/Feather";
 
@@ -69,11 +72,20 @@ export default function MessageWithRider({ navigation }) {
   };
 
   return (
+  <KeyboardAvoidingView
+    style={{ flex: 1 }}
+    behavior={Platform.OS === "ios" ? "padding" : "height"}
+  >
     <View style={styles.container}>
+
       {/* HEADER */}
       <View style={styles.header}>
-        <TouchableOpacity>
-          <Icon name="arrow-left" size={20} color="#fff" />
+
+        <TouchableOpacity style={styles.backBtn}>
+          <Image
+            source={require("../../../assets/back.png")}
+            style={styles.headerIcon}
+          />
         </TouchableOpacity>
 
         <Text style={styles.headerTitle}>Chat box</Text>
@@ -81,63 +93,94 @@ export default function MessageWithRider({ navigation }) {
 
       {/* DRIVER INFO */}
       <View style={styles.profileRow}>
+
         <TouchableOpacity
-        onPress={()=>navigation.navigate("ReviewRider")}>
-        <View style={styles.avatar}/>
+          onPress={() => navigation.navigate("ReviewRider")}
+        >
+          <Image
+            source={require("../../../assets/profile-con.png")}
+            style={styles.avatar}
+          />
         </TouchableOpacity>
+
         <View style={{ flex: 1 }}>
           <Text style={styles.name}>John Franx</Text>
-          <Text style={styles.status}>online</Text>
+          <Text style={styles.status}>Online</Text>
         </View>
 
-        <TouchableOpacity style={styles.iconBtn}
-        onPress={()=> navigation.navigate("CallScreen")}>
-          <Icon name="phone" size={18} />
+        <TouchableOpacity
+          style={styles.iconBtn}
+          onPress={() => navigation.navigate("CallScreen")}
+        >
+          <Image
+            source={require("../../../assets/phone-icon.png")}
+            style={styles.actionIcon}
+          />
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.iconBtn}
-        onPress={()=> navigation.navigate("VideoCallScreen")}>
-          <Icon name="video" size={18} />
+        <TouchableOpacity
+          style={styles.iconBtn}
+          onPress={() => navigation.navigate("VideoCallScreen")}
+        >
+          <Image
+            source={require("../../../assets/vid-icon.png")}
+            style={styles.actionIcon}
+          />
         </TouchableOpacity>
+
       </View>
 
       {/* CHAT AREA */}
       <View style={styles.chatContainer}>
+
         <Text style={styles.date}>FEB 19, 2:32 PM</Text>
 
         <FlatList
           data={messages}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
-          contentContainerStyle={{ paddingBottom: 80 }}
-        />
-      </View>
-
-      {/* INPUT */}
-      <View style={styles.inputRow}>
-        <TextInput
-          placeholder="If you reached call"
-          value={message}
-          onChangeText={setMessage}
-          style={styles.input}
+          contentContainerStyle={{ paddingBottom: 20 }}
+          showsVerticalScrollIndicator={false}
         />
 
-        <TouchableOpacity style={styles.sendBtn}>
-          <Icon name="send" size={18} color="#fff" />
-        </TouchableOpacity>
+        {/* INPUT */}
+        <View style={styles.inputRow}>
+
+          <TextInput
+            placeholder="If you reached call"
+            placeholderTextColor="#999"
+            value={message}
+            onChangeText={setMessage}
+            style={styles.input}
+          />
+
+          <TouchableOpacity style={styles.sendBtn}>
+            <Image
+              source={require("../../../assets/send-icon.png")}
+              style={styles.sendIcon}
+            />
+          </TouchableOpacity>
+
+        </View>
+
       </View>
+
     </View>
-  );
+  </KeyboardAvoidingView>
+);
 }
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#0f766e" },
 
   header: {
-    flexDirection: "row",
-    alignItems: "center",
-    padding: 15,
-  },
+  flexDirection: "row",
+  alignItems: "center",
+  paddingTop: 50,
+  paddingHorizontal: 20,
+  paddingBottom: 20,
+  justifyContent: "center",
+},
 
   headerTitle: {
     color: "#fff",
@@ -146,19 +189,19 @@ const styles = StyleSheet.create({
   },
 
   profileRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    paddingHorizontal: 15,
-    marginBottom: 10,
-  },
+  flexDirection: "row",
+  alignItems: "center",
+  paddingHorizontal: 20,
+  marginBottom: 18,
+},
 
   avatar: {
-    width: 45,
-    height: 45,
-    backgroundColor: "#000",
-    borderRadius: 25,
-    marginRight: 10,
-  },
+  width: 55,
+  height: 55,
+  borderRadius: 30,
+  resizeMode: "cover",
+  marginRight: 14,
+},
 
   name: {
     color: "#fff",
@@ -178,12 +221,13 @@ const styles = StyleSheet.create({
   },
 
   chatContainer: {
-    flex: 1,
-    backgroundColor: "#f3f4f6",
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    padding: 10,
-  },
+  flex: 1,
+  backgroundColor: "#f3f4f6",
+  borderTopLeftRadius: 28,
+  borderTopRightRadius: 28,
+  paddingTop: 14,
+  paddingHorizontal: 14,
+},
 
   date: {
     textAlign: "center",
@@ -236,24 +280,52 @@ const styles = StyleSheet.create({
   },
 
   inputRow: {
-    flexDirection: "row",
-    padding: 10,
-    backgroundColor: "#fff",
-    alignItems: "center",
-  },
+  flexDirection: "row",
+  alignItems: "center",
+  marginBottom: 10,
+  marginTop: 10,
+},
 
   input: {
-    flex: 1,
-    backgroundColor: "#e5e7eb",
-    borderRadius: 20,
-    paddingHorizontal: 15,
-    paddingVertical: 8,
-  },
+  flex: 1,
+  backgroundColor: "#e5e7eb",
+  borderRadius: 25,
+  paddingHorizontal: 18,
+  height: 48,
+  color: "#000",
+},
 
   sendBtn: {
-    backgroundColor: "#0f766e",
-    padding: 12,
-    borderRadius: 25,
-    marginLeft: 8,
-  },
+  width: 48,
+  height: 48,
+  borderRadius: 24,
+  backgroundColor: "#0f766e",
+  justifyContent: "center",
+  alignItems: "center",
+  marginLeft: 10,
+},
+
+backBtn: {
+  position: "absolute",
+  left: 20,
+  top: 50,
+},
+
+headerIcon: {
+  width: 22,
+  height: 22,
+  resizeMode: "contain",
+},
+
+actionIcon: {
+  width: 22,
+  height: 22,
+  resizeMode: "contain",
+},
+
+sendIcon: {
+  width: 20,
+  height: 20,
+  resizeMode: "contain",
+},
 });

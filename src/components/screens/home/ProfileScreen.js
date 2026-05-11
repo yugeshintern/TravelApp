@@ -11,18 +11,73 @@ import Icon from "react-native-vector-icons/Feather";
 
 export default function ProfileScreen({navigation}) {
   const menuItems = [
-    {id:"help", label:"Help", screen:"Help"},
-    {id:"payments", label:"Payments", screen:"Payments"},
-    {id:"parcel", label:"Parcel", screen:"Parcel"},
-    {id:"rides", label:"Ride History", screen:"RideHistory"},
-    {id:"safety", label:"Safety", screen:"SafetyToolkit"},
-    {id:"refer", label:"Refer and Earn", screen:"ReferFriends"},
-    {id:"rewards", label:"My Rewards", screen:"Rewards"},
-    {id:"powerpass", label:"Power Pass", screen:"PowerPass"},
-    {id:"notifications", label:"Notifications", screen:"Notifications"},
-    {id:"claims", label:"Claims", screen:"ClaimInsurance"},
-    { id:"settings", label:"Settings", screen:"Settings" },
-  ];
+  {
+    id: "help",
+    label: "Help",
+    screen: "Help",
+    icon: require("../../../assets/help.png"),
+  },
+  {
+    id: "payments",
+    label: "Payments",
+    screen: "Payments",
+    icon: require("../../../assets/payment.png"),
+  },
+  {
+    id: "parcel",
+    label: "Parcel",
+    screen: "Parcel",
+    icon: require("../../../assets/parcel-ic.png"),
+  },
+  {
+    id: "rides",
+    label: "Ride History",
+    screen: "RideHistory",
+    icon: require("../../../assets/timer-icon.png"),
+  },
+  {
+    id: "safety",
+    label: "Safety",
+    screen: "SafetyToolkit",
+    icon: require("../../../assets/safety.png"),
+  },
+  {
+    id: "refer",
+    label: "Refer and Earn",
+    screen: "ReferFriends",
+    icon: require("../../../assets/refer.png"),
+  },
+  {
+    id: "rewards",
+    label: "My Rewards",
+    screen: "Rewards",
+    icon: require("../../../assets/rewards.png"),
+  },
+  {
+    id: "powerpass",
+    label: "Power Pass",
+    screen: "PowerPass",
+    icon: require("../../../assets/pass.png"),
+  },
+  {
+    id: "notifications",
+    label: "Notifications",
+    screen: "Notifications",
+    icon: require("../../../assets/bell.png"),
+  },
+  {
+    id: "claims",
+    label: "Claims",
+    screen: "ClaimInsurance",
+    icon: require("../../../assets/safety.png"),
+  },
+  {
+    id: "settings",
+    label: "Settings",
+    screen: "Settings",
+    icon: require("../../../assets/settings.png"),
+  },
+];
 
   return (
     <View style={styles.container}>
@@ -42,42 +97,74 @@ export default function ProfileScreen({navigation}) {
       <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
         {/* USER CARD */}
         <View style={styles.card}>
-          <View style={styles.userRow}>
-            <Icon name="user" size={22} />
+  <View style={styles.userRow}>
 
-            <View style={{ marginLeft: 10, flex: 1 }}>
-              <TouchableOpacity
-              onPress={()=> navigation.navigate("ProfileEdit")}>
-              <Text style={styles.name}>Dexter</Text>
-              <Text style={styles.phone}>6625025660</Text>
-              </TouchableOpacity>
-            </View>
+    <Image
+      source={require("../../../assets/profile-con.png")}
+      style={styles.menuIcon}
+    />
 
-            <Icon name="chevron-right" size={18} />
-          </View>
+    <View style={{ marginLeft: 12, flex: 1 }}>
+      <TouchableOpacity
+        onPress={() => navigation.navigate("ProfileEdit")}
+      >
+        <Text style={styles.name}>Dexter</Text>
+        <Text style={styles.phone}>6625025660</Text>
+      </TouchableOpacity>
+    </View>
 
-          <View style={styles.divider} />
+    <Image
+      source={require("../../../assets/right.png")}
+      style={styles.arrowIcon}
+    />
+  </View>
 
-          <View style={styles.userRow}>
-            <Text style={styles.star}>⭐</Text>
-            <Text style={styles.rating}>5.00 My Rating</Text>
-            <View style={{ flex: 1 }} />
-            <Icon name="chevron-right" size={18} />
-          </View>
-        </View>
+  <View style={styles.divider} />
+
+  <View style={styles.userRow}>
+    <Image
+      source={require("../../../assets/star.png")}
+      style={styles.menuIcon}
+    />
+
+    <Text style={styles.rating}>5.00 My Rating</Text>
+
+    <View style={{ flex: 1 }} />
+
+    <Image
+      source={require("../../../assets/right.png")}
+      style={styles.arrowIcon}
+    />
+  </View>
+</View>
 
         {/* MENU LIST */}
 
       {menuItems.map((item) => (
-        <TouchableOpacity
-          key={item.id}
-          style={styles.menuItem}
-          onPress={() => navigation.navigate(item.screen)}
-        >
-          <Text style={styles.menuText}>{item.label}</Text>
-          <Icon name="chevron-right" size={18} />
-        </TouchableOpacity>
-      ))}
+  <TouchableOpacity
+    key={item.id}
+    style={styles.menuItem}
+    onPress={() => navigation.navigate(item.screen)}
+  >
+
+    <View style={styles.menuLeft}>
+      <Image
+        source={item.icon}
+        style={styles.menuIcon}
+      />
+
+      <Text style={styles.menuText}>
+        {item.label}
+      </Text>
+    </View>
+
+    <Image
+      source={require("../../../assets/right.png")}
+      style={styles.arrowIcon}
+    />
+
+  </TouchableOpacity>
+))}
 
         {/* BANNER */}
         <TouchableOpacity
@@ -92,7 +179,10 @@ export default function ProfileScreen({navigation}) {
             </Text>
           </View>
 
-          <Text style={styles.emoji}>🛵</Text>
+          <Image
+  source={require("../../../assets/bike-ban.png")}
+  style={styles.bannerImage}
+/>
         </View>
         </TouchableOpacity>
       </ScrollView>
@@ -137,6 +227,26 @@ const styles = StyleSheet.create({
     padding: 15,
     elevation: 3,
   },
+  menuLeft: {
+  flexDirection: "row",
+  alignItems: "center",
+},
+menuIcon: {
+  width: 22,
+  height: 22,
+  resizeMode: "contain",
+},
+arrowIcon: {
+  width: 18,
+  height: 18,
+  resizeMode: "contain",
+  tintColor: "#444",
+},
+bannerImage: {
+  width: 75,
+  height: 75,
+  resizeMode: "contain",
+},
 
   userRow: {
     flexDirection: "row",

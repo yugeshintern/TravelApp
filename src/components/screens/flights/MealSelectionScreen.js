@@ -4,7 +4,9 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
+  Image,
 } from 'react-native';
+
 import Icon from 'react-native-vector-icons/Feather';
 
 const MealSelectionScreen = ({ navigation }) => {
@@ -15,9 +17,15 @@ const MealSelectionScreen = ({ navigation }) => {
 
       {/* HEADER */}
       <View style={styles.header}>
-        <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>
-          <Icon name="arrow-left" size={20} color="#000" />
-        </TouchableOpacity>
+        <TouchableOpacity
+  style={styles.backBtn}
+  onPress={() => navigation.goBack()}
+>
+  <Image
+    source={require("../../../assets/back.png")}
+    style={styles.backIcon}
+  />
+</TouchableOpacity>
 
         <View>
           <Text style={styles.tripLabel}>Trip to</Text>
@@ -25,80 +33,120 @@ const MealSelectionScreen = ({ navigation }) => {
         </View>
       </View>
 
+      {/* TITLE */}
       <Text style={styles.sectionTitle}>2. Meals</Text>
 
-      {/* MEAL CARD */}
+      {/* NON VEG CARD */}
       <TouchableOpacity
         style={[
           styles.card,
-          selected === 'nonveg' && styles.activeCard
+          selected === 'nonveg' && styles.activeCard,
         ]}
         onPress={() => setSelected('nonveg')}
       >
         <View style={styles.cardRow}>
-          <Icon name="layers" size={28} color="#000" />
 
-          <View style={{ marginLeft: 12 }}>
-            <Text style={styles.mealTitle}>Non Vegetarian Meal</Text>
-            <Text style={styles.price}>Free</Text>
+          <View style={styles.iconCircle}>
+            <Image
+              source={require('../../../assets/veg.png')}
+              style={styles.mealIcon}
+            />
+          </View>
+
+          <View style={styles.textContainer}>
+            <Text style={styles.mealTitle}>
+              Non Vegetarian Meal
+            </Text>
+
+            <Text style={styles.price}>
+              Free
+            </Text>
           </View>
         </View>
 
-        <View style={styles.addBtn}>
+        <TouchableOpacity style={styles.addBtn}>
           <Text style={styles.addText}>
             {selected === 'nonveg' ? 'Added' : 'Add'}
           </Text>
-        </View>
+        </TouchableOpacity>
       </TouchableOpacity>
 
-      {/* SECOND CARD */}
+      {/* VEG CARD */}
       <TouchableOpacity
         style={[
           styles.card,
-          selected === 'veg' && styles.activeCard
+          selected === 'veg' && styles.activeCard,
         ]}
         onPress={() => setSelected('veg')}
       >
         <View style={styles.cardRow}>
-          <Icon name="layers" size={28} color="#000" />
 
-          <View style={{ marginLeft: 12 }}>
-            <Text style={styles.mealTitle}>Vegetarian Meal</Text>
-            <Text style={styles.price}>Free</Text>
+          <View style={styles.iconCircle}>
+            <Image
+              source={require('../../../assets/veg.png')}
+              style={styles.mealIcon}
+            />
+          </View>
+
+          <View style={styles.textContainer}>
+            <Text style={styles.mealTitle}>
+              Vegetarian Meal
+            </Text>
+
+            <Text style={styles.price}>
+              Free
+            </Text>
           </View>
         </View>
 
-        <View style={styles.addBtn}>
+        <TouchableOpacity style={styles.addBtn}>
           <Text style={styles.addText}>
             {selected === 'veg' ? 'Added' : 'Add'}
           </Text>
-        </View>
+        </TouchableOpacity>
       </TouchableOpacity>
 
       {/* FOOTER */}
       <View style={styles.footer}>
+
         <View style={styles.footerRow}>
           <View>
-            <Text style={styles.footerTitle}>1 Meal(s) Selected</Text>
-            <Text style={styles.footerSub}>1 of 1 Meal(s) Selected</Text>
+            <Text style={styles.footerTitle}>
+              1 Meal(s) Selected
+            </Text>
+
+            <Text style={styles.footerSub}>
+              1 of 1 Meal(s) Selected
+            </Text>
           </View>
 
-          <View style={{ alignItems: 'flex-end' }}>
-            <Text style={styles.priceBold}>₹5,718</Text>
-            <Text style={styles.footerSub}>Added to fare</Text>
+          <View style={styles.footerPriceContainer}>
+            <Text style={styles.priceBold}>
+              ₹5,718
+            </Text>
+
+            <Text style={styles.footerSub}>
+              Added to fare
+            </Text>
           </View>
         </View>
 
-        <TouchableOpacity style={styles.cta}
-        onPress={()=> navigation.navigate("Payments")}>
-          <Text style={styles.ctaText}>Continue booking</Text>
+        <TouchableOpacity
+          style={styles.cta}
+          onPress={() => navigation.navigate('Payments')}
+        >
+          <Text style={styles.ctaText}>
+            Continue booking
+          </Text>
         </TouchableOpacity>
+
       </View>
     </View>
   );
 };
 
 export default MealSelectionScreen;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -108,44 +156,58 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 50,
-    paddingHorizontal: 16,
+    marginTop: 72,
+    paddingHorizontal: 22,
   },
 
   backBtn: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
-    backgroundColor: '#EDEDED',
+    width: 46,
+    height: 46,
+    borderRadius: 23,
+    backgroundColor: '#EEF1F1',
     alignItems: 'center',
     justifyContent: 'center',
-    marginRight: 12,
+    marginRight: 18,
   },
 
   tripLabel: {
-    fontSize: 13,
-    color: '#777',
+    fontSize: 15,
+    color: '#8B8B8B',
+    marginBottom: 4,
+    fontWeight: '500',
   },
 
   tripCity: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: '700',
+    color: '#222',
   },
 
   sectionTitle: {
-    marginTop: 20,
-    marginLeft: 16,
-    fontSize: 15,
-    fontWeight: '600',
+    marginTop: 42,
+    marginLeft: 22,
+    fontSize: 18,
+    fontWeight: '700',
+    color: '#222',
   },
 
   card: {
     backgroundColor: '#fff',
-    marginHorizontal: 16,
-    marginTop: 20,
-    borderRadius: 14,
-    padding: 16,
-    elevation: 3,
+    marginHorizontal: 22,
+    marginTop: 24,
+    borderRadius: 22,
+    padding: 24,
+
+    elevation: 4,
+
+    shadowColor: '#000',
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
+
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
   },
 
   activeCard: {
@@ -158,32 +220,53 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
+  iconCircle: {
+    width: 58,
+    height: 58,
+    borderRadius: 29,
+    backgroundColor: '#F5F5F5',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 18,
+  },
+
+  mealIcon: {
+    width: 30,
+    height: 30,
+    resizeMode: 'contain',
+  },
+
+  textContainer: {
+    flex: 1,
+  },
+
   mealTitle: {
-    fontSize: 14,
+    fontSize: 15,
     color: '#555',
     fontWeight: '500',
   },
 
   price: {
-    marginTop: 4,
-    fontSize: 14,
+    marginTop: 6,
+    fontSize: 16,
     fontWeight: '700',
+    color: '#000',
   },
 
   addBtn: {
-    marginTop: 12,
+    marginTop: 18,
     alignSelf: 'flex-start',
     borderWidth: 1,
     borderColor: '#2D74DA',
-    borderRadius: 6,
-    paddingHorizontal: 14,
-    paddingVertical: 4,
+    borderRadius: 8,
+    paddingHorizontal: 22,
+    paddingVertical: 8,
   },
 
   addText: {
     color: '#2D74DA',
-    fontWeight: '600',
-    fontSize: 13,
+    fontWeight: '700',
+    fontSize: 14,
   },
 
   footer: {
@@ -191,41 +274,54 @@ const styles = StyleSheet.create({
     bottom: 0,
     width: '100%',
     backgroundColor: '#fff',
-    padding: 16,
+
+    paddingTop: 16,
+    paddingHorizontal: 22,
+    paddingBottom: 28,
+
     borderTopWidth: 1,
-    borderColor: '#eee',
+    borderColor: '#ECECEC',
   },
 
   footerRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 10,
+    marginBottom: 14,
   },
 
   footerTitle: {
-    fontWeight: '600',
+    fontSize: 16,
+    fontWeight: '700',
+    color: '#222',
   },
 
   footerSub: {
-    fontSize: 12,
+    marginTop: 4,
+    fontSize: 13,
     color: '#777',
   },
 
+  footerPriceContainer: {
+    alignItems: 'flex-end',
+  },
+
   priceBold: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: '700',
+    color: '#111',
   },
 
   cta: {
-    backgroundColor: '#0F7A6C',
-    paddingVertical: 16,
-    borderRadius: 30,
+    backgroundColor: '#0B7F83',
+    paddingVertical: 18,
+    borderRadius: 34,
     alignItems: 'center',
+    marginTop: 4,
   },
 
   ctaText: {
     color: '#fff',
-    fontSize: 16,
-    fontWeight: '600',
+    fontSize: 18,
+    fontWeight: '700',
   },
 });

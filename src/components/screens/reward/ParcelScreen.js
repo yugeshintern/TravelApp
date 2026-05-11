@@ -7,7 +7,6 @@ import {
   TextInput,
   Image,
 } from "react-native";
-import Icon from "react-native-vector-icons/Feather";
 
 export default function ParcelScreen({ navigation }) {
   return (
@@ -17,7 +16,15 @@ export default function ParcelScreen({ navigation }) {
         style={styles.backBtn}
         onPress={() => navigation.goBack()}
       >
-        <Icon name="arrow-left" size={18} />
+        <TouchableOpacity
+  style={styles.backBtn}
+  onPress={() => navigation.goBack()}
+>
+  <Image
+    source={require("../../../assets/back.png")}
+    style={styles.backIcon}
+  />
+</TouchableOpacity>
       </TouchableOpacity>
 
       {/* HEADER */}
@@ -28,12 +35,10 @@ export default function ParcelScreen({ navigation }) {
 
       {/* HERO IMAGE (replace with your asset later) */}
       <Image
-        source={{
-          uri: "https://cdn-icons-png.flaticon.com/512/1046/1046784.png",
-        }}
-        style={styles.hero}
-        resizeMode="contain"
-      />
+  source={require("../../../assets/parcel-ban.png")}
+  style={styles.banner}
+  resizeMode="cover"
+/>
 
       {/* PICKUP CARD */}
       <View style={styles.card}>
@@ -53,14 +58,21 @@ export default function ParcelScreen({ navigation }) {
       </View>
 
       {/* DROP CARD */}
-      <View style={styles.card}>
+      <TouchableOpacity
+  style={styles.card}
+  activeOpacity={0.9}
+  onPress={() => navigation.navigate("DropLocation")}
+>
         <View style={styles.row}>
           <View style={styles.redDot} />
           <View style={{ flex: 1 }}>
             <Text style={styles.label}>Drop to</Text>
 
             <View style={styles.searchBox}>
-              <Icon name="search" size={18} color="#666" />
+              <Image
+  source={require("../../../assets/search-icon.png")}
+  style={styles.searchIcon}
+/>
               <TextInput
                 placeholder="Search drop address"
                 placeholderTextColor="#666"
@@ -69,31 +81,55 @@ export default function ParcelScreen({ navigation }) {
             </View>
           </View>
         </View>
-      </View>
+      </TouchableOpacity>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "#f3f4f6",
-    padding: 15,
-  },
+  flex: 1,
+  backgroundColor: "#f3f4f6",
+  paddingTop: 55,
+},
 
   backBtn: {
-    backgroundColor: "#fff",
-    padding: 8,
-    borderRadius: 25,
-    width: 36,
-    alignItems: "center",
-    elevation: 2,
-  },
+  position: "absolute",
+  top: 55,
+  left: 20,
+  zIndex: 10,
+  width: 42,
+  height: 42,
+  borderRadius: 21,
+  backgroundColor: "#fff",
+  justifyContent: "center",
+  alignItems: "center",
+  elevation: 3,
+},
+
+backIcon: {
+  width: 18,
+  height: 18,
+  resizeMode: "contain",
+},
+
+banner: {
+  width: "100%",
+  height: 180,
+},
+
+searchIcon: {
+  width: 18,
+  height: 18,
+  resizeMode: "contain",
+  tintColor: "#666",
+},
 
   header: {
-    alignItems: "center",
-    marginTop: 10,
-  },
+  alignItems: "center",
+  marginTop: -10,
+  paddingHorizontal: 20,
+},
 
   title: {
     fontSize: 16,
@@ -110,16 +146,17 @@ const styles = StyleSheet.create({
   },
 
   hero: {
-    height: 140,
-    marginVertical: 10,
-  },
+  height: 140,
+  marginVertical: 10,
+},
 
   card: {
-    backgroundColor: "#e5e7eb",
-    borderRadius: 20,
-    padding: 15,
-    marginTop: 15,
-  },
+  backgroundColor: "#e5e7eb",
+  borderRadius: 22,
+  padding: 18,
+  marginHorizontal: 15,
+  marginTop: 16,
+},
 
   row: {
     flexDirection: "row",

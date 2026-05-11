@@ -33,20 +33,41 @@ const HotelsListScreen = ({ navigation }) => {
     <View style={styles.container}>
       
       {/* HEADER */}
-      <View style={styles.header}>
-        <TouchableOpacity style={styles.iconBtn} onPress={() => navigation.goBack()}>
-          <Icon name="arrow-left" size={20} />
-        </TouchableOpacity>
+      {/* HEADER */}
+<View style={styles.header}>
 
-        <Text style={styles.headerTitle}>Chennai</Text>
+  {/* BACK BUTTON */}
+  <TouchableOpacity
+    style={styles.iconBtn}
+    onPress={() => navigation.goBack()}
+  >
+    <Image
+      source={require("../../../assets/back.png")}
+      style={styles.backIcon}
+    />
+  </TouchableOpacity>
 
-        <TouchableOpacity style={styles.iconBtn}>
-          <Icon name="search" size={18} />
-        </TouchableOpacity>
-      </View>
+  {/* CENTER */}
+  <View style={styles.headerCenter}>
+    <Text style={styles.headerTitle}>
+      Chennai
+    </Text>
 
-      {/* DATE TEXT */}
-      <Text style={styles.subHeader}>26 Feb –27 Feb, 2 Adults</Text>
+    <Text style={styles.subHeader}>
+      26 Feb –27 Feb, 2 Adults
+    </Text>
+  </View>
+
+  {/* SEARCH BUTTON */}
+  <TouchableOpacity style={styles.iconBtn}>
+    <Image
+      source={require("../../../assets/search-icon.png")}
+      style={styles.searchIcon}
+    />
+  </TouchableOpacity>
+
+</View>
+
 
       {/* TITLE */}
       <Text style={styles.sectionTitle}>Showing Properties in Chennai</Text>
@@ -100,38 +121,60 @@ const HotelsListScreen = ({ navigation }) => {
 export default HotelsListScreen;
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#F5F6F8',
-    paddingTop: 50,
-  },
+  flex: 1,
+  backgroundColor: '#F5F6F8',
+  paddingTop: 58,
+},
 
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 16,
-  },
+header: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'space-between',
 
-  iconBtn: {
-    width: 38,
-    height: 38,
-    borderRadius: 19,
-    backgroundColor: '#EDEDED',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+  paddingHorizontal: 22,
+},
 
-  headerTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-  },
+iconBtn: {
+  width: 46,
+  height: 46,
+  borderRadius: 23,
 
-  subHeader: {
-    textAlign: 'center',
-    marginTop: 8,
-    fontSize: 13,
-    color: '#777',
-  },
+  backgroundColor: '#EEF1F1',
+
+  alignItems: 'center',
+  justifyContent: 'center',
+},
+
+backIcon: {
+  width: 24,
+  height: 24,
+  resizeMode: 'contain',
+},
+
+searchIcon: {
+  width: 22,
+  height: 22,
+  resizeMode: 'contain',
+},
+
+headerCenter: {
+  alignItems: 'center',
+  justifyContent: 'center',
+},
+
+headerTitle: {
+  fontSize: 20,
+  fontWeight: '700',
+  color: '#333',
+},
+
+subHeader: {
+  marginTop: 10,
+
+  fontSize: 15,
+  color: '#777',
+  fontWeight: '500',
+},
 
   sectionTitle: {
     marginTop: 20,
@@ -148,6 +191,7 @@ const styles = StyleSheet.create({
     padding: 12,
     elevation: 5,
   },
+  
 
   image: {
     width: '100%',

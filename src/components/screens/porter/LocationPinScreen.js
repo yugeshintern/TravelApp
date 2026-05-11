@@ -1,260 +1,306 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
-  StyleSheet,
+ StyleSheet,
   TouchableOpacity,
   TextInput,
   FlatList,
+  KeyboardAvoidingView,
+  Platform,
+  Image,
 } from "react-native";
-import Icon from "react-native-vector-icons/Feather";
 
-const RECENT = [
-  {
-    title: "Egmore Railway Station",
-    sub: "Gandhi Irwin Road, Egmore, Chennai, Tamil Nadu, India",
-  },
-  {
-    title: "Koyambedu Bus Stand",
-    sub: "Koyambedu bus terminus, Koyambedu, Chennai, Tamil N.",
-  },
-  {
-    title: "Phoenix Marketcity",
-    sub: "Velachery Road, Indira Gandhi Nagar, Velachery, Chennai",
-  },
-];
+export default function DropLocationScreen({ navigation }) {
+  const [drop, setDrop] = useState("");
 
-export default function LocationPinScreen({ navigation }) {
+  const locations = [
+    {
+      title: "Egmore Railway Station",
+      sub: "Gandhi Irwin Road, Egmore, Chennai, Tamil Nadu, India",
+    },
+    {
+      title: "Koyambedu Bus Stand",
+      sub: "Koyambedu bus terminus, Chennai, Tamil Nadu",
+    },
+    {
+      title: "Phoenix Marketcity",
+      sub: "Velachery Road, Chennai",
+    },
+  ];
+
+  const renderItem = ({ item }) => (
+  <TouchableOpacity
+    style={styles.locRow}
+    activeOpacity={0.8}
+    onPress={() => navigation.navigate("AddressDetails")}
+  >
+    <Image
+      source={require("../../../assets/loc-icon.png")}
+      style={styles.locationIcon}
+    />
+
+    <View style={{ marginLeft: 12 }}>
+      <Text style={styles.locTitle}>{item.title}</Text>
+      <Text style={styles.locSub}>{item.sub}</Text>
+    </View>
+  </TouchableOpacity>
+);
+
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === "ios" ? "padding" : null}
+    >
       {/* HEADER */}
-      <View style={styles.header}>
+      <View style={styles.headerRow}>
         <TouchableOpacity
           style={styles.backBtn}
           onPress={() => navigation.goBack()}
         >
-          <Icon name="arrow-left" size={18} />
+          <Image
+  source={require("../../../assets/back.png")}
+  style={styles.backIcon}
+/>
         </TouchableOpacity>
 
-        <Text style={styles.title}>Drop</Text>
+        <Text style={styles.header}>Drop to</Text>
       </View>
 
-      {/* TAB SWITCH */}
-      <View style={styles.tabs}>
-        <View style={styles.tab}>
-          <Icon name="activity" size={16} />
-          <Text style={styles.tabText}>Ride</Text>
-        </View>
+      {/* INPUT CARD */}
+      <View style={styles.card}>
+        <View style={styles.row}>
+          {/* DOTS + LINE */}
+          <View style={styles.lineContainer}>
+            <View style={styles.greenDot} />
+            <View style={styles.dashedLine} />
+            <View style={styles.redDot} />
+          </View>
 
-        <View style={[styles.tab, styles.activeTab]}>
-          <Icon name="truck" size={16} />
-          <Text style={styles.tabText}>Porter</Text>
-        </View>
-      </View>
+          <View style={{ flex: 1 }}>
+            <TouchableOpacity
+    style={styles.locRow}
+    activeOpacity={0.8}
+    onPress={() => navigation.navigate("AddressDetails")}
+  ></TouchableOpacity>
+            <Text style={styles.inputTop}>Your Current Location</Text>
 
-      {/* LOCATION BOX */}
-      <TouchableOpacity
-        onPress={()=>navigation.navigate("AddressDetails")}>
-      <View style={styles.locationBox}>
-        <View style={styles.dotRow}>
-          <View style={styles.greenDot} />
-          <View style={styles.line} />
-          <View style={styles.redDot} />
-        </View>
+            <View style={styles.separator} />
 
-        <View style={{ flex: 1 }}>
-          <Text style={styles.inputTop}>
-            Your Current Location
-          </Text>
-
-          <TextInput
-            placeholder="Drop Location"
-            placeholderTextColor="#aaa"
-            style={styles.input}
-          />
+            <TextInput
+              placeholder="Drop Location"
+              placeholderTextColor="#888"
+              value={drop}
+              onChangeText={setDrop}
+              style={styles.input}
+            />
+          </View>
         </View>
       </View>
-      </TouchableOpacity>
 
-      {/* MAP OPTIONS */}
+      {/* SELECT ON MAP */}
       <View style={styles.mapRow}>
         <TouchableOpacity style={styles.mapBtn}>
-          <Icon name="map-pin" size={14} />
+          <Image
+  source={require("../../../assets/loc-icon.png")}
+  style={styles.mapIcon}
+/>
           <Text style={styles.mapText}>Select on map</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.mapBtn}>
-          <Icon name="crosshair" size={14} />
+          <Image
+  source={require("../../../assets/beta.png")}
+  style={styles.mapIcon}
+/>
           <Text style={styles.mapText}>Select on map</Text>
         </TouchableOpacity>
       </View>
 
-      {/* RECENT */}
+      {/* LIST */}
       <FlatList
-        data={RECENT}
+        data={locations}
         keyExtractor={(item, index) => index.toString()}
-        renderItem={({ item }) => (
-          <TouchableOpacity style={styles.recentItem}>
-            <Icon name="clock" size={16} color="#888" />
-            <View style={{ marginLeft: 10 }}>
-              <Text style={styles.recentTitle}>
-                {item.title}
-              </Text>
-              <Text style={styles.recentSub}>
-                {item.sub}
-              </Text>
-            </View>
-          </TouchableOpacity>
-        )}
+        renderItem={renderItem}
+        contentContainerStyle={{ paddingTop: 10 }}
       />
 
-      {/* SEARCH BUTTON (FLOATING) */}
-      <TouchableOpacity style={styles.searchBtn}>
-        <Icon name="search" size={18} color="#fff" />
+      {/* FLOAT SEARCH BUTTON */}
+      <TouchableOpacity style={styles.fab}>
+        <Image
+  source={require("../../../assets/search-icon.png")}
+  style={styles.fabIcon}
+/>
       </TouchableOpacity>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
-/* STYLES */
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "#f5f5f5",
-    padding: 15,
-  },
+  flex: 1,
+  backgroundColor: "#f3f4f6",
+  paddingHorizontal: 15,
+  paddingTop: 55,
+},
 
-  header: {
-    alignItems: "center",
-    marginBottom: 10,
-  },
+  headerRow: {
+  flexDirection: "row",
+  alignItems: "center",
+  marginBottom: 22,
+  position: "relative",
+},
 
   backBtn: {
-    position: "absolute",
-    left: 0,
-    backgroundColor: "#fff",
-    padding: 8,
-    borderRadius: 20,
-  },
+  width: 42,
+  height: 42,
+  borderRadius: 21,
+  backgroundColor: "#fff",
+  justifyContent: "center",
+  alignItems: "center",
+  elevation: 3,
+  position: "absolute",
+  left: 0,
+  zIndex: 10,
+},
 
-  title: {
-    fontWeight: "600",
-    fontSize: 16,
-  },
+backIcon: {
+  width: 18,
+  height: 18,
+  resizeMode: "contain",
+},
 
-  tabs: {
-    flexDirection: "row",
-    borderWidth: 1,
-    borderColor: "#ddd",
-    borderRadius: 10,
-    overflow: "hidden",
-    marginBottom: 15,
-  },
+mapIcon: {
+  width: 16,
+  height: 16,
+  resizeMode: "contain",
+},
 
-  tab: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 10,
-    gap: 6,
-    backgroundColor: "#fff",
-  },
+locationIcon: {
+  width: 20,
+  height: 20,
+  resizeMode: "contain",
+  tintColor: "#777",
+  marginTop: 2,
+},
 
-  activeTab: {
-    backgroundColor: "#eee",
-  },
+fabIcon: {
+  width: 20,
+  height: 20,
+  resizeMode: "contain",
+  tintColor: "#fff",
+},
 
-  tabText: {
-    fontWeight: "500",
-  },
+  header: {
+  flex: 1,
+  textAlign: "center",
+  fontSize: 18,
+  fontWeight: "700",
+  color: "#111",
+},
 
-  locationBox: {
-    flexDirection: "row",
+  card: {
     backgroundColor: "#e5e7eb",
-    borderRadius: 15,
+    borderRadius: 20,
     padding: 15,
-    marginBottom: 15,
   },
 
-  dotRow: {
+  row: {
+    flexDirection: "row",
+  },
+
+  lineContainer: {
     alignItems: "center",
     marginRight: 10,
   },
 
   greenDot: {
-    width: 10,
-    height: 10,
-    borderRadius: 5,
-    backgroundColor: "green",
+    width: 18,
+    height: 18,
+    borderRadius: 9,
+    borderWidth: 4,
+    borderColor: "green",
   },
 
   redDot: {
-    width: 10,
-    height: 10,
-    borderRadius: 5,
-    backgroundColor: "darkred",
+    width: 18,
+    height: 18,
+    borderRadius: 9,
+    borderWidth: 4,
+    borderColor: "darkred",
   },
 
-  line: {
-    width: 2,
-    height: 25,
-    backgroundColor: "#999",
+  dashedLine: {
+    height: 35,
+    borderLeftWidth: 1,
+    borderStyle: "dashed",
+    borderColor: "#666",
+    marginVertical: 2,
   },
 
   inputTop: {
-    fontSize: 13,
-    marginBottom: 5,
+    fontSize: 15,
+    fontWeight: "600",
+  },
+
+  separator: {
+    height: 1,
+    backgroundColor: "#bbb",
+    marginVertical: 8,
   },
 
   input: {
-    borderBottomWidth: 1,
-    borderColor: "#aaa",
-    paddingBottom: 5,
+    fontSize: 15,
+    color: "#333",
   },
 
   mapRow: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginBottom: 15,
+    marginTop: 15,
   },
 
   mapBtn: {
     flexDirection: "row",
+    alignItems: "center",
     borderWidth: 1,
     borderColor: "#ddd",
-    paddingHorizontal: 12,
+    paddingHorizontal: 14,
     paddingVertical: 8,
-    borderRadius: 20,
-    alignItems: "center",
+    borderRadius: 25,
+    gap: 6,
   },
 
   mapText: {
-    marginLeft: 5,
-    fontSize: 12,
+    fontSize: 13,
   },
 
-  recentItem: {
+  locRow: {
     flexDirection: "row",
-    marginBottom: 15,
+    alignItems: "flex-start",
+    marginTop: 20,
   },
 
-  recentTitle: {
-    fontWeight: "500",
+  locTitle: {
+    fontSize: 14,
+    fontWeight: "600",
   },
 
-  recentSub: {
-    fontSize: 11,
-    color: "#777",
+  locSub: {
+    fontSize: 12,
+    color: "#666",
   },
 
-  searchBtn: {
+  fab: {
     position: "absolute",
     bottom: 20,
     right: 20,
     backgroundColor: "#0f766e",
-    padding: 15,
-    borderRadius: 30,
-    elevation: 5,
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    alignItems: "center",
+    justifyContent: "center",
+    elevation: 4,
   },
 });

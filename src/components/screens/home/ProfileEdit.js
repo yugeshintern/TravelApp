@@ -4,137 +4,191 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
+  Image,
+  ScrollView,
 } from "react-native";
-import Icon from "react-native-vector-icons/Feather";
 
 export default function ProfileEdit({ navigation }) {
+
   const fields = [
     {
       label: "Name",
       value: "Dexter",
-      icon: "user",
-      color: "#555",
+      icon: require("../../../assets/prog.png"),
+      color: "#8b8b8b",
     },
     {
       label: "Phone Number",
       value: "+91 6625025660",
-      icon: "phone",
-      color: "#555",
+      icon: require("../../../assets/call.png"),
+      color: "#8b8b8b",
     },
     {
       label: "Email",
       value: "Required",
-      icon: "mail",
-      color: "red",
+      icon: require("../../../assets/msg.png"),
+      color: "#ff5c5c",
     },
     {
       label: "Gender",
       value: "Required",
-      icon: "user-check",
-      color: "red",
+      icon: require("../../../assets/gender.png"),
+      color: "#ff5c5c",
     },
     {
       label: "Date of Birth",
       value: "Required",
-      icon: "calendar",
-      color: "red",
+      icon: require("../../../assets/calender.png"),
+      color: "#ff5c5c",
     },
     {
       label: "Date of Birth",
       value: "Required",
-      icon: "award",
-      color: "red",
+      icon: require("../../../assets/reward.png"),
+      color: "#ff5c5c",
     },
     {
       label: "Emergency contact",
       value: "Add +",
-      icon: "alert-circle",
-      color: "#999",
+      icon: require("../../../assets/emergency.png"),
+      color: "#b1b1b1",
     },
   ];
 
   return (
     <View style={styles.container}>
+
       {/* HEADER */}
       <View style={styles.headerRow}>
+
         <TouchableOpacity
           style={styles.backBtn}
           onPress={() => navigation.goBack()}
         >
-          <Icon name="arrow-left" size={18} />
+          <Image
+            source={require("../../../assets/back.png")}
+            style={styles.backIcon}
+          />
         </TouchableOpacity>
 
         <Text style={styles.header}>Profile</Text>
+
       </View>
 
       {/* LIST */}
-      {fields.map((item, index) => (
-        <TouchableOpacity key={index} style={styles.row}>
-          <Icon
-            name={item.icon}
-            size={18}
-            color="#444"
-            style={styles.icon}
-          />
+      <ScrollView showsVerticalScrollIndicator={false}>
 
-          <View style={{ flex: 1 }}>
-            <Text style={styles.label}>{item.label}</Text>
-            <Text style={[styles.value, { color: item.color }]}>
-              {item.value}
-            </Text>
-          </View>
+        {fields.map((item, index) => (
+          <TouchableOpacity
+            key={index}
+            style={styles.row}
+          >
 
-          <Icon name="chevron-right" size={18} color="#999" />
-        </TouchableOpacity>
-      ))}
+            <Image
+              source={item.icon}
+              style={styles.rowIcon}
+            />
+
+            <View style={{ flex: 1 }}>
+
+              <Text style={styles.label}>
+                {item.label}
+              </Text>
+
+              <Text
+                style={[
+                  styles.value,
+                  { color: item.color },
+                ]}
+              >
+                {item.value}
+              </Text>
+
+            </View>
+
+            <Image
+              source={require("../../../assets/right.png")}
+              style={styles.arrowIcon}
+            />
+
+          </TouchableOpacity>
+        ))}
+
+      </ScrollView>
+
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    paddingHorizontal: 15,
+    paddingHorizontal: 24,
+    paddingTop: 50,
   },
 
   headerRow: {
     flexDirection: "row",
     alignItems: "center",
-    paddingVertical: 15,
+    marginBottom: 25,
   },
 
   backBtn: {
-    backgroundColor: "#e5e7eb",
-    padding: 8,
-    borderRadius: 20,
-    marginRight: 10,
+    width: 42,
+    height: 42,
+    borderRadius: 21,
+    backgroundColor: "#f1f3f2",
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: 16,
+  },
+
+  backIcon: {
+    width: 20,
+    height: 20,
+    resizeMode: "contain",
   },
 
   header: {
-    fontSize: 18,
-    fontWeight: "600",
+    fontSize: 20,
+    fontWeight: "700",
+    color: "#222",
   },
 
   row: {
     flexDirection: "row",
     alignItems: "center",
-    paddingVertical: 18,
+    paddingVertical: 26,
     borderBottomWidth: 1,
-    borderColor: "#eee",
+    borderColor: "#ececec",
   },
 
-  icon: {
-    marginRight: 12,
+  rowIcon: {
+    width: 24,
+    height: 24,
+    resizeMode: "contain",
+    marginRight: 18,
   },
 
   label: {
-    fontSize: 14,
-    color: "#333",
+    fontSize: 17,
+    color: "#3b3b3b",
+    fontWeight: "500",
   },
 
   value: {
-    fontSize: 13,
-    marginTop: 2,
+    fontSize: 14,
+    marginTop: 6,
+    fontWeight: "400",
   },
+
+  arrowIcon: {
+    width: 18,
+    height: 18,
+    resizeMode: "contain",
+    tintColor: "#555",
+  },
+
 });

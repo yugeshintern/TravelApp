@@ -1,81 +1,122 @@
 import React, { useState } from "react";
 import {
   View,
-  Text,
+ Text,
   StyleSheet,
   TouchableOpacity,
+  Image,
+  ImageBackground,
 } from "react-native";
-import Icon from "react-native-vector-icons/Feather";
 
 export default function ParcelVehicleScreen({ navigation }) {
   const [selected, setSelected] = useState("bike");
   const [payAt, setPayAt] = useState("pickup");
 
   const VehicleCard = ({
-    id,
-    title,
-    subtitle,
-    price,
-  }) => (
-    <TouchableOpacity
-      style={[
-        styles.card,
-        selected === id && styles.selectedCard,
-      ]}
-      onPress={() => setSelected(id)}
-    >
-      <View style={styles.rowBetween}>
-        <View>
-          <Text style={styles.title}>{title}</Text>
-          <Text style={styles.sub}>{subtitle}</Text>
-          <Text style={styles.meta}>4 mins away Drop 1:20 pm</Text>
+  id,
+  title,
+  subtitle,
+  price,
+  image,
+}) => (
+  <TouchableOpacity
+    style={[
+      styles.card,
+      selected === id && styles.selectedCard,
+    ]}
+    onPress={() => setSelected(id)}
+  >
+    <View style={styles.rowBetween}>
+      <View style={styles.vehicleLeft}>
+        <View style={styles.vehicleCircle}>
+          <Image
+            source={image}
+            style={styles.vehicleImage}
+          />
         </View>
 
-        <Text style={styles.price}>₹{price}</Text>
+        <View style={{ marginLeft: 12 }}>
+          <Text style={styles.title}>{title}</Text>
+          <Text style={styles.sub}>{subtitle}</Text>
+          <Text style={styles.meta}>
+            4 mins away Drop 1:20 pm
+          </Text>
+        </View>
       </View>
-    </TouchableOpacity>
-  );
+
+      <Text style={styles.price}>₹{price}</Text>
+    </View>
+  </TouchableOpacity>
+);
 
   return (
     <View style={styles.container}>
       {/* MAP */}
-      <View style={styles.map}>
-        <TouchableOpacity
-          style={styles.backBtn}
-          onPress={() => navigation.goBack()}
-        >
-          <Icon name="arrow-left" size={18} />
-        </TouchableOpacity>
-      </View>
+      {/* MAP */}
+<ImageBackground
+  source={require("../../../assets/review_bg.png")}
+  style={styles.map}
+  resizeMode="cover"
+>
+  <TouchableOpacity
+    style={styles.backBtn}
+    onPress={() => navigation.goBack()}
+  >
+    <Image
+      source={require("../../../assets/back.png")}
+      style={styles.backIcon}
+    />
+  </TouchableOpacity>
+</ImageBackground>
 
       {/* BOTTOM SHEET */}
       <View style={styles.sheet}>
         {/* VEHICLES */}
         <VehicleCard
-          id="bike"
-          title="Parcel - Bike or Scooter"
-          subtitle="Send upto 20 kgs"
-          price="181"
-        />
+  id="bike"
+  title="Parcel - Bike or Scooter"
+  subtitle="Send upto 20 kgs"
+  price="181"
+  image={require("../../../assets/parcel-bike.png")}
+/>
 
         <VehicleCard
-          id="auto"
-          title="Parcel - 3 wheeler"
-          subtitle="Send upto 50 kgs"
-          price="309"
-        />
+  id="auto"
+  title="Parcel - 3 wheeler"
+  subtitle="Send upto 50 kgs"
+  price="309"
+  image={require("../../../assets/parcel-bike.png")}
+/>
 
         {/* PAYMENT ROW */}
         <View style={styles.payRow}>
           <TouchableOpacity style={styles.pill}>
-            <Text>💵 Cash</Text>
-          </TouchableOpacity>
+  <View style={styles.pillRow}>
+    <Image
+      source={require("../../../assets/payment.png")}
+      style={styles.pillIcon}
+    />
+    <Text style={styles.pillText}>Cash</Text>
+
+    <Image
+      source={require("../../../assets/right.png")}
+      style={styles.rightIcon}
+    />
+  </View>
+</TouchableOpacity>
 
           <View style={styles.divider} />
 
           <TouchableOpacity style={styles.pill}>
-            <Text>% Offers</Text>
-          </TouchableOpacity>
+  <View style={styles.pillRow}>
+    <Text style={styles.offerText}>% Offers</Text>
+
+    <Image
+      source={require("../../../assets/right.png")}
+      style={styles.rightIcon}
+    />
+  </View>
+</TouchableOpacity>
         </View>
 
         {/* PAY AT */}
@@ -122,7 +163,12 @@ export default function ParcelVehicleScreen({ navigation }) {
         </View>
 
         {/* CTA */}
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity
+  style={styles.button}
+  onPress={() =>
+    navigation.navigate("ParcelLookingRider")
+  }
+>
           <Text style={styles.buttonText}>Book Bike</Text>
         </TouchableOpacity>
       </View>
@@ -134,41 +180,114 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#fff" },
 
   map: {
-    height: 260,
-    backgroundColor: "#ddd",
-  },
+  height: 320,
+  paddingTop: 55,
+  paddingHorizontal: 15,
+},
 
   backBtn: {
-    position: "absolute",
-    top: 20,
-    left: 15,
-    backgroundColor: "#fff",
-    padding: 8,
-    borderRadius: 20,
-    elevation: 3,
-  },
+  width: 42,
+  height: 42,
+  borderRadius: 21,
+  backgroundColor: "#fff",
+  justifyContent: "center",
+  alignItems: "center",
+  elevation: 4,
+},
 
   sheet: {
-    flex: 1,
-    backgroundColor: "#f3f4f6",
-    borderTopLeftRadius: 25,
-    borderTopRightRadius: 25,
-    padding: 15,
-    marginTop: -20,
-  },
+  flex: 1,
+  backgroundColor: "#f8f8f8",
+  borderTopLeftRadius: 28,
+  borderTopRightRadius: 28,
+  padding: 16,
+  marginTop: -25,
+},
 
   card: {
-    backgroundColor: "#fff",
-    padding: 12,
-    borderRadius: 12,
-    marginBottom: 10,
-    borderWidth: 1,
-    borderColor: "#eee",
-  },
+  backgroundColor: "#fff",
+  padding: 14,
+  borderRadius: 16,
+  marginBottom: 12,
+  borderWidth: 1,
+  borderColor: "#eee",
+},
 
   selectedCard: {
-    borderColor: "#000",
-  },
+  borderColor: "#111",
+  borderWidth: 1.5,
+},
+
+backIcon: {
+  width: 18,
+  height: 18,
+  resizeMode: "contain",
+},
+
+vehicleLeft: {
+  flexDirection: "row",
+  alignItems: "center",
+},
+
+vehicleCircle: {
+  width: 52,
+  height: 52,
+  borderRadius: 26,
+  backgroundColor: "#fff",
+  elevation: 3,
+  justifyContent: "center",
+  alignItems: "center",
+},
+
+vehicleImage: {
+  width: 40,
+  height: 40,
+  resizeMode: "contain",
+},
+
+pillRow: {
+  flexDirection: "row",
+  alignItems: "center",
+},
+
+pillIcon: {
+  width: 18,
+  height: 18,
+  resizeMode: "contain",
+  marginRight: 8,
+},
+
+rightIcon: {
+  width: 14,
+  height: 14,
+  resizeMode: "contain",
+  marginLeft: 8,
+},
+
+pillText: {
+  fontSize: 15,
+  fontWeight: "600",
+  color: "#333",
+},
+
+offerText: {
+  fontSize: 15,
+  fontWeight: "600",
+  color: "#333",
+},
+
+payAtTitleRow: {
+  flexDirection: "row",
+  alignItems: "center",
+  marginBottom: 8,
+},
+
+walletIcon: {
+  width: 18,
+  height: 18,
+  resizeMode: "contain",
+  marginRight: 8,
+},
 
   rowBetween: {
     flexDirection: "row",

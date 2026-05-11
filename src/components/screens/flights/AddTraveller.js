@@ -5,10 +5,10 @@ import {
   StyleSheet,
   TouchableOpacity,
   SafeAreaView,
-  TextInput,
+ TextInput,
   ScrollView,
+  Image,
 } from 'react-native';
-import Feather from 'react-native-vector-icons/Feather';
 
 const AddTraveller = ({ navigation }) => {
   const [gender, setGender] = useState(null);
@@ -20,12 +20,18 @@ const AddTraveller = ({ navigation }) => {
 
         {/* HEADER */}
         <View style={styles.header}>
-          <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>
-            <Feather name="arrow-left" size={22} color="#000" />
-          </TouchableOpacity>
+  <TouchableOpacity
+    style={styles.backBtn}
+    onPress={() => navigation.goBack()}
+  >
+    <Image
+      source={require("../../../assets/back.png")}
+      style={styles.backIcon}
+    />
+  </TouchableOpacity>
 
-          <Text style={styles.title}>Add Traveller</Text>
-        </View>
+  <Text style={styles.title}>Add Traveller</Text>
+</View>
 
         {/* INFO CARD */}
         <View style={styles.infoCard}>
@@ -132,28 +138,38 @@ const styles = StyleSheet.create({
 
   /* HEADER */
   header: {
-    alignItems: 'center',
-    marginTop: 10,
-    marginBottom: 10,
-  },
+  alignItems: 'center',
+  justifyContent: 'center',
+  marginTop: 58,
+  marginBottom: 22,
+  paddingHorizontal: 20,
+  position: 'relative',
+  minHeight: 48,
+},
 
   backBtn: {
-    position: 'absolute',
-    left: 20,
-    top: 0,
-    width: 48,
-    height: 48,
-    borderRadius: 24,
-    backgroundColor: '#E6E6E6',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
+  position: 'absolute',
+  left: 20,
+  width: 44,
+  height: 44,
+  borderRadius: 22,
+  backgroundColor: '#ECEEEE',
+  justifyContent: 'center',
+  alignItems: 'center',
+},
+
+backIcon: {
+  width: 20,
+  height: 20,
+  resizeMode: 'contain',
+},
 
   title: {
-    fontSize: 20,
-    fontWeight: '600',
-    color: '#333',
-  },
+  fontSize: 18,
+  fontWeight: '700',
+  color: '#333',
+  textAlign: 'center',
+},
 
   /* INFO CARD */
   infoCard: {

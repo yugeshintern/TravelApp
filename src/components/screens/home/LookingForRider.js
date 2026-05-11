@@ -13,19 +13,19 @@ export default function LookingForRider({ navigation }) {
     <View style={styles.container}>
       {/* MAP */}
       <Image
-        source={{
-          uri: "https://maps.googleapis.com/maps/api/staticmap?center=Chennai&zoom=14&size=600x300",
-        }}
-        style={styles.map}
-      />
+  source={require("../../../assets/city_map.png")}
+  style={styles.map}
+/>
 
-      {/* HEADER */}
-      <Text style={styles.header}>Looking_for_rider</Text>
+      
 
       {/* BACK BUTTON */}
       <TouchableOpacity style={styles.backBtn}
       onPress={()=>navigation.goBack()}>
-        <Icon name="arrow-left" size={18} />
+        <Image
+  source={require("../../../assets/back.png")}
+  style={styles.backIcon}
+/>
       </TouchableOpacity>
 
       {/* BOTTOM SHEET */}
@@ -35,9 +35,18 @@ export default function LookingForRider({ navigation }) {
 
         {/* TITLE */}
         <View style={styles.titleRow}>
-          <Text style={styles.titleSmall}>Looking for your</Text>
-          <Text style={styles.titleBold}> Bike ride</Text>
-        </View>
+
+  <Image
+    source={require("../../../assets/bike-icon.png")}
+    style={styles.bikeIcon}
+  />
+
+  <View>
+    <Text style={styles.titleSmall}>Looking for your</Text>
+    <Text style={styles.titleBold}>Bike ride</Text>
+  </View>
+
+</View>
 
         {/* LOCATION DETAILS */}
         <Text style={styles.section}>Location Details</Text>
@@ -113,6 +122,32 @@ const styles = StyleSheet.create({
     color: "#2563eb",
     fontSize: 18,
   },
+
+  backIcon: {
+  width: 18,
+  height: 18,
+  resizeMode: "contain",
+},
+
+bikeIcon: {
+  width: 28,
+  height: 28,
+  resizeMode: "contain",
+  marginRight: 12,
+},
+
+cashRow: {
+  flexDirection: "row",
+  alignItems: "center",
+  marginTop: 6,
+},
+
+cashIcon: {
+  width: 18,
+  height: 18,
+  resizeMode: "contain",
+  marginRight: 8,
+},
 
   backBtn: {
     position: "absolute",

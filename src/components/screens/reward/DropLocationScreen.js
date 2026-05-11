@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import {
   View,
   Text,
-  StyleSheet,
+ StyleSheet,
   TouchableOpacity,
   TextInput,
   FlatList,
   KeyboardAvoidingView,
   Platform,
+  Image,
 } from "react-native";
-import Icon from "react-native-vector-icons/Feather";
 
 export default function DropLocationScreen({ navigation }) {
   const [drop, setDrop] = useState("");
@@ -30,14 +30,22 @@ export default function DropLocationScreen({ navigation }) {
   ];
 
   const renderItem = ({ item }) => (
-    <View style={styles.locRow}>
-      <Icon name="clock" size={18} color="#888" />
-      <View style={{ marginLeft: 10 }}>
-        <Text style={styles.locTitle}>{item.title}</Text>
-        <Text style={styles.locSub}>{item.sub}</Text>
-      </View>
+  <TouchableOpacity
+    style={styles.locRow}
+    activeOpacity={0.8}
+    onPress={() => navigation.navigate("AddressAdding")}
+  >
+    <Image
+      source={require("../../../assets/loc-icon.png")}
+      style={styles.locationIcon}
+    />
+
+    <View style={{ marginLeft: 12 }}>
+      <Text style={styles.locTitle}>{item.title}</Text>
+      <Text style={styles.locSub}>{item.sub}</Text>
     </View>
-  );
+  </TouchableOpacity>
+);
 
   return (
     <KeyboardAvoidingView
@@ -50,7 +58,10 @@ export default function DropLocationScreen({ navigation }) {
           style={styles.backBtn}
           onPress={() => navigation.goBack()}
         >
-          <Icon name="arrow-left" size={18} />
+          <Image
+  source={require("../../../assets/back.png")}
+  style={styles.backIcon}
+/>
         </TouchableOpacity>
 
         <Text style={styles.header}>Drop to</Text>
@@ -67,6 +78,11 @@ export default function DropLocationScreen({ navigation }) {
           </View>
 
           <View style={{ flex: 1 }}>
+            <TouchableOpacity
+    style={styles.locRow}
+    activeOpacity={0.8}
+    onPress={() => navigation.navigate("AddressAdding")}
+  ></TouchableOpacity>
             <Text style={styles.inputTop}>Your Current Location</Text>
 
             <View style={styles.separator} />
@@ -85,12 +101,18 @@ export default function DropLocationScreen({ navigation }) {
       {/* SELECT ON MAP */}
       <View style={styles.mapRow}>
         <TouchableOpacity style={styles.mapBtn}>
-          <Icon name="map-pin" size={16} />
+          <Image
+  source={require("../../../assets/loc-icon.png")}
+  style={styles.mapIcon}
+/>
           <Text style={styles.mapText}>Select on map</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.mapBtn}>
-          <Icon name="crosshair" size={16} />
+          <Image
+  source={require("../../../assets/beta.png")}
+  style={styles.mapIcon}
+/>
           <Text style={styles.mapText}>Select on map</Text>
         </TouchableOpacity>
       </View>
@@ -105,36 +127,77 @@ export default function DropLocationScreen({ navigation }) {
 
       {/* FLOAT SEARCH BUTTON */}
       <TouchableOpacity style={styles.fab}>
-        <Icon name="search" size={20} color="#fff" />
+        <Image
+  source={require("../../../assets/search-icon.png")}
+  style={styles.fabIcon}
+/>
       </TouchableOpacity>
     </KeyboardAvoidingView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#f3f4f6", padding: 15 },
+  container: {
+  flex: 1,
+  backgroundColor: "#f3f4f6",
+  paddingHorizontal: 15,
+  paddingTop: 55,
+},
 
   headerRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 10,
-  },
+  flexDirection: "row",
+  alignItems: "center",
+  marginBottom: 22,
+  position: "relative",
+},
 
   backBtn: {
-    backgroundColor: "#fff",
-    padding: 8,
-    borderRadius: 20,
-    elevation: 2,
-    marginRight: 10,
-  },
+  width: 42,
+  height: 42,
+  borderRadius: 21,
+  backgroundColor: "#fff",
+  justifyContent: "center",
+  alignItems: "center",
+  elevation: 3,
+  position: "absolute",
+  left: 0,
+  zIndex: 10,
+},
+
+backIcon: {
+  width: 18,
+  height: 18,
+  resizeMode: "contain",
+},
+
+mapIcon: {
+  width: 16,
+  height: 16,
+  resizeMode: "contain",
+},
+
+locationIcon: {
+  width: 20,
+  height: 20,
+  resizeMode: "contain",
+  tintColor: "#777",
+  marginTop: 2,
+},
+
+fabIcon: {
+  width: 20,
+  height: 20,
+  resizeMode: "contain",
+  tintColor: "#fff",
+},
 
   header: {
-    fontSize: 16,
-    fontWeight: "600",
-    flex: 1,
-    textAlign: "center",
-    marginRight: 40,
-  },
+  flex: 1,
+  textAlign: "center",
+  fontSize: 18,
+  fontWeight: "700",
+  color: "#111",
+},
 
   card: {
     backgroundColor: "#e5e7eb",

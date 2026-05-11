@@ -56,13 +56,16 @@ export default function VehicleChoosing({navigation}) {
     <View style={styles.container}>
       {/* MAP */}
       <Image
-        source={{ uri: "https://maps.googleapis.com/maps/api/staticmap?center=Chennai&zoom=14&size=600x300" }}
-        style={styles.map}
-      />
+  source={require("../../../assets/city_map.png")}
+  style={styles.map}
+/>
 
       {/* BACK BUTTON */}
       <TouchableOpacity style={styles.backBtn}>
-        <Icon name="arrow-left" size={20} />
+        <Image
+  source={require("../../../assets/back.png")}
+  style={styles.backIcon}
+/>
       </TouchableOpacity>
 
       {/* BOTTOM SHEET */}
@@ -84,7 +87,24 @@ export default function VehicleChoosing({navigation}) {
             >
               {/* ICON */}
               <View style={styles.iconBox}>
-                <Icon name="truck" size={20} />
+                <Image
+                  source={
+                    item.name === "Bike"
+                      ? require("../../../assets/bike-icon.png")
+                      : item.name === "Scooty"
+                      ? require("../../../assets/scooty.png")
+                      : item.name === "Auto"
+                      ? require("../../../assets/auto.png")
+                      : item.name === "Auto Priority"
+                      ? require("../../../assets/3w.png")
+                      : item.name === "Cab Economy"
+                      ? require("../../../assets/car.png")
+                      : item.name === "Cab Premium"
+                      ? require("../../../assets/pickup.png")
+                      : require("../../../assets/tataace.png")
+                  }
+                  style={styles.vehicleIcon}
+                />
               </View>
 
               {/* TEXT */}
@@ -153,6 +173,30 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 20,
     padding: 15,
   },
+
+  backIcon: {
+  width: 18,
+  height: 18,
+  resizeMode: "contain",
+},
+
+vehicleIcon: {
+  width: 26,
+  height: 26,
+  resizeMode: "contain",
+},
+
+chipContent: {
+  flexDirection: "row",
+  alignItems: "center",
+  gap: 6,
+},
+
+chipIcon: {
+  width: 14,
+  height: 14,
+  resizeMode: "contain",
+},
 
   offer: {
     textAlign: "center",

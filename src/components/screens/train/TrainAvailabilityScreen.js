@@ -5,6 +5,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
+  Image,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 
@@ -35,7 +36,15 @@ const TrainAvailabilityScreen = ({ navigation }) => {
         {/* HEADER */}
         <View style={styles.header}>
           <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>
-            <Icon name="arrow-left" size={20} />
+            <TouchableOpacity
+  style={styles.backBtn}
+  onPress={() => navigation.goBack()}
+>
+  <Image
+    source={require("../../../assets/back.png")}
+    style={styles.backIcon}
+  />
+</TouchableOpacity>
           </TouchableOpacity>
 
           <Text style={styles.title}>20605 Ms Tcn Sf Exp</Text>

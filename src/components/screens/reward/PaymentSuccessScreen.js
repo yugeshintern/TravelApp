@@ -4,9 +4,8 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
+  Image,
 } from "react-native";
-import Icon from "react-native-vector-icons/Feather";
-
 export default function PaymentSuccessScreen({ navigation }) {
   return (
     <View style={styles.container}>
@@ -16,7 +15,10 @@ export default function PaymentSuccessScreen({ navigation }) {
           style={styles.backBtn}
           onPress={() => navigation.navigate("Home")}
         >
-          <Icon name="arrow-left" size={18} color={"#000"} />
+          <Image
+  source={require("../../../assets/back.png")}
+  style={styles.backIcon}
+/>
         </TouchableOpacity>
       </View>
 
@@ -24,7 +26,10 @@ export default function PaymentSuccessScreen({ navigation }) {
       <View style={styles.center}>
         {/* GREEN CHECK CIRCLE */}
         <View style={styles.circle}>
-          <Icon name="check" size={50} color="#fff" />
+          <Image
+  source={require("../../../assets/done.png")}
+  style={styles.tickIcon}
+/>
         </View>
 
         {/* TEXT */}
@@ -37,23 +42,37 @@ export default function PaymentSuccessScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "#f3f4f6",
-  },
+  flex: 1,
+  backgroundColor: "#f3f4f6",
+  paddingTop: 55,
+},
 
   headerRow: {
-    padding: 15,
-  },
+  paddingHorizontal: 15,
+},
 
   backBtn: {
-    backgroundColor: "#fff",
-    padding: 8,
-    borderRadius: 20,
-    width: 36,
-    alignItems: "center",
-    justifyContent: "center",
-    elevation: 2,
-  },
+  backgroundColor: "#fff",
+  width: 42,
+  height: 42,
+  borderRadius: 21,
+  alignItems: "center",
+  justifyContent: "center",
+  elevation: 3,
+},
+
+backIcon: {
+  width: 18,
+  height: 18,
+  resizeMode: "contain",
+},
+
+tickIcon: {
+  width: 52,
+  height: 52,
+  resizeMode: "contain",
+  tintColor: "#fff",
+},
 
   center: {
     flex: 1,

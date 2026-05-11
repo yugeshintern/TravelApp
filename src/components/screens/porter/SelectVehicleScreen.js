@@ -5,20 +5,81 @@ import {
   StyleSheet,
   TouchableOpacity,
   FlatList,
+  Image,
+  SafeAreaView,
 } from "react-native";
-import Icon from "react-native-vector-icons/Feather";
 
 const VEHICLES = [
-  { id: "1", name: "2 Wheeler", sub: "20Kg 12 mins", price: "₹67" },
-  { id: "2", name: "Scooter", sub: "20Kg 14 mins", price: "₹77" },
-  { id: "3", name: "Mini 3W", sub: "50Kg 17 mins", price: "₹121" },
-  { id: "4", name: "Pickup 9ft", sub: "1700Kg 13 mins", price: "₹682" },
-  { id: "5", name: "3 Wheeler", sub: "500Kg 16 mins", price: "₹287" },
-  { id: "6", name: "Tata Ace (Any)", sub: "750Kg 18 mins", price: "₹337" },
-  { id: "7", name: "Pickup 8ft", sub: "1200Kg 18 mins", price: "₹432" },
-  { id: "8", name: "Tata 407", sub: "2500Kg", price: "₹1212" },
-  { id: "9", name: "14Ft", sub: "3500Kg 28 mins", price: "₹2276" },
-  { id: "10", name: "17Ft", sub: "4500Kg 16 mins", price: "₹2076" },
+  {
+    id: "1",
+    name: "2 Wheeler",
+    sub: "20Kg 12 mins",
+    price: "₹67",
+    image: require("../../../assets/bike-icon.png"),
+  },
+  {
+    id: "2",
+    name: "Scooter",
+    sub: "20Kg 14 mins",
+    price: "₹77",
+    image: require("../../../assets/scooty.png"),
+  },
+  {
+    id: "3",
+    name: "Mini 3W",
+    sub: "50Kg 17 mins",
+    price: "₹121",
+    image: require("../../../assets/mini3w.png"),
+  },
+  {
+    id: "4",
+    name: "Pickup 9ft",
+    sub: "1700Kg 13 mins",
+    price: "₹682",
+    image: require("../../../assets/pickup.png"),
+  },
+  {
+    id: "5",
+    name: "3 Wheeler",
+    sub: "500Kg 16 mins",
+    price: "₹287",
+    image: require("../../../assets/3w.png"),
+  },
+  {
+    id: "6",
+    name: "Tata Ace (Any)",
+    sub: "750Kg 18 mins",
+    price: "₹337",
+    image: require("../../../assets/tataace.png"),
+  },
+  {
+    id: "7",
+    name: "Pickup 8ft",
+    sub: "1200Kg 18 mins",
+    price: "₹432",
+    image: require("../../../assets/pickup.png"),
+  },
+  {
+    id: "8",
+    name: "Tata 407",
+    sub: "2500Kg",
+    price: "₹1212",
+    image: require("../../../assets/tata407.png"),
+  },
+  {
+    id: "9",
+    name: "14Ft",
+    sub: "3500Kg 28 mins",
+    price: "₹2276",
+    image: require("../../../assets/truck.png"),
+  },
+  {
+    id: "10",
+    name: "17Ft",
+    sub: "4500Kg 16 mins",
+    price: "₹2076",
+    image: require("../../../assets/truck2.png"),
+  },
 ];
 
 export default function SelectVehicleScreen({ navigation }) {
@@ -29,18 +90,31 @@ export default function SelectVehicleScreen({ navigation }) {
 
     return (
       <TouchableOpacity
-        style={[styles.card, isSelected && styles.selectedCard]}
+        activeOpacity={0.9}
+        style={[
+          styles.card,
+          isSelected && styles.selectedCard,
+        ]}
         onPress={() => setSelected(item.id)}
       >
-        {/* ICON */}
+        {/* VEHICLE IMAGE */}
         <View style={styles.iconBox}>
-          <Icon name="truck" size={22} />
+          <Image
+            source={item.image}
+            style={styles.vehicleImage}
+            resizeMode="contain"
+          />
         </View>
 
         {/* TEXT */}
         <View style={{ flex: 1 }}>
-          <Text style={styles.vehicleName}>{item.name}</Text>
-          <Text style={styles.vehicleSub}>{item.sub}</Text>
+          <Text style={styles.vehicleName}>
+            {item.name}
+          </Text>
+
+          <Text style={styles.vehicleSub}>
+            {item.sub}
+          </Text>
         </View>
 
         {/* PRICE */}
@@ -50,36 +124,51 @@ export default function SelectVehicleScreen({ navigation }) {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       {/* HEADER */}
       <View style={styles.header}>
         <TouchableOpacity
           style={styles.backBtn}
           onPress={() => navigation.goBack()}
         >
-          <Icon name="arrow-left" size={18} />
+          <Image
+            source={require("../../../assets/back.png")}
+            style={styles.backIcon}
+          />
         </TouchableOpacity>
 
-        <Text style={styles.headerTitle}>Select Vehicle</Text>
+        <Text style={styles.headerTitle}>
+          Select Vehicle
+        </Text>
+
+        <View style={{ width: 45 }} />
       </View>
 
       {/* ROUTE CARD */}
       <View style={styles.routeCard}>
         <View style={styles.dotColumn}>
           <View style={styles.greenDot} />
+
           <View style={styles.dashed} />
+
           <View style={styles.redDot} />
         </View>
 
         <View style={{ flex: 1 }}>
-          <Text style={styles.name}>John, 9988008899</Text>
+          <Text style={styles.name}>
+            John, 9988008899
+          </Text>
+
           <Text style={styles.address}>
             Gandhi Irwin Road, Egmore, Chennai, Tamil Nadu...
           </Text>
 
           <View style={styles.divider} />
 
-          <Text style={styles.name}>Rejna, 8899009988</Text>
+          <Text style={styles.name}>
+            Rejna, 8899009988
+          </Text>
+
           <Text style={styles.address}>
             Gandhi Irwin Road, Egmore, Chennai, Tamil Nadu...
           </Text>
@@ -89,18 +178,32 @@ export default function SelectVehicleScreen({ navigation }) {
       {/* ACTION ROW */}
       <View style={styles.actionRow}>
         <TouchableOpacity style={styles.pill}>
-          <Icon name="map-pin" size={14} />
-          <Text style={styles.pillText}>Select on map</Text>
+          <Image
+            source={require("../../../assets/loc-icon.png")}
+            style={styles.pillIcon}
+          />
+
+          <Text style={styles.pillText}>
+            Select on map
+          </Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.pill}>
-          <Icon name="plus" size={14} />
-          <Text style={styles.pillText}>Add Stop</Text>
+          <Image
+            source={require("../../../assets/beta.png")}
+            style={styles.pillIcon}
+          />
+
+          <Text style={styles.pillText}>
+            Add Stop
+          </Text>
         </TouchableOpacity>
       </View>
 
       {/* TITLE */}
-      <Text style={styles.sectionTitle}>Choose your vehicle</Text>
+      <Text style={styles.sectionTitle}>
+        Choose your vehicle
+      </Text>
 
       {/* LIST */}
       <FlatList
@@ -108,179 +211,248 @@ export default function SelectVehicleScreen({ navigation }) {
         keyExtractor={(item) => item.id}
         renderItem={renderItem}
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 120 }}
+        contentContainerStyle={{
+          paddingBottom: 140,
+          paddingTop: 5,
+        }}
       />
 
-      {/* CTA */}
-      <TouchableOpacity style={styles.button}
-      onPress={()=> navigation.navigate("SelectGoodsType")}>
-        <Text style={styles.buttonText}>
-          Confirm and Proceed
-        </Text>
-      </TouchableOpacity>
-    </View>
+      {/* BUTTON */}
+      <View style={styles.bottomContainer}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() =>
+            navigation.navigate("SelectGoodsType")
+          }
+        >
+          <Text style={styles.buttonText}>
+            Confirm and Proceed
+          </Text>
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
   );
 }
 
-/* STYLES */
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#f6f7f9" },
+  container: {
+    flex: 1,
+    backgroundColor: "#f5f5f5",
+    paddingTop: 10,
+  },
 
+  /* HEADER */
   header: {
     flexDirection: "row",
     alignItems: "center",
-    padding: 16,
+    justifyContent: "space-between",
+    paddingHorizontal: 18,
+    paddingTop: 14,
+    paddingBottom: 18,
   },
 
   backBtn: {
-    backgroundColor: "#e5e7eb",
-    padding: 8,
-    borderRadius: 20,
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    backgroundColor: "#e9eceb",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  backIcon: {
+    width: 22,
+    height: 22,
+    resizeMode: "contain",
   },
 
   headerTitle: {
-    flex: 1,
-    textAlign: "center",
-    fontSize: 16,
-    fontWeight: "600",
-    marginRight: 30,
+    fontSize: 18,
+    fontWeight: "700",
+    color: "#222",
   },
 
+  /* ROUTE CARD */
   routeCard: {
     flexDirection: "row",
-    backgroundColor: "#eef1f3",
-    margin: 16,
-    borderRadius: 16,
-    padding: 14,
+    backgroundColor: "#edf1f1",
+    marginHorizontal: 18,
+    borderRadius: 22,
+    padding: 18,
   },
 
   dotColumn: {
     alignItems: "center",
-    marginRight: 10,
+    marginRight: 14,
   },
 
   greenDot: {
-    width: 10,
-    height: 10,
-    borderRadius: 5,
-    backgroundColor: "green",
+    width: 16,
+    height: 16,
+    borderRadius: 8,
+    borderWidth: 4,
+    borderColor: "green",
+    backgroundColor: "#fff",
   },
 
   redDot: {
-    width: 10,
-    height: 10,
-    borderRadius: 5,
-    backgroundColor: "#8b0000",
+    width: 16,
+    height: 16,
+    borderRadius: 8,
+    borderWidth: 4,
+    borderColor: "#8b0000",
+    backgroundColor: "#fff",
   },
 
   dashed: {
-    height: 30,
-    borderLeftWidth: 1,
+    flex: 1,
+    borderLeftWidth: 2,
     borderStyle: "dashed",
-    borderColor: "#999",
+    borderColor: "#666",
     marginVertical: 4,
   },
 
   name: {
-    fontSize: 14,
-    fontWeight: "600",
+    fontSize: 15,
+    fontWeight: "700",
+    color: "#222",
   },
 
   address: {
-    fontSize: 11,
+    fontSize: 12,
     color: "#777",
+    marginTop: 6,
+    lineHeight: 18,
   },
 
   divider: {
     height: 1,
-    backgroundColor: "#ddd",
-    marginVertical: 8,
+    backgroundColor: "#d8d8d8",
+    marginVertical: 14,
   },
 
+  /* ACTIONS */
   actionRow: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginHorizontal: 16,
-    marginBottom: 10,
+    marginHorizontal: 18,
+    marginTop: 16,
+    marginBottom: 22,
   },
 
   pill: {
     flexDirection: "row",
     alignItems: "center",
+    backgroundColor: "#fff",
     borderWidth: 1,
-    borderColor: "#ddd",
-    borderRadius: 20,
-    paddingVertical: 6,
-    paddingHorizontal: 12,
+    borderColor: "#e1e1e1",
+    borderRadius: 28,
+    paddingVertical: 12,
+    paddingHorizontal: 18,
+  },
+
+  pillIcon: {
+    width: 18,
+    height: 18,
+    resizeMode: "contain",
   },
 
   pillText: {
-    marginLeft: 6,
-    fontSize: 12,
-  },
-
-  sectionTitle: {
+    marginLeft: 8,
     fontSize: 14,
-    fontWeight: "600",
-    marginLeft: 16,
-    marginBottom: 10,
+    fontWeight: "500",
+    color: "#333",
   },
 
+  /* TITLE */
+  sectionTitle: {
+    marginHorizontal: 18,
+    marginBottom: 14,
+    fontSize: 17,
+    fontWeight: "700",
+    color: "#222",
+  },
+
+  /* VEHICLE CARD */
   card: {
     flexDirection: "row",
     alignItems: "center",
-    padding: 14,
-    marginHorizontal: 16,
-    marginBottom: 10,
     backgroundColor: "#fff",
-    borderRadius: 14,
-    elevation: 2,
+    marginHorizontal: 18,
+    marginBottom: 14,
+    borderRadius: 20,
+    paddingVertical: 18,
+    paddingHorizontal: 16,
+    elevation: 3,
+    shadowColor: "#000",
+    shadowOpacity: 0.08,
+    shadowRadius: 4,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
   },
 
   selectedCard: {
-    borderWidth: 1.5,
+    borderWidth: 2,
     borderColor: "#0f766e",
   },
 
   iconBox: {
-    width: 45,
-    height: 45,
-    borderRadius: 25,
-    backgroundColor: "#f1f1f1",
+    width: 62,
+    height: 62,
+    borderRadius: 31,
+    backgroundColor: "#f2f2f2",
     alignItems: "center",
     justifyContent: "center",
-    marginRight: 12,
+    marginRight: 16,
+  },
+
+  vehicleImage: {
+    width: 42,
+    height: 42,
   },
 
   vehicleName: {
-    fontSize: 14,
-    fontWeight: "600",
+    fontSize: 16,
+    fontWeight: "700",
+    color: "#222",
   },
 
   vehicleSub: {
-    fontSize: 11,
+    fontSize: 13,
     color: "#777",
+    marginTop: 4,
   },
 
   price: {
-    fontSize: 14,
-    fontWeight: "600",
+    fontSize: 17,
+    fontWeight: "700",
+    color: "#222",
+  },
+
+  /* BUTTON */
+  bottomContainer: {
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: "#f5f5f5",
+    paddingHorizontal: 18,
+    paddingTop: 10,
+    paddingBottom: 20,
   },
 
   button: {
-    position: "absolute",
-    bottom: 20,
-    left: 16,
-    right: 16,
-    backgroundColor: "#0f766e",
-    padding: 16,
-    borderRadius: 30,
+    backgroundColor: "#0b7d7d",
+    borderRadius: 32,
+    paddingVertical: 18,
     alignItems: "center",
   },
 
   buttonText: {
     color: "#fff",
-    fontWeight: "600",
-    fontSize: 14,
+    fontSize: 17,
+    fontWeight: "700",
   },
 });

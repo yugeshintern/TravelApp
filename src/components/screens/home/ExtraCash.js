@@ -17,20 +17,16 @@ export default function ExtraCash({ navigation }) {
     <View style={styles.container}>
       {/* MAP */}
       <Image
-        source={{
-          uri: "https://maps.googleapis.com/maps/api/staticmap?center=Chennai&zoom=14&size=600x300",
-        }}
-        style={styles.map}
-      />
+  source={require("../../../assets/city_map.png")}
+  style={styles.map}
+/>
 
-      {/* HEADER */}
-      <Text style={styles.header}>
-        extra_cash_adding_for_rider
-      </Text>
-
-      {/* BACK BUTTON */}
+            {/* BACK BUTTON */}
       <TouchableOpacity style={styles.backBtn}>
-        <Icon name="arrow-left" size={18} />
+        <Image
+  source={require("../../../assets/back.png")}
+  style={styles.backIcon}
+/>
       </TouchableOpacity>
 
       {/* BOTTOM SHEET */}
@@ -40,11 +36,23 @@ export default function ExtraCash({ navigation }) {
 
         {/* TITLE */}
         <View style={styles.titleRow}>
-          <Text style={styles.titleSmall}>
-            Looking for your
-          </Text>
-          <Text style={styles.titleBold}> Bike ride</Text>
-        </View>
+
+  <Image
+    source={require("../../../assets/bike.png")}
+    style={styles.bikeIcon}
+  />
+
+  <View>
+    <Text style={styles.titleSmall}>
+      Looking for your
+    </Text>
+
+    <Text style={styles.titleBold}>
+      Bike ride
+    </Text>
+  </View>
+
+</View>
 
         {/* RIDE BOX */}
         <View style={styles.rideBox}>
@@ -143,10 +151,25 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
 
+  backIcon: {
+  width: 18,
+  height: 18,
+  resizeMode: "contain",
+},
+
+bikeIcon: {
+  width: 24,
+  height: 24,
+  resizeMode: "contain",
+  marginRight: 12,
+  marginTop: 2,
+},
+
   titleRow: {
-    flexDirection: "row",
-    marginBottom: 10,
-  },
+  flexDirection: "row",
+  alignItems: "center",
+  marginBottom: 14,
+},
 
   titleSmall: {
     color: "#444",

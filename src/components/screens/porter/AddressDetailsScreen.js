@@ -6,63 +6,90 @@ import {
   TouchableOpacity,
   TextInput,
   ScrollView,
+  Image,
+  ImageBackground,
 } from "react-native";
-import Icon from "react-native-vector-icons/Feather";
 
-export default function AddressDetailsScreen({ navigation }) {
-  const [selected, setSelected] = useState("Home");
+export default function AddressAddingScreen({ navigation }) {
+  const [selected, setSelected] = useState("home");
   const [useMyNumber, setUseMyNumber] = useState(false);
+
+  const Chip = ({ label, value, icon }) => (
+  <TouchableOpacity
+    style={[
+      styles.chip,
+      selected === value && styles.chipActive,
+    ]}
+    onPress={() => setSelected(value)}
+  >
+    <Image source={icon} style={styles.chipIcon} />
+
+    <Text
+      style={[
+        styles.chipText,
+        selected === value && { color: "#0f766e" },
+      ]}
+    >
+      {label}
+    </Text>
+  </TouchableOpacity>
+);
 
   return (
     <View style={styles.container}>
-      {/* MAP */}
-      <View style={styles.map}>
-        <TouchableOpacity
-          style={styles.backBtn}
-          onPress={() => navigation.goBack()}
-        >
-          <Icon name="arrow-left" size={18} />
-        </TouchableOpacity>
-      </View>
+      {/* MAP PLACEHOLDER */}
+      {/* MAP BACKGROUND */}
+<ImageBackground
+  source={require("../../../assets/review_bg.png")}
+  style={styles.map}
+  resizeMode="cover"
+>
+  <TouchableOpacity
+    style={styles.backBtn}
+    onPress={() => navigation.goBack()}
+  >
+    <Image
+      source={require("../../../assets/back.png")}
+      style={styles.backIcon}
+    />
+  </TouchableOpacity>
+</ImageBackground>
 
       {/* BOTTOM SHEET */}
       <View style={styles.sheet}>
         <ScrollView showsVerticalScrollIndicator={false}>
           {/* LOCATION */}
-          <View style={styles.locationRow}>
-            <Icon name="map-pin" size={18} color="#b91c1c" />
-
-            <View style={{ flex: 1, marginLeft: 10 }}>
-              <Text style={styles.locationTitle}>
-                Sholinganallur
-              </Text>
-              <Text style={styles.locationSub}>
-                Sholinganallur, Chennai, Tamil Nadu, India
-              </Text>
+          <View style={styles.rowBetween}>
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <Image
+  source={require("../../../assets/loc-icon.png")}
+  style={styles.locationIcon}
+/>
+              <View style={{ marginLeft: 8 }}>
+                <Text style={styles.title}>Sholinganallur</Text>
+                <Text style={styles.sub}>
+                  Chennai, Tamil Nadu, India
+                </Text>
+              </View>
             </View>
 
-            <TouchableOpacity>
-              <Text style={styles.changeText}>Change</Text>
-            </TouchableOpacity>
+            <Text style={styles.change}>Change</Text>
           </View>
 
           {/* INPUTS */}
           <TextInput
-            placeholder="House / Apartment / Shop(optional)"
-            placeholderTextColor="#999"
+            placeholder="House / Apartment / Shop (optional)"
             style={styles.input}
           />
 
           <TextInput
             placeholder="Receiver’s Name"
-            placeholderTextColor="#999"
             style={styles.input}
           />
 
           <TextInput
             placeholder="Receiver’s Mobile Number"
-            placeholderTextColor="#999"
-            keyboardType="phone-pad"
+            keyboardType="number-pad"
             style={styles.input}
           />
 
@@ -77,42 +104,41 @@ export default function AddressDetailsScreen({ navigation }) {
                 useMyNumber && styles.checkboxActive,
               ]}
             />
-
             <Text style={styles.checkboxText}>
               Use my mobile number: 99880 08899
             </Text>
           </TouchableOpacity>
 
           {/* SAVE AS */}
-          <Text style={styles.saveLabel}>Save as (optional)</Text>
+          <Text style={styles.saveText}>Save as (optional)</Text>
 
-          <View style={styles.chipsRow}>
-            {["Home", "Shop", "Other"].map((item) => (
-              <TouchableOpacity
-                key={item}
-                style={[
-                  styles.chip,
-                  selected === item && styles.activeChip,
-                ]}
-                onPress={() => setSelected(item)}
-              >
-                <Text
-                  style={[
-                    styles.chipText,
-                    selected === item && styles.activeChipText,
-                  ]}
-                >
-                  {item}
-                </Text>
-              </TouchableOpacity>
-            ))}
-          </View>
+          <View style={styles.chipRow}>
+  <Chip
+    label="Home"
+    value="home"
+    icon={require("../../../assets/home-fill.png")}
+  />
 
-          {/* CTA */}
-          <TouchableOpacity style={styles.button}
-          onPress={()=> navigation.navigate("SelectVehicle")}>
+  <Chip
+    label="Shop"
+    value="shop"
+    icon={require("../../../assets/shop.png")}
+  />
+
+  <Chip
+    label="Other"
+    value="other"
+    icon={require("../../../assets/fav.png")}
+  />
+</View>
+
+          {/* BUTTON */}
+          <TouchableOpacity
+  style={styles.button}
+  onPress={() => navigation.navigate("SelectVehicle")}
+>
             <Text style={styles.buttonText}>
-              Confirm and Proceed
+              Confirm drop details
             </Text>
           </TouchableOpacity>
         </ScrollView>
@@ -121,81 +147,93 @@ export default function AddressDetailsScreen({ navigation }) {
   );
 }
 
-/* STYLES */
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-  },
+  container: { flex: 1, backgroundColor: "#fff" },
 
   map: {
-    height: "40%",
-    backgroundColor: "#ddd",
-  },
-
+  height: 290,
+  paddingTop: 55,
+  paddingHorizontal: 15,
+},
   backBtn: {
-    position: "absolute",
-    top: 40,
-    left: 15,
-    backgroundColor: "#fff",
-    padding: 8,
-    borderRadius: 20,
-    elevation: 3,
-  },
+  width: 42,
+  height: 42,
+  borderRadius: 21,
+  backgroundColor: "#fff",
+  justifyContent: "center",
+  alignItems: "center",
+  elevation: 4,
+},
+backIcon: {
+  width: 18,
+  height: 18,
+  resizeMode: "contain",
+},
+
+locationIcon: {
+  width: 20,
+  height: 20,
+  resizeMode: "contain",
+  tintColor: "#8b2c2c",
+},
+
+chipIcon: {
+  width: 16,
+  height: 16,
+  resizeMode: "contain",
+  marginRight: 8,
+},
+
 
   sheet: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#f9fafb",
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
-    padding: 18,
+    padding: 15,
     marginTop: -20,
   },
 
-  locationRow: {
+  rowBetween: {
     flexDirection: "row",
+    justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: 15,
   },
 
-  locationTitle: {
-    fontWeight: "600",
-    fontSize: 14,
-  },
+  title: { fontSize: 15, fontWeight: "600" },
+  sub: { fontSize: 12, color: "#666" },
 
-  locationSub: {
-    fontSize: 11,
-    color: "#777",
-  },
-
-  changeText: {
+  change: {
     color: "#2563eb",
-    fontSize: 12,
+    fontSize: 13,
     fontWeight: "500",
   },
 
   input: {
-    borderWidth: 1,
-    borderColor: "#e5e7eb",
-    borderRadius: 12,
-    padding: 12,
-    marginBottom: 12,
-    fontSize: 13,
-  },
+  borderWidth: 1,
+  borderColor: "#ddd",
+  borderRadius: 25,
+  paddingHorizontal: 18,
+  paddingVertical: 14,
+  marginTop: 14,
+  fontSize: 15,
+  color: "#111",
+  backgroundColor: "#fff",
+},
 
   checkboxRow: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 15,
+    marginTop: 12,
   },
 
   checkbox: {
     width: 18,
     height: 18,
-    borderWidth: 1,
-    borderColor: "#999",
+    borderWidth: 1.5,
+    borderColor: "#888",
     borderRadius: 4,
-    marginRight: 10,
+    marginRight: 8,
   },
 
   checkboxActive: {
@@ -203,56 +241,53 @@ const styles = StyleSheet.create({
     borderColor: "#0f766e",
   },
 
-  checkboxText: {
-    fontSize: 12,
-    color: "#333",
+  checkboxText: { fontSize: 13 },
+
+  saveText: {
+    marginTop: 15,
+    fontSize: 13,
+    color: "#444",
   },
 
-  saveLabel: {
-    fontSize: 12,
-    marginBottom: 10,
-    color: "#666",
-  },
-
-  chipsRow: {
+  chipRow: {
     flexDirection: "row",
-    marginBottom: 20,
+    gap: 10,
+    marginTop: 10,
   },
 
   chip: {
-    borderWidth: 1,
-    borderColor: "#ddd",
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    borderRadius: 20,
-    marginRight: 10,
-  },
+  borderWidth: 1,
+  borderColor: "#ddd",
+  paddingHorizontal: 16,
+  paddingVertical: 10,
+  borderRadius: 22,
+  flexDirection: "row",
+  alignItems: "center",
+  backgroundColor: "#fff",
+},
 
-  activeChip: {
+  chipActive: {
     borderColor: "#0f766e",
-    backgroundColor: "#e6f4f3",
+    backgroundColor: "#e6fffa",
   },
 
   chipText: {
-    fontSize: 12,
-  },
-
-  activeChipText: {
-    color: "#0f766e",
-    fontWeight: "600",
-  },
+  fontSize: 15,
+  color: "#111",
+  fontWeight: "500",
+},
 
   button: {
+    marginTop: 20,
     backgroundColor: "#0f766e",
-    padding: 16,
+    paddingVertical: 14,
     borderRadius: 30,
     alignItems: "center",
-    marginBottom: 20,
   },
 
   buttonText: {
     color: "#fff",
+    fontSize: 15,
     fontWeight: "600",
-    fontSize: 14,
   },
 });

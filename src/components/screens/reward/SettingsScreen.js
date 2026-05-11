@@ -5,98 +5,105 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
+  Image,
 } from "react-native";
-import Icon from "react-native-vector-icons/Feather";
 
 export default function SettingsScreen({ navigation }) {
   const general = [
-    {
-      title: "Profile",
-      sub: "+6625025660",
-      icon: "user",
-    },
-    {
-      title: "Favourites",
-      sub: "Manage favourite locations",
-      icon: "heart",
-    },
-    {
-      title: "Preferencec",
-      sub: "Manage preferences",
-      icon: "sliders",
-    },
-    {
-      title: "App shortcuts",
-      sub: "Create shortcuts on home launcher",
-      icon: "grid",
-    },
-  ];
+  {
+    title: "Profile",
+    sub: "+6625025660",
+    icon: require("../../../assets/prog.png"),
+  },
+  {
+    title: "Favourites",
+    sub: "Manage favourite locations",
+    icon: require("../../../assets/fav.png"),
+  },
+  {
+    title: "Preferencec",
+    sub: "Manage preferences",
+    icon: require("../../../assets/pef.png"),
+  },
+  {
+    title: "App shortcuts",
+    sub: "Create shortcuts on home launcher",
+    icon: require("../../../assets/opd.png"),
+  },
+];
 
   const others = [
-    {
-      title: "About",
-      sub: "8.95.0",
-      icon: "info",
-    },
-    {
-      title: "Subscribe to Beta",
-      sub: "Get early access to latest features",
-      icon: "cpu",
-    },
-    {
-      title: "Logout",
-      sub: "",
-      icon: "log-out",
-    },
-    {
-      title: "Delete Account",
-      sub: "",
-      icon: "trash-2",
-      danger: true,
-    },
-  ];
+  {
+    title: "About",
+    sub: "8.95.0",
+    icon: require("../../../assets/i.png"),
+  },
+  {
+    title: "Subscribe to Beta",
+    sub: "Get early access to latest features",
+    icon: require("../../../assets/beta.png"),
+  },
+  {
+    title: "Logout",
+    sub: "",
+    icon: require("../../../assets/logout.png"),
+  },
+  {
+    title: "Delete Account",
+    sub: "",
+    icon: require("../../../assets/del.png"),
+    danger: true,
+  },
+];
 
   const renderItem = (item, index) => (
-    <TouchableOpacity key={index} style={styles.row}>
-      <Icon
-        name={item.icon}
-        size={18}
-        color={item.danger ? "red" : "#444"}
-        style={styles.icon}
-      />
+  <TouchableOpacity key={index} style={styles.row}>
 
-      <View style={{ flex: 1 }}>
-        <Text
-          style={[
-            styles.title,
-            item.danger && { color: "red" },
-          ]}
-        >
-          {item.title}
-        </Text>
+    <Image
+      source={item.icon}
+      style={styles.menuIcon}
+    />
 
-        {item.sub !== "" && (
-          <Text style={styles.sub}>{item.sub}</Text>
-        )}
-      </View>
+    <View style={{ flex: 1 }}>
+      <Text
+        style={[
+          styles.title,
+          item.danger && { color: "red" },
+        ]}
+      >
+        {item.title}
+      </Text>
 
-      <Icon name="chevron-right" size={18} color="#999" />
-    </TouchableOpacity>
-  );
+      {item.sub !== "" && (
+        <Text style={styles.sub}>{item.sub}</Text>
+      )}
+    </View>
+
+    <Image
+      source={require("../../../assets/right.png")}
+      style={styles.rightIcon}
+    />
+
+  </TouchableOpacity>
+);
 
   return (
     <View style={styles.container}>
       {/* HEADER */}
-      <View style={styles.headerRow}>
-        <TouchableOpacity
-          style={styles.backBtn}
-          onPress={() => navigation.goBack()}
-        >
-          <Icon name="arrow-left" size={18} />
-        </TouchableOpacity>
+      {/* HEADER */}
+<View style={styles.headerRow}>
+  <TouchableOpacity
+    style={styles.backBtn}
+    onPress={() => navigation.goBack()}
+  >
+    <Image
+      source={require("../../../assets/back.png")}
+      style={styles.backIcon}
+    />
+  </TouchableOpacity>
 
-        <Text style={styles.header}>Settings</Text>
-      </View>
+  <Text style={styles.header}>Settings</Text>
+</View>
 
       <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
         {/* GENERAL */}
@@ -119,10 +126,29 @@ export default function SettingsScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "#f3f4f6",
-    paddingHorizontal: 15,
-  },
+  flex: 1,
+  backgroundColor: "#f3f4f6",
+  paddingHorizontal: 15,
+  paddingTop: 50,
+},
+backIcon: {
+  width: 18,
+  height: 18,
+  resizeMode: "contain",
+},
+
+menuIcon: {
+  width: 20,
+  height: 20,
+  resizeMode: "contain",
+  marginRight: 14,
+},
+
+rightIcon: {
+  width: 16,
+  height: 16,
+  resizeMode: "contain",
+},
 
   headerRow: {
     flexDirection: "row",

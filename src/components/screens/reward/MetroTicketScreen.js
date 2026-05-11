@@ -4,8 +4,8 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
+  Image,
 } from "react-native";
-import Icon from "react-native-vector-icons/Feather";
 
 export default function MetroTicketScreen({ navigation }) {
   const [count, setCount] = useState(1);
@@ -18,7 +18,10 @@ export default function MetroTicketScreen({ navigation }) {
           style={styles.backBtn}
           onPress={() => navigation.goBack()}
         >
-          <Icon name="arrow-left" size={18} />
+          <Image
+  source={require("../../../assets/back.png")}
+  style={styles.backIcon}
+/>
         </TouchableOpacity>
 
         <Text style={styles.header}>Proceed to Pay</Text>
@@ -73,7 +76,10 @@ export default function MetroTicketScreen({ navigation }) {
       {/* COUPON */}
       <TouchableOpacity style={styles.couponRow}>
         <Text style={styles.couponText}>METRO Applied</Text>
-        <Icon name="chevron-right" size={18} />
+        <Image
+  source={require("../../../assets/right.png")}
+  style={styles.rightIcon}
+/>
       </TouchableOpacity>
 
       {/* BOTTOM BAR */}
@@ -84,7 +90,7 @@ export default function MetroTicketScreen({ navigation }) {
         </View>
 
         <TouchableOpacity style={styles.payBtn}
-        onPress={()=> navigation.navigate("MetroPayment")}>
+        onPress={()=> navigation.navigate("Payments")}>
           <Text style={styles.payText}>Proceed to Pay</Text>
         </TouchableOpacity>
       </View>
@@ -94,28 +100,51 @@ export default function MetroTicketScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "#f3f4f6",
-    padding: 15,
-  },
+  flex: 1,
+  backgroundColor: "#f3f4f6",
+  paddingHorizontal: 15,
+  paddingTop: 55,
+},
 
   headerRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 15,
-  },
+  flexDirection: "row",
+  alignItems: "center",
+  marginBottom: 25,
+  position: "relative",
+},
 
   backBtn: {
-    backgroundColor: "#e5e7eb",
-    padding: 8,
-    borderRadius: 20,
-    marginRight: 10,
-  },
+  width: 42,
+  height: 42,
+  borderRadius: 21,
+  backgroundColor: "#e5e7eb",
+  justifyContent: "center",
+  alignItems: "center",
+  position: "absolute",
+  left: 0,
+  zIndex: 10,
+},
 
   header: {
-    fontSize: 16,
-    fontWeight: "600",
-  },
+  flex: 1,
+  textAlign: "center",
+  fontSize: 18,
+  fontWeight: "700",
+  color: "#222",
+},
+
+backIcon: {
+  width: 18,
+  height: 18,
+  resizeMode: "contain",
+},
+
+rightIcon: {
+  width: 16,
+  height: 16,
+  resizeMode: "contain",
+  tintColor: "#444",
+},
 
   routeCard: {
     backgroundColor: "#e5e7eb",
@@ -207,15 +236,16 @@ const styles = StyleSheet.create({
   },
 
   couponRow: {
-    backgroundColor: "#fff",
-    borderRadius: 12,
-    padding: 15,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    borderWidth: 1,
-    borderColor: "#ddd",
-  },
+  backgroundColor: "#fff",
+  borderRadius: 14,
+  paddingVertical: 18,
+  paddingHorizontal: 15,
+  flexDirection: "row",
+  justifyContent: "space-between",
+  alignItems: "center",
+  borderWidth: 1,
+  borderColor: "#d9d9d9",
+},
 
   couponText: {
     fontSize: 13,
@@ -223,15 +253,17 @@ const styles = StyleSheet.create({
   },
 
   bottom: {
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: "#fff",
-    padding: 15,
-    borderTopWidth: 1,
-    borderColor: "#eee",
-  },
+  position: "absolute",
+  bottom: 0,
+  left: 0,
+  right: 0,
+  backgroundColor: "#fff",
+  paddingHorizontal: 15,
+  paddingTop: 15,
+  paddingBottom: 25,
+  borderTopWidth: 1,
+  borderColor: "#eee",
+},
 
   total: {
     fontSize: 14,

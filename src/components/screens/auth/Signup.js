@@ -8,6 +8,7 @@ import {
   ScrollView,
   StatusBar,
 } from "react-native";
+import SocialLoginRow from '../../../components/common/SocialLoginRow';
 
 const Signup = ({ navigation }) => {
   const [formData, setFormData] = useState({
@@ -39,6 +40,7 @@ const Signup = ({ navigation }) => {
           {/* INPUTS */}
           <TextInput
             placeholder="Enter Name"
+            placeholderTextColor="#999"
             style={styles.input}
             value={formData.name}
             onChangeText={(text) =>
@@ -49,6 +51,7 @@ const Signup = ({ navigation }) => {
           <TextInput
             placeholder="Enter Email Address"
             style={styles.input}
+            placeholderTextColor="#999"
             value={formData.email}
             onChangeText={(text) =>
               setFormData({ ...formData, email: text })
@@ -59,6 +62,7 @@ const Signup = ({ navigation }) => {
             placeholder="Enter Your Password"
             secureTextEntry
             style={styles.input}
+            placeholderTextColor="#999"
             value={formData.password}
             onChangeText={(text) =>
               setFormData({ ...formData, password: text })
@@ -69,6 +73,7 @@ const Signup = ({ navigation }) => {
             placeholder="Confirm Your Password"
             secureTextEntry
             style={styles.input}
+            placeholderTextColor="#999"
             value={formData.confirmPassword}
             onChangeText={(text) =>
               setFormData({
@@ -106,7 +111,10 @@ const Signup = ({ navigation }) => {
             <Text style={styles.buttonText}>Signup</Text>
           </TouchableOpacity>
 
-          {/* LOGIN LINK */}
+          {/* Social */}
+          <SocialLoginRow label="or Log in with" />
+
+{/* LOGIN LINK */}
           <TouchableOpacity
             onPress={() => navigation.navigate("Login")}
           >
@@ -168,13 +176,14 @@ const styles = StyleSheet.create({
   },
 
   input: {
-    borderWidth: 1,
-    borderColor: "#E5E5E5",
-    borderRadius: 12,
-    padding: 14,
-    marginBottom: 12,
-    fontSize: 14,
-  },
+  borderWidth: 1,
+  borderColor: "#E5E5E5",
+  borderRadius: 12,
+  padding: 14,
+  marginBottom: 12,
+  fontSize: 14,
+  color: "#000",
+ },
 
   checkboxRow: {
     flexDirection: "row",

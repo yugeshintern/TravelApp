@@ -111,9 +111,12 @@ const TravellerClassScreen = ({ navigation }) => {
         </View>
 
         {/* CTA */}
-        <TouchableOpacity style={styles.cta}>
-          <Text style={styles.ctaText}>Done</Text>
-        </TouchableOpacity>
+        <TouchableOpacity
+  style={styles.cta}
+  onPress={() => navigation.goBack()}
+>
+  <Text style={styles.ctaText}>Done</Text>
+</TouchableOpacity>
       </View>
     </View>
   );

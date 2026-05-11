@@ -5,125 +5,332 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
+  Image,
 } from "react-native";
-import Icon from "react-native-vector-icons/Feather";
 
-export default function SeatSelectionScreen({ navigation }) {
-  const [selectedSeats, setSelectedSeats] = useState([]);
+export default function SeatSelectionScreen({
+  navigation,
+}) {
+  const [selectedSeats, setSelectedSeats] =
+    useState([]);
 
-  const toggleSeat = (id, price) => {
-    const exists = selectedSeats.find((s) => s.id === id);
+  const toggleSeat = (
+    id,
+    price,
+    type
+  ) => {
+    if (type === "booked") return;
+
+    const exists = selectedSeats.find(
+      (s) => s.id === id
+    );
 
     if (exists) {
-      setSelectedSeats(selectedSeats.filter((s) => s.id !== id));
+      setSelectedSeats(
+        selectedSeats.filter(
+          (s) => s.id !== id
+        )
+      );
     } else {
-      setSelectedSeats([...selectedSeats, { id, price }]);
+      setSelectedSeats([
+        ...selectedSeats,
+        { id, price },
+      ]);
     }
   };
 
-  const total = selectedSeats.reduce((sum, s) => sum + s.price, 0);
+  const total =
+    selectedSeats.reduce(
+      (sum, s) => sum + s.price,
+      0
+    );
+
+  const lowerDeck = [
+    {
+      id: 1,
+      type: "female",
+      price: 350,
+    },
+    {
+      id: 2,
+      type: "booked",
+      price: 350,
+    },
+    {
+      id: 3,
+      type: "available",
+      price: 350,
+    },
+    {
+      id: 4,
+      type: "available",
+      price: 350,
+    },
+    {
+      id: 5,
+      type: "booked",
+      price: 350,
+    },
+    {
+      id: 6,
+      type: "available",
+      price: 550,
+    },
+    {
+      id: 7,
+      type: "available",
+      price: 550,
+    },
+  ];
+
+  const upperDeck = [
+    {
+      id: 11,
+      type: "booked",
+      price: 350,
+    },
+    {
+      id: 12,
+      type: "available",
+      price: 550,
+    },
+    {
+      id: 13,
+      type: "available",
+      price: 550,
+    },
+    {
+      id: 14,
+      type: "available",
+      price: 550,
+    },
+  ];
 
   const renderSeat = (seat) => {
-    let style = styles.available;
+    const isSelected =
+      selectedSeats.find(
+        (s) => s.id === seat.id
+      );
 
-    if (seat.type === "booked") style = styles.booked;
-    if (seat.type === "female") style = styles.female;
-    if (seat.type === "male") style = styles.male;
-    if (selectedSeats.find((s) => s.id === seat.id))
-      style = styles.selected;
+    let seatStyle = styles.available;
+
+    if (seat.type === "booked") {
+      seatStyle = styles.booked;
+    }
+
+    if (seat.type === "male") {
+      seatStyle = styles.male;
+    }
+
+    if (seat.type === "female") {
+      seatStyle = styles.female;
+    }
+
+    if (isSelected) {
+      seatStyle = styles.selected;
+    }
 
     return (
       <TouchableOpacity
         key={seat.id}
-        style={[styles.seat, style]}
-        disabled={seat.type === "booked"}
-        onPress={() => toggleSeat(seat.id, seat.price)}
+        activeOpacity={0.8}
+        style={[
+          styles.seatContainer,
+          seatStyle,
+        ]}
+        onPress={() =>
+          toggleSeat(
+            seat.id,
+            seat.price,
+            seat.type
+          )
+        }
       >
-        <Text style={styles.priceText}>₹{seat.price}</Text>
+        <View style={styles.seatTop} />
+
+        <View style={styles.seatBottom}>
+          <Text
+            style={[
+              styles.seatPrice,
+              isSelected && {
+                color: "#fff",
+              },
+            ]}
+          >
+            ₹{seat.price}
+          </Text>
+        </View>
       </TouchableOpacity>
     );
   };
 
-  const lowerDeck = [
-    { id: 1, type: "female", price: 350 },
-    { id: 2, type: "booked", price: 350 },
-    { id: 3, type: "available", price: 350 },
-    { id: 4, type: "available", price: 350 },
-    { id: 5, type: "booked", price: 350 },
-    { id: 6, type: "available", price: 550 },
-    { id: 7, type: "available", price: 550 },
-  ];
+  const renderLegend = (
+    label,
+    styleType
+  ) => (
+    <View
+      style={styles.legendRow}
+      key={label}
+    >
+      <View
+        style={[
+          styles.legendSeat,
+          styleType,
+        ]}
+      />
 
-  const upperDeck = [
-    { id: 11, type: "booked", price: 350 },
-    { id: 12, type: "available", price: 550 },
-    { id: 13, type: "available", price: 550 },
-    { id: 14, type: "available", price: 550 },
-  ];
+      <Text style={styles.legendText}>
+        {label}
+      </Text>
+    </View>
+  );
 
   return (
     <View style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView
+        showsVerticalScrollIndicator={
+          false
+        }
+        contentContainerStyle={{
+          paddingBottom: 180,
+        }}
+      >
         {/* HEADER */}
         <View style={styles.header}>
           <TouchableOpacity
             style={styles.backBtn}
-            onPress={() => navigation.goBack()}
+            onPress={() =>
+              navigation.goBack()
+            }
           >
-            <Icon name="arrow-left" size={18} />
+            <Image
+              source={require("../../../assets/back.png")}
+              style={styles.backIcon}
+            />
           </TouchableOpacity>
 
           <Text style={styles.route}>
-            Tambaram <Text style={{ fontSize: 16 }}>→</Text> Salem
+            Tambaram{" "}
+            <Text style={styles.arrow}>
+              →
+            </Text>{" "}
+            Salem
           </Text>
         </View>
 
-        <Text style={styles.step}>1. Select seats</Text>
+        {/* STEP */}
+        <Text style={styles.step}>
+          1. Select seats
+        </Text>
 
         {/* DECKS */}
         <View style={styles.deckRow}>
           {/* LOWER */}
-          <View style={styles.deck}>
-            <Text style={styles.deckTitle}>Lower deck</Text>
+          <View style={styles.deckCard}>
+            <View
+              style={styles.deckHeader}
+            >
+              <Text
+                style={styles.deckTitle}
+              >
+                Lower deck
+              </Text>
+
+              <Image
+                source={require("../../../assets/steering-wheel.png")}
+                style={
+                  styles.steeringIcon
+                }
+              />
+            </View>
+
             <View style={styles.grid}>
-              {lowerDeck.map(renderSeat)}
+              {lowerDeck.map(
+                renderSeat
+              )}
             </View>
           </View>
 
           {/* UPPER */}
-          <View style={styles.deck}>
-            <Text style={styles.deckTitle}>Upper deck</Text>
+          <View style={styles.deckCard}>
+            <Text
+              style={styles.deckTitle}
+            >
+              Upper deck
+            </Text>
+
             <View style={styles.grid}>
-              {upperDeck.map(renderSeat)}
+              {upperDeck.map(
+                renderSeat
+              )}
             </View>
           </View>
         </View>
 
         {/* LEGEND */}
-        <Text style={styles.legendTitle}>Know your seat types</Text>
+        <Text style={styles.legendTitle}>
+          Know your seat types
+        </Text>
 
         <View style={styles.legendBox}>
-          {renderLegend("Available", styles.available)}
-          {renderLegend("Available only for male", styles.male)}
-          {renderLegend("Already booked", styles.booked)}
-          {renderLegend("Selected by you", styles.selected)}
-          {renderLegend("Available only for female", styles.female)}
-        </View>
+          {renderLegend(
+            "Available",
+            styles.available
+          )}
 
-        <View style={{ height: 100 }} />
+          {renderLegend(
+            "Available only for male",
+            styles.male
+          )}
+
+          {renderLegend(
+            "Already booked",
+            styles.booked
+          )}
+
+          {renderLegend(
+            "Selected by you",
+            styles.selected
+          )}
+
+          {renderLegend(
+            "Available only for female",
+            styles.female
+          )}
+        </View>
       </ScrollView>
 
       {/* FOOTER */}
       <View style={styles.footer}>
-        <Text style={styles.footerText}>
-          {selectedSeats.length} Seats
-        </Text>
-        <Text style={styles.footerPrice}>₹{total}</Text>
+        <View
+          style={styles.footerTop}
+        >
+          <Text
+            style={styles.footerSeats}
+          >
+            {selectedSeats.length} Seats
+          </Text>
 
-        <TouchableOpacity style={styles.button}
-        onPress={()=> navigation.navigate("BoardingDropping")}>
-          <Text style={styles.buttonText}>
-            Select boarding & droping Points
+          <Text
+            style={styles.footerPrice}
+          >
+            ₹{total}
+          </Text>
+        </View>
+
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() =>
+            navigation.navigate(
+              "BoardingDropping"
+            )
+          }
+        >
+          <Text
+            style={styles.buttonText}
+          >
+            Select boarding &
+            dropping Points
           </Text>
         </TouchableOpacity>
       </View>
@@ -131,164 +338,241 @@ export default function SeatSelectionScreen({ navigation }) {
   );
 }
 
-/* LEGEND ITEM */
-const renderLegend = (label, colorStyle) => (
-  <View style={styles.legendItem} key={label}>
-    <View style={[styles.legendSeat, colorStyle]} />
-    <Text style={styles.legendText}>{label}</Text>
-  </View>
-);
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#f3f3f3",
   },
 
+  /* HEADER */
   header: {
-    padding: 15,
+    paddingTop: 55,
+    paddingHorizontal: 16,
+    marginBottom: 18,
   },
 
   backBtn: {
-    backgroundColor: "#fff",
-    padding: 8,
-    borderRadius: 20,
-    width: 36,
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: "#eef1ef",
+    justifyContent: "center",
     alignItems: "center",
-    marginBottom: 10,
+    elevation: 2,
+    marginBottom: 22,
+  },
+
+  backIcon: {
+    width: 18,
+    height: 18,
+    resizeMode: "contain",
   },
 
   route: {
     textAlign: "center",
-    fontSize: 16,
-    fontWeight: "600",
+    fontSize: 20,
+    fontWeight: "700",
+    color: "#222",
+  },
+
+  arrow: {
+    fontSize: 22,
+    fontWeight: "700",
   },
 
   step: {
-    marginLeft: 15,
-    fontSize: 14,
-    fontWeight: "500",
-    marginBottom: 10,
+    fontSize: 18,
+    fontWeight: "700",
+    color: "#222",
+    marginLeft: 18,
+    marginBottom: 18,
   },
 
+  /* DECK */
   deckRow: {
     flexDirection: "row",
     justifyContent: "space-between",
-    paddingHorizontal: 10,
+    paddingHorizontal: 16,
   },
 
-  deck: {
-    backgroundColor: "#fff",
+  deckCard: {
     width: "48%",
-    borderRadius: 15,
-    padding: 10,
-    elevation: 3,
+    backgroundColor: "#fff",
+    borderRadius: 24,
+    padding: 14,
+    elevation: 5,
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowRadius: 5,
+  },
+
+  deckHeader: {
+    flexDirection: "row",
+    justifyContent:
+      "space-between",
+    alignItems: "center",
+    marginBottom: 16,
   },
 
   deckTitle: {
-    fontWeight: "600",
-    marginBottom: 10,
+    fontSize: 16,
+    fontWeight: "700",
+    color: "#333",
+  },
+
+  steeringIcon: {
+    width: 24,
+    height: 24,
+    resizeMode: "contain",
   },
 
   grid: {
     flexDirection: "row",
     flexWrap: "wrap",
-    gap: 10,
+    justifyContent:
+      "space-between",
+    rowGap: 18,
   },
 
-  seat: {
-    width: 40,
-    height: 60,
-    borderRadius: 8,
-    borderWidth: 2,
+  /* SEATS */
+  seatContainer: {
+    width: 54,
+    height: 108,
+    borderRadius: 10,
+    borderWidth: 3,
+    overflow: "hidden",
+  },
+
+  seatTop: {
+    height: 12,
+    backgroundColor:
+      "rgba(255,255,255,0.35)",
+  },
+
+  seatBottom: {
+    flex: 1,
     justifyContent: "center",
     alignItems: "center",
   },
 
-  priceText: {
-    fontSize: 10,
+  seatPrice: {
+    fontSize: 18,
+    fontWeight: "700",
+    color: "#333",
   },
 
   available: {
-    borderColor: "green",
-  },
-
-  booked: {
-    backgroundColor: "#ccc",
-    borderColor: "#ccc",
-  },
-
-  selected: {
-    backgroundColor: "green",
-    borderColor: "green",
-  },
-
-  female: {
-    borderColor: "pink",
+    borderColor: "#138c13",
+    backgroundColor: "#fff",
   },
 
   male: {
-    borderColor: "blue",
+    borderColor: "#3846ff",
+    backgroundColor: "#fff",
   },
 
+  female: {
+    borderColor: "#f2b4dc",
+    backgroundColor: "#fff",
+  },
+
+  booked: {
+    borderColor: "#cfcfcf",
+    backgroundColor: "#cfcfcf",
+  },
+
+  selected: {
+    borderColor: "#0a8d00",
+    backgroundColor: "#0a8d00",
+  },
+
+  /* LEGEND */
   legendTitle: {
-    marginTop: 20,
+    marginTop: 28,
     textAlign: "center",
-    fontWeight: "600",
+    fontSize: 18,
+    fontWeight: "700",
+    color: "#222",
   },
 
   legendBox: {
     backgroundColor: "#fff",
-    margin: 15,
-    borderRadius: 15,
-    padding: 10,
+    marginHorizontal: 16,
+    marginTop: 18,
+    borderRadius: 24,
+    paddingVertical: 18,
+    paddingHorizontal: 18,
   },
 
-  legendItem: {
+  legendRow: {
     flexDirection: "row",
     alignItems: "center",
-    marginVertical: 6,
+    marginBottom: 22,
   },
 
   legendSeat: {
-    width: 25,
-    height: 35,
-    borderWidth: 2,
-    borderRadius: 6,
-    marginRight: 10,
+    width: 42,
+    height: 66,
+    borderRadius: 10,
+    borderWidth: 3,
+    marginRight: 18,
   },
 
   legendText: {
-    fontSize: 13,
+    fontSize: 16,
+    color: "#222",
+    fontWeight: "500",
+    flex: 1,
   },
 
+  /* FOOTER */
   footer: {
     position: "absolute",
     bottom: 0,
     width: "100%",
     backgroundColor: "#fff",
-    padding: 15,
+    borderTopWidth: 1,
+    borderTopColor: "#e5e5e5",
+    paddingHorizontal: 18,
+    paddingTop: 16,
+    paddingBottom: 20,
   },
 
-  footerText: {
-    fontSize: 14,
+  footerTop: {
+    flexDirection: "row",
+    justifyContent:
+      "space-between",
+    alignItems: "center",
+    marginBottom: 18,
+  },
+
+  footerSeats: {
+    fontSize: 18,
+    fontWeight: "600",
+    color: "#222",
   },
 
   footerPrice: {
-    fontSize: 16,
+    fontSize: 20,
     fontWeight: "700",
-    marginBottom: 10,
+    color: "#222",
   },
 
   button: {
-    backgroundColor: "#0f766e",
-    padding: 15,
-    borderRadius: 25,
+    backgroundColor: "#0b7f81",
+    height: 58,
+    borderRadius: 30,
+    justifyContent: "center",
     alignItems: "center",
   },
 
   buttonText: {
     color: "#fff",
-    fontWeight: "600",
+    fontSize: 18,
+    fontWeight: "700",
   },
 });

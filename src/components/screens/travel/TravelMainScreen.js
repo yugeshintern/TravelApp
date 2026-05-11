@@ -6,90 +6,154 @@ import {
   TouchableOpacity,
   Image,
   ScrollView,
+  ImageBackground,
 } from "react-native";
-import Icon from "react-native-vector-icons/Feather";
 
-export default function TravelMainScreen({ navigation }) {
+export default function TravelMainScreen({
+  navigation,
+}) {
   return (
-    <ScrollView style={styles.container}>
-      {/* HERO BANNER */}
-      <View style={styles.banner}>
-        <Image
-          source={{
-            uri: "https://images.unsplash.com/photo-1504198458649-3128b932f49b",
-          }}
-          style={styles.bannerImg}
-        />
+    <ScrollView
+      style={styles.container}
+      showsVerticalScrollIndicator={false}
+    >
+      {/* TOP BANNER */}
+      <ImageBackground
+        source={require("../../../assets/travel_banner.png")}
+        style={styles.banner}
+        resizeMode="cover"
+      >
+        {/* OVERLAY */}
+        <View style={styles.overlay} />
 
+        {/* BACK BUTTON */}
         <TouchableOpacity
           style={styles.backBtn}
           onPress={() => navigation.goBack()}
         >
-          <Icon name="arrow-left" size={18} />
+          <Image
+            source={require("../../../assets/back.png")}
+            style={styles.backIcon}
+          />
         </TouchableOpacity>
 
-        <View style={styles.bannerText}>
-          <Text style={styles.small}>SAVE UPTO</Text>
-          <Text style={styles.big}>20%</Text>
-          <Text style={styles.mid}>BUSINESS CLASS</Text>
-          <Text style={styles.sub}>Lasting only few more days</Text>
-        </View>
-      </View>
+        {/* TEXT */}
+        
+        
+      </ImageBackground>
 
-      {/* SECTION TITLE */}
-      <Text style={styles.sectionTitle}>Travel & Hotel</Text>
+      {/* TITLE */}
+      <Text style={styles.sectionTitle}>
+        Travel & Hotel
+      </Text>
 
       {/* GRID */}
       <View style={styles.grid}>
         {/* BUS */}
-        <TouchableOpacity style={styles.card}
-        onPress={()=> navigation.navigate("BusBooking")}>
-          <Text style={styles.offer}>🟢 Upto ₹4000 off</Text>
-          <Text style={styles.label}>Bus</Text>
+        <TouchableOpacity
+          style={styles.card}
+          activeOpacity={0.9}
+          onPress={() =>
+            navigation.navigate("BusBooking")
+          }
+        >
+          <Text style={styles.offer}>
+            💚 Upto ₹4000 Off
+          </Text>
+
+          <Text style={styles.desc}>
+            Save big on
+          </Text>
+
+          <Text style={styles.label}>
+            Bus
+          </Text>
+
           <Image
-            source={{
-              uri: "https://cdn-icons-png.flaticon.com/512/61/61231.png",
-            }}
-            style={styles.icon}
+            source={require("../../../assets/bus.png")}
+            style={styles.busIcon}
+            resizeMode="contain"
           />
         </TouchableOpacity>
 
         {/* FLIGHT */}
-        <TouchableOpacity style={styles.card}
-        onPress={()=> navigation.navigate("FlightsHome")}>
-          <Text style={styles.offer}>🟢 Upto ₹4000 Off</Text>
-          <Text style={styles.label}>Flight</Text>
+        <TouchableOpacity
+          style={styles.card}
+          activeOpacity={0.9}
+          onPress={() =>
+            navigation.navigate("FlightsHome")
+          }
+        >
+          <Text style={styles.offer}>
+            💚 Upto ₹4000 Off
+          </Text>
+
+          <Text style={styles.desc}>
+            Lowest fare, guaranteed
+          </Text>
+
+          <Text style={styles.label}>
+            Flight
+          </Text>
+
           <Image
-            source={{
-              uri: "https://cdn-icons-png.flaticon.com/512/34/34627.png",
-            }}
-            style={styles.icon}
+            source={require("../../../assets/flight.png")}
+            style={styles.flightIcon}
+            resizeMode="contain"
           />
         </TouchableOpacity>
 
         {/* HOTEL */}
-        <TouchableOpacity style={styles.card}
-        onPress={()=> navigation.navigate("HotelsHome")}>
-          <Text style={styles.offer}>🟢 Upto 55% off</Text>
-          <Text style={styles.label}>Hotel</Text>
+        <TouchableOpacity
+          style={styles.card}
+          activeOpacity={0.9}
+          onPress={() =>
+            navigation.navigate("HotelsHome")
+          }
+        >
+          <Text style={styles.offer}>
+            💚 Upto 55% Off
+          </Text>
+
+          <Text style={styles.desc}>
+            Best room rates
+          </Text>
+
+          <Text style={styles.label}>
+            Hotel
+          </Text>
+
           <Image
-            source={{
-              uri: "https://cdn-icons-png.flaticon.com/512/139/139899.png",
-            }}
-            style={styles.icon}
+            source={require("../../../assets/hotel.png")}
+            style={styles.hotelIcon}
+            resizeMode="contain"
           />
         </TouchableOpacity>
 
         {/* TRAIN */}
-        <TouchableOpacity style={styles.card}
-        onPress={()=> navigation.navigate("TrainBooking")}>
-          <Text style={styles.offer}>🟢 Zero Service Fee</Text>
-          <Text style={styles.label}>Train</Text>
+        <TouchableOpacity
+          style={styles.card}
+          activeOpacity={0.9}
+          onPress={() =>
+            navigation.navigate("TrainBooking")
+          }
+        >
+          <Text style={styles.offer}>
+            💚 Zero Service Fee
+          </Text>
+
+          <Text style={styles.desc}>
+            Instant booking
+          </Text>
+
+          <Text style={styles.label}>
+            Train
+          </Text>
+
           <Image
-            source={{
-              uri: "https://cdn-icons-png.flaticon.com/512/61/61212.png",
-            }}
-            style={styles.icon}
+            source={require("../../../assets/train.png")}
+            style={styles.trainIcon}
+            resizeMode="contain"
           />
         </TouchableOpacity>
       </View>
@@ -100,62 +164,80 @@ export default function TravelMainScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#ffffff",
   },
 
-  /* BANNER */
+  /* TOP BANNER */
   banner: {
-    height: 220,
+    height: 255,
+    justifyContent: "flex-start",
   },
 
-  bannerImg: {
-    width: "100%",
-    height: "100%",
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: "rgba(0,0,0,0.10)",
   },
 
   backBtn: {
-    position: "absolute",
-    top: 20,
-    left: 15,
-    backgroundColor: "#fff",
-    padding: 8,
-    borderRadius: 20,
+    marginTop: 55,
+    marginLeft: 20,
+    width: 42,
+    height: 42,
+    borderRadius: 25,
+    backgroundColor: "#ffffff",
+    justifyContent: "center",
+    alignItems: "center",
+    elevation: 5,
+  },
+
+  backIcon: {
+    width: 18,
+    height: 18,
+    resizeMode: "contain",
   },
 
   bannerText: {
     position: "absolute",
-    left: 15,
-    bottom: 20,
+    left: 20,
+    bottom: 22,
   },
 
   small: {
-    color: "#fff",
-    fontSize: 10,
+    color: "#1f2937",
+    fontSize: 14,
+    fontWeight: "700",
+    letterSpacing: 0.5,
   },
 
   big: {
-    color: "#fff",
-    fontSize: 28,
-    fontWeight: "700",
+    color: "#1f2937",
+    fontSize: 38,
+    fontWeight: "800",
+    marginTop: 2,
   },
 
   mid: {
-    color: "#fff",
-    fontSize: 14,
-    fontWeight: "600",
+    color: "#1f2937",
+    fontSize: 22,
+    fontWeight: "800",
+    marginTop: 2,
   },
 
   sub: {
-    color: "#ddd",
-    fontSize: 10,
+    color: "#374151",
+    fontSize: 13,
+    fontWeight: "600",
+    marginTop: 8,
   },
 
-  /* SECTION */
+  /* TITLE */
   sectionTitle: {
-    marginTop: 15,
-    marginLeft: 15,
-    fontSize: 14,
-    fontWeight: "600",
+    marginTop: 28,
+    marginLeft: 20,
+    marginBottom: 18,
+    fontSize: 20,
+    fontWeight: "800",
+    color: "#222",
   },
 
   /* GRID */
@@ -163,31 +245,68 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "space-between",
-    padding: 15,
+    paddingHorizontal: 20,
+    paddingBottom: 30,
   },
 
+  /* CARD */
   card: {
     width: "48%",
-    backgroundColor: "#f3f4f6",
-    borderRadius: 15,
-    padding: 12,
-    marginBottom: 12,
+    backgroundColor: "#edf1ef",
+    borderRadius: 22,
+    paddingHorizontal: 14,
+    paddingTop: 14,
+    paddingBottom: 12,
+    marginBottom: 16,
+    overflow: "hidden",
   },
 
   offer: {
-    fontSize: 10,
-    color: "green",
+    fontSize: 13,
+    color: "#16a34a",
+    fontWeight: "700",
+  },
+
+  desc: {
+    fontSize: 13,
+    color: "#333",
+    marginTop: 6,
+    fontWeight: "500",
   },
 
   label: {
-    fontSize: 14,
-    fontWeight: "600",
-    marginVertical: 5,
+    fontSize: 20,
+    color: "#222",
+    fontWeight: "800",
+    marginTop: 4,
   },
 
-  icon: {
-    width: 60,
-    height: 60,
+  /* ICONS */
+  busIcon: {
+    width: 95,
+    height: 85,
     alignSelf: "flex-end",
+    marginTop: -5,
+  },
+
+  flightIcon: {
+    width: 115,
+    height: 90,
+    alignSelf: "center",
+    marginTop: 8,
+  },
+
+  hotelIcon: {
+    width: 105,
+    height: 95,
+    alignSelf: "flex-end",
+    marginTop: 4,
+  },
+
+  trainIcon: {
+    width: 110,
+    height: 85,
+    alignSelf: "flex-end",
+    marginTop: 8,
   },
 });

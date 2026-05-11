@@ -4,6 +4,7 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
+  Image,
 } from "react-native";
 import Icon from "react-native-vector-icons/Feather";
 
@@ -12,11 +13,23 @@ export default function ReviewRider({navigation}) {
 
   return (
     <View style={styles.container}>
-      {/* HEADER TEXT */}
-      <Text style={styles.header}>Review_for_rider</Text>
+      
 
       {/* BACKGROUND (FADED HOME UI MOCK) */}
-      <View style={styles.bg} />
+      <Image
+  source={require("../../../assets/review_bg.png")}
+  style={styles.bg}
+/>
+
+<TouchableOpacity
+  style={styles.backBtn}
+  onPress={() => navigation.goBack()}
+>
+  <Image
+    source={require("../../../assets/back.png")}
+    style={styles.backIcon}
+  />
+</TouchableOpacity>
 
       {/* SKIP BUTTON */}
       <TouchableOpacity style={styles.skip}
@@ -28,12 +41,18 @@ export default function ReviewRider({navigation}) {
       <View style={styles.sheet}>
         {/* PAID */}
         <View style={styles.paidRow}>
-          <Icon name="check-circle" size={18} color="green" />
+          <Image
+  source={require("../../../assets/green-tick.png")}
+  style={styles.tickIcon}
+/>
           <Text style={styles.paidText}>Paid ₹62</Text>
         </View>
 
         {/* AVATAR */}
-        <View style={styles.avatar} />
+        <Image
+  source={require("../../../assets/profile.png")}
+  style={styles.avatar}
+/>
 
         {/* TITLE */}
         <Text style={styles.title}>
@@ -42,24 +61,42 @@ export default function ReviewRider({navigation}) {
 
         {/* STARS */}
         <View style={styles.stars}>
-          {[1, 2, 3, 4, 5].map((i) => (
-            <TouchableOpacity key={i} onPress={() => setRating(i)}>
-              <Icon
-                name="star"
-                size={28}
-                color={i <= rating ? "#facc15" : "#ccc"}
-              />
-            </TouchableOpacity>
-          ))}
-        </View>
+  {[1, 2, 3, 4, 5].map((i) => (
+    <TouchableOpacity
+      key={i}
+      onPress={() => setRating(i)}
+    >
+      <Image
+        source={
+          i <= rating
+            ? require("../../../assets/star-outline.png")
+            : require("../../../assets/star-outline.png")
+        }
+        style={styles.starIcon}
+      />
+    </TouchableOpacity>
+  ))}
+</View>
 
         {/* HELP CARD */}
         <View style={styles.helpCard}>
-          <Text style={styles.helpTitle}>Need Help?</Text>
-          <Text style={styles.helpSub}>
-            We are just a tap away
-          </Text>
-        </View>
+
+  <Image
+    source={require("../../../assets/headphones.png")}
+    style={styles.helpIcon}
+  />
+
+  <View style={{ flex: 1 }}>
+    <Text style={styles.helpTitle}>Need Help?</Text>
+
+    <Text style={styles.helpSub}>
+      We are just a tap away
+    </Text>
+  </View>
+
+  <Text style={styles.arrow}>›</Text>
+
+</View>
 
         {/* DONE BUTTON */}
         <TouchableOpacity style={styles.doneBtn}
@@ -83,10 +120,10 @@ const styles = StyleSheet.create({
   },
 
   bg: {
-    flex: 1,
-    backgroundColor: "#f3f4f6",
-    opacity: 0.5,
-  },
+  flex: 1,
+  width: "100%",
+  resizeMode: "cover",
+},
 
   skip: {
     position: "absolute",
@@ -123,13 +160,13 @@ const styles = StyleSheet.create({
   },
 
   avatar: {
-    width: 70,
-    height: 70,
-    backgroundColor: "#000",
-    borderRadius: 35,
-    alignSelf: "center",
-    marginVertical: 10,
-  },
+  width: 72,
+  height: 72,
+  borderRadius: 36,
+  resizeMode: "cover",
+  alignSelf: "center",
+  marginVertical: 12,
+},
 
   title: {
     textAlign: "center",
@@ -138,18 +175,57 @@ const styles = StyleSheet.create({
   },
 
   stars: {
-    flexDirection: "row",
-    justifyContent: "center",
-    gap: 8,
-    marginBottom: 15,
-  },
+  flexDirection: "row",
+  justifyContent: "center",
+  marginBottom: 18,
+},
 
   helpCard: {
-    backgroundColor: "#dbeafe",
-    borderRadius: 12,
-    padding: 12,
-    marginBottom: 15,
-  },
+  backgroundColor: "#dbeafe",
+  borderRadius: 16,
+  padding: 14,
+  marginBottom: 18,
+  flexDirection: "row",
+  alignItems: "center",
+},
+
+backBtn: {
+  position: "absolute",
+  top: 50,
+  left: 20,
+  zIndex: 10,
+},
+
+backIcon: {
+  width: 22,
+  height: 22,
+  resizeMode: "contain",
+},
+
+tickIcon: {
+  width: 18,
+  height: 18,
+  resizeMode: "contain",
+},
+
+starIcon: {
+  width: 34,
+  height: 34,
+  resizeMode: "contain",
+  marginHorizontal: 4,
+},
+
+helpIcon: {
+  width: 26,
+  height: 26,
+  resizeMode: "contain",
+  marginRight: 12,
+},
+
+arrow: {
+  fontSize: 28,
+  color: "#444",
+},
 
   helpTitle: {
     fontWeight: "600",

@@ -4,23 +4,27 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
+  Image,
 } from "react-native";
-import Icon from "react-native-vector-icons/Feather";
 
 export default function NotificationsScreen({ navigation }) {
   return (
     <View style={styles.container}>
       {/* HEADER */}
-      <View style={styles.headerRow}>
-        <TouchableOpacity
-          style={styles.backBtn}
-          onPress={() => navigation.goBack()}
-        >
-          <Icon name="arrow-left" size={18} />
-        </TouchableOpacity>
+      {/* HEADER */}
+<View style={styles.headerRow}>
+  <TouchableOpacity
+    style={styles.backBtn}
+    onPress={() => navigation.goBack()}
+  >
+    <Image
+      source={require("../../../assets/back.png")}
+      style={styles.backIcon}
+    />
+  </TouchableOpacity>
 
-        <Text style={styles.header}>Notifications</Text>
-      </View>
+  <Text style={styles.header}>Notifications</Text>
+</View>
 
       {/* EMPTY STATE */}
       <View style={styles.center}>
@@ -44,10 +48,16 @@ export default function NotificationsScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "#f3f4f6",
-    paddingHorizontal: 15,
-  },
+  flex: 1,
+  backgroundColor: "#f3f4f6",
+  paddingHorizontal: 15,
+  paddingTop: 50,
+},
+backIcon: {
+  width: 18,
+  height: 18,
+  resizeMode: "contain",
+},
 
   headerRow: {
     flexDirection: "row",

@@ -5,19 +5,23 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
+  Image,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Feather';
 
 const RoundTripFlightsScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       {/* HEADER */}
       <View style={styles.header}>
-        <TouchableOpacity style={styles.backBtn}
-        onPress={()=>navigation.goBack()}>
-          <Icon name="arrow-left" size={20} />
-        </TouchableOpacity>
-
+        <TouchableOpacity
+  style={styles.backBtn}
+  onPress={() => navigation.goBack()}
+>
+  <Image
+    source={require("../../../assets/back.png")}
+    style={styles.backIcon}
+  />
+</TouchableOpacity>
         <Text style={styles.title}>Flights Tickets</Text>
       </View>
 
@@ -47,8 +51,11 @@ const RoundTripFlightsScreen = ({ navigation }) => {
 
           {/* SWAP */}
           <View style={styles.swap}>
-            <Icon name="repeat" size={16} color="#2F80ED" />
-          </View>
+  <Image
+    source={require("../../../assets/direction.png")}
+    style={styles.directionIcon}
+  />
+</View>
         </View>
 
         {/* DATES */}
@@ -150,6 +157,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  backIcon: {
+  width: 20,
+  height: 20,
+  resizeMode: 'contain',
+},
 
   title: {
     fontSize: 16,
@@ -223,6 +235,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     elevation: 2,
   },
+
+  directionIcon: {
+  width: 16,
+  height: 16,
+  resizeMode: 'contain',
+},
 
   section: {
     fontSize: 15,

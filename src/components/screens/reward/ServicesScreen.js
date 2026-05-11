@@ -5,49 +5,96 @@ import {
   StyleSheet,
   TouchableOpacity,
   FlatList,
+  Image,
 } from "react-native";
-import Icon from "react-native-vector-icons/Feather";
 
 const rideServices = [
-  "Bike",
-  "Scooty",
-  "Auto",
-  "Auto Priority",
-  "Cab Economy",
-  "Cab Premium",
-  "Cab XL",
-  "Parcel",
+  {
+    name: "Bike",
+    icon: require("../../../assets/bike.png"),
+  },
+  {
+    name: "Scooty",
+    icon: require("../../../assets/scooty.png"),
+  },
+  {
+    name: "Auto",
+    icon: require("../../../assets/auto.png"),
+  },
+  {
+    name: "Auto Priority",
+    icon: require("../../../assets/mini3w.png"),
+  },
+  {
+    name: "Cab Economy",
+    icon: require("../../../assets/car.png"),
+  },
+  {
+    name: "Cab Premium",
+    icon: require("../../../assets/pickup.png"),
+  },
+  {
+    name: "Cab XL",
+    icon: require("../../../assets/car.png"),
+  },
+  {
+    name: "Parcel",
+    icon: require("../../../assets/3w.png"),
+  },
 ];
 
 const porterServices = [
-  "Pickup 9ft",
-  "Mini 3W",
-  "3 Wheeler",
-  "Tata Ace",
-  "Pickup 8ft",
-  "Tata 407",
-  "14ft",
-  "17ft",
-  "Bike",
-  "Scooter",
+  {
+    name: "Pickup 9ft",
+    icon: require("../../../assets/tata407.png"),
+  },
+  {
+    name: "Mini 3W",
+    icon: require("../../../assets/3w.png"),
+  },
+  {
+    name: "3 Wheeler",
+    icon: require("../../../assets/auto.png"),
+  },
+  {
+    name: "Tata Ace",
+    icon: require("../../../assets/tataace.png"),
+  },
+  {
+    name: "Pickup 8ft",
+    icon: require("../../../assets/truck.png"),
+  },
+  {
+    name: "Tata 407",
+    icon: require("../../../assets/tata407.png"),
+  },
+  {
+    name: "14ft",
+    icon: require("../../../assets/truck2.png"),
+  },
+  {
+    name: "17ft",
+    icon: require("../../../assets/truck2.png"),
+  },
+  {
+    name: "Bike",
+    icon: require("../../../assets/bike-icon.png"),
+  },
+  {
+    name: "Scooter",
+    icon: require("../../../assets/scooty.png"),
+  },
 ];
 
 export default function ServicesScreen({ navigation }) {
-  const renderItem = ({ item }) => (
-    <View style={styles.serviceItem}>
-      <View style={styles.iconCircle}>
-        <Text style={{ fontSize: 20 }}>🚗</Text>
-      </View>
-      <Text style={styles.label}>{item}</Text>
-    </View>
-  );
-
   return (
     <View style={styles.container}>
-      {/* BACKGROUND (FAKE SEARCH SCREEN) */}
+      {/* BACKGROUND */}
       <View style={styles.background}>
         <View style={styles.searchBox}>
-          <Text style={{ color: "#888" }}>Where are you going?</Text>
+          <Text style={styles.searchText}>
+            Where are you going?
+          </Text>
         </View>
       </View>
 
@@ -56,7 +103,10 @@ export default function ServicesScreen({ navigation }) {
         style={styles.backBtn}
         onPress={() => navigation.goBack()}
       >
-        <Icon name="arrow-left" size={18} />
+        <Image
+          source={require("../../../assets/back.png")}
+          style={styles.backIcon}
+        />
       </TouchableOpacity>
 
       {/* BOTTOM SHEET */}
@@ -65,53 +115,98 @@ export default function ServicesScreen({ navigation }) {
 
         {/* RIDE */}
         <Text style={styles.section}>Ride</Text>
+
         <FlatList
           data={rideServices}
           numColumns={4}
           keyExtractor={(item, index) => index.toString()}
-          renderItem={({item}) =>(
+          scrollEnabled={false}
+          renderItem={({ item }) => (
             <TouchableOpacity
-                style={styles.serviceItem}
-                onPress={() => navigation.navigate("SearchLocation")} // 👈 SAME PAGE
+              style={styles.serviceItem}
+              onPress={() =>
+                navigation.navigate("SearchLocation")
+              }
             >
-            <View style={styles.iconCircle}>
-              <Text style={{ fontSize: 20 }}>🚗</Text>
-            </View>
-              <Text style={styles.label}>{item}</Text>
+              <View style={styles.iconCircle}>
+                <Image
+                  source={item.icon}
+                  style={styles.serviceIcon}
+                />
+              </View>
+
+              <Text style={styles.label}>
+                {item.name}
+              </Text>
             </TouchableOpacity>
           )}
-          scrollEnabled={false}
-          
         />
 
         {/* PORTER */}
         <Text style={styles.section}>Porter</Text>
+
         <FlatList
           data={porterServices}
           numColumns={4}
           keyExtractor={(item, index) => index.toString()}
-          renderItem={({item}) =>(
+          scrollEnabled={false}
+          renderItem={({ item }) => (
             <TouchableOpacity
-                style={styles.serviceItem}
-                onPress={() => navigation.navigate("SearchLocation")} // 👈 SAME PAGE
+              style={styles.serviceItem}
+              onPress={() =>
+                navigation.navigate("SearchLocation")
+              }
             >
-            <View style={styles.iconCircle}>
-              <Text style={{ fontSize: 20 }}>🚗</Text>
-            </View>
-              <Text style={styles.label}>{item}</Text>
+              <View style={styles.iconCircle}>
+                <Image
+                  source={item.icon}
+                  style={styles.serviceIcon}
+                />
+              </View>
+
+              <Text style={styles.label}>
+                {item.name}
+              </Text>
             </TouchableOpacity>
           )}
-          scrollEnabled={false}
         />
 
-        {/* BOTTOM NAV */}
+        {/* FOOTER */}
         <View style={styles.bottomNav}>
-          {["Home", "Ride", "Parcel", "Profile"].map((item, i) => (
-            <View key={i} style={styles.navItem}>
-              <Icon name="home" size={18} color="#fff" />
-              <Text style={styles.navText}>{item}</Text>
-            </View>
-          ))}
+          <TouchableOpacity style={styles.navItem}>
+            <Image
+              source={require("../../../assets/home_black.png")}
+              style={styles.footerIcon}
+            />
+            <Text style={styles.navText}>Home</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.navItem}>
+            <Image
+              source={require("../../../assets/bike-icon.png")}
+              style={styles.footerIcon}
+            />
+            <Text style={styles.navText}>Ride</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+  style={styles.navItem}
+  onPress={() => navigation.navigate("Parcel")}
+>
+  <Image
+    source={require("../../../assets/parcel-ic.png")}
+    style={styles.footerIcon}
+  />
+  <Text style={styles.navText}>Parcel</Text>
+</TouchableOpacity>7
+
+          <TouchableOpacity style={styles.navItem}>
+            <Image
+              source={require("../../../assets/profile.png")}
+              style={styles.footerIcon}
+            />
+            <Text style={styles.navText}>Profile</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </View>
@@ -119,28 +214,47 @@ export default function ServicesScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#ddd" },
+  container: {
+    flex: 1,
+    backgroundColor: "#e5e7eb",
+  },
 
   background: {
     flex: 1,
-    backgroundColor: "#e5e7eb",
-    padding: 20,
+    paddingHorizontal: 20,
+    paddingTop: 40,
   },
 
   searchBox: {
     backgroundColor: "#fff",
-    padding: 12,
+    height: 46,
     borderRadius: 25,
+    justifyContent: "center",
+    paddingHorizontal: 18,
+  },
+
+  searchText: {
+    color: "#8b8b8b",
+    fontSize: 14,
   },
 
   backBtn: {
     position: "absolute",
-    top: 50,
-    left: 20,
+    top: 85,
+    left: 28,
+    width: 42,
+    height: 42,
+    borderRadius: 21,
     backgroundColor: "#fff",
-    padding: 8,
-    borderRadius: 20,
+    justifyContent: "center",
+    alignItems: "center",
     elevation: 3,
+  },
+
+  backIcon: {
+    width: 22,
+    height: 22,
+    resizeMode: "contain",
   },
 
   sheet: {
@@ -148,51 +262,65 @@ const styles = StyleSheet.create({
     bottom: 0,
     width: "100%",
     backgroundColor: "#fff",
-    borderTopLeftRadius: 25,
-    borderTopRightRadius: 25,
-    padding: 15,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
+    paddingHorizontal: 20,
+    paddingTop: 18,
+    paddingBottom: 20,
   },
 
   title: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: "700",
-    marginBottom: 10,
+    color: "#222",
+    marginBottom: 12,
   },
 
   section: {
-    fontSize: 14,
+    fontSize: 16,
     fontWeight: "600",
-    marginVertical: 10,
+    color: "#333",
+    marginBottom: 18,
+    marginTop: 10,
   },
 
   serviceItem: {
     width: "25%",
     alignItems: "center",
-    marginBottom: 15,
+    marginBottom: 22,
   },
 
   iconCircle: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
+    width: 58,
+    height: 58,
+    borderRadius: 29,
     backgroundColor: "#fff",
     justifyContent: "center",
     alignItems: "center",
-    elevation: 2,
-    marginBottom: 5,
+    elevation: 3,
+    marginBottom: 8,
+  },
+
+  serviceIcon: {
+    width: 32,
+    height: 32,
+    resizeMode: "contain",
   },
 
   label: {
     fontSize: 11,
+    color: "#333",
     textAlign: "center",
+    lineHeight: 15,
   },
 
   bottomNav: {
     flexDirection: "row",
     justifyContent: "space-around",
-    backgroundColor: "#0f766e",
-    borderRadius: 30,
-    paddingVertical: 10,
+    alignItems: "center",
+    backgroundColor: "#0f7c82",
+    borderRadius: 35,
+    paddingVertical: 12,
     marginTop: 10,
   },
 
@@ -200,8 +328,17 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 
+  footerIcon: {
+    width: 20,
+    height: 20,
+    resizeMode: "contain",
+    tintColor: "#fff",
+    marginBottom: 4,
+  },
+
   navText: {
     color: "#fff",
-    fontSize: 10,
+    fontSize: 11,
+    fontWeight: "500",
   },
 });

@@ -62,7 +62,13 @@ export default function HomeScreen({ navigation }) {
             ]}
             onPress={() => setSelected("ride")}
           >
-            <Text style={styles.toggleText}>🚗 RIDE</Text>
+            <View style={styles.toggleContent}>
+            <Image
+              source={require("../../../assets/bike.png")}
+              style={styles.topIcon}
+            />
+            <Text style={styles.toggleText}>RIDE</Text>
+          </View>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -75,13 +81,22 @@ export default function HomeScreen({ navigation }) {
               navigation.navigate("PorterHome");
             }}
           >
-            <Text style={styles.toggleText}>🚚 PORTER</Text>
+            <View style={styles.toggleContent}>
+            <Image
+              source={require("../../../assets/3w.png")}
+              style={styles.topIcon}
+            />
+            <Text style={styles.toggleText}>PORTER</Text>
+          </View>
           </TouchableOpacity>
         </View>
 
         {/* SEARCH */}
         <View style={styles.searchBox}>
-          <Icon name="search" size={18} color="gray" />
+          <Image
+            source={require("../../../assets/search-icon.png")}
+            style={styles.searchIcon}
+          />
           <TextInput
             placeholder="Where are you going?"
             style={styles.searchInput}
@@ -95,12 +110,18 @@ export default function HomeScreen({ navigation }) {
         <View style={styles.locationList}>
           {locations.map((loc, i) => (
             <View key={i} style={styles.locationItem}>
-              <Icon name="clock" size={16} color="gray" />
-              <View style={{ marginLeft: 10 }}>
-                <Text style={styles.locTitle}>{loc.name}</Text>
-                <Text style={styles.locSub}>{loc.sub}</Text>
-              </View>
+            
+            <Image
+              source={require("../../../assets/timer-icon.png")}
+              style={styles.clockIcon}
+            />
+
+            <View style={styles.locationTextContainer}>
+              <Text style={styles.locTitle}>{loc.name}</Text>
+              <Text style={styles.locSub}>{loc.sub}</Text>
             </View>
+
+          </View>
           ))}
         </View>
 
@@ -118,7 +139,7 @@ export default function HomeScreen({ navigation }) {
             <Text style={styles.cardTitle}>Metro</Text>
             <Text style={styles.cardSub}>Tickets</Text>
             <Image
-              source={{ uri: "https://img.icons8.com/color/96/train.png" }}
+              source={require("../../../assets/metro-train.png")}
               style={styles.cardImage}
             />
           </TouchableOpacity>
@@ -131,7 +152,7 @@ export default function HomeScreen({ navigation }) {
             <Text style={styles.cardTitle}>Spacious &</Text>
             <Text style={styles.cardSub}>comfortable Scooty</Text>
             <Image
-              source={{ uri: "https://img.icons8.com/color/96/scooter.png" }}
+              source={require("../../../assets/scooty-home.png")}
               style={styles.cardImage}
             />
           </TouchableOpacity>
@@ -144,7 +165,7 @@ export default function HomeScreen({ navigation }) {
             <Text style={styles.cardTitle}>Send anything</Text>
             <Text style={styles.cardSub}>Parcel</Text>
             <Image
-              source={{ uri: "https://img.icons8.com/color/96/box.png" }}
+              source={require("../../../assets/parcel-home.png")}
               style={styles.cardImage}
             />
           </TouchableOpacity>
@@ -157,7 +178,7 @@ export default function HomeScreen({ navigation }) {
             <Text style={styles.cardTitle}>All</Text>
             <Text style={styles.cardSub}>Services</Text>
             <Image
-              source={{ uri: "https://img.icons8.com/color/96/truck.png" }}
+              source={require("../../../assets/truck-home.png")}
               style={styles.cardImage}
             />
           </TouchableOpacity>
@@ -194,9 +215,11 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#f5f5f5" },
 
   header: {
-    padding: 15,
-    backgroundColor: "#fff",
-  },
+  paddingHorizontal: 15,
+  paddingBottom: 15,
+  paddingTop: 55,
+  backgroundColor: "#fff",
+},
 
   toggleContainer: {
     flexDirection: "row",
@@ -222,6 +245,12 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
 
+  searchIcon: {
+  width: 22,
+  height: 22,
+  resizeMode: "contain",
+},
+
   searchBox: {
     flexDirection: "row",
     alignItems: "center",
@@ -240,6 +269,24 @@ const styles = StyleSheet.create({
     padding: 15,
     backgroundColor: "#fff",
   },
+
+  toggleContent: {
+  flexDirection: "row",
+  alignItems: "center",
+  gap: 8,
+},
+
+topIcon: {
+  width: 22,
+  height: 22,
+  resizeMode: "contain",
+},
+
+clockIcon: {
+  width: 18,
+  height: 18,
+  resizeMode: "contain",
+},
 
   locationItem: {
     flexDirection: "row",

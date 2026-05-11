@@ -5,6 +5,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
+  Image,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 
@@ -18,11 +19,14 @@ const ConfirmTravellerDetailsScreen = ({ navigation }) => {
         {/* HEADER */}
         <View style={styles.header}>
           <TouchableOpacity
-            style={styles.backBtn}
-            onPress={() => navigation.goBack()}
-          >
-            <Icon name="arrow-left" size={20} />
-          </TouchableOpacity>
+  style={styles.backBtn}
+  onPress={() => navigation.goBack()}
+>
+  <Image
+    source={require("../../../assets/back.png")}
+    style={styles.backIcon}
+  />
+</TouchableOpacity>
 
           <View>
             <Text style={styles.tripLabel}>Trip to</Text>
@@ -32,9 +36,12 @@ const ConfirmTravellerDetailsScreen = ({ navigation }) => {
 
         {/* AIRLINE */}
         <View style={styles.airlineRow}>
-          <View style={styles.logo}>
-            <Text style={styles.logoText}>AI</Text>
-          </View>
+          <View style={styles.logoContainer}>
+  <Image
+    source={require("../../../assets/airindia.png")}
+    style={styles.airIndiaLogo}
+  />
+</View>
           <Text style={styles.airline}>Air India | AI-537</Text>
         </View>
 
@@ -121,9 +128,12 @@ const ConfirmTravellerDetailsScreen = ({ navigation }) => {
           <Text style={styles.cardTitle}>Traveller Details</Text>
 
           <View style={styles.travellerRow}>
-            <Icon name="user" size={18} color="#555" />
-            <Text style={styles.travellerType}>Adult (25 yrs+)</Text>
-          </View>
+  <Image
+    source={require("../../../assets/prog.png")}
+    style={styles.smallIcon}
+  />
+  <Text style={styles.travellerType}>Adult (25 yrs+)</Text>
+</View>
 
           <View style={styles.travellerBox}>
             <View style={styles.tickBox}>
@@ -137,14 +147,20 @@ const ConfirmTravellerDetailsScreen = ({ navigation }) => {
           </Text>
 
           <View style={styles.contactRow}>
-            <Icon name="mail" size={18} color="#555" />
-            <Text style={styles.link}>Add Email ID</Text>
-          </View>
+  <Image
+    source={require("../../../assets/msg.png")}
+    style={styles.smallIcon}
+  />
+  <Text style={styles.link}>Add Email ID</Text>
+</View>
 
-          <View style={styles.contactRow}>
-            <Icon name="smartphone" size={18} color="#555" />
-            <Text>99880 08899</Text>
-          </View>
+<View style={styles.contactRow}>
+  <Image
+    source={require("../../../assets/ph-ic.png")}
+    style={styles.smallIcon}
+  />
+  <Text>99880 08899</Text>
+</View>
         </View>
 
         <View style={{ height: 110 }} />
@@ -171,52 +187,76 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#F6F7F9' },
 
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 50,
-    paddingHorizontal: 16,
-    marginBottom: 20,
-  },
+  flexDirection: 'row',
+  alignItems: 'center',
+  marginTop: 64,
+  paddingHorizontal: 18,
+  marginBottom: 34,
+},
 
   backBtn: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
-    backgroundColor: '#EDEDED',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginRight: 12,
-  },
+  width: 46,
+  height: 46,
+  borderRadius: 23,
+  backgroundColor: '#ECEEEE',
+  alignItems: 'center',
+  justifyContent: 'center',
+  marginRight: 18,
+},
+  backIcon: {
+  width: 22,
+  height: 22,
+  resizeMode: 'contain',
+},
 
-  tripLabel: { fontSize: 13, color: '#777' },
-  tripCity: { fontSize: 18, fontWeight: '700' },
+  tripLabel: {
+  fontSize: 15,
+  color: '#8B8B8B',
+  marginBottom: 2,
+},
+
+tripCity: {
+  fontSize: 19,
+  fontWeight: '700',
+  color: '#333',
+},
 
   airlineRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 16,
-    marginBottom: 16,
-  },
+  flexDirection: 'row',
+  alignItems: 'center',
+  paddingHorizontal: 18,
+  marginBottom: 28,
+},
 
-  logo: {
-    width: 40,
-    height: 40,
-    borderRadius: 8,
-    backgroundColor: '#E21B23',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginRight: 10,
-  },
+  logoContainer: {
+  width: 52,
+  height: 52,
+  borderRadius: 12,
+  overflow: 'hidden',
+  marginRight: 14,
+  backgroundColor: '#fff',
+  alignItems: 'center',
+  justifyContent: 'center',
+},
 
-  logoText: { color: '#fff', fontWeight: '700' },
-  airline: { fontSize: 15, fontWeight: '600' },
+airIndiaLogo: {
+  width: 52,
+  height: 52,
+  resizeMode: 'cover',
+},
 
-  timeRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingHorizontal: 16,
-    marginBottom: 20,
-  },
+  
+timeRow: {
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  paddingHorizontal: 18,
+  marginBottom: 28,
+},
+  airline: {
+  fontSize: 16,
+  fontWeight: '700',
+  color: '#333',
+},
 
   time: { fontSize: 18, fontWeight: '700' },
   date: { fontSize: 12, color: '#777' },
@@ -278,6 +318,12 @@ const styles = StyleSheet.create({
   },
 
   travellerType: { marginLeft: 6, fontWeight: '600' },
+
+  smallIcon: {
+  width: 20,
+  height: 20,
+  resizeMode: 'contain',
+},
 
   travellerBox: {
     borderWidth: 1,

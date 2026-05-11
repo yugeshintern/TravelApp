@@ -17,29 +17,44 @@ const RoomSelectionScreen = ({ navigation }) => {
       <ScrollView showsVerticalScrollIndicator={false}>
 
         {/* HEADER */}
-        <View style={styles.header}>
-          <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>
-            <Icon name="arrow-left" size={20} />
-          </TouchableOpacity>
-          <Text style={styles.headerTitle}>Hotel Halez</Text>
-        </View>
+        {/* HEADER */}
+<View style={styles.header}>
 
-        <Text style={styles.subHeader}>26 Feb –27 Feb, 2 Adults</Text>
+  <TouchableOpacity
+    style={styles.backBtn}
+    onPress={() => navigation.goBack()}
+  >
+    <Image
+      source={require('../../../assets/back.png')}
+      style={styles.backIcon}
+    />
+  </TouchableOpacity>
+
+  <Text style={styles.headerTitle}>
+    Hotel Halez
+  </Text>
+
+  <View style={{ width: 46 }} />
+
+</View>
 
         {/* ROOM DETAILS CARD */}
         <View style={styles.card}>
           <Text style={styles.roomTitle}>Deluxe Twin Room</Text>
 
           <View style={styles.imageRow}>
-            <Image
-              source={{ uri: 'https://images.unsplash.com/photo-1566665797739-1674de7a421a' }}
-              style={styles.roomImage}
-            />
-            <Image
-              source={{ uri: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b' }}
-              style={styles.roomImage}
-            />
-          </View>
+
+  <Image
+    source={require('../../../assets/room1.png')}
+    style={styles.roomImage}
+  />
+
+  <Image
+    source={require('../../../assets/room2.png')}
+    style={styles.roomImage}
+  />
+
+</View>
 
           {/* INFO GRID */}
           <View style={styles.infoRow}>
@@ -134,7 +149,7 @@ const RoomSelectionScreen = ({ navigation }) => {
       </View>
 
       <TouchableOpacity style={styles.button}
-      onPress={()=> navigation.navigate("HotelReviewBooking")}>
+      onPress={()=> navigation.navigate("HotelReviewBookingScreen")}>
         <Text style={styles.buttonText}>Continue</Text>
       </TouchableOpacity>
 
@@ -147,34 +162,61 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#F5F6F8' },
 
   header: {
-    marginTop: 50,
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 16,
-  },
+  marginTop: 58,
 
-  backBtn: {
-    width: 38,
-    height: 38,
-    borderRadius: 19,
-    backgroundColor: '#EDEDED',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'space-between',
 
-  headerTitle: {
-    flex: 1,
-    textAlign: 'center',
-    fontWeight: '600',
-    fontSize: 16,
-    marginRight: 38,
-  },
+  paddingHorizontal: 22,
+},
+
+backBtn: {
+  width: 46,
+  height: 46,
+  borderRadius: 23,
+
+  backgroundColor: '#EEF1F1',
+
+  alignItems: 'center',
+  justifyContent: 'center',
+},
+
+backIcon: {
+  width: 24,
+  height: 24,
+  resizeMode: 'contain',
+},
+
+headerTitle: {
+  fontSize: 20,
+  fontWeight: '700',
+  color: '#222',
+},
+imageRow: {
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  marginTop: 6,
+},
+
+roomImage: {
+  width: '48.5%',
+  height: 112,
+  borderRadius: 14,
+  resizeMode: 'cover',
+},
 
   subHeader: {
-    textAlign: 'center',
-    marginTop: 8,
-    color: '#777',
-  },
+  textAlign: 'center',
+
+  marginTop: 14,
+  marginBottom: 8,
+
+  fontSize: 15,
+  color: '#8A8A8A',
+
+  fontWeight: '500',
+},
 
   card: {
     margin: 16,
@@ -190,17 +232,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
 
-  imageRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-
-  roomImage: {
-    width: '48%',
-    height: 110,
-    borderRadius: 12,
-  },
-
+  
   infoRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',

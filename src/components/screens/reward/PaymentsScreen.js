@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import {
   View,
-  Text,
+ Text,
   StyleSheet,
   TouchableOpacity,
   ScrollView,
+  Image,
 } from "react-native";
-import Icon from "react-native-vector-icons/Feather";
 
 export default function PaymentsScreen({ navigation }) {
   const [selected, setSelected] = useState("cash");
@@ -18,16 +18,20 @@ export default function PaymentsScreen({ navigation }) {
   return (
     <View style={styles.container}>
       {/* HEADER */}
-      <View style={styles.headerRow}>
-        <TouchableOpacity
-          style={styles.backBtn}
-          onPress={() => navigation.goBack()}
-        >
-          <Icon name="arrow-left" size={18} />
-        </TouchableOpacity>
+      {/* HEADER */}
+<View style={styles.headerRow}>
+  <TouchableOpacity
+    style={styles.backBtn}
+    onPress={() => navigation.goBack()}
+  >
+    <Image
+      source={require("../../../assets/back.png")}
+      style={styles.backIcon}
+    />
+  </TouchableOpacity>
 
-        <Text style={styles.header}>Payments</Text>
-      </View>
+  <Text style={styles.header}>Payments</Text>
+</View>
 
       <ScrollView contentContainerStyle={styles.content}>
         {/* TOTAL */}
@@ -60,9 +64,17 @@ export default function PaymentsScreen({ navigation }) {
           <View style={styles.divider} />
 
           <View style={styles.rowBetween}>
-            <Text style={styles.title}>AmazonPay</Text>
-            <Text style={styles.link}>LINK</Text>
-          </View>
+  <View style={styles.paymentRow}>
+    <Image
+      source={require("../../../assets/amazon.png")}
+      style={styles.paymentIcon}
+    />
+
+    <Text style={styles.title}>AmazonPay</Text>
+  </View>
+
+  <Text style={styles.link}>LINK</Text>
+</View>
 
           <View style={styles.infoBox}>
             <Text style={styles.infoText}>
@@ -76,12 +88,20 @@ export default function PaymentsScreen({ navigation }) {
 
         <View style={styles.card}>
           <TouchableOpacity
-            style={styles.rowBetween}
-            onPress={() => setSelected("paytm")}
-          >
-            <Text style={styles.title}>Paytm</Text>
-            <Radio value="paytm" />
-          </TouchableOpacity>
+  style={styles.rowBetween}
+  onPress={() => setSelected("paytm")}
+>
+  <View style={styles.paymentRow}>
+    <Image
+      source={require("../../../assets/paytm.png")}
+      style={styles.paymentIcon}
+    />
+
+    <Text style={styles.title}>Paytm</Text>
+  </View>
+
+  <Radio value="paytm" />
+</TouchableOpacity>
 
           <View style={styles.infoBox}>
             <Text style={styles.infoText}>
@@ -92,12 +112,20 @@ export default function PaymentsScreen({ navigation }) {
           <View style={styles.divider} />
 
           <TouchableOpacity
-            style={styles.rowBetween}
-            onPress={() => setSelected("gpay")}
-          >
-            <Text style={styles.title}>Gpay</Text>
-            <Radio value="gpay" />
-          </TouchableOpacity>
+  style={styles.rowBetween}
+  onPress={() => setSelected("gpay")}
+>
+  <View style={styles.paymentRow}>
+    <Image
+      source={require("../../../assets/gpay.png")}
+      style={styles.paymentIcon}
+    />
+
+    <Text style={styles.title}>Gpay</Text>
+  </View>
+
+  <Radio value="gpay" />
+</TouchableOpacity>
         </View>
 
         {/* PAY LATER */}
@@ -105,12 +133,20 @@ export default function PaymentsScreen({ navigation }) {
 
         <View style={styles.card}>
           <TouchableOpacity
-            style={styles.rowBetween}
-            onPress={() => setSelected("paylater")}
-          >
-            <Text style={styles.title}>Pay at drop</Text>
-            <Radio value="paylater" />
-          </TouchableOpacity>
+  style={styles.rowBetween}
+  onPress={() => setSelected("paylater")}
+>
+  <View style={styles.paymentRow}>
+    <Image
+      source={require("../../../assets/qr.png")}
+      style={styles.paymentIcon}
+    />
+
+    <Text style={styles.title}>Pay at drop</Text>
+  </View>
+
+  <Radio value="paylater" />
+</TouchableOpacity>
 
           <View style={styles.infoBox}>
             <Text style={styles.infoText}>
@@ -124,42 +160,100 @@ export default function PaymentsScreen({ navigation }) {
 
         <View style={styles.card}>
           <TouchableOpacity
-            style={styles.rowBetween}
-            onPress={() => setSelected("cash")}
-          >
-            <Text style={styles.title}>Cash</Text>
-            <Radio value="cash" />
-          </TouchableOpacity>
+  style={styles.rowBetween}
+  onPress={() => setSelected("cash")}
+>
+  <View style={styles.paymentRow}>
+    <Image
+      source={require("../../../assets/payment.png")}
+      style={styles.paymentIcon}
+    />
+
+    <Text style={styles.title}>Cash</Text>
+  </View>
+
+  <Radio value="cash" />
+</TouchableOpacity>
         </View>
 
-         <TouchableOpacity style={styles.button}
-                onPress={() => navigation.navigate("PaymentSuccess")}>
-                  <Text style={styles.buttonText}>Proceed to Pay</Text>
-                </TouchableOpacity>
+         <TouchableOpacity
+  style={styles.payBtn}
+  onPress={() => navigation.navigate("PaymentSuccess")}
+>
+  <Text style={styles.payBtnText}>Proceed to Pay</Text>
+</TouchableOpacity>
       </ScrollView>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#e5e7eb" },
+  container: {
+  flex: 1,
+  backgroundColor: "#f3f4f6",
+  paddingTop: 50,
+},
 
-  headerRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    padding: 15,
-  },
+headerRow: {
+  flexDirection: "row",
+  alignItems: "center",
+  paddingHorizontal: 15,
+  marginBottom: 10,
+},
 
-  backBtn: {
-    backgroundColor: "#fff",
-    padding: 8,
-    borderRadius: 20,
-    marginRight: 10,
-  },
+backBtn: {
+  width: 42,
+  height: 42,
+  borderRadius: 21,
+  backgroundColor: "#eef1ef",
+  alignItems: "center",
+  justifyContent: "center",
+  marginRight: 12,
+},
 
-  header: { fontSize: 16, fontWeight: "600" },
+header: {
+  fontSize: 18,
+  fontWeight: "700",
+  color: "#111",
+},
 
-  content: { padding: 15 },
+content: {
+  paddingHorizontal: 15,
+  paddingBottom: 40,
+},
+
+backIcon: {
+  width: 18,
+  height: 18,
+  resizeMode: "contain",
+},
+
+paymentRow: {
+  flexDirection: "row",
+  alignItems: "center",
+},
+
+paymentIcon: {
+  width: 22,
+  height: 22,
+  resizeMode: "contain",
+  marginRight: 10,
+},
+
+payBtn: {
+  backgroundColor: "#0f7c7c",
+  paddingVertical: 16,
+  borderRadius: 32,
+  alignItems: "center",
+  marginTop: 10,
+  marginBottom: 30,
+},
+
+payBtnText: {
+  color: "#fff",
+  fontSize: 17,
+  fontWeight: "700",
+},
 
   rowBetween: {
     flexDirection: "row",

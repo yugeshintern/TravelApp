@@ -5,57 +5,75 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
+  Image,
 } from "react-native";
-import Icon from "react-native-vector-icons/Feather";
 
 export default function ClaimInsurance({ navigation }) {
   return (
     <View style={styles.container}>
       {/* HEADER */}
-      <View style={styles.headerRow}>
-        <TouchableOpacity
-          style={styles.backBtn}
-          onPress={() => navigation.goBack()}
-        >
-          <Icon name="arrow-left" size={18} />
-        </TouchableOpacity>
+      {/* HEADER */}
+<View style={styles.headerRow}>
+  <TouchableOpacity
+    style={styles.backBtn}
+    onPress={() => navigation.goBack()}
+  >
+    <Image
+      source={require("../../../assets/back.png")}
+      style={styles.backIcon}
+    />
+  </TouchableOpacity>
 
-        <Text style={styles.header}>Claim</Text>
-      </View>
+  <Text style={styles.header}>Claim</Text>
+</View>
 
       <ScrollView contentContainerStyle={styles.content}>
         {/* POLICY COVERAGE */}
         <Text style={styles.section}>POLICY COVERAGE</Text>
 
         <View style={styles.card}>
-          <View style={styles.item}>
-            <Icon name="activity" size={18} />
-            <View style={styles.textBox}>
-              <Text style={styles.title}>
-                Personal Accident/Accidental Death
-              </Text>
-              <Text style={styles.sub}>Up to ₹5,00,000</Text>
-            </View>
-          </View>
 
-          <View style={styles.item}>
-            <Icon name="file-text" size={18} />
-            <View style={styles.textBox}>
-              <Text style={styles.title}>
-                Medical Expense for Hospitalization
-              </Text>
-              <Text style={styles.sub}>Up to ₹1,00,000</Text>
-            </View>
-          </View>
+  <View style={styles.item}>
+    <Image
+      source={require("../../../assets/accident.png")}
+      style={styles.policyIcon}
+    />
 
-          <View style={styles.item}>
-            <Icon name="plus-square" size={18} />
-            <View style={styles.textBox}>
-              <Text style={styles.title}>OPD Treatment</Text>
-              <Text style={styles.sub}>Up to ₹3000</Text>
-            </View>
-          </View>
-        </View>
+    <View style={styles.textBox}>
+      <Text style={styles.title}>
+        Personal Accident/Accidental Death
+      </Text>
+      <Text style={styles.sub}>Up to ₹5,00,000</Text>
+    </View>
+  </View>
+
+  <View style={styles.item}>
+    <Image
+      source={require("../../../assets/medical.png")}
+      style={styles.policyIcon}
+    />
+
+    <View style={styles.textBox}>
+      <Text style={styles.title}>
+        Medical Expense for Hospitalization
+      </Text>
+      <Text style={styles.sub}>Up to ₹1,00,000</Text>
+    </View>
+  </View>
+
+  <View style={styles.item}>
+    <Image
+      source={require("../../../assets/opd.png")}
+      style={styles.policyIcon}
+    />
+
+    <View style={styles.textBox}>
+      <Text style={styles.title}>OPD Treatment</Text>
+      <Text style={styles.sub}>Up to ₹3000</Text>
+    </View>
+  </View>
+
+</View>
 
         {/* LEGAL */}
         <Text style={styles.section}>LEGAL</Text>
@@ -122,6 +140,18 @@ const styles = StyleSheet.create({
     color: "#2563eb",
     marginBottom: 10,
   },
+  backIcon: {
+  width: 18,
+  height: 18,
+  resizeMode: "contain",
+},
+
+policyIcon: {
+  width: 22,
+  height: 22,
+  resizeMode: "contain",
+  marginTop: 2,
+},
 
   card: {
     backgroundColor: "#fff",

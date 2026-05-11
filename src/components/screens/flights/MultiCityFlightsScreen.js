@@ -5,8 +5,8 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
+  Image,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Feather';
 
 const MultiCityFlightsScreen = ({ navigation }) => {
   return (
@@ -15,11 +15,14 @@ const MultiCityFlightsScreen = ({ navigation }) => {
         {/* HEADER */}
         <View style={styles.header}>
           <TouchableOpacity
-            style={styles.backBtn}
-            onPress={() => navigation.goBack()}
-          >
-            <Icon name="arrow-left" size={20} />
-          </TouchableOpacity>
+  style={styles.backBtn}
+  onPress={() => navigation.goBack()}
+>
+  <Image
+    source={require("../../../assets/back.png")}
+    style={styles.backIcon}
+  />
+</TouchableOpacity>
 
           <Text style={styles.headerTitle}>Flights Tickets</Text>
         </View>

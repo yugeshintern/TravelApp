@@ -53,12 +53,14 @@ const { login } = auth;
           <AppInput
             placeholder="Enter User Name"
             value={username}
+            placeholderTextColor="#999"
             onChangeText={setUsername}
           />
 
           <AppInput
             placeholder="Enter Password"
             value={password}
+            placeholderTextColor="#999"
             onChangeText={setPassword}
             secureTextEntry
           />
@@ -71,10 +73,7 @@ const { login } = auth;
           {/* Button */}
          
             <PrimaryButton 
-            label="Login" onPress={handleLogin}
-            onPress={()=> navigation.navigate("Location")}>
-
-            </PrimaryButton>
+            label="Login" onPress={() => { handleLogin(); navigation.navigate('Location'); }} />
           
         </View>
 

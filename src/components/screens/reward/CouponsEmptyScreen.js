@@ -1,12 +1,11 @@
-import React from "react";
 import {
   View,
   Text,
   StyleSheet,
   TouchableOpacity,
   TextInput,
+  Image,
 } from "react-native";
-import Icon from "react-native-vector-icons/Feather";
 
 export default function CouponsEmptyScreen({ navigation }) {
   return (
@@ -14,11 +13,14 @@ export default function CouponsEmptyScreen({ navigation }) {
       {/* HEADER */}
       <View style={styles.headerRow}>
         <TouchableOpacity
-          style={styles.backBtn}
-          onPress={() => navigation.goBack()}
-        >
-          <Icon name="arrow-left" size={18} />
-        </TouchableOpacity>
+  style={styles.backBtn}
+  onPress={() => navigation.goBack()}
+>
+  <Image
+    source={require("../../../assets/back.png")}
+    style={styles.backIcon}
+  />
+</TouchableOpacity>
 
         <Text style={styles.header}>Coupons & Offers</Text>
       </View>
@@ -60,17 +62,28 @@ const styles = StyleSheet.create({
   },
 
   headerRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    padding: 15,
-  },
+  flexDirection: "row",
+  alignItems: "center",
+  paddingHorizontal: 15,
+  paddingTop: 55,
+  paddingBottom: 18,
+},
 
-  backBtn: {
-    backgroundColor: "#e5e7eb",
-    padding: 8,
-    borderRadius: 20,
-    marginRight: 10,
-  },
+backBtn: {
+  width: 42,
+  height: 42,
+  borderRadius: 21,
+  backgroundColor: "#e5e7eb",
+  justifyContent: "center",
+  alignItems: "center",
+  marginRight: 14,
+},
+
+backIcon: {
+  width: 22,
+  height: 22,
+  resizeMode: "contain",
+},
 
   header: {
     fontSize: 16,

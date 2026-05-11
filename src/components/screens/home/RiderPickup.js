@@ -13,18 +13,18 @@ export default function RiderPickup({ navigation }) {
     <View style={styles.container}>
       {/* MAP */}
       <Image
-        source={{
-          uri: "https://maps.googleapis.com/maps/api/staticmap?center=Chennai&zoom=14&size=600x300",
-        }}
-        style={styles.map}
-      />
+  source={require("../../../assets/city_map.png")}
+  style={styles.map}
+/>
 
-      {/* HEADER */}
-      <Text style={styles.header}>Rider_pickup</Text>
+      
 
       {/* BACK BUTTON */}
       <TouchableOpacity style={styles.backBtn}>
-        <Icon name="arrow-left" size={18} />
+        <Image
+  source={require("../../../assets/back.png")}
+  style={styles.backIcon}
+/>
       </TouchableOpacity>
 
       {/* BOTTOM SHEET */}
@@ -49,7 +49,10 @@ export default function RiderPickup({ navigation }) {
           </View>
 
           <View style={styles.iconCircle}>
-            <Icon name="truck" size={16} />
+            <Image
+  source={require("../../../assets/bike-icon.png")}
+  style={styles.bikeIcon}
+/>
           </View>
         </View>
 
@@ -78,7 +81,10 @@ export default function RiderPickup({ navigation }) {
           </View>
 
           <View style={styles.avatarBox}>
-            <View style={styles.avatar} />
+            <Image
+  source={require("../../../assets/profile-con.png")}
+  style={styles.avatar}
+/>
             <Text style={styles.rating}>4.8⭐</Text>
           </View>
         </View>
@@ -90,7 +96,7 @@ export default function RiderPickup({ navigation }) {
           Koyambedu Bus Stand
         </Text>
         <Text style={styles.pickupSub}>
-          Koyambedu bus terminus, Chennai...
+          Koyambedu bus terminus, Koyambedu, Chennai,TamilNadu
         </Text>
 
         {/* CANCEL */}
@@ -148,6 +154,46 @@ const styles = StyleSheet.create({
     borderRadius: 2,
     marginBottom: 10,
   },
+
+  backIcon: {
+  width: 18,
+  height: 18,
+  resizeMode: "contain",
+},
+
+bikeIcon: {
+  width: 22,
+  height: 22,
+  resizeMode: "contain",
+},
+
+messageRow: {
+  flexDirection: "row",
+  alignItems: "center",
+},
+
+messageIcon: {
+  width: 18,
+  height: 18,
+  resizeMode: "contain",
+  marginRight: 8,
+},
+
+messageText: {
+  color: "#333",
+},
+
+issueRow: {
+  flexDirection: "row",
+  alignItems: "center",
+},
+
+questionIcon: {
+  width: 16,
+  height: 16,
+  resizeMode: "contain",
+  marginRight: 6,
+},
 
   title: {
     textAlign: "center",
@@ -236,11 +282,11 @@ const styles = StyleSheet.create({
   },
 
   avatar: {
-    width: 50,
-    height: 50,
-    backgroundColor: "#000",
-    borderRadius: 25,
-  },
+  width: 50,
+  height: 50,
+  borderRadius: 25,
+  resizeMode: "cover",
+},
 
   rating: {
     fontSize: 12,

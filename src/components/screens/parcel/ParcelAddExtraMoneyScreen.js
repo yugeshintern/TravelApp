@@ -4,57 +4,94 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
+  Image,
+  ImageBackground,
 } from "react-native";
-import Icon from "react-native-vector-icons/Feather";
 
-export default function ParcelAddExtraMoneyScreen({ navigation }) {
+export default function ParcelAddExtraMoneyScreen({
+  navigation,
+}) {
   const [selected, setSelected] = useState(null);
 
   const amounts = [20, 30, 40, 50];
 
   return (
     <View style={styles.container}>
-      {/* MAP */}
-      <View style={styles.map}>
+      {/* MAP BG */}
+      <ImageBackground
+        source={require("../../../assets/review_bg.png")}
+        style={styles.map}
+        resizeMode="cover"
+      >
+        {/* BACK BUTTON */}
         <TouchableOpacity
           style={styles.backBtn}
           onPress={() => navigation.goBack()}
         >
-          <Icon name="arrow-left" size={18} />
+          <Image
+            source={require("../../../assets/back.png")}
+            style={styles.backIcon}
+          />
         </TouchableOpacity>
-      </View>
+      </ImageBackground>
 
       {/* BOTTOM SHEET */}
       <View style={styles.sheet}>
+        {/* DRAG BAR */}
         <View style={styles.dragBar} />
 
         {/* HEADER */}
         <View style={styles.row}>
-          <Icon name="truck" size={18} />
-          <View style={{ marginLeft: 10 }}>
-            <Text style={styles.small}>Looking for your</Text>
-            <Text style={styles.bold}>Bike ride</Text>
+          <Image
+            source={require("../../../assets/bike.png")}
+            style={styles.bikeIcon}
+          />
+
+          <View style={{ marginLeft: 12 }}>
+            <Text style={styles.small}>
+              Looking for your
+            </Text>
+
+            <Text style={styles.bold}>
+              Bike ride
+            </Text>
           </View>
         </View>
 
         {/* RIDE CARD */}
         <View style={styles.rideCard}>
           <View>
-            <Text style={styles.bold}>Bike ride</Text>
-            <Text style={styles.subText}>₹287.0</Text>
+            <Text style={styles.rideTitle}>
+              Bike ride
+            </Text>
+
+            <Text style={styles.price}>
+              ₹287.0
+            </Text>
           </View>
 
           <TouchableOpacity style={styles.tripBtn}>
-            <Text style={styles.tripText}>Trip Details</Text>
+            <Text style={styles.tripText}>
+              Trip Details
+            </Text>
           </TouchableOpacity>
         </View>
 
         {/* BOOST CARD */}
-        <View style={styles.boostCard}>
-          <Text style={styles.bold}>
+        <TouchableOpacity
+          activeOpacity={0.9}
+          style={styles.boostCard}
+          onPress={() =>
+            navigation.navigate("RiderPickup")
+          }
+        >
+          <Text style={styles.boostTitle}>
             Captains aren’t accepting at ₹287.
           </Text>
-          <Text style={styles.subText}>Try adding more</Text>
+
+          <Text style={styles.subText}>
+            Try adding more
+          </Text>
 
           <View style={styles.chipRow}>
             {amounts.map((amt) => (
@@ -62,14 +99,17 @@ export default function ParcelAddExtraMoneyScreen({ navigation }) {
                 key={amt}
                 style={[
                   styles.chip,
-                  selected === amt && styles.chipSelected,
+                  selected === amt &&
+                    styles.chipSelected,
                 ]}
                 onPress={() => setSelected(amt)}
               >
                 <Text
                   style={[
                     styles.chipText,
-                    selected === amt && { color: "#fff" },
+                    selected === amt && {
+                      color: "#fff",
+                    },
                   ]}
                 >
                   +₹{amt}
@@ -77,7 +117,7 @@ export default function ParcelAddExtraMoneyScreen({ navigation }) {
               </TouchableOpacity>
             ))}
           </View>
-        </View>
+        </TouchableOpacity>
 
         {/* FOOT TEXT */}
         <Text style={styles.footerText}>
@@ -89,39 +129,51 @@ export default function ParcelAddExtraMoneyScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#fff" },
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+  },
 
+  /* MAP */
   map: {
-    height: 260,
-    backgroundColor: "#ddd",
+    height: 340,
+    paddingTop: 55,
+    paddingHorizontal: 15,
   },
 
   backBtn: {
-    position: "absolute",
-    top: 20,
-    left: 15,
+    width: 42,
+    height: 42,
+    borderRadius: 21,
     backgroundColor: "#fff",
-    padding: 8,
-    borderRadius: 20,
-    elevation: 3,
+    justifyContent: "center",
+    alignItems: "center",
+    elevation: 5,
   },
 
+  backIcon: {
+    width: 18,
+    height: 18,
+    resizeMode: "contain",
+  },
+
+  /* SHEET */
   sheet: {
     flex: 1,
-    backgroundColor: "#f3f4f6",
-    borderTopLeftRadius: 25,
-    borderTopRightRadius: 25,
-    padding: 15,
-    marginTop: -20,
+    backgroundColor: "#f7f7f7",
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    padding: 18,
+    marginTop: -25,
   },
 
   dragBar: {
-    width: 40,
-    height: 4,
-    backgroundColor: "#ccc",
+    width: 70,
+    height: 5,
+    backgroundColor: "#d4d4d4",
     alignSelf: "center",
     borderRadius: 10,
-    marginBottom: 10,
+    marginBottom: 24,
   },
 
   row: {
@@ -129,59 +181,94 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 
-  small: { fontSize: 12, color: "#555" },
-  bold: { fontSize: 15, fontWeight: "600" },
+  bikeIcon: {
+    width: 24,
+    height: 24,
+    resizeMode: "contain",
+  },
+
+  small: {
+    fontSize: 14,
+    color: "#555",
+  },
+
+  bold: {
+    fontSize: 18,
+    fontWeight: "700",
+    color: "#111",
+  },
 
   /* RIDE CARD */
   rideCard: {
-    backgroundColor: "#e5e7eb",
-    borderRadius: 15,
-    padding: 12,
-    marginTop: 15,
+    backgroundColor: "#e9eceb",
+    borderRadius: 20,
+    padding: 18,
+    marginTop: 22,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
   },
 
-  subText: {
-    fontSize: 12,
-    color: "#555",
-    marginTop: 2,
+  rideTitle: {
+    fontSize: 18,
+    fontWeight: "700",
+    color: "#111",
+  },
+
+  price: {
+    fontSize: 16,
+    color: "#444",
+    marginTop: 6,
   },
 
   tripBtn: {
-    borderWidth: 1,
-    borderColor: "#ccc",
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 20,
+    borderWidth: 1.5,
+    borderColor: "#cfcfcf",
+    paddingHorizontal: 22,
+    paddingVertical: 10,
+    borderRadius: 25,
+    backgroundColor: "#f7f7f7",
   },
 
   tripText: {
-    fontSize: 12,
-    color: "#333",
+    fontSize: 15,
+    color: "#444",
+    fontWeight: "500",
   },
 
   /* BOOST CARD */
   boostCard: {
-    backgroundColor: "#e5e7eb",
-    borderRadius: 15,
-    padding: 15,
-    marginTop: 15,
+    backgroundColor: "#e9eceb",
+    borderRadius: 22,
+    padding: 20,
+    marginTop: 18,
+  },
+
+  boostTitle: {
+    fontSize: 18,
+    fontWeight: "700",
+    color: "#111",
+    lineHeight: 28,
+  },
+
+  subText: {
+    fontSize: 16,
+    color: "#555",
+    marginTop: 2,
   },
 
   chipRow: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop: 12,
+    marginTop: 22,
   },
 
   chip: {
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 20,
-    paddingVertical: 6,
-    paddingHorizontal: 14,
+    borderWidth: 1.5,
+    borderColor: "#d0d0d0",
+    borderRadius: 30,
+    paddingVertical: 10,
+    paddingHorizontal: 22,
     backgroundColor: "#fff",
   },
 
@@ -191,13 +278,16 @@ const styles = StyleSheet.create({
   },
 
   chipText: {
-    fontSize: 12,
+    fontSize: 16,
     color: "#333",
+    fontWeight: "600",
   },
 
   footerText: {
-    marginTop: 20,
-    fontSize: 12,
-    color: "#555",
+    marginTop: 28,
+    fontSize: 16,
+    color: "#444",
+    lineHeight: 26,
+    fontWeight: "500",
   },
 });

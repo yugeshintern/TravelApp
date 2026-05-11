@@ -7,59 +7,114 @@ import {
   Image,
   ScrollView,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Feather';
 
 const HotelDetailsScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
+
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingBottom: 180 }}
+      >
 
         {/* HEADER */}
         <View style={styles.header}>
-          <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>
-            <Icon name="arrow-left" size={20} />
+
+          <TouchableOpacity
+            style={styles.backBtn}
+            onPress={() => navigation.goBack()}
+          >
+            <Image
+              source={require('../../../assets/back.png')}
+              style={styles.backIcon}
+            />
           </TouchableOpacity>
-          <Text style={styles.headerTitle}>Hotel Halez</Text>
+
+          <Text style={styles.headerTitle}>
+            Hotel Halez
+          </Text>
+
+          <View style={{ width: 46 }} />
+
         </View>
 
         {/* HOTEL CARD */}
         <View style={styles.card}>
+
           <Image
-            source={{ uri: 'https://images.unsplash.com/photo-1566073771259-6a8506099945' }}
+            source={{
+              uri: 'https://images.unsplash.com/photo-1566073771259-6a8506099945',
+            }}
             style={styles.image}
           />
 
+          {/* TAG */}
           <View style={styles.tag}>
             <Text style={styles.tagText}>4 ★ Hotel</Text>
           </View>
 
-          <Text style={styles.hotelName}>Hotel Halez</Text>
+          {/* NAME */}
+          <Text style={styles.hotelName}>
+            Hotel Halez
+          </Text>
 
+          {/* RATING */}
           <View style={styles.ratingRow}>
+
             <View style={styles.ratingBox}>
               <Text style={styles.ratingText}>4.3</Text>
             </View>
-            <Text style={styles.ratingSub}>388 ratings and 66 reviews</Text>
+
+            <Text style={styles.ratingSub}>
+              388 ratings and 66 reviews
+            </Text>
+
           </View>
 
-          <View style={styles.row}>
-            <Icon name="map-pin" size={16} color="#0F7A6C" />
-            <Text style={styles.location}>Sholinganallur, Chennai</Text>
+          {/* LOCATION */}
+          <View style={styles.locationRow}>
+
+            <Image
+              source={require('../../../assets/loc-icon.png')}
+              style={styles.locationIcon}
+            />
+
+            <Text style={styles.location}>
+              Sholinganallur, Chennai
+            </Text>
+
           </View>
 
-          <Text style={styles.green}>✓ Free Cancelation Included</Text>
-          <Text style={styles.red}>♥ Couple Friendly</Text>
-          <Text style={styles.green}>✓ Breakfast available at extra charges</Text>
+          {/* FEATURES */}
+          <Text style={styles.greenText}>
+            ✓ Free Cancelation Included
+          </Text>
+
+          <Text style={styles.redText}>
+            ♥ Couple Friendly
+          </Text>
+
+          <Text style={styles.greenText}>
+            ✓ Breakfast available at extra charges
+          </Text>
+
         </View>
 
-        {/* DATE */}
+        {/* DATE BOX */}
         <View style={styles.dateBox}>
-          <Text style={styles.dateText}>04 Mar, Wed – 05 Mar, Thu | 2 Guests</Text>
+          <Text style={styles.dateText}>
+            04 Mar, Wed – 05 Mar, Thu | 2 Guests
+          </Text>
         </View>
 
         {/* AMENITIES */}
-        <Text style={styles.sectionTitle}>Amenities</Text>
-        <Text style={styles.sub}>Rated <Text style={styles.greenText}>3.2</Text> by guests</Text>
+        <Text style={styles.sectionTitle}>
+          Amenities
+        </Text>
+
+        <Text style={styles.subText}>
+          Rated <Text style={styles.greenNumber}>3.2</Text> by guests
+        </Text>
 
         <View style={styles.amenitiesRow}>
           <Text style={styles.amenity}>✓ Spa</Text>
@@ -77,52 +132,111 @@ const HotelDetailsScreen = ({ navigation }) => {
         </View>
 
         {/* FOOD */}
-        <Text style={styles.sectionTitle}>Food & Dining</Text>
-        <Text style={styles.foodTitle}>Coriander</Text>
-        <Text style={styles.sub}>Both Vegetarian & Non-Vegetarian food</Text>
+        <Text style={styles.sectionTitle}>
+          Food & Dining
+        </Text>
+
+        <Text style={styles.foodTitle}>
+          Coriander
+        </Text>
+
+        <Text style={styles.subText}>
+          Both Vegetarian & Non-Vegetarian food
+        </Text>
 
         {/* RULES */}
-        <Text style={styles.sectionTitle}>Hotel Rules</Text>
-        <Text style={styles.rulesHeader}>Check-In: 2pm    Check-Out: 12pm</Text>
+        <Text style={styles.sectionTitle}>
+          Hotel Rules
+        </Text>
 
-        <Text style={styles.rule}>• Unmarried couples allowed</Text>
-        <Text style={styles.rule}>• Primary Guest should be atleast 18 years of age.</Text>
-        <Text style={styles.rule}>• Passport, Aadhaar, Driving License accepted</Text>
-        <Text style={styles.rule}>• Pets are not allowed</Text>
-        <Text style={styles.rule}>• Smoking not allowed</Text>
-        <Text style={styles.rule}>• Outside food not allowed</Text>
+        <Text style={styles.rulesHeader}>
+          Check-In: 2pm    Check-Out: 12pm
+        </Text>
 
-        {/* MAP */}
-        <Text style={styles.sectionTitle}>Location</Text>
+        <Text style={styles.rule}>
+          • Unmarried couples allowed
+        </Text>
+
+        <Text style={styles.rule}>
+          • Primary Guest should be atleast 18 years of age.
+        </Text>
+
+        <Text style={styles.rule}>
+          • Passport, Aadhaar, Driving License accepted
+        </Text>
+
+        <Text style={styles.rule}>
+          • Pets are not allowed
+        </Text>
+
+        <Text style={styles.rule}>
+          • Smoking not allowed
+        </Text>
+
+        <Text style={styles.rule}>
+          • Outside food not allowed
+        </Text>
+
+        {/* LOCATION */}
+        <Text style={styles.sectionTitle}>
+          Location
+        </Text>
+
         <Image
-          source={{ uri: 'https://maps.googleapis.com/maps/api/staticmap?center=Chennai&zoom=13&size=600x300&key=YOUR_API_KEY' }}
+          source={require('../../../assets/city_map.png')}
           style={styles.map}
         />
 
-        <View style={styles.row}>
-          <Icon name="map-pin" size={16} color="#C62828" />
+        {/* ADDRESS */}
+        <View style={styles.addressRow}>
+
+          <Image
+            source={require('../../../assets/location-icon.png')}
+            style={styles.locationBottomIcon}
+          />
+
           <Text style={styles.address}>
-            102, Hotel Halez, Rajiv Gandhi Salai, Sholinganallur, Tamil Nadu 600119
+            102, Hotel Halez, Rajiv Gandhi Salai,
+            Sholinganallur, Tamil Nadu 600119
           </Text>
+
         </View>
 
       </ScrollView>
 
       {/* BOTTOM BAR */}
-      <View style={styles.bottom}>
-        <View>
-          <Text style={styles.offer}>1 offer applied</Text>
-          <Text style={styles.tax}>+ ₹337 Taxes & Fees</Text>
-        </View>
+      <View style={styles.bottomBar}>
 
         <View>
-          <Text style={styles.price}>₹5,718</Text>
+
+          <Text style={styles.offerText}>
+            1 offer applied
+          </Text>
+
+          <Text style={styles.taxText}>
+            + ₹337 Taxes & Fees
+          </Text>
+
+          <Text style={styles.perNight}>
+            per night
+          </Text>
+
         </View>
+
+        <Text style={styles.price}>
+          ₹5,718
+        </Text>
+
       </View>
 
-      <TouchableOpacity style={styles.button}
-      onPress={()=>navigation.navigate("RoomSelection")}>
-        <Text style={styles.buttonText}>Select Room</Text>
+      {/* BUTTON */}
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('RoomSelection')}
+      >
+        <Text style={styles.buttonText}>
+          Select Room
+        </Text>
       </TouchableOpacity>
 
     </View>
@@ -130,150 +244,350 @@ const HotelDetailsScreen = ({ navigation }) => {
 };
 
 export default HotelDetailsScreen;
-const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#F5F6F8' },
 
+const styles = StyleSheet.create({
+
+  container: {
+    flex: 1,
+    backgroundColor: '#F5F6F8',
+    paddingTop: 58,
+  },
+
+  /* HEADER */
   header: {
-    marginTop: 50,
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 16,
+    justifyContent: 'space-between',
+
+    paddingHorizontal: 22,
   },
 
   backBtn: {
-    width: 38,
-    height: 38,
-    borderRadius: 19,
-    backgroundColor: '#EDEDED',
-    justifyContent: 'center',
+    width: 46,
+    height: 46,
+    borderRadius: 23,
+
+    backgroundColor: '#EEF1F1',
+
     alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  backIcon: {
+    width: 24,
+    height: 24,
+    resizeMode: 'contain',
   },
 
   headerTitle: {
-    flex: 1,
-    textAlign: 'center',
-    fontSize: 16,
-    fontWeight: '600',
-    marginRight: 38,
+    fontSize: 20,
+    fontWeight: '700',
+    color: '#222',
   },
 
+  /* CARD */
   card: {
-    margin: 16,
+    marginHorizontal: 16,
+    marginTop: 24,
+
     backgroundColor: '#fff',
-    borderRadius: 16,
-    padding: 12,
+
+    borderRadius: 22,
+    padding: 14,
+
     elevation: 5,
   },
 
   image: {
-    height: 160,
-    borderRadius: 14,
+    width: '100%',
+    height: 170,
+
+    borderRadius: 18,
   },
 
   tag: {
-    marginTop: 8,
+    marginTop: 14,
+
     borderWidth: 1,
-    borderColor: '#DDD',
+    borderColor: '#D9D9D9',
+
     borderRadius: 6,
-    paddingHorizontal: 6,
+
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+
     alignSelf: 'flex-start',
   },
 
-  tagText: { fontSize: 11 },
+  tagText: {
+    fontSize: 13,
+    color: '#333',
+  },
 
   hotelName: {
-    fontSize: 20,
-    fontWeight: '600',
-    marginTop: 8,
+    marginTop: 14,
+
+    fontSize: 22,
+    fontWeight: '700',
+
+    color: '#222',
   },
 
   ratingRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 6,
+
+    marginTop: 12,
   },
 
   ratingBox: {
-    backgroundColor: '#0A8F2C',
-    borderRadius: 6,
-    paddingHorizontal: 8,
-    paddingVertical: 2,
+    backgroundColor: '#148C1F',
+
+    borderRadius: 8,
+
+    paddingHorizontal: 12,
+    paddingVertical: 5,
   },
 
-  ratingText: { color: '#fff', fontWeight: '600' },
+  ratingText: {
+    color: '#fff',
+    fontWeight: '700',
+    fontSize: 16,
+  },
 
-  ratingSub: { marginLeft: 8, color: '#777', fontSize: 12 },
+  ratingSub: {
+    marginLeft: 12,
 
-  row: { flexDirection: 'row', alignItems: 'center', marginTop: 6 },
+    color: '#777',
+    fontSize: 15,
+  },
 
-  location: { marginLeft: 6, color: '#555' },
+  locationRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
 
-  green: { color: '#2E7D32', marginTop: 4 },
-  red: { color: '#D32F2F', marginTop: 4 },
+    marginTop: 16,
+  },
 
+  locationIcon: {
+    width: 18,
+    height: 18,
+    resizeMode: 'contain',
+  },
+
+  location: {
+    marginLeft: 10,
+
+    fontSize: 16,
+    color: '#555',
+  },
+
+  greenText: {
+    marginTop: 12,
+
+    color: '#2E7D32',
+    fontSize: 16,
+  },
+
+  redText: {
+    marginTop: 12,
+
+    color: '#D32F2F',
+    fontSize: 16,
+  },
+
+  /* DATE BOX */
   dateBox: {
-    backgroundColor: '#fff',
     marginHorizontal: 16,
-    padding: 14,
-    borderRadius: 12,
+    marginTop: 20,
+
+    backgroundColor: '#fff',
+
+    borderRadius: 18,
+
+    paddingVertical: 20,
+
     elevation: 4,
   },
 
-  dateText: { fontWeight: '600', textAlign: 'center' },
+  dateText: {
+    textAlign: 'center',
 
-  sectionTitle: {
-    marginTop: 20,
-    marginLeft: 16,
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: '700',
+    color: '#222',
   },
 
-  sub: { marginLeft: 16, color: '#777', marginTop: 4 },
+  /* TITLES */
+  sectionTitle: {
+    marginTop: 28,
+    marginHorizontal: 16,
 
-  greenText: { color: '#2E7D32', fontWeight: '600' },
+    fontSize: 18,
+    fontWeight: '700',
 
+    color: '#222',
+  },
+
+  subText: {
+    marginTop: 10,
+    marginHorizontal: 16,
+
+    color: '#777',
+    fontSize: 15,
+  },
+
+  greenNumber: {
+    color: '#2E7D32',
+    fontWeight: '700',
+  },
+
+  /* AMENITIES */
   amenitiesRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+
     marginHorizontal: 16,
-    marginTop: 8,
+    marginTop: 18,
   },
 
-  amenity: { color: '#333' },
+  amenity: {
+    width: '48%',
 
-  foodTitle: { marginLeft: 16, fontWeight: '600', marginTop: 6 },
+    fontSize: 16,
+    color: '#333',
+  },
 
-  rulesHeader: { marginLeft: 16, marginTop: 6 },
+  /* FOOD */
+  foodTitle: {
+    marginTop: 14,
+    marginHorizontal: 16,
 
-  rule: { marginLeft: 16, marginTop: 4, fontSize: 12, color: '#555' },
+    fontSize: 16,
+    fontWeight: '700',
 
+    color: '#222',
+  },
+
+  /* RULES */
+  rulesHeader: {
+    marginTop: 14,
+    marginHorizontal: 16,
+
+    fontSize: 16,
+    color: '#222',
+  },
+
+  rule: {
+    marginTop: 10,
+    marginHorizontal: 16,
+
+    fontSize: 14,
+    color: '#555',
+
+    lineHeight: 22,
+  },
+
+  /* MAP */
   map: {
-    height: 160,
-    borderRadius: 12,
-    margin: 16,
+    height: 190,
+    borderRadius: 18,
+
+    marginHorizontal: 16,
+    marginTop: 18,
+
+    width: '92%',
+    alignSelf: 'center',
   },
 
-  address: { marginLeft: 6, flex: 1 },
+  /* ADDRESS */
+  addressRow: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
 
-  bottom: {
+    marginHorizontal: 16,
+    marginTop: 20,
+  },
+
+  locationBottomIcon: {
+    width: 22,
+    height: 22,
+
+    resizeMode: 'contain',
+
+    marginTop: 2,
+  },
+
+  address: {
+    flex: 1,
+
+    marginLeft: 10,
+
+    fontSize: 16,
+    color: '#333',
+
+    lineHeight: 24,
+  },
+
+  /* BOTTOM */
+  bottomBar: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    padding: 16,
+    alignItems: 'center',
+
+    paddingHorizontal: 20,
+    paddingTop: 16,
+
     borderTopWidth: 1,
-    borderColor: '#EEE',
+    borderColor: '#E5E5E5',
+
+    backgroundColor: '#fff',
   },
 
-  offer: { color: '#1976D2', fontWeight: '600' },
-  tax: { color: '#777', fontSize: 12 },
-  price: { fontSize: 18, fontWeight: '600' },
+  offerText: {
+    color: '#1976D2',
+    fontSize: 15,
+    fontWeight: '700',
+  },
 
+  taxText: {
+    marginTop: 4,
+
+    color: '#777',
+    fontSize: 14,
+  },
+
+  perNight: {
+    color: '#777',
+    fontSize: 14,
+  },
+
+  price: {
+    fontSize: 18,
+    fontWeight: '700',
+    color: '#111',
+  },
+
+  /* BUTTON */
   button: {
-    backgroundColor: '#0F7A6C',
-    margin: 16,
-    padding: 16,
-    borderRadius: 30,
+    backgroundColor: '#0B7D80',
+
+    marginHorizontal: 16,
+    marginTop: 14,
+    marginBottom: 16,
+
+    borderRadius: 32,
+
+    paddingVertical: 18,
+
     alignItems: 'center',
   },
 
-  buttonText: { color: '#fff', fontSize: 16, fontWeight: '600' },
+  buttonText: {
+    color: '#fff',
+
+    fontSize: 18,
+    fontWeight: '700',
+  },
+
 });

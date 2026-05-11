@@ -6,275 +6,348 @@ import {
   TouchableOpacity,
   Image,
   ScrollView,
+  SafeAreaView,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Feather';
 
 const TrainBookingScreen = ({ navigation }) => {
   return (
-    <View style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
+    <SafeAreaView style={styles.container}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.scrollContent}
+      >
 
         {/* HEADER */}
         <View style={styles.header}>
-          <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>
-            <Icon name="arrow-left" size={20} />
+          <TouchableOpacity
+            style={styles.backBtn}
+            onPress={() => navigation.goBack()}
+          >
+            <Image
+              source={require('../../../assets/back.png')}
+              style={styles.backIcon}
+            />
           </TouchableOpacity>
 
           <Text style={styles.headerTitle}>Train Ticket</Text>
+
+          <View style={styles.placeholder} />
         </View>
 
         {/* INPUT CARD */}
         <View style={styles.inputCard}>
 
           {/* FROM */}
-          <View style={styles.row}>
-            <Icon name="map-pin" size={20} color="#444" />
+          <View style={styles.inputRow}>
+            <Image
+              source={require('../../../assets/from.png')}
+              style={styles.inputIcon}
+            />
+
             <Text style={styles.inputText}>Enter From</Text>
 
-            <View style={styles.swapBtn}>
-              <Icon name="arrow-up" size={14} />
-              <Icon name="arrow-down" size={14} />
-            </View>
+            <TouchableOpacity style={styles.swapBtn}>
+              <Image
+                source={require('../../../assets/swap.png')}
+                style={styles.swapIcon}
+              />
+            </TouchableOpacity>
           </View>
 
           <View style={styles.divider} />
 
           {/* TO */}
-          <View style={styles.row}>
-            <Icon name="map-pin" size={20} color="#444" />
+          <View style={styles.inputRow}>
+            <Image
+              source={require('../../../assets/to.png')}
+              style={styles.inputIcon}
+            />
+
             <Text style={styles.inputText}>Enter To</Text>
           </View>
 
           <View style={styles.divider} />
 
           {/* DATE */}
-          <View style={styles.row}>
-            <Icon name="calendar" size={20} color="#444" />
-            <View>
-              <Text style={styles.label}>Date of Journey</Text>
-              <Text style={styles.date}>26 Feb, 2026</Text>
+          <View style={styles.inputRow}>
+            <Image
+              source={require('../../../assets/calender.png')}
+              style={styles.inputIcon}
+            />
+
+            <View style={styles.dateContainer}>
+              <Text style={styles.dateLabel}>
+                Date of Journey
+              </Text>
+
+              <Text style={styles.dateText}>
+                26 Feb, 2026
+              </Text>
             </View>
           </View>
 
         </View>
 
         {/* SEARCH BUTTON */}
-        <TouchableOpacity style={styles.searchBtn}
-        onPress={()=> navigation.navigate("SearchTrain")}>
-          <Icon name="search" size={18} color="#444" />
-          <Text style={styles.searchText}>Search Trains</Text>
+        <TouchableOpacity
+          style={styles.searchBtn}
+          onPress={() => navigation.navigate('SearchTrain')}
+        >
+          <Image
+            source={require('../../../assets/search-icon.png')}
+            style={styles.searchIcon}
+          />
+
+          <Text style={styles.searchText}>
+            Search Trains
+          </Text>
         </TouchableOpacity>
 
-        {/* PROMO CARD 1 */}
+        {/* PROMO BANNER */}
         <View style={styles.promoCard}>
-          <View style={{ flex: 1 }}>
-            <Text style={styles.logo}>TRAVEL</Text>
-            <Text style={styles.offer}>100% OFF</Text>
-            <Text style={styles.subOffer}>On service Charge</Text>
+
+          <View style={styles.promoLeft}>
+            <Text style={styles.travelLogo}>
+              TRAVEL
+            </Text>
+
+            <Text style={styles.offerText}>
+              100% OFF
+            </Text>
+
+            <Text style={styles.offerSubText}>
+              On service Charge
+            </Text>
           </View>
 
           <Image
-            source={{ uri: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957' }}
-            style={styles.trainImage}
+            source={require('../../../assets/trainPromo.png')}
+            style={styles.promoImage}
           />
 
-          <Text style={styles.cornerText}>RIDE MORE{"\n"}PAY LESS</Text>
+          <Text style={styles.cornerText}>
+            RIDE MORE{'\n'}PAY LESS
+          </Text>
+
         </View>
 
-        {/* PROMO CARD 2 */}
-        <View style={styles.banner}>
-          <Text style={styles.bannerTitle}>
-            FESTIVAL SPECIAL TRAINS
-          </Text>
-
-          <Text style={styles.bannerSub}>
-            BETWEEN YESVANTPUR AND MANGALURU JN
-          </Text>
-
-          <Text style={styles.bannerText}>
-            Train No. 06217/06218
-          </Text>
-
-          <Text style={styles.bannerText}>
-            Yesvantpur → Mangaluru Jn (06217)
-          </Text>
-
-          <Text style={styles.bannerText}>
-            Mangaluru → Yesvantpur (06218)
-          </Text>
-        </View>
+        {/* FESTIVAL BANNER */}
+        <Image
+          source={require('../../../assets/festivalBanner.png')}
+          style={styles.festivalBanner}
+        />
 
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 };
 
 export default TrainBookingScreen;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5F6F8',
+    backgroundColor: '#F4F4F4',
   },
 
+  scrollContent: {
+    paddingBottom: 40,
+  },
+
+  /* HEADER */
   header: {
-    marginTop: 50,
+    marginTop: 18,
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 16,
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
   },
 
   backBtn: {
-    width: 38,
-    height: 38,
-    borderRadius: 19,
-    backgroundColor: '#EDEDED',
+    width: 42,
+    height: 42,
+    borderRadius: 21,
+    backgroundColor: '#E9E9E9',
     justifyContent: 'center',
     alignItems: 'center',
   },
 
+  backIcon: {
+    width: 18,
+    height: 18,
+    resizeMode: 'contain',
+  },
+
   headerTitle: {
-    flex: 1,
-    textAlign: 'center',
-    fontSize: 18,
-    fontWeight: '600',
-    marginRight: 38,
+    fontSize: 20,
+    fontWeight: '700',
+    color: '#111111',
+  },
+
+  placeholder: {
+    width: 42,
   },
 
   /* INPUT CARD */
   inputCard: {
-    margin: 16,
+    marginTop: 28,
+    marginHorizontal: 20,
     backgroundColor: '#E9ECEF',
-    borderRadius: 20,
-    padding: 16,
+    borderRadius: 24,
+    paddingHorizontal: 16,
+    paddingVertical: 18,
   },
 
-  row: {
+  inputRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 10,
-    justifyContent: 'space-between',
+  },
+
+  inputIcon: {
+    width: 20,
+    height: 20,
+    resizeMode: 'contain',
   },
 
   inputText: {
     flex: 1,
-    marginLeft: 10,
-    fontSize: 16,
-    color: '#444',
+    marginLeft: 14,
+    fontSize: 18,
+    color: '#3D3D3D',
+    fontWeight: '400',
   },
 
   divider: {
     height: 1,
-    backgroundColor: '#CFCFCF',
-    marginVertical: 12,
+    backgroundColor: '#D1D1D1',
+    marginVertical: 18,
+    marginLeft: 34,
   },
 
   swapBtn: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+    width: 42,
+    height: 42,
+    borderRadius: 21,
     borderWidth: 1,
-    borderColor: '#999',
+    borderColor: '#AFAFAF',
     justifyContent: 'center',
     alignItems: 'center',
   },
 
-  label: {
-    fontSize: 12,
-    color: '#666',
+  swapIcon: {
+    width: 20,
+    height: 20,
+    resizeMode: 'contain',
   },
 
-  date: {
-    fontSize: 16,
-    fontWeight: '600',
-    marginTop: 2,
+  dateContainer: {
+    marginLeft: 14,
+  },
+
+  dateLabel: {
+    fontSize: 13,
+    color: '#777777',
+    marginBottom: 4,
+  },
+
+  dateText: {
+    fontSize: 18,
+    fontWeight: '700',
+    color: '#111111',
   },
 
   /* SEARCH */
   searchBtn: {
-    marginHorizontal: 16,
-    backgroundColor: '#E0E0E0',
+    marginTop: 22,
+    marginHorizontal: 20,
+    height: 60,
     borderRadius: 30,
-    padding: 14,
+    backgroundColor: '#E5E5E5',
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    gap: 10,
+  },
+
+  searchIcon: {
+    width: 18,
+    height: 18,
+    resizeMode: 'contain',
+    marginRight: 10,
   },
 
   searchText: {
-    fontSize: 16,
+    fontSize: 18,
+    color: '#333333',
     fontWeight: '500',
-    color: '#444',
   },
 
-  /* PROMO 1 */
+  /* PROMO CARD */
   promoCard: {
-    margin: 16,
-    backgroundColor: '#FFE082',
-    borderRadius: 20,
-    padding: 16,
+    marginTop: 26,
+    marginHorizontal: 20,
+    backgroundColor: '#F7DC82',
+    borderRadius: 24,
+    padding: 18,
     flexDirection: 'row',
     alignItems: 'center',
+
+    shadowColor: '#000',
+    shadowOpacity: 0.06,
+    shadowRadius: 8,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
     elevation: 4,
   },
 
-  logo: {
+  promoLeft: {
+    flex: 1,
+  },
+
+  travelLogo: {
     fontSize: 20,
     fontWeight: '700',
-    color: '#0F7A6C',
+    color: '#0C7A6A',
   },
 
-  offer: {
-    fontSize: 20,
+  offerText: {
+    marginTop: 14,
+    fontSize: 22,
     fontWeight: '700',
-    marginTop: 10,
+    color: '#000000',
   },
 
-  subOffer: {
-    color: '#444',
+  offerSubText: {
+    marginTop: 4,
+    fontSize: 15,
+    color: '#4D4D4D',
   },
 
-  trainImage: {
-    width: 140,
-    height: 70,
+  promoImage: {
+    width: 150,
+    height: 90,
     resizeMode: 'contain',
   },
 
   cornerText: {
     position: 'absolute',
-    right: 12,
-    top: 12,
-    fontSize: 12,
-    fontWeight: '600',
-    color: '#fff',
+    top: 16,
+    right: 16,
+    fontSize: 13,
+    fontWeight: '700',
+    color: '#FFFFFF',
     textAlign: 'right',
   },
 
-  /* BANNER */
-  banner: {
-    margin: 16,
-    backgroundColor: '#FF8F00',
-    borderRadius: 20,
-    padding: 16,
-  },
-
-  bannerTitle: {
-    color: '#1A237E',
-    fontWeight: '700',
-    fontSize: 16,
-    textAlign: 'center',
-  },
-
-  bannerSub: {
-    color: '#1A237E',
-    textAlign: 'center',
-    marginTop: 6,
-    fontWeight: '600',
-  },
-
-  bannerText: {
-    textAlign: 'center',
-    marginTop: 6,
-    color: '#000',
+  /* FESTIVAL BANNER */
+  festivalBanner: {
+    marginTop: 28,
+    marginHorizontal: 20,
+    width: '90%',
+    height: 210,
+    borderRadius: 24,
+    resizeMode: 'cover',
+    alignSelf: 'center',
   },
 });

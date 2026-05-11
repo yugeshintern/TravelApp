@@ -5,6 +5,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   FlatList,
+  Image,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 
@@ -24,7 +25,15 @@ const TrainListScreen = ({ navigation }) => {
           style={styles.backBtn}
           onPress={() => navigation.goBack()}
         >
-          <Icon name="arrow-left" size={20} />
+          <TouchableOpacity
+  style={styles.backBtn}
+  onPress={() => navigation.goBack()}
+>
+  <Image
+    source={require("../../../assets/back.png")}
+    style={styles.backIcon}
+  />
+</TouchableOpacity>
         </TouchableOpacity>
 
         <Text style={styles.routeText}>

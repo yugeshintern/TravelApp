@@ -5,15 +5,18 @@ import {
   StyleSheet,
   TouchableOpacity,
   FlatList,
+  Image,
 } from "react-native";
-import Icon from "react-native-vector-icons/Feather";
 
-export default function BusListScreen({ navigation }) {
+export default function BusListScreen({
+  navigation,
+}) {
   const buses = [
     {
       id: "1",
       time: "23:30 - 06:15",
-      duration: "6h 45m 32 seats (5 Single)",
+      duration:
+        "6h 45m 32 seats (5 Single)",
       name: "Swamy Ayyappa Travels",
       type: "6h 45m 32 seats (5 Single)",
       price: "₹400",
@@ -22,7 +25,8 @@ export default function BusListScreen({ navigation }) {
     {
       id: "2",
       time: "00:30 - 05:55",
-      duration: "6h 45m 32 seats (5 Single)",
+      duration:
+        "6h 45m 32 seats (5 Single)",
       name: "Krish Travels",
       type: "6h 45m 32 seats (5 Single)",
       price: "₹400",
@@ -31,7 +35,8 @@ export default function BusListScreen({ navigation }) {
     {
       id: "3",
       time: "23:30 - 06:15",
-      duration: "6h 45m 32 seats (5 Single)",
+      duration:
+        "6h 45m 32 seats (5 Single)",
       name: "Namasivaya Travels",
       type: "6h 45m 32 seats (5 Single)",
       price: "₹400",
@@ -40,7 +45,8 @@ export default function BusListScreen({ navigation }) {
     {
       id: "4",
       time: "23:35 - 05:15",
-      duration: "6h 45m 32 seats (5 Single)",
+      duration:
+        "6h 45m 32 seats (5 Single)",
       name: "Swamy Ayyappa Travels",
       type: "A/C Sleeper (2+1)",
       price: "₹400",
@@ -49,7 +55,8 @@ export default function BusListScreen({ navigation }) {
     {
       id: "5",
       time: "23:15 - 06:25",
-      duration: "6h 45m 32 seats (5 Single)",
+      duration:
+        "6h 45m 32 seats (5 Single)",
       name: "IntrCity SmartBus",
       type: "A/C Seater / Sleeper (2+1)",
       price: "₹400",
@@ -58,7 +65,8 @@ export default function BusListScreen({ navigation }) {
     {
       id: "6",
       time: "23:30 - 06:15",
-      duration: "6h 45m 32 seats (5 Single)",
+      duration:
+        "6h 45m 32 seats (5 Single)",
       name: "Rhythm Xpress",
       type: "VE A/C Sleeper (2+1)",
       price: "₹400",
@@ -67,7 +75,8 @@ export default function BusListScreen({ navigation }) {
     {
       id: "7",
       time: "23:30 - 06:15",
-      duration: "6h 45m 32 seats (5 Single)",
+      duration:
+        "6h 45m 32 seats (5 Single)",
       name: "Sri vijayalakshmi travels",
       type: "A/C Sleeper (2+1)",
       price: "₹400",
@@ -76,31 +85,59 @@ export default function BusListScreen({ navigation }) {
   ];
 
   const renderItem = ({ item }) => (
-    <TouchableOpacity style={styles.card}>
+    <TouchableOpacity
+      style={styles.card}
+      activeOpacity={0.9}
+      onPress={() =>
+        navigation.navigate(
+          "SeatSelection",
+          { bus: item }
+        )
+      }
+    >
       {/* TOP ROW */}
       <View style={styles.topRow}>
         <View>
-          <Text style={styles.time}>{item.time}</Text>
-          <Text style={styles.duration}>{item.duration}</Text>
+          <Text style={styles.time}>
+            {item.time}
+          </Text>
+
+          <Text style={styles.duration}>
+            {item.duration}
+          </Text>
         </View>
 
-        <View style={{ alignItems: "flex-end" }}>
-          <Text style={styles.price}>{item.price}</Text>
-          <Text style={styles.onwards}>Onwards</Text>
+        <View style={styles.priceBox}>
+          <Text style={styles.price}>
+            {item.price}
+          </Text>
+
+          <Text style={styles.onwards}>
+            Onwards
+          </Text>
         </View>
       </View>
 
-      {/* NAME */}
-      <Text style={styles.name}>{item.name}</Text>
-      <Text style={styles.type}>{item.type}</Text>
+      {/* BUS NAME */}
+      <Text style={styles.name}>
+        {item.name}
+      </Text>
+
+      <Text style={styles.type}>
+        {item.type}
+      </Text>
 
       {/* BOTTOM */}
       <View style={styles.bottomRow}>
         <View style={styles.ratingBox}>
-          <Text style={styles.ratingText}>★ {item.rating}</Text>
+          <Text style={styles.ratingText}>
+            ★ {item.rating}
+          </Text>
         </View>
 
-        <Text style={styles.offer}>Exclusive ₹100 OFF</Text>
+        <Text style={styles.offer}>
+          Exclusive ₹100 OFF
+        </Text>
       </View>
     </TouchableOpacity>
   );
@@ -111,37 +148,48 @@ export default function BusListScreen({ navigation }) {
       <View style={styles.header}>
         <TouchableOpacity
           style={styles.backBtn}
-          onPress={() => navigation.goBack()}
+          onPress={() =>
+            navigation.goBack()
+          }
         >
-          <Icon name="arrow-left" size={18} />
+          <Image
+            source={require("../../../assets/back.png")}
+            style={styles.backIcon}
+          />
         </TouchableOpacity>
 
         <Text style={styles.route}>
-          Tambaram <Text style={{ fontSize: 16 }}>→</Text> Salem
+          Tambaram{" "}
+          <Text style={styles.arrow}>
+            →
+          </Text>{" "}
+          Salem
         </Text>
 
         <View style={styles.subHeader}>
-          <Text style={styles.busCount}>253 Buses</Text>
+          <Text style={styles.busCount}>
+            253 Buses
+          </Text>
+
           <View style={styles.datePill}>
-            <Text style={styles.dateText}>26 FEB</Text>
+            <Text style={styles.dateText}>
+              26 FEB
+            </Text>
           </View>
         </View>
       </View>
 
-      {/* LIST */}
+      {/* BUS LIST */}
       <FlatList
         data={buses}
         keyExtractor={(item) => item.id}
-        renderItem = {({item}) =>(
-        <TouchableOpacity
-          style={styles.card}
-          onPress={() =>
-            navigation.navigate("SeatSelection", { bus: item })
-          }
-        />
-        )}
-        contentContainerStyle={{ paddingBottom: 20 }}
-        showsVerticalScrollIndicator={false}
+        renderItem={renderItem}
+        showsVerticalScrollIndicator={
+          false
+        }
+        contentContainerStyle={{
+          paddingBottom: 40,
+        }}
       />
     </View>
   );
@@ -150,125 +198,158 @@ export default function BusListScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f2f2f2",
-    padding: 15,
+    backgroundColor: "#f5f5f5",
+    paddingTop: 55,
+    paddingHorizontal: 16,
   },
 
   /* HEADER */
   header: {
-    marginBottom: 10,
+    marginBottom: 18,
   },
 
   backBtn: {
-    backgroundColor: "#fff",
-    padding: 8,
-    borderRadius: 20,
-    width: 36,
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: "#eef1ef",
+    justifyContent: "center",
     alignItems: "center",
-    marginBottom: 10,
+    elevation: 2,
+    marginBottom: 18,
+  },
+
+  backIcon: {
+    width: 18,
+    height: 18,
+    resizeMode: "contain",
   },
 
   route: {
-    fontSize: 16,
-    fontWeight: "600",
+    fontSize: 20,
+    fontWeight: "700",
+    color: "#1f1f1f",
     textAlign: "center",
+  },
+
+  arrow: {
+    fontSize: 22,
+    fontWeight: "700",
   },
 
   subHeader: {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 6,
+    marginTop: 14,
   },
 
   busCount: {
-    fontSize: 13,
-    color: "#777",
-    marginRight: 10,
+    fontSize: 16,
+    color: "#9b9b9b",
+    fontWeight: "500",
+    marginRight: 16,
   },
 
   datePill: {
-    backgroundColor: "#0f766e",
-    paddingHorizontal: 12,
-    paddingVertical: 4,
-    borderRadius: 20,
+    backgroundColor: "#0b7f81",
+    paddingHorizontal: 22,
+    paddingVertical: 8,
+    borderRadius: 25,
   },
 
   dateText: {
     color: "#fff",
-    fontSize: 12,
-    fontWeight: "600",
+    fontSize: 16,
+    fontWeight: "700",
   },
 
   /* CARD */
   card: {
     backgroundColor: "#fff",
-    borderRadius: 15,
-    padding: 15,
-    marginVertical: 8,
-    elevation: 3,
+    borderRadius: 24,
+    padding: 22,
+    marginBottom: 18,
+    elevation: 5,
+    shadowColor: "#000",
+    shadowOpacity: 0.12,
+    shadowRadius: 6,
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
   },
 
   topRow: {
     flexDirection: "row",
     justifyContent: "space-between",
+    alignItems: "flex-start",
   },
 
   time: {
-    fontSize: 14,
+    fontSize: 18,
     fontWeight: "700",
+    color: "#333",
   },
 
   duration: {
-    fontSize: 11,
-    color: "#777",
-    marginTop: 2,
+    fontSize: 13,
+    color: "#555",
+    marginTop: 5,
+  },
+
+  priceBox: {
+    alignItems: "flex-end",
   },
 
   price: {
-    fontSize: 16,
+    fontSize: 20,
     fontWeight: "700",
+    color: "#333",
   },
 
   onwards: {
-    fontSize: 11,
-    color: "#777",
+    fontSize: 13,
+    color: "#555",
+    marginTop: 5,
   },
 
   name: {
-    fontSize: 14,
-    fontWeight: "600",
-    marginTop: 8,
+    fontSize: 17,
+    fontWeight: "700",
+    color: "#333",
+    marginTop: 32,
   },
 
   type: {
-    fontSize: 11,
-    color: "#777",
+    fontSize: 13,
+    color: "#555",
+    marginTop: 6,
   },
 
   bottomRow: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop: 8,
     alignItems: "center",
+    marginTop: 14,
   },
 
   ratingBox: {
-    backgroundColor: "#16a34a",
-    paddingHorizontal: 8,
-    paddingVertical: 2,
-    borderRadius: 5,
+    backgroundColor: "#12910f",
+    paddingHorizontal: 12,
+    paddingVertical: 5,
+    borderRadius: 6,
   },
 
   ratingText: {
     color: "#fff",
-    fontSize: 11,
-    fontWeight: "600",
+    fontSize: 13,
+    fontWeight: "700",
   },
 
   offer: {
-    color: "#f59e0b",
-    fontSize: 12,
-    fontWeight: "600",
+    fontSize: 15,
+    fontWeight: "700",
+    color: "#ffbf1c",
   },
 });
