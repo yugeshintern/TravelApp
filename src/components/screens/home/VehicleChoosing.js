@@ -7,10 +7,19 @@ import {
   FlatList,
   Image,
 } from "react-native";
-import Icon from "react-native-vector-icons/Feather";
 
-export default function VehicleChoosing({navigation}) {
+import { createOrder } from "../../utils/api";
+import { WebView } from "react-native-webview";
+export default function VehicleChoosing({ navigation, route }) {
   const [selected, setSelected] = useState(0);
+
+  const dropLocation = route.params?.dropLocation;
+
+  const currentLocation = {
+    address: "Current Location",
+    latitude: 13.0827,
+    longitude: 80.2707,
+  };
 
   const vehicles = [
     {
@@ -52,20 +61,118 @@ export default function VehicleChoosing({navigation}) {
     },
   ];
 
+  const handleBookRide = async () => {
+    try {
+      const selectedVehicle = vehicles[selected];
+
+      const payload = {
+        pickupLocation: currentLocation,
+        dropLocation: dropLocation,
+        vehicleType: selectedVehicle.name,
+        fare: selectedVehicle.price,
+        paymentMode: "CASH",
+      };
+
+      console.log("BOOKING PAYLOAD:", payload);
+
+      const result = await createOrder(payload);
+
+      console.log("ORDER RESULT:", result);
+
+      if (result?.success) {
+        navigation.navigate("LookingForRider", {
+          orderId: result.order?._id,
+        });
+      } else {
+        navigation.navigate("LookingForRider");
+      }
+    } catch (error) {
+      console.log("BOOK ERROR:", error);
+
+      navigation.navigate("LookingForRider");
+    }
+  };
+
   return (
     <View style={styles.container}>
-      {/* MAP */}
-      <Image
-  source={require("../../../assets/city_map.png")}
+      {/* LIVE MAP */}
+      <WebView
   style={styles.map}
+  originWhitelist={['*']}
+  source={{
+    html: `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link
+          rel="stylesheet"
+          href="https://unpkg.com/leaflet/dist/leaflet.css"
+        />
+        <style>
+          body {
+            margin: 0;
+            padding: 0;
+          }
+
+          #map {
+            width: 100vw;
+            height: 100vh;
+          }
+        </style>
+      </head>
+
+      <body>
+        <div id="map"></div>
+
+        <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+        <script>
+          var map = L.map('map').setView(
+            [
+              ${Number(dropLocation?.latitude) || 13.0827},
+              ${Number(dropLocation?.longitude) || 80.2707}
+            ],
+            14
+          );
+
+          L.tileLayer(
+            'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+            {
+              maxZoom: 19,
+            }
+          ).addTo(map);
+
+          L.marker([
+            ${Number(dropLocation?.latitude) || 13.0827},
+            ${Number(dropLocation?.longitude) || 80.2707}
+          ])
+          .addTo(map)
+          .bindPopup("${dropLocation?.address || "Selected Location"}")
+          .openPopup();
+        </script>
+      </body>
+      </html>
+    `,
+  }}
 />
 
+      {/* LOCATION OVERLAY */}
+      <View style={styles.overlay}>
+        <Text style={styles.overlayText}>
+          📍 {dropLocation?.address || "Selected Location"}
+        </Text>
+      </View>
+
       {/* BACK BUTTON */}
-      <TouchableOpacity style={styles.backBtn}>
+      <TouchableOpacity
+        style={styles.backBtn}
+        onPress={() => navigation.goBack()}
+      >
         <Image
-  source={require("../../../assets/back.png")}
-  style={styles.backIcon}
-/>
+          source={require("../../../assets/back.png")}
+          style={styles.backIcon}
+        />
       </TouchableOpacity>
 
       {/* BOTTOM SHEET */}
@@ -74,9 +181,22 @@ export default function VehicleChoosing({navigation}) {
           You get ₹20 off & 20 coins cashback!
         </Text>
 
+        {/* LOCATION */}
+        <View style={styles.locationBox}>
+          <Text style={styles.locationTitle}>
+            Drop Location
+          </Text>
+
+          <Text style={styles.locationAddress}>
+            {dropLocation?.address || "No location selected"}
+          </Text>
+        </View>
+
+        {/* VEHICLES */}
         <FlatList
           data={vehicles}
           keyExtractor={(item, index) => index.toString()}
+          showsVerticalScrollIndicator={false}
           renderItem={({ item, index }) => (
             <TouchableOpacity
               style={[
@@ -116,6 +236,7 @@ export default function VehicleChoosing({navigation}) {
               {/* PRICE */}
               <View style={{ alignItems: "flex-end" }}>
                 <Text style={styles.price}>{item.price}</Text>
+
                 {item.old && (
                   <Text style={styles.old}>{item.old}</Text>
                 )}
@@ -124,24 +245,28 @@ export default function VehicleChoosing({navigation}) {
           )}
         />
 
-        {/* PAYMENT ROW */}
+        {/* PAYMENT */}
         <View style={styles.paymentRow}>
           <View style={styles.chip}>
             <Text>💵 Cash</Text>
           </View>
 
-          <View style={styles.chip}>
-            <TouchableOpacity
-            onPress={()=> navigation.navigate("Coupons")}>
+          <TouchableOpacity
+            style={styles.chip}
+            onPress={() => navigation.navigate("Coupons")}
+          >
             <Text>% Ride50</Text>
-            </TouchableOpacity>
-          </View>
+          </TouchableOpacity>
         </View>
 
-        {/* BOOK BUTTON */}
-        <TouchableOpacity style={styles.bookBtn}
-        onPress={()=> navigation.navigate("LookingForRider")}>
-          <Text style={styles.bookText}>Book Bike</Text>
+        {/* BOOK */}
+        <TouchableOpacity
+          style={styles.bookBtn}
+          onPress={handleBookRide}
+        >
+          <Text style={styles.bookText}>
+            Book {vehicles[selected].name}
+          </Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -149,11 +274,28 @@ export default function VehicleChoosing({navigation}) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  container: {
+    flex: 1,
+  },
 
   map: {
     width: "100%",
     height: 250,
+  },
+
+  overlay: {
+    position: "absolute",
+    bottom: 15,
+    left: 15,
+    right: 15,
+    backgroundColor: "rgba(0,0,0,0.6)",
+    padding: 10,
+    borderRadius: 12,
+  },
+
+  overlayText: {
+    color: "#fff",
+    fontWeight: "600",
   },
 
   backBtn: {
@@ -175,34 +317,40 @@ const styles = StyleSheet.create({
   },
 
   backIcon: {
-  width: 18,
-  height: 18,
-  resizeMode: "contain",
-},
+    width: 18,
+    height: 18,
+    resizeMode: "contain",
+  },
 
-vehicleIcon: {
-  width: 26,
-  height: 26,
-  resizeMode: "contain",
-},
-
-chipContent: {
-  flexDirection: "row",
-  alignItems: "center",
-  gap: 6,
-},
-
-chipIcon: {
-  width: 14,
-  height: 14,
-  resizeMode: "contain",
-},
+  vehicleIcon: {
+    width: 26,
+    height: 26,
+    resizeMode: "contain",
+  },
 
   offer: {
     textAlign: "center",
     color: "green",
     marginBottom: 10,
     fontWeight: "600",
+  },
+
+  locationBox: {
+    backgroundColor: "#f3f4f6",
+    padding: 12,
+    borderRadius: 12,
+    marginBottom: 12,
+  },
+
+  locationTitle: {
+    fontSize: 12,
+    color: "#666",
+    marginBottom: 4,
+  },
+
+  locationAddress: {
+    fontWeight: "600",
+    color: "#111",
   },
 
   vehicleCard: {
