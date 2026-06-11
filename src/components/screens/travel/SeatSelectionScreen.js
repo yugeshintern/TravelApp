@@ -10,7 +10,16 @@ import {
 
 export default function SeatSelectionScreen({
   navigation,
+  route,
 }) {
+
+  const {
+    fromCity = "Tambaram",
+    toCity = "Salem",
+    journeyDate,
+  } = route.params || {};
+
+
   const [selectedSeats, setSelectedSeats] =
     useState([]);
 
@@ -210,12 +219,12 @@ export default function SeatSelectionScreen({
           </TouchableOpacity>
 
           <Text style={styles.route}>
-            Tambaram{" "}
-            <Text style={styles.arrow}>
-              →
-            </Text>{" "}
-            Salem
-          </Text>
+  {fromCity}{" "}
+  <Text style={styles.arrow}>
+    →
+  </Text>{" "}
+  {toCity}
+</Text>
         </View>
 
         {/* STEP */}
@@ -322,8 +331,12 @@ export default function SeatSelectionScreen({
           style={styles.button}
           onPress={() =>
             navigation.navigate(
-              "BoardingDropping"
-            )
+  "BoardingDropping",
+  {
+    fromCity,
+    toCity,
+  }
+)
           }
         >
           <Text

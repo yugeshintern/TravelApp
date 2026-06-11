@@ -6,8 +6,8 @@ import {
   TouchableOpacity,
   ScrollView,
   TextInput,
+  Image,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Feather';
 
 const dates = [
   { id: 1, label: '24 Tue', price: 917 },
@@ -68,21 +68,52 @@ const PackersDateScreen = ({ navigation }) => {
       <ScrollView showsVerticalScrollIndicator={false}>
 
         {/* HEADER */}
-        <View style={styles.header}>
-          <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>
-            <Icon name="arrow-left" size={20} />
-          </TouchableOpacity>
-          <Text style={styles.title}>Packers & Movers</Text>
-        </View>
+<View style={styles.header}>
+  <TouchableOpacity
+    style={styles.backBtn}
+    onPress={() => navigation.goBack()}
+  >
+    <Image
+      source={require('../../../assets/back.png')}
+      style={styles.backIcon}
+    />
+  </TouchableOpacity>
+
+  <Text style={styles.title}>Packers & Movers</Text>
+</View>
 
         {/* STEP INDICATOR */}
-        <View style={styles.stepRow}>
-          <View style={styles.doneStep}><Icon name="check" size={16} color="#fff" /></View>
-          <View style={styles.line} />
-          <View style={styles.doneStep}><Icon name="check" size={16} color="#fff" /></View>
-          <View style={styles.line} />
-          <View style={styles.activeStep}><Icon name="calendar" size={16} color="#fff" /></View>
-        </View>
+<View style={styles.stepRow}>
+
+  {/* STEP 1 */}
+  <View style={styles.doneStep}>
+    <Image
+      source={require('../../../assets/check-step.png')}
+      style={styles.activeStepIcon}
+    />
+  </View>
+
+  <View style={styles.line} />
+
+  {/* STEP 2 */}
+  <View style={styles.doneStep}>
+    <Image
+      source={require('../../../assets/check-step.png')}
+      style={styles.activeStepIcon}
+    />
+  </View>
+
+  <View style={styles.line} />
+
+  {/* STEP 3 */}
+  <View style={styles.activeStep}>
+    <Image
+      source={require('../../../assets/calendar-step-g.png')}
+      style={styles.activeStepIcon}
+    />
+  </View>
+
+</View>
 
         {/* DATE */}
         <Text style={styles.sectionTitle}>Select shifting date</Text>
@@ -145,9 +176,10 @@ const PackersDateScreen = ({ navigation }) => {
 
         <View style={styles.couponRow}>
           <TextInput
-            placeholder="Enter code here"
-            style={styles.input}
-          />
+  placeholder="Enter code here"
+  placeholderTextColor="#000"
+  style={styles.input}
+/>
           <TouchableOpacity style={styles.applyBtn}>
             <Text style={styles.applyText}>Apply</Text>
           </TouchableOpacity>
@@ -194,6 +226,19 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+
+  backIcon: {
+  width: 18,
+  height: 18,
+  resizeMode: 'contain',
+},
+
+activeStepIcon: {
+  width: 18,
+  height: 18,
+  resizeMode: 'contain',
+  tintColor: '#fff',
+},
 
   title: {
     fontSize: 18,

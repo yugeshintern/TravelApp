@@ -1,5 +1,4 @@
-import React from 'react';
-import {
+import React, { useState } from 'react';import {
   View,
   Text,
   StyleSheet,
@@ -9,6 +8,7 @@ import {
 } from 'react-native';
 
 const RoundTripFlightsScreen = ({ navigation }) => {
+  const [selectedFare, setSelectedFare] = useState('');
   return (
     <View style={styles.container}>
       {/* HEADER */}
@@ -87,39 +87,110 @@ const RoundTripFlightsScreen = ({ navigation }) => {
         </TouchableOpacity>
 
         {/* SPECIAL FARES */}
-        <Text style={styles.section}>Special Fares</Text>
+        {/* SPECIAL FARES */}
+<Text style={styles.section}>Special Fares</Text>
 
-        <View style={styles.chipRow}>
-          {[
-            'Senior Citizen',
-            'Armed Forces',
-            'Doctor and Nurses',
-          ].map((item, i) => (
-            <View key={i} style={styles.chip}>
-              <Text style={styles.chipTitle}>{item}</Text>
-              <Text style={styles.green}>Up to ₹600 off</Text>
-            </View>
-          ))}
-        </View>
+<View style={styles.chipRow}>
+  {[
+    {
+      title: 'Senior Citizen',
+      sub: 'Up to ₹600 off',
+    },
+    {
+      title: 'Armed Forces',
+      sub: 'Up to ₹600 off',
+    },
+    {
+      title: 'Doctor and Nurses',
+      sub: 'Up to ₹600 off',
+    },
+  ].map((item, i) => {
+    const isSelected = selectedFare === item.title;
 
-        <View style={styles.chipRow}>
-          <View style={styles.blueChip}>
-            <Text style={styles.blueTitle}>
-              Travelling for work?
-            </Text>
-            <Text style={styles.blueSub}>
-              Unlock Extra Savings & Benefits
-            </Text>
-          </View>
+    return (
+      <TouchableOpacity
+        key={i}
+        activeOpacity={0.8}
+        onPress={() =>
+          setSelectedFare(
+            isSelected ? '' : item.title
+          )
+        }
+        style={[
+          styles.chip,
+          isSelected && styles.activeGreenChip,
+        ]}
+      >
+        <Text
+          style={[
+            styles.chipTitle,
+            isSelected && styles.activeGreenText,
+          ]}
+        >
+          {item.title}
+        </Text>
 
-          <View style={styles.chip}>
-            <Text style={styles.chipTitle}>Student</Text>
-            <Text style={styles.green}>
-              Extra discounts/baggage
-            </Text>
-          </View>
-        </View>
+        <Text
+          style={[
+            styles.green,
+            isSelected && styles.activeGreenText,
+          ]}
+        >
+          {item.sub}
+        </Text>
+      </TouchableOpacity>
+    );
+  })}
+</View>
 
+<View style={styles.chipRow}>
+  {[
+    {
+      title: 'Travelling for work?',
+      sub: 'Unlock Extra Savings & Benefits',
+    },
+    {
+      title: 'Student',
+      sub: 'Extra discounts/baggage',
+    },
+  ].map((item, i) => {
+    const isSelected = selectedFare === item.title;
+
+    return (
+      <TouchableOpacity
+        key={i}
+        activeOpacity={0.8}
+        onPress={() =>
+          setSelectedFare(
+            isSelected ? '' : item.title
+          )
+        }
+        style={[
+          styles.chip,
+          isSelected && styles.activeGreenChip,
+        ]}
+      >
+        <Text
+          style={[
+            styles.chipTitle,
+            isSelected && styles.activeGreenText,
+          ]}
+        >
+          {item.title}
+        </Text>
+
+        <Text
+          style={[
+            styles.green,
+            isSelected && styles.activeGreenText,
+          ]}
+        >
+          {item.sub}
+        </Text>
+      </TouchableOpacity>
+    );
+  })}
+</View>
         <View style={{ height: 120 }} />
       </ScrollView>
 
@@ -176,6 +247,24 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
 
+  activeGreenChip: {
+  backgroundColor: '#EAF8EE',
+  borderColor: '#22C55E',
+},
+
+activeGreenText: {
+  color: '#16A34A',
+},
+
+activeBlueChip: {
+  backgroundColor: '#EEF5FF',
+  borderColor: '#2F80ED',
+},
+
+activeBlueText: {
+  color: '#2F80ED',
+},
+
   row: {
     flexDirection: 'row',
     marginHorizontal: 16,
@@ -224,21 +313,43 @@ const styles = StyleSheet.create({
   },
 
   swap: {
-    position: 'absolute',
-    top: '35%',
-    left: '48%',
-    width: 32,
-    height: 32,
-    borderRadius: 16,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    elevation: 2,
+  position: 'absolute',
+
+  top: '50%',
+  left: '50%',
+
+  transform: [
+    { translateX: -18 },
+    { translateY: -18 },
+  ],
+
+  width: 36,
+  height: 36,
+  borderRadius: 18,
+
+  backgroundColor: '#FFFFFF',
+
+  alignItems: 'center',
+  justifyContent: 'center',
+
+  borderWidth: 1,
+  borderColor: '#E3E3E3',
+
+  shadowColor: '#000',
+  shadowOpacity: 0.08,
+  shadowRadius: 4,
+  shadowOffset: {
+    width: 0,
+    height: 2,
   },
 
+  elevation: 3,
+  zIndex: 20,
+},
+
   directionIcon: {
-  width: 16,
-  height: 16,
+  width: 15,
+  height: 15,
   resizeMode: 'contain',
 },
 

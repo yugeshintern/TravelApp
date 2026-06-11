@@ -11,6 +11,13 @@ import {
 const FlightDetailsScreen = ({ navigation }) => {
   const [selected, setSelected] = useState(false);
 
+const baseFare = 5718;
+const flexFare = 99;
+
+const totalFare = selected
+  ? baseFare + flexFare
+  : baseFare;
+
   return (
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -106,7 +113,7 @@ const FlightDetailsScreen = ({ navigation }) => {
         </View>
 
         {/* FLEX */}
-        <View style={styles.card}>
+        <View style={[styles.card, { marginTop: 6 }]}>
           <Text style={styles.cardTitle}>
             Unsure of your Travel Plans
           </Text>
@@ -134,7 +141,9 @@ const FlightDetailsScreen = ({ navigation }) => {
             <Text style={styles.optionText}>
               Change Date until 2 hrs before departure
             </Text>
-            <Text style={styles.price}>₹99</Text>
+            <Text style={styles.price}>
+  ₹{flexFare}
+</Text>
           </TouchableOpacity>
 
           <Text style={styles.tc}>T&C</Text>
@@ -146,8 +155,11 @@ const FlightDetailsScreen = ({ navigation }) => {
       {/* FOOTER */}
       <View style={styles.footer}>
         <Text style={styles.total}>
-          For 1 Adult <Text style={styles.bold}>₹5,718</Text>
-        </Text>
+  For 1 Adult{" "}
+  <Text style={styles.bold}>
+    ₹{totalFare}
+  </Text>
+</Text>
 
         <TouchableOpacity style={styles.cta}
         onPress={()=> navigation.navigate("AddTraveller")}>

@@ -6,27 +6,181 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
-import Icon from "react-native-vector-icons/Feather";
 
-export default function ExtraCash({ navigation }) {
+import { WebView } from "react-native-webview";
+
+export default function ExtraCash({
+  navigation,
+  route,
+}) {
   const [selected, setSelected] = useState(null);
 
   const options = [20, 30, 40, 50];
 
+  // FETCH DATA FROM PREVIOUS SCREEN
+  const currentLocation =
+    route?.params?.currentLocation || {
+      latitude: 13.0827,
+      longitude: 80.2707,
+      address: "Current Location",
+    };
+
+  const dropLocation =
+    route?.params?.dropLocation || {
+      latitude: 13.0827,
+      longitude: 80.2707,
+      address: "Destination",
+    };
+
+  // BASE FARE
+  const baseFare = 287;
+
+  // TOTAL FARE
+  const totalFare = selected
+    ? baseFare + selected
+    : baseFare;
+
+  // REAL MAP HTML
+  const mapHTML = `
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+      />
+
+      <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet/dist/leaflet.css"
+      />
+
+      <style>
+        html,
+        body,
+        #map {
+          width: 100%;
+          height: 100%;
+          margin: 0;
+          padding: 0;
+        }
+      </style>
+    </head>
+
+    <body>
+      <div id="map"></div>
+
+      <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+      <script>
+        var map = L.map('map').setView(
+          [
+            ${
+              Number(dropLocation?.latitude) ||
+              13.0827
+            },
+            ${
+              Number(dropLocation?.longitude) ||
+              80.2707
+            }
+          ],
+          13
+        );
+
+        L.tileLayer(
+          'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+          {
+            maxZoom: 19,
+          }
+        ).addTo(map);
+
+        // FROM LOCATION
+        var fromMarker = L.marker([
+          ${
+            Number(currentLocation?.latitude) ||
+            13.0827
+          },
+          ${
+            Number(currentLocation?.longitude) ||
+            80.2707
+          }
+        ])
+        .addTo(map)
+        .bindPopup('Current Location');
+
+        // TO LOCATION
+        var toMarker = L.marker([
+          ${
+            Number(dropLocation?.latitude) ||
+            13.0827
+          },
+          ${
+            Number(dropLocation?.longitude) ||
+            80.2707
+          }
+        ])
+        .addTo(map)
+        .bindPopup('Destination')
+        .openPopup();
+
+        // LINE BETWEEN BOTH
+        var latlngs = [
+          [
+            ${
+              Number(currentLocation?.latitude) ||
+              13.0827
+            },
+            ${
+              Number(currentLocation?.longitude) ||
+              80.2707
+            }
+          ],
+          [
+            ${
+              Number(dropLocation?.latitude) ||
+              13.0827
+            },
+            ${
+              Number(dropLocation?.longitude) ||
+              80.2707
+            }
+          ]
+        ];
+
+        var polyline = L.polyline(
+          latlngs,
+          {
+            color: 'blue',
+            weight: 4
+          }
+        ).addTo(map);
+
+        map.fitBounds(polyline.getBounds());
+      </script>
+    </body>
+  </html>
+  `;
+
   return (
     <View style={styles.container}>
-      {/* MAP */}
-      <Image
-  source={require("../../../assets/city_map.png")}
-  style={styles.map}
-/>
+      {/* REAL MAP */}
+      <WebView
+        style={styles.map}
+        originWhitelist={["*"]}
+        source={{ html: mapHTML }}
+        javaScriptEnabled={true}
+        domStorageEnabled={true}
+      />
 
-            {/* BACK BUTTON */}
-      <TouchableOpacity style={styles.backBtn}>
+      {/* BACK BUTTON */}
+      <TouchableOpacity
+        style={styles.backBtn}
+        onPress={() => navigation.goBack()}
+      >
         <Image
-  source={require("../../../assets/back.png")}
-  style={styles.backIcon}
-/>
+          source={require("../../../assets/back.png")}
+          style={styles.backIcon}
+        />
       </TouchableOpacity>
 
       {/* BOTTOM SHEET */}
@@ -36,44 +190,58 @@ export default function ExtraCash({ navigation }) {
 
         {/* TITLE */}
         <View style={styles.titleRow}>
+          <Image
+            source={require("../../../assets/bike.png")}
+            style={styles.bikeIcon}
+          />
 
-  <Image
-    source={require("../../../assets/bike.png")}
-    style={styles.bikeIcon}
-  />
+          <View>
+            <Text style={styles.titleSmall}>
+              Looking for your
+            </Text>
 
-  <View>
-    <Text style={styles.titleSmall}>
-      Looking for your
-    </Text>
-
-    <Text style={styles.titleBold}>
-      Bike ride
-    </Text>
-  </View>
-
-</View>
+            <Text style={styles.titleBold}>
+              Bike ride
+            </Text>
+          </View>
+        </View>
 
         {/* RIDE BOX */}
         <View style={styles.rideBox}>
           <View>
-            <Text style={styles.rideTitle}>Bike ride</Text>
-            <Text style={styles.price}>₹287.0</Text>
+            <Text style={styles.rideTitle}>
+              Bike ride
+            </Text>
+
+            <Text style={styles.price}>
+              ₹{totalFare}.0
+            </Text>
           </View>
 
-          <TouchableOpacity style={styles.tripBtn}>
-            <Text style={styles.tripText}>Trip Details</Text>
+          <TouchableOpacity
+            style={styles.tripBtn}
+          >
+            <Text style={styles.tripText}>
+              Trip Details
+            </Text>
           </TouchableOpacity>
         </View>
 
         {/* BOOST BOX */}
         <View style={styles.boostBox}>
           <TouchableOpacity
-          onPress={()=> navigation.navigate("RiderPickup")}>
-          <Text style={styles.boostText}>
-            Captains aren’t accepting at ₹287.{"\n"}
-            Try adding more
-          </Text>
+            onPress={() =>
+              navigation.navigate(
+                "RiderPickup"
+              )
+            }
+          >
+            <Text style={styles.boostText}>
+              Captains aren’t accepting at ₹
+              {totalFare}.
+              {"\n"}
+              Try adding more
+            </Text>
           </TouchableOpacity>
 
           <View style={styles.optionsRow}>
@@ -82,14 +250,19 @@ export default function ExtraCash({ navigation }) {
                 key={item}
                 style={[
                   styles.optionBtn,
-                  selected === item && styles.selectedOption,
+                  selected === item &&
+                    styles.selectedOption,
                 ]}
-                onPress={() => setSelected(item)}
+                onPress={() =>
+                  setSelected(item)
+                }
               >
                 <Text
                   style={[
                     styles.optionText,
-                    selected === item && { color: "#fff" },
+                    selected === item && {
+                      color: "#fff",
+                    },
                   ]}
                 >
                   +₹{item}
@@ -101,7 +274,8 @@ export default function ExtraCash({ navigation }) {
 
         {/* FOOT TEXT */}
         <Text style={styles.footer}>
-          Almost there! Add a little more so a captain can pick you faster...
+          Almost there! Add a little more so
+          a captain can pick you faster...
         </Text>
       </View>
     </View>
@@ -109,19 +283,13 @@ export default function ExtraCash({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  container: {
+    flex: 1,
+  },
 
   map: {
     width: "100%",
     height: 260,
-  },
-
-  header: {
-    position: "absolute",
-    top: 10,
-    left: 16,
-    fontSize: 18,
-    color: "#2563eb",
   },
 
   backBtn: {
@@ -132,6 +300,13 @@ const styles = StyleSheet.create({
     padding: 8,
     borderRadius: 20,
     elevation: 3,
+    zIndex: 100,
+  },
+
+  backIcon: {
+    width: 18,
+    height: 18,
+    resizeMode: "contain",
   },
 
   sheet: {
@@ -151,25 +326,19 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
 
-  backIcon: {
-  width: 18,
-  height: 18,
-  resizeMode: "contain",
-},
-
-bikeIcon: {
-  width: 24,
-  height: 24,
-  resizeMode: "contain",
-  marginRight: 12,
-  marginTop: 2,
-},
+  bikeIcon: {
+    width: 24,
+    height: 24,
+    resizeMode: "contain",
+    marginRight: 12,
+    marginTop: 2,
+  },
 
   titleRow: {
-  flexDirection: "row",
-  alignItems: "center",
-  marginBottom: 14,
-},
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 14,
+  },
 
   titleSmall: {
     color: "#444",
@@ -177,6 +346,7 @@ bikeIcon: {
 
   titleBold: {
     fontWeight: "700",
+    fontSize: 18,
   },
 
   rideBox: {
@@ -191,23 +361,27 @@ bikeIcon: {
 
   rideTitle: {
     fontWeight: "600",
+    fontSize: 16,
   },
 
   price: {
     marginTop: 3,
     color: "#555",
+    fontSize: 16,
+    fontWeight: "600",
   },
 
   tripBtn: {
     borderWidth: 1,
     borderColor: "#ccc",
     borderRadius: 20,
-    paddingHorizontal: 12,
-    paddingVertical: 6,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
   },
 
   tripText: {
-    fontSize: 12,
+    fontSize: 13,
+    fontWeight: "500",
   },
 
   boostBox: {
@@ -217,8 +391,10 @@ bikeIcon: {
   },
 
   boostText: {
-    marginBottom: 10,
+    marginBottom: 14,
     fontWeight: "500",
+    fontSize: 15,
+    color: "#222",
   },
 
   optionsRow: {
@@ -230,8 +406,9 @@ bikeIcon: {
     borderWidth: 1,
     borderColor: "#ccc",
     borderRadius: 20,
-    paddingHorizontal: 14,
+    paddingHorizontal: 16,
     paddingVertical: 8,
+    backgroundColor: "#fff",
   },
 
   selectedOption: {
@@ -240,12 +417,16 @@ bikeIcon: {
   },
 
   optionText: {
-    fontSize: 12,
+    fontSize: 14,
+    fontWeight: "600",
+    color: "#333",
   },
 
   footer: {
     marginTop: 20,
     color: "#555",
-    fontSize: 12,
+    fontSize: 14,
+    lineHeight: 22,
+    fontWeight: "500",
   },
 });

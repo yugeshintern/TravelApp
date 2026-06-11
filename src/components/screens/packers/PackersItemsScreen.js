@@ -5,8 +5,8 @@ import {
   StyleSheet,
   TouchableOpacity,
   FlatList,
+  Image,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Feather';
 
 const DATA = [
   {
@@ -72,21 +72,52 @@ const PackersItemsScreen = ({ navigation }) => {
     <View style={styles.container}>
 
       {/* HEADER */}
-      <View style={styles.header}>
-        <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>
-          <Icon name="arrow-left" size={20} />
-        </TouchableOpacity>
-        <Text style={styles.title}>Packers & Movers</Text>
-      </View>
+<View style={styles.header}>
+  <TouchableOpacity
+    style={styles.backBtn}
+    onPress={() => navigation.goBack()}
+  >
+    <Image
+      source={require('../../../assets/back.png')}
+      style={styles.backIcon}
+    />
+  </TouchableOpacity>
+
+  <Text style={styles.title}>Packers & Movers</Text>
+</View>
 
       {/* STEP */}
-      <View style={styles.stepRow}>
-        <View style={styles.doneStep}><Icon name="check" size={16} color="#fff" /></View>
-        <View style={styles.line} />
-        <View style={styles.activeStep}><Icon name="clipboard" size={16} color="#fff" /></View>
-        <View style={styles.line} />
-        <View style={styles.step}><Icon name="calendar" size={16} color="#888" /></View>
-      </View>
+<View style={styles.stepRow}>
+
+  {/* STEP 1 */}
+  <View style={styles.doneStep}>
+    <Image
+      source={require('../../../assets/check-step.png')}
+      style={styles.activeStepIcon}
+    />
+  </View>
+
+  <View style={styles.line} />
+
+  {/* STEP 2 */}
+  <View style={styles.activeStep}>
+    <Image
+      source={require('../../../assets/items-step-g.png')}
+      style={styles.activeStepIcon}
+    />
+  </View>
+
+  <View style={styles.line} />
+
+  {/* STEP 3 */}
+  <View style={styles.step}>
+    <Image
+      source={require('../../../assets/calendar-step.png')}
+      style={styles.inactiveStepIcon}
+    />
+  </View>
+
+</View>
 
       <Text style={styles.info}>
         Add items to get the exact quote, you can edit this later
@@ -138,6 +169,26 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+
+  backIcon: {
+  width: 18,
+  height: 18,
+  resizeMode: 'contain',
+},
+
+activeStepIcon: {
+  width: 18,
+  height: 18,
+  resizeMode: 'contain',
+  tintColor: '#fff',
+},
+
+inactiveStepIcon: {
+  width: 18,
+  height: 18,
+  resizeMode: 'contain',
+  tintColor: '#9CA3AF',
+},
 
   title: {
     fontSize: 18,

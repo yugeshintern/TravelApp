@@ -1,106 +1,385 @@
-import React from "react";
+import React, {
+  useEffect,
+  useState,
+  useCallback,
+} from "react";
 import {
   View,
   Text,
   StyleSheet,
   TouchableOpacity,
   Image,
+  PermissionsAndroid,
+  Platform,
 } from "react-native";
-import Icon from "react-native-vector-icons/Feather";
 
-export default function LookingForRider({ navigation }) {
+import Geolocation from "@react-native-community/geolocation";
+import { WebView } from "react-native-webview";
+
+import { getSocket } from "../../../utils/socket";
+
+export default function LookingForRider({
+  navigation,
+  route,
+}) {
+  // SOCKET
+  const socket =
+    typeof getSocket === "function"
+      ? getSocket()
+      : null;
+
+  // ROUTE PARAMS
+  const orderId =
+    route?.params?.orderId || null;
+
+  const dropLocation =
+    route?.params?.dropLocation || {
+      latitude: 13.0827,
+      longitude: 80.2707,
+      address: "Chennai",
+    };
+
+  // CURRENT LOCATION
+  const [currentLocation, setCurrentLocation] =
+    useState({
+      latitude: 13.0827,
+      longitude: 80.2707,
+      address: "Fetching current location...",
+    });
+
+ 
+  const requestLocationPermission =
+  useCallback(async () => {
+    try {
+      if (Platform.OS === "android") {
+        const granted =
+          await PermissionsAndroid.request(
+            PermissionsAndroid.PERMISSIONS
+              .ACCESS_FINE_LOCATION
+          );
+
+        if (
+          granted ===
+          PermissionsAndroid.RESULTS.GRANTED
+        ) {
+          getCurrentLocation();
+        }
+      } else {
+        getCurrentLocation();
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
+  useEffect(() => {
+  requestLocationPermission();
+}, [requestLocationPermission]);
+
+  // GET LOCATION
+  const getCurrentLocation = () => {
+    Geolocation.getCurrentPosition(
+      (position) => {
+        setCurrentLocation({
+          latitude:
+            position.coords.latitude,
+          longitude:
+            position.coords.longitude,
+          address: "Current Location",
+        });
+      },
+
+      (error) => {
+        console.log(
+          "Location Error:",
+          error
+        );
+      },
+
+      {
+        enableHighAccuracy: true,
+        timeout: 15000,
+        maximumAge: 10000,
+      }
+    );
+  };
+
+  // SOCKET + TIMER
+  useEffect(() => {
+    if (!socket || !orderId) return;
+
+    socket.emit("join_order", orderId);
+
+    const driverAssignedHandler = (
+      driverDetails
+    ) => {
+      navigation.navigate(
+        "RiderPickup",
+        {
+          orderId,
+          driverDetails,
+        }
+      );
+    };
+
+    socket.on(
+      "driver_assigned",
+      driverAssignedHandler
+    );
+
+    // NAVIGATE AFTER 30 SEC
+    const timer = setTimeout(() => {
+      navigation.navigate(
+        "ExtraCash",
+        {
+          orderId,
+        }
+      );
+    }, 30000);
+
+    return () => {
+      clearTimeout(timer);
+
+      socket.off(
+        "driver_assigned",
+        driverAssignedHandler
+      );
+    };
+  }, [socket, orderId, navigation]);
+
+  // WEBVIEW HTML
+  const mapHTML = `
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0"
+        />
+
+        <link
+          rel="stylesheet"
+          href="https://unpkg.com/leaflet/dist/leaflet.css"
+        />
+
+        <style>
+          html,
+          body,
+          #map {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+          }
+        </style>
+      </head>
+
+      <body>
+        <div id="map"></div>
+
+        <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+        <script>
+          var map = L.map('map').setView(
+            [
+              ${
+                Number(
+                  dropLocation?.latitude
+                ) || 13.0827
+              },
+              ${
+                Number(
+                  dropLocation?.longitude
+                ) || 80.2707
+              }
+            ],
+            13
+          );
+
+          L.tileLayer(
+            'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+            {
+              maxZoom: 19,
+            }
+          ).addTo(map);
+
+          // CURRENT LOCATION
+          L.marker([
+            ${
+              currentLocation?.latitude ||
+              13.0827
+            },
+            ${
+              currentLocation?.longitude ||
+              80.2707
+            }
+          ])
+            .addTo(map)
+            .bindPopup('Current Location');
+
+          // DESTINATION
+          L.marker([
+            ${
+              Number(
+                dropLocation?.latitude
+              ) || 13.0827
+            },
+            ${
+              Number(
+                dropLocation?.longitude
+              ) || 80.2707
+            }
+          ])
+            .addTo(map)
+            .bindPopup('Destination')
+            .openPopup();
+        </script>
+      </body>
+    </html>
+  `;
+
   return (
     <View style={styles.container}>
       {/* MAP */}
-      <Image
-  source={require("../../../assets/city_map.png")}
-  style={styles.map}
-/>
-
-      
+      <WebView
+        style={styles.map}
+        originWhitelist={["*"]}
+        source={{ html: mapHTML }}
+        javaScriptEnabled={true}
+        domStorageEnabled={true}
+      />
 
       {/* BACK BUTTON */}
-      <TouchableOpacity style={styles.backBtn}
-      onPress={()=>navigation.goBack()}>
+      <TouchableOpacity
+        style={styles.backBtn}
+        onPress={() =>
+          navigation.goBack()
+        }
+      >
         <Image
-  source={require("../../../assets/back.png")}
-  style={styles.backIcon}
-/>
+          source={require("../../../assets/back.png")}
+          style={styles.backIcon}
+        />
       </TouchableOpacity>
 
       {/* BOTTOM SHEET */}
       <View style={styles.sheet}>
-        {/* DRAG LINE */}
+        {/* DRAG */}
         <View style={styles.drag} />
 
         {/* TITLE */}
         <View style={styles.titleRow}>
+          <Image
+            source={require("../../../assets/bike-icon.png")}
+            style={styles.bikeIcon}
+          />
 
-  <Image
-    source={require("../../../assets/bike-icon.png")}
-    style={styles.bikeIcon}
-  />
-
-  <View>
-    <Text style={styles.titleSmall}>Looking for your</Text>
-    <Text style={styles.titleBold}>Bike ride</Text>
-  </View>
-
-</View>
-
-        {/* LOCATION DETAILS */}
-        <Text style={styles.section}>Location Details</Text>
-
-         <TouchableOpacity
-          onPress={()=> navigation.navigate("ExtraCash")}>
-        <View style={styles.locationBox}>
-          <View style={styles.dotColumn}>
-            <View style={styles.greenDot} />
-            <View style={styles.line} />
-            <View style={styles.redDot} />
-          </View>
-
-          <View style={{ flex: 1 }}>
-            <Text style={styles.locTitle}>
-              Egmore Railway Station
-            </Text>
-            <Text style={styles.locSub}>
-              Gandhi Irwin Road, Egmore, Chennai...
+          <View>
+            <Text style={styles.titleSmall}>
+              Looking for your
             </Text>
 
-            <Text style={styles.locTitle}>
-              Koyambedu Bus Stand
-            </Text>
-            <Text style={styles.locSub}>
-              Koyambedu bus terminus, Chennai...
+            <Text style={styles.titleBold}>
+              Bike ride
             </Text>
           </View>
         </View>
-        </TouchableOpacity>
 
-        {/* FARE BOX */}
+        {/* LOCATION */}
+<Text style={styles.section}>
+  Location Details
+</Text>
+
+<TouchableOpacity
+  activeOpacity={0.8}
+  onPress={() =>
+    navigation.navigate("ExtraCash", {
+      orderId,
+      currentLocation,
+      dropLocation,
+    })
+  }
+>
+  <View style={styles.locationBox}>
+    <View style={styles.dotColumn}>
+      <View style={styles.greenDot} />
+
+      <View style={styles.line} />
+
+      <View style={styles.redDot} />
+    </View>
+
+    <View style={{ flex: 1 }}>
+      {/* FROM */}
+      <Text style={styles.locTitle}>
+        Current Location
+      </Text>
+
+      <Text style={styles.locSub}>
+        {currentLocation?.address}
+      </Text>
+
+      {/* TO */}
+      <Text style={styles.locTitle}>
+        Destination
+      </Text>
+
+      <Text style={styles.locSub}>
+        {dropLocation?.address ||
+          "No destination selected"}
+      </Text>
+    </View>
+  </View>
+</TouchableOpacity>
+
+        {/* FARE */}
         <View style={styles.fareBox}>
           <View style={styles.fareRow}>
-            <Text style={styles.fareTitle}>Total Fare</Text>
-            <Text style={styles.farePrice}>₹287.0</Text>
+            <Text style={styles.fareTitle}>
+              Total Fare
+            </Text>
+
+            <Text style={styles.farePrice}>
+              ₹287.0
+            </Text>
           </View>
+
           <TouchableOpacity
-          onPress={()=> navigation.navigate("Payments")}>
-          <Text style={styles.payment}>💵 Paying via cash</Text>
+            onPress={() =>
+              navigation.navigate(
+                "Payments"
+              )
+            }
+          >
+            <Text style={styles.payment}>
+              💵 Paying via cash
+            </Text>
           </TouchableOpacity>
         </View>
 
-        {/* BUTTONS */}
+        {/* BACK BUTTON */}
         <TouchableOpacity
           style={styles.backButton}
-          onPress={() => navigation.goBack()}
+          onPress={() =>
+            navigation.goBack()
+          }
         >
-          <Text style={styles.backText}>Back</Text>
+          <Text style={styles.backText}>
+            Back
+          </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.cancelButton}
-        onPress={()=> navigation.navigate("CancelReason")}>
-          <Text style={styles.cancelText}>Cancel Ride</Text>
+        {/* CANCEL BUTTON */}
+        <TouchableOpacity
+          style={styles.cancelButton}
+          onPress={() =>
+            navigation.navigate(
+              "CancelReason"
+            )
+          }
+        >
+          <Text style={styles.cancelText}>
+            Cancel Ride
+          </Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -108,63 +387,47 @@ export default function LookingForRider({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+  },
 
   map: {
     width: "100%",
     height: 260,
   },
 
-  header: {
-    position: "absolute",
-    top: 10,
-    left: 16,
-    color: "#2563eb",
-    fontSize: 18,
-  },
-
-  backIcon: {
-  width: 18,
-  height: 18,
-  resizeMode: "contain",
-},
-
-bikeIcon: {
-  width: 28,
-  height: 28,
-  resizeMode: "contain",
-  marginRight: 12,
-},
-
-cashRow: {
-  flexDirection: "row",
-  alignItems: "center",
-  marginTop: 6,
-},
-
-cashIcon: {
-  width: 18,
-  height: 18,
-  resizeMode: "contain",
-  marginRight: 8,
-},
-
   backBtn: {
     position: "absolute",
     top: 70,
     left: 16,
     backgroundColor: "#fff",
-    padding: 8,
-    borderRadius: 20,
-    elevation: 3,
+    padding: 10,
+    borderRadius: 25,
+    elevation: 5,
+    zIndex: 100,
+  },
+
+  backIcon: {
+    width: 18,
+    height: 18,
+    resizeMode: "contain",
+  },
+
+  bikeIcon: {
+    width: 28,
+    height: 28,
+    resizeMode: "contain",
+    marginRight: 12,
   },
 
   sheet: {
     flex: 1,
     backgroundColor: "#f3f4f6",
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
+    borderTopLeftRadius: 24,
+    borderTopRightRadius: 24,
     padding: 16,
+    marginTop: -10,
   },
 
   drag: {
@@ -173,7 +436,7 @@ cashIcon: {
     backgroundColor: "#ccc",
     alignSelf: "center",
     borderRadius: 2,
-    marginBottom: 10,
+    marginBottom: 15,
   },
 
   titleRow: {
@@ -183,29 +446,34 @@ cashIcon: {
   },
 
   titleSmall: {
-    color: "#444",
+    color: "#555",
+    fontSize: 14,
   },
 
   titleBold: {
     fontWeight: "700",
+    fontSize: 18,
+    color: "#111",
   },
 
   section: {
     marginTop: 10,
     fontWeight: "600",
+    fontSize: 15,
+    color: "#111",
   },
 
   locationBox: {
     flexDirection: "row",
     backgroundColor: "#e5e7eb",
     borderRadius: 15,
-    padding: 12,
+    padding: 14,
     marginTop: 10,
   },
 
   dotColumn: {
     alignItems: "center",
-    marginRight: 10,
+    marginRight: 12,
   },
 
   greenDot: {
@@ -223,7 +491,7 @@ cashIcon: {
   },
 
   line: {
-    height: 30,
+    height: 35,
     width: 1,
     backgroundColor: "#999",
     marginVertical: 4,
@@ -232,62 +500,72 @@ cashIcon: {
   locTitle: {
     fontWeight: "600",
     marginTop: 5,
+    color: "#111",
   },
 
   locSub: {
     fontSize: 12,
-    color: "#777",
+    color: "#666",
+    marginTop: 2,
+    marginBottom: 8,
   },
 
   fareBox: {
     backgroundColor: "#e5e7eb",
     borderRadius: 15,
-    padding: 12,
+    padding: 14,
     marginTop: 15,
   },
 
   fareRow: {
     flexDirection: "row",
     justifyContent: "space-between",
+    alignItems: "center",
   },
 
   fareTitle: {
     fontWeight: "600",
+    fontSize: 15,
   },
 
   farePrice: {
-    fontWeight: "600",
+    fontWeight: "700",
+    fontSize: 16,
   },
 
   payment: {
-    marginTop: 5,
+    marginTop: 8,
     color: "#555",
+    fontSize: 13,
   },
 
   backButton: {
     backgroundColor: "#0f766e",
-    padding: 14,
-    borderRadius: 25,
+    paddingVertical: 14,
+    borderRadius: 30,
     alignItems: "center",
-    marginTop: 20,
+    marginTop: 22,
   },
 
   backText: {
     color: "#fff",
-    fontWeight: "600",
+    fontWeight: "700",
+    fontSize: 15,
   },
 
   cancelButton: {
     borderWidth: 1.5,
     borderColor: "red",
-    padding: 14,
-    borderRadius: 25,
+    paddingVertical: 14,
+    borderRadius: 30,
     alignItems: "center",
-    marginTop: 10,
+    marginTop: 12,
+    backgroundColor: "#fff",
   },
 
   cancelText: {
     color: "red",
-    fontWeight: "600",
+    fontWeight: "700",
+    fontSize: 15,
   },
 });

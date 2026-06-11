@@ -81,8 +81,9 @@ export default function VehicleChoosing({ navigation, route }) {
 
       if (result?.success) {
         navigation.navigate("LookingForRider", {
-          orderId: result.order?._id,
-        });
+          orderId: result?.order?._id,
+          dropLocation,
+        })
       } else {
         navigation.navigate("LookingForRider");
       }

@@ -5,8 +5,8 @@ import {
   StyleSheet,
   TouchableOpacity,
   Switch,
+  Image,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Feather';
 
 const PackersLocationScreen = ({ navigation }) => {
   const [isIntercity, setIsIntercity] = useState(false);
@@ -16,64 +16,84 @@ const PackersLocationScreen = ({ navigation }) => {
     <View style={styles.container}>
 
       {/* HEADER */}
-      <View style={styles.header}>
-        <TouchableOpacity
-          style={styles.backBtn}
-          onPress={() => navigation.goBack()}
-        >
-          <Icon name="arrow-left" size={20} />
-        </TouchableOpacity>
+<View style={styles.header}>
+  <TouchableOpacity
+    style={styles.backBtn}
+    onPress={() => navigation.goBack()}
+  >
+    <Image
+      source={require('../../../assets/back.png')}
+      style={styles.backIcon}
+    />
+  </TouchableOpacity>
 
-        <Text style={styles.title}>Packers & Movers</Text>
-      </View>
+  <Text style={styles.title}>Packers & Movers</Text>
+</View>
 
       {/* STEP INDICATOR */}
-      <View style={styles.stepContainer}>
-        <View style={styles.activeStep}>
-          <Icon name="map-pin" size={16} color="#fff" />
-        </View>
+<View style={styles.stepContainer}>
 
-        <View style={styles.dashedLine} />
+  <View style={styles.activeStep}>
+    <Image
+      source={require('../../../assets/location-step.png')}
+      style={styles.stepIconActive}
+    />
+  </View>
 
-        <View style={styles.step}>
-          <Icon name="file-text" size={16} color="#888" />
-        </View>
+  <View style={styles.dashedLine} />
 
-        <View style={styles.dashedLine} />
+  <View style={styles.step}>
+    <Image
+      source={require('../../../assets/items-step.png')}
+      style={styles.stepIcon}
+    />
+  </View>
 
-        <View style={styles.step}>
-          <Icon name="calendar" size={16} color="#888" />
-        </View>
-      </View>
+  <View style={styles.dashedLine} />
+
+  <View style={styles.step}>
+    <Image
+      source={require('../../../assets/calendar-step.png')}
+      style={styles.stepIcon}
+    />
+  </View>
+
+</View>
 
       {/* TOGGLE */}
-      <View style={styles.toggleContainer}>
-        <TouchableOpacity
-          style={[
-            styles.toggleBtn,
-            !isIntercity && styles.activeToggle,
-          ]}
-          onPress={() => setIsIntercity(false)}
-          onPress={() => navigation.navigate("PackersItems")}
-        >
-          <Text style={!isIntercity ? styles.activeText : styles.text}>
-            Within city
-          </Text>
-        </TouchableOpacity>
+<View style={styles.toggleContainer}>
 
-        <TouchableOpacity
-          style={[
-            styles.toggleBtn,
-            isIntercity && styles.activeToggle,
-          ]}
-          onPress={() => setIsIntercity(true)}
-          onPress={() => navigation.navigate("PackersItems")}
-        >
-          <Text style={isIntercity ? styles.activeText : styles.text}>
-            Between cities
-          </Text>
-        </TouchableOpacity>
-      </View>
+  <TouchableOpacity
+    style={[
+      styles.toggleBtn,
+      !isIntercity && styles.activeToggle,
+    ]}
+    onPress={() => {
+      setIsIntercity(false);
+      navigation.navigate('PackersItems');
+    }}
+  >
+    <Text style={!isIntercity ? styles.activeText : styles.text}>
+      Within city
+    </Text>
+  </TouchableOpacity>
+
+  <TouchableOpacity
+    style={[
+      styles.toggleBtn,
+      isIntercity && styles.activeToggle,
+    ]}
+    onPress={() => {
+      setIsIntercity(true);
+      navigation.navigate('PackersItems');
+    }}
+  >
+    <Text style={isIntercity ? styles.activeText : styles.text}>
+      Between cities
+    </Text>
+  </TouchableOpacity>
+
+</View>
 
       {/* LOCATION CARD */}
       <View style={styles.card}>
@@ -151,6 +171,26 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+
+  backIcon: {
+  width: 18,
+  height: 18,
+  resizeMode: 'contain',
+},
+
+stepIconActive: {
+  width: 18,
+  height: 18,
+  resizeMode: 'contain',
+  tintColor: '#fff',
+},
+
+stepIcon: {
+  width: 18,
+  height: 18,
+  resizeMode: 'contain',
+  tintColor: '#9CA3AF',
+},
 
   title: {
     fontSize: 18,

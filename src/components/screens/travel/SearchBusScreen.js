@@ -9,13 +9,35 @@ import {
   KeyboardAvoidingView,
   Platform,
   Image,
+  Alert,
 } from "react-native";
 
 export default function SearchBusScreen({
   navigation,
+  route,
 }) {
+
+    
   const [search, setSearch] = useState("");
 
+  const [fromCity, setFromCity] = useState(
+  route?.params?.fromCity || ""
+);
+
+const [toCity, setToCity] = useState(
+  route?.params?.toCity || ""
+);
+
+const [activeField, setActiveField] =
+  useState(null);
+
+const [suggestions, setSuggestions] =
+  useState([]);
+
+const [showSuggestions, setShowSuggestions] =
+  useState(false);
+
+  
   const locations = [
     {
       name: "Egmore Railway Station",
@@ -33,6 +55,56 @@ export default function SearchBusScreen({
         "Velachery Road, Indira Gandhi Nagar, Velachery, Chennai",
     },
   ];
+
+  const searchLocation = async (
+  text,
+  field
+) => {
+
+   if (field === "from") {
+    setFromCity(text);
+  } else {
+    setToCity(text);
+  }
+  setActiveField(field);
+
+  if (text.length < 3) {
+    setSuggestions([]);
+    return;
+  }
+
+  try {
+
+    const response = await fetch(
+      `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(
+        text
+      )}&format=json&addressdetails=1&limit=8`,
+      {
+        headers: {
+          "User-Agent": "Vibeo-App",
+        },
+      }
+    );
+
+    const data =
+      await response.json();
+
+    const filtered = data.filter(
+  item =>
+    item.type === "city" ||
+    item.type === "town" ||
+    item.type === "administrative" ||
+    item.type === "station" ||
+    item.type === "bus_stop" ||
+    item.type === "railway"
+);
+
+setSuggestions(filtered);
+
+  } catch (error) {
+    console.log(error);
+  }
+};
 
   return (
     <KeyboardAvoidingView
@@ -70,9 +142,18 @@ export default function SearchBusScreen({
           <View style={styles.row}>
             <View style={styles.greenDot} />
 
-            <Text style={styles.inputText}>
-              Tambaram
-            </Text>
+            <TextInput
+  value={fromCity}
+  style={styles.inputText}
+  placeholder="From"
+  placeholderTextColor="#777"
+  onFocus={() =>
+    setActiveField("from")
+  }
+  onChangeText={(text) =>
+    searchLocation(text, "from")
+  }
+/>
           </View>
 
           <View style={styles.divider} />
@@ -81,9 +162,18 @@ export default function SearchBusScreen({
           <View style={styles.row}>
             <View style={styles.redDot} />
 
-            <Text style={styles.inputText}>
-              Salem
-            </Text>
+            <TextInput
+  value={toCity}
+  style={styles.inputText}
+  placeholder="To"
+  placeholderTextColor="#777"
+  onFocus={() =>
+    setActiveField("to")
+  }
+  onChangeText={(text) =>
+    searchLocation(text, "to")
+  }
+/>
           </View>
         </View>
 
@@ -106,12 +196,12 @@ export default function SearchBusScreen({
             style={styles.mapBtn}
           >
             <Image
-              source={require("../../../assets/beta.png")}
+              source={require("../../../assets/selectmap.png")}
               style={styles.mapIcon}
             />
 
             <Text style={styles.mapText}>
-              Select on map
+              Directions
             </Text>
           </TouchableOpacity>
         </View>
@@ -119,9 +209,30 @@ export default function SearchBusScreen({
         {/* SEARCH BAR */}
         <TouchableOpacity
           activeOpacity={0.9}
-          onPress={() =>
-            navigation.navigate("BusList")
-          }
+          onPress={() => {
+
+  if (
+    !fromCity ||
+    !toCity 
+  ) {
+
+    Alert.alert(
+      "Alert",
+      "Please select From and To from suggestions"
+    );
+
+    return;
+  }
+
+  navigation.navigate("BusList", {
+    fromCity,
+    toCity,
+    
+    journeyDate:
+      route?.params?.journeyDate,
+  });
+
+}}
         >
           <View style={styles.searchBar}>
             <Image
@@ -141,45 +252,86 @@ export default function SearchBusScreen({
 
         {/* LIST */}
         <FlatList
-          data={locations}
-          keyExtractor={(item, index) =>
-            index.toString()
-          }
-          renderItem={({ item }) => (
-            <TouchableOpacity
-              style={styles.listItem}
-            >
-              <Image
-                source={require("../../../assets/timer-icon.png")}
-                style={styles.historyIcon}
-              />
+  data={
+    suggestions.length > 0
+      ? suggestions
+      : locations
+  }
+  keyExtractor={(item, index) =>
+    item.place_id
+      ? item.place_id.toString()
+      : index.toString()
+  }
+  renderItem={({ item }) => {
 
-              <View
-                style={{
-                  marginLeft: 12,
-                  flex: 1,
-                }}
-              >
-                <Text style={styles.locName}>
-                  {item.name}
-                </Text>
+    const title =
+      item.display_name
+        ? item.display_name.split(",")[0]
+        : item.name;
 
-                <Text
-                  style={styles.locAddress}
-                  numberOfLines={1}
-                >
-                  {item.address}
-                </Text>
-              </View>
-            </TouchableOpacity>
-          )}
-          contentContainerStyle={{
-            paddingBottom: 80,
-          }}
-          showsVerticalScrollIndicator={
-            false
+    const address =
+      item.display_name ||
+      item.address;
+
+    return (
+
+      <TouchableOpacity
+        style={styles.listItem}
+        onPress={() => {
+
+  if (activeField === "from") {
+
+    setFromCity(title);
+
+    
+
+  } else {
+
+    setToCity(title);
+
+   
+
+  }
+
+  setSuggestions([]);
+}}
+      >
+
+        <Image
+          source={require("../../../assets/timer-icon.png")}
+          style={
+            styles.historyIcon
           }
         />
+
+        <View
+          style={{
+            marginLeft: 12,
+            flex: 1,
+          }}
+        >
+          <Text
+            style={
+              styles.locName
+            }
+          >
+            {title}
+          </Text>
+
+          <Text
+            style={
+              styles.locAddress
+            }
+            numberOfLines={1}
+          >
+            {address}
+          </Text>
+        </View>
+
+      </TouchableOpacity>
+    );
+  }}
+/>
       </View>
     </KeyboardAvoidingView>
   );
@@ -260,10 +412,12 @@ const styles = StyleSheet.create({
   },
 
   inputText: {
-    fontSize: 18,
-    color: "#333",
-    fontWeight: "500",
-  },
+  flex: 1,
+  fontSize: 18,
+  color: "#333",
+  fontWeight: "500",
+  paddingVertical: 0,
+},
 
   divider: {
     height: 1,

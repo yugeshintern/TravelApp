@@ -8,6 +8,7 @@ import {
   ScrollView,
   Image,
   ImageBackground,
+  Pressable,
 } from "react-native";
 
 export default function AddressAddingScreen({ navigation }) {
@@ -15,58 +16,70 @@ export default function AddressAddingScreen({ navigation }) {
   const [useMyNumber, setUseMyNumber] = useState(false);
 
   const Chip = ({ label, value, icon }) => (
-  <TouchableOpacity
-    style={[
-      styles.chip,
-      selected === value && styles.chipActive,
-    ]}
-    onPress={() => setSelected(value)}
-  >
-    <Image source={icon} style={styles.chipIcon} />
-
-    <Text
+    <TouchableOpacity
       style={[
-        styles.chipText,
-        selected === value && { color: "#0f766e" },
+        styles.chip,
+        selected === value && styles.chipActive,
       ]}
+      onPress={() => setSelected(value)}
     >
-      {label}
-    </Text>
-  </TouchableOpacity>
-);
+      <Image source={icon} style={styles.chipIcon} />
+
+      <Text
+        style={[
+          styles.chipText,
+          selected === value && { color: "#0f766e" },
+        ]}
+      >
+        {label}
+      </Text>
+    </TouchableOpacity>
+  );
 
   return (
     <View style={styles.container}>
-      {/* MAP PLACEHOLDER */}
+
+      {/* TOP AREA CLICK -> GO BACK */}
+      <Pressable
+        style={styles.topOverlay}
+        onPress={() => navigation.goBack()}
+      />
+
       {/* MAP BACKGROUND */}
-<ImageBackground
-  source={require("../../../assets/review_bg.png")}
-  style={styles.map}
-  resizeMode="cover"
->
-  <TouchableOpacity
-    style={styles.backBtn}
-    onPress={() => navigation.goBack()}
-  >
-    <Image
-      source={require("../../../assets/back.png")}
-      style={styles.backIcon}
-    />
-  </TouchableOpacity>
-</ImageBackground>
+      <ImageBackground
+        source={require("../../../assets/review_bg.png")}
+        style={styles.map}
+        resizeMode="cover"
+      >
+        <TouchableOpacity
+          style={styles.backBtn}
+          onPress={() => navigation.goBack()}
+        >
+          <Image
+            source={require("../../../assets/back.png")}
+            style={styles.backIcon}
+          />
+        </TouchableOpacity>
+      </ImageBackground>
 
       {/* BOTTOM SHEET */}
       <View style={styles.sheet}>
-        <ScrollView showsVerticalScrollIndicator={false}>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="handled"
+        >
+
           {/* LOCATION */}
           <View style={styles.rowBetween}>
             <View style={{ flexDirection: "row", alignItems: "center" }}>
               <Image
-  source={require("../../../assets/loc-icon.png")}
-  style={styles.locationIcon}
-/>
+                source={require("../../../assets/loc-icon.png")}
+                style={styles.locationIcon}
+              />
+
               <View style={{ marginLeft: 8 }}>
                 <Text style={styles.title}>Sholinganallur</Text>
+
                 <Text style={styles.sub}>
                   Chennai, Tamil Nadu, India
                 </Text>
@@ -79,16 +92,19 @@ export default function AddressAddingScreen({ navigation }) {
           {/* INPUTS */}
           <TextInput
             placeholder="House / Apartment / Shop (optional)"
+            placeholderTextColor="#444"
             style={styles.input}
           />
 
           <TextInput
             placeholder="Receiver’s Name"
+            placeholderTextColor="#444"
             style={styles.input}
           />
 
           <TextInput
             placeholder="Receiver’s Mobile Number"
+            placeholderTextColor="#444"
             keyboardType="number-pad"
             style={styles.input}
           />
@@ -104,6 +120,7 @@ export default function AddressAddingScreen({ navigation }) {
                 useMyNumber && styles.checkboxActive,
               ]}
             />
+
             <Text style={styles.checkboxText}>
               Use my mobile number: 99880 08899
             </Text>
@@ -113,34 +130,35 @@ export default function AddressAddingScreen({ navigation }) {
           <Text style={styles.saveText}>Save as (optional)</Text>
 
           <View style={styles.chipRow}>
-  <Chip
-    label="Home"
-    value="home"
-    icon={require("../../../assets/home-fill.png")}
-  />
+            <Chip
+              label="Home"
+              value="home"
+              icon={require("../../../assets/home-fill.png")}
+            />
 
-  <Chip
-    label="Shop"
-    value="shop"
-    icon={require("../../../assets/shop.png")}
-  />
+            <Chip
+              label="Shop"
+              value="shop"
+              icon={require("../../../assets/shop.png")}
+            />
 
-  <Chip
-    label="Other"
-    value="other"
-    icon={require("../../../assets/fav.png")}
-  />
-</View>
+            <Chip
+              label="Other"
+              value="other"
+              icon={require("../../../assets/fav.png")}
+            />
+          </View>
 
           {/* BUTTON */}
           <TouchableOpacity
-  style={styles.button}
-  onPress={() => navigation.navigate("ParcelVehicle")}
->
+            style={styles.button}
+            onPress={() => navigation.navigate("ParcelVehicle")}
+          >
             <Text style={styles.buttonText}>
               Confirm drop details
             </Text>
           </TouchableOpacity>
+
         </ScrollView>
       </View>
     </View>
@@ -148,42 +166,56 @@ export default function AddressAddingScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#fff" },
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+  },
+
+  topOverlay: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    height: 300,
+    zIndex: 1,
+  },
 
   map: {
-  height: 290,
-  paddingTop: 55,
-  paddingHorizontal: 15,
-},
+    height: 290,
+    paddingTop: 55,
+    paddingHorizontal: 15,
+  },
+
   backBtn: {
-  width: 42,
-  height: 42,
-  borderRadius: 21,
-  backgroundColor: "#fff",
-  justifyContent: "center",
-  alignItems: "center",
-  elevation: 4,
-},
-backIcon: {
-  width: 18,
-  height: 18,
-  resizeMode: "contain",
-},
+    width: 42,
+    height: 42,
+    borderRadius: 21,
+    backgroundColor: "#fff",
+    justifyContent: "center",
+    alignItems: "center",
+    elevation: 4,
+    zIndex: 5,
+  },
 
-locationIcon: {
-  width: 20,
-  height: 20,
-  resizeMode: "contain",
-  tintColor: "#8b2c2c",
-},
+  backIcon: {
+    width: 18,
+    height: 18,
+    resizeMode: "contain",
+  },
 
-chipIcon: {
-  width: 16,
-  height: 16,
-  resizeMode: "contain",
-  marginRight: 8,
-},
+  locationIcon: {
+    width: 20,
+    height: 20,
+    resizeMode: "contain",
+    tintColor: "#8b2c2c",
+  },
 
+  chipIcon: {
+    width: 16,
+    height: 16,
+    resizeMode: "contain",
+    marginRight: 8,
+  },
 
   sheet: {
     flex: 1,
@@ -192,6 +224,7 @@ chipIcon: {
     borderTopRightRadius: 25,
     padding: 15,
     marginTop: -20,
+    zIndex: 2,
   },
 
   rowBetween: {
@@ -200,8 +233,16 @@ chipIcon: {
     alignItems: "center",
   },
 
-  title: { fontSize: 15, fontWeight: "600" },
-  sub: { fontSize: 12, color: "#666" },
+  title: {
+    fontSize: 15,
+    fontWeight: "600",
+    color: "#111",
+  },
+
+  sub: {
+    fontSize: 12,
+    color: "#666",
+  },
 
   change: {
     color: "#2563eb",
@@ -210,16 +251,16 @@ chipIcon: {
   },
 
   input: {
-  borderWidth: 1,
-  borderColor: "#ddd",
-  borderRadius: 25,
-  paddingHorizontal: 18,
-  paddingVertical: 14,
-  marginTop: 14,
-  fontSize: 15,
-  color: "#111",
-  backgroundColor: "#fff",
-},
+    borderWidth: 1,
+    borderColor: "#ddd",
+    borderRadius: 25,
+    paddingHorizontal: 18,
+    paddingVertical: 14,
+    marginTop: 14,
+    fontSize: 15,
+    color: "#111",
+    backgroundColor: "#fff",
+  },
 
   checkboxRow: {
     flexDirection: "row",
@@ -234,6 +275,7 @@ chipIcon: {
     borderColor: "#888",
     borderRadius: 4,
     marginRight: 8,
+    backgroundColor: "#fff",
   },
 
   checkboxActive: {
@@ -241,7 +283,10 @@ chipIcon: {
     borderColor: "#0f766e",
   },
 
-  checkboxText: { fontSize: 13 },
+  checkboxText: {
+    fontSize: 13,
+    color: "#111",
+  },
 
   saveText: {
     marginTop: 15,
@@ -256,15 +301,15 @@ chipIcon: {
   },
 
   chip: {
-  borderWidth: 1,
-  borderColor: "#ddd",
-  paddingHorizontal: 16,
-  paddingVertical: 10,
-  borderRadius: 22,
-  flexDirection: "row",
-  alignItems: "center",
-  backgroundColor: "#fff",
-},
+    borderWidth: 1,
+    borderColor: "#ddd",
+    paddingHorizontal: 16,
+    paddingVertical: 10,
+    borderRadius: 22,
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#fff",
+  },
 
   chipActive: {
     borderColor: "#0f766e",
@@ -272,13 +317,14 @@ chipIcon: {
   },
 
   chipText: {
-  fontSize: 15,
-  color: "#111",
-  fontWeight: "500",
-},
+    fontSize: 15,
+    color: "#111",
+    fontWeight: "500",
+  },
 
   button: {
     marginTop: 20,
+    marginBottom: 10,
     backgroundColor: "#0f766e",
     paddingVertical: 14,
     borderRadius: 30,

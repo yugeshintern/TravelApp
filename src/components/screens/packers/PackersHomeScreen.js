@@ -15,11 +15,15 @@ const PackersHomeScreen = ({ navigation }) => {
       {/* HEADER */}
       <View style={styles.header}>
         <TouchableOpacity
-          style={styles.backBtn}
-          onPress={() => navigation.goBack()}
-        >
-          <Icon name="arrow-left" size={20} />
-        </TouchableOpacity>
+  style={styles.backBtn}
+  onPress={() => navigation.goBack()}
+>
+  <Image
+    source={require('../../../assets/back.png')}
+    style={styles.backIcon}
+    resizeMode="contain"
+  />
+</TouchableOpacity>
 
         <Text style={styles.title}>Packers & Movers</Text>
       </View>
@@ -116,6 +120,10 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#444',
   },
+  backIcon: {
+  width: 20,
+  height: 20,
+},
 
   /* GRID */
   grid: {

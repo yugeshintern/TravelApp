@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@react-native-community/checkbox": "^0.5.20",
+    "@react-native-community/datetimepicker": "^9.1.0",
+    "@react-native-community/geolocation": "^3.4.0",
     "@react-native-community/slider": "^5.2.0",
     "@react-native/gradle-plugin": "^0.85.1",
     "@react-native/new-app-screen": "0.85.0",
@@ -18,10 +20,12 @@
     "@react-navigation/native-stack": "^7.14.10",
     "react": "19.2.3",
     "react-native": "0.85.0",
+    "react-native-date-picker": "^5.0.13",
     "react-native-safe-area-context": "^5.7.0",
     "react-native-screens": "^4.24.0",
     "react-native-vector-icons": "^10.3.0",
-    "react-native-webview": "^13.16.1"
+    "react-native-webview": "^13.16.1",
+    "socket.io-client": "^4.8.3"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",

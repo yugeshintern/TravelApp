@@ -6,8 +6,8 @@ import {
   TouchableOpacity,
   TextInput,
   ScrollView,
+  Image,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Feather';
 
 const categories = [
   'Household items',
@@ -27,11 +27,15 @@ const PackersBookingDetailsScreen = ({ navigation }) => {
 
         {/* HEADER */}
         <View style={styles.header}>
+
           <TouchableOpacity
             style={styles.backBtn}
             onPress={() => navigation.goBack()}
           >
-            <Icon name="arrow-left" size={20} />
+            <Image
+              source={require('../../../assets/back.png')}
+              style={styles.backIcon}
+            />
           </TouchableOpacity>
 
           <Text style={styles.title}>Packers & Movers</Text>
@@ -42,50 +46,92 @@ const PackersBookingDetailsScreen = ({ navigation }) => {
 
         {/* PICKUP */}
         <Text style={styles.label}>Pickup Address</Text>
+
         <TextInput
           style={styles.input}
           value="Gandhi Irwin Road, Egmore, Chennai, Tamil Nadu..."
+          placeholderTextColor="#000"
         />
 
         <View style={styles.row}>
+
           <TouchableOpacity
             style={styles.checkboxRow}
             onPress={() => setPickupLift(!pickupLift)}
           >
-            <View style={[styles.checkbox, pickupLift && styles.checked]} />
-            <Text style={styles.checkText}>Has Service Lift?</Text>
+            <View
+              style={[
+                styles.checkbox,
+                pickupLift && styles.checked,
+              ]}
+            />
+
+            <Text style={styles.checkText}>
+              Has Service Lift?
+            </Text>
           </TouchableOpacity>
 
-          <TextInput style={styles.floorInput} placeholder="Floor No." />
+          <TextInput
+            style={styles.floorInput}
+            placeholder="Floor No."
+            placeholderTextColor="#555"
+          />
         </View>
 
         {/* DROP */}
         <Text style={styles.label}>Drop Address</Text>
+
         <TextInput
           style={styles.input}
           value="Gandhi Irwin Road, Egmore, Chennai, Tamil Nadu..."
+          placeholderTextColor="#000"
         />
 
         <View style={styles.row}>
+
           <TouchableOpacity
             style={styles.checkboxRow}
             onPress={() => setDropLift(!dropLift)}
           >
-            <View style={[styles.checkbox, dropLift && styles.checked]} />
-            <Text style={styles.checkText}>Has Service Lift?</Text>
+            <View
+              style={[
+                styles.checkbox,
+                dropLift && styles.checked,
+              ]}
+            />
+
+            <Text style={styles.checkText}>
+              Has Service Lift?
+            </Text>
           </TouchableOpacity>
 
-          <TextInput style={styles.floorInput} placeholder="Floor No." />
+          <TextInput
+            style={styles.floorInput}
+            placeholder="Floor No."
+            placeholderTextColor="#555"
+          />
         </View>
 
         {/* DATE */}
         <View style={styles.dateInput}>
-          <Text style={styles.dateText}>24/02/2026</Text>
-          <Icon name="calendar" size={20} />
+
+          <Text style={styles.dateText}>
+            24/02/2026
+          </Text>
+
+          <Image
+            source={require('../../../assets/calender.png')}
+            style={styles.calendarIcon}
+          />
+
         </View>
 
         {/* TIME */}
-        <TextInput style={styles.input} placeholder="Pickup time" />
+        <TextInput
+          style={styles.input}
+          placeholder="Pickup time"
+          placeholderTextColor="#555"
+        />
 
         {/* ITEMS */}
         <Text style={styles.label}>Items to be shifted</Text>
@@ -117,16 +163,22 @@ const PackersBookingDetailsScreen = ({ navigation }) => {
         </View>
 
         {/* BUTTON */}
-        <TouchableOpacity style={styles.button}
-        onPress={() => navigation.navigate("OrderSummary")}>
-          <Text style={styles.buttonText}>Proceed</Text>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate('OrderSummary')}
+        >
+          <Text style={styles.buttonText}>
+            Proceed
+          </Text>
         </TouchableOpacity>
+
       </ScrollView>
     </View>
   );
 };
 
 export default PackersBookingDetailsScreen;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -141,40 +193,51 @@ const styles = StyleSheet.create({
   backBtn: {
     position: 'absolute',
     left: 16,
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+    width: 42,
+    height: 42,
+    borderRadius: 21,
     backgroundColor: '#EDEDED',
     justifyContent: 'center',
     alignItems: 'center',
   },
 
+  backIcon: {
+    width: 18,
+    height: 18,
+    resizeMode: 'contain',
+  },
+
   title: {
     fontSize: 18,
     fontWeight: '700',
+    color: '#000',
   },
 
   mainTitle: {
     fontSize: 20,
     fontWeight: '600',
     margin: 16,
+    color: '#000',
   },
 
   label: {
     marginHorizontal: 16,
     marginTop: 12,
     marginBottom: 6,
-    fontWeight: '500',
+    fontWeight: '600',
+    fontSize: 15,
+    color: '#000',
   },
 
   input: {
     marginHorizontal: 16,
     backgroundColor: '#fff',
     borderWidth: 1,
-    borderColor: '#D0D0D0',
+    borderColor: '#7A7A7A',
     borderRadius: 16,
     padding: 14,
     fontSize: 14,
+    color: '#000',
   },
 
   row: {
@@ -197,6 +260,7 @@ const styles = StyleSheet.create({
     borderColor: '#555',
     borderRadius: 6,
     marginRight: 10,
+    backgroundColor: '#fff',
   },
 
   checked: {
@@ -206,30 +270,42 @@ const styles = StyleSheet.create({
 
   checkText: {
     fontSize: 14,
+    color: '#000',
+    fontWeight: '500',
   },
 
   floorInput: {
     width: 110,
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: '#7A7A7A',
     borderRadius: 10,
     padding: 10,
     textAlign: 'center',
+    backgroundColor: '#fff',
+    color: '#000',
   },
 
   dateInput: {
     flexDirection: 'row',
     margin: 16,
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: '#7A7A7A',
     borderRadius: 16,
     padding: 14,
     justifyContent: 'space-between',
     alignItems: 'center',
+    backgroundColor: '#fff',
+  },
+
+  calendarIcon: {
+    width: 22,
+    height: 22,
+    resizeMode: 'contain',
   },
 
   dateText: {
     fontSize: 15,
+    color: '#000',
   },
 
   grid: {
@@ -243,7 +319,7 @@ const styles = StyleSheet.create({
   chip: {
     width: '48%',
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: '#7A7A7A',
     borderRadius: 16,
     paddingVertical: 16,
     alignItems: 'center',
@@ -258,6 +334,7 @@ const styles = StyleSheet.create({
 
   chipText: {
     fontSize: 14,
+    color: '#000',
   },
 
   button: {

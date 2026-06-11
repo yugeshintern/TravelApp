@@ -1,5 +1,4 @@
-import React from "react";
-import {
+import React, { useState } from "react";import {
   View,
   Text,
   StyleSheet,
@@ -28,6 +27,9 @@ const stations = [
 ];
 
 export default function MetroScreen({ navigation }) {
+    const [fromStation, setFromStation] = useState("");
+  const [toStation, setToStation] = useState("");
+  const [selecting, setSelecting] = useState(null);
   return (
     <View style={styles.container}>
       {/* TOP BANNER */}
@@ -59,33 +61,83 @@ export default function MetroScreen({ navigation }) {
 
         {/* INPUT CARD */}
         <View style={styles.inputCard}>
-          <TouchableOpacity
-          onPress={()=> navigation.navigate("MetroTicket")}>
-          <View style={styles.row}>
-            <View style={styles.greenDot} />
-            <Text style={styles.placeholder}>From</Text>
-          </View>
 
-          <View style={styles.divider} />
+  {/* FROM */}
+  <TouchableOpacity
+    onPress={() => setSelecting("from")}
+  >
+    <View style={styles.row}>
+      <View style={styles.greenDot} />
 
-          <View style={styles.row}>
-            <View style={styles.redDot} />
-            <Text style={styles.placeholder}>To</Text>
-          </View>
-          </TouchableOpacity>
-        </View>
+      <Text style={styles.placeholder}>
+        {fromStation || "From"}
+      </Text>
+    </View>
+  </TouchableOpacity>
+
+  <View style={styles.divider} />
+
+  {/* TO */}
+  <TouchableOpacity
+    onPress={() => setSelecting("to")}
+  >
+    <View style={styles.row}>
+      <View style={styles.redDot} />
+
+      <Text style={styles.placeholder}>
+        {toStation || "To"}
+      </Text>
+    </View>
+  </TouchableOpacity>
+
+  {/* NAVIGATE BUTTON AREA */}
+  {fromStation && toStation && (
+    <TouchableOpacity
+      style={styles.continueArea}
+      activeOpacity={0.8}
+      onPress={() =>
+        navigation.navigate("MetroTicket", {
+          from: fromStation,
+          to: toStation,
+        })
+      }
+    >
+      <Text style={styles.continueText}>
+        Continue
+      </Text>
+    </TouchableOpacity>
+  )}
+
+</View>
 
         {/* STATIONS */}
         {stations.map((item, index) => (
-          <TouchableOpacity key={index} style={styles.stationRow}>
-  <Image
-    source={require("../../../assets/loc-icon.png")}
-    style={styles.pinIcon}
-  />
+  <TouchableOpacity
+    key={index}
+    style={styles.stationRow}
+    onPress={() => {
 
-  <Text style={styles.station}>{item}</Text>
-</TouchableOpacity>
-        ))}
+      if (selecting === "from") {
+        setFromStation(item);
+      }
+
+      if (selecting === "to") {
+        setToStation(item);
+      }
+
+      setSelecting(null);
+    }}
+  >
+    <Image
+      source={require("../../../assets/loc-icon.png")}
+      style={styles.pinIcon}
+    />
+
+    <Text style={styles.station}>
+      {item}
+    </Text>
+  </TouchableOpacity>
+))}
       </ScrollView>
     </View>
   );
@@ -134,6 +186,20 @@ const styles = StyleSheet.create({
   height: "100%",
   position: "absolute",
   resizeMode: "cover",
+},
+
+continueArea: {
+  marginTop: 16,
+  backgroundColor: "#117A7A",
+  borderRadius: 12,
+  paddingVertical: 12,
+  alignItems: "center",
+},
+
+continueText: {
+  color: "#fff",
+  fontSize: 14,
+  fontWeight: "700",
 },
 
 backIcon: {

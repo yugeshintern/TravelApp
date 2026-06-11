@@ -9,7 +9,13 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/Feather";
 
-export default function BoardingDroppingScreen({ navigation }) {
+export default function BoardingDroppingScreen({ navigation, route, }) {
+
+  const {
+    fromCity = "Tambaram",
+    toCity = "Salem",
+    journeyDate,
+  } = route.params || {};
   const [selectedBoarding, setSelectedBoarding] = useState(0);
   const [selectedDrop, setSelectedDrop] = useState(0);
 
@@ -70,13 +76,15 @@ export default function BoardingDroppingScreen({ navigation }) {
       </TouchableOpacity>
 
       {/* ROUTE */}
-      <View style={styles.routeContainer}>
-        <Text style={styles.routeText}>Tambaram</Text>
+      <Text style={styles.routeText}>
+  {fromCity}
+</Text>
 
-        <Text style={styles.arrow}>→</Text>
+<Text style={styles.arrow}>→</Text>
 
-        <Text style={styles.routeText}>Salem</Text>
-      </View>
+<Text style={styles.routeText}>
+  {toCity}
+</Text>
 
     </View>
 
@@ -115,11 +123,15 @@ export default function BoardingDroppingScreen({ navigation }) {
 
               {/* RADIO */}
               <View
-                style={[
-                  styles.radio,
-                  selectedBoarding === index && styles.radioActive,
-                ]}
-              />
+  style={[
+    styles.radioOuter,
+    selectedBoarding === index && styles.radioOuterActive,
+  ]}
+>
+  {selectedBoarding === index && (
+    <View style={styles.radioInner} />
+  )}
+</View>
             </TouchableOpacity>
           ))}
         </View>
@@ -140,7 +152,9 @@ export default function BoardingDroppingScreen({ navigation }) {
               <Text style={styles.sub}>Kondalampatti</Text>
             </View>
 
-            <View style={[styles.radio, styles.radioActive]} />
+            <View style={[styles.radioOuter, styles.radioOuterActive]}>
+  <View style={styles.radioInner} />
+</View>
           </View>
         </View>
 
@@ -297,6 +311,27 @@ arrow: {
     borderWidth: 2,
     borderColor: "#ccc",
   },
+
+  radioOuter: {
+  width: 24,
+  height: 24,
+  borderRadius: 12,
+  borderWidth: 2,
+  borderColor: "#bdbdbd",
+  justifyContent: "center",
+  alignItems: "center",
+},
+
+radioOuterActive: {
+  borderColor: "#0f8b94",
+},
+
+radioInner: {
+  width: 12,
+  height: 12,
+  borderRadius: 6,
+  backgroundColor: "#0f8b94",
+},
 
   radioActive: {
     borderColor: "#0f766e",

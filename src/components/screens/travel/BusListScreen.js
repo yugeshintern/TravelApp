@@ -10,7 +10,15 @@ import {
 
 export default function BusListScreen({
   navigation,
+  route,
 }) {
+
+  const {
+    fromCity = "Tambaram",
+    toCity = "Salem",
+    journeyDate,
+  } = route.params || {};
+
   const buses = [
     {
       id: "1",
@@ -89,11 +97,16 @@ export default function BusListScreen({
       style={styles.card}
       activeOpacity={0.9}
       onPress={() =>
-        navigation.navigate(
-          "SeatSelection",
-          { bus: item }
-        )
-      }
+  navigation.navigate(
+    "SeatSelection",
+    {
+      bus: item,
+      fromCity,
+      toCity,
+      journeyDate,
+    }
+  )
+}
     >
       {/* TOP ROW */}
       <View style={styles.topRow}>
@@ -159,12 +172,12 @@ export default function BusListScreen({
         </TouchableOpacity>
 
         <Text style={styles.route}>
-          Tambaram{" "}
-          <Text style={styles.arrow}>
-            →
-          </Text>{" "}
-          Salem
-        </Text>
+  {fromCity}{" "}
+  <Text style={styles.arrow}>
+    →
+  </Text>{" "}
+  {toCity}
+</Text>
 
         <View style={styles.subHeader}>
           <Text style={styles.busCount}>

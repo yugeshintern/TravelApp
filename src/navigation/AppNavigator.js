@@ -169,9 +169,9 @@ export default function AppNavigator() {
       <Stack.Screen name="SafetyToolkit" component={SafetyToolkit} />
       <Stack.Screen name="Payments" component={PaymentsScreen} />
 
-      <Stack.Screen name="CancelReason" component={CancelReasonScreen} />
-      <Stack.Screen name="Coupons" component={CouponsScreen} />
-      <Stack.Screen name="CouponsEmpty" component={CouponsEmptyScreen} />
+      <Stack.Screen name="CancelReason" component={CancelReasonScreen} options={{ headerShown: false }}/>
+      <Stack.Screen name="Coupons" component={CouponsScreen} options={{ headerShown: false }}/>
+      <Stack.Screen name="CouponsEmpty" component={CouponsEmptyScreen} options={{ headerShown: false }}/>
       <Stack.Screen name="Services" component={ServicesScreen} options={{ headerShown: false }}/>
       <Stack.Screen name="MetroScreen" component={MetroScreen} options={{ headerShown: false }}/>
       <Stack.Screen name="MetroTicket" component={MetroTicketScreen} options={{ headerShown: false }} />
@@ -194,6 +194,7 @@ export default function AppNavigator() {
       <Stack.Screen name="BoardingDropping" component={BoardingDroppingScreen} options={{ headerShown: false }}/>
       <Stack.Screen name="PassengerDetails" component={PassengerDetailsScreen} options={{ headerShown: false }}/>
       <Stack.Screen name="TravelPayment" component={TravelPaymentScreen} options={{ headerShown: false }}/>
+      
       <Stack.Screen name="PorterHome" component={PorterHomeScreen} options={{ headerShown: false }}/>
       <Stack.Screen name="LocationPin" component={LocationPinScreen} options={{ headerShown: false }}/>
       <Stack.Screen name="AddressDetails" component={AddressDetailsScreen} options={{ headerShown: false }}/>
@@ -204,6 +205,7 @@ export default function AppNavigator() {
       <Stack.Screen name="CancellationReason" component={CancellationReasonScreen} options={{ headerShown: false }}/>
       <Stack.Screen name="ChatWithDriver" component={ChatWithDriverScreen} options={{ headerShown: false }}/>
       <Stack.Screen name="ReviewForDriver" component={ReviewForDriverScreen} options={{ headerShown: false, presentation: 'transparentModal' }}/>
+      
       <Stack.Screen name="FlightsHome" component={FlightsHomeScreen} options={{ headerShown: false }}/>
       <Stack.Screen name="TravellerClass" component={TravellerClassScreen} options={{ headerShown: false,  presentation: 'transparentModal',}}/>
       <Stack.Screen name="RoundTripFlights" component={RoundTripFlightsScreen} options={{ headerShown: false }}/>

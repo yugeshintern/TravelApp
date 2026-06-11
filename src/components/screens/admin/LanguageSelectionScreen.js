@@ -82,34 +82,39 @@ const styles = StyleSheet.create({
 
   /* TOP */
   topContainer: {
-    flex: 0.4,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
+  height: '33%',
+  justifyContent: 'center',
+  alignItems: 'center',
+  paddingTop: 20,
+},
 
-  logoText: {
-    fontSize: 42,
-    color: '#FFFFFF',
-    fontWeight: '600',
-    letterSpacing: 2,
-  },
+logoText: {
+  fontSize: 72,
+  color: '#FFFFFF',
+  fontWeight: '300',
+  letterSpacing: 3,
+  fontStyle: 'italic',
+  lineHeight: 78,
+},
 
-  subText: {
-    marginTop: 6,
-    fontSize: 16,
-    color: '#FFFFFF',
-    fontStyle: 'italic',
-  },
+subText: {
+  marginTop: -8,
+  marginLeft: 115,
+  fontSize: 22,
+  color: '#FFFFFF',
+  fontStyle: 'italic',
+  fontWeight: '300',
+},
 
   /* CARD */
   card: {
-    flex: 0.6,
-    backgroundColor: '#F3F4F6',
-    borderTopLeftRadius: 28,
-    borderTopRightRadius: 28,
-    paddingHorizontal: 20,
-    paddingTop: 20,
-  },
+  flex: 1,
+  backgroundColor: '#F3F4F6',
+  borderTopLeftRadius: 36,
+  borderTopRightRadius: 36,
+  paddingHorizontal: 20,
+  paddingTop: 28,
+},
 
   title: {
     textAlign: 'center',
