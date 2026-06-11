@@ -29,8 +29,7 @@ const OrderPage = ({ navigation }) => {
       <View style={styles.card}>
         
         {/* CLOSE BUTTON */}
-        <TouchableOpacity style={styles.closeBtn}
-        onPress={()=> navigation.navigate("GoOnDuty")}>
+        <TouchableOpacity style={styles.closeBtn}>
           <Icon name="x" size={20} color="#333333" />
         </TouchableOpacity>
 
@@ -76,10 +75,30 @@ const OrderPage = ({ navigation }) => {
         </Text>
 
         {/* ACCEPT BUTTON */}
-        <TouchableOpacity style={styles.acceptBtn}
-        onPress={()=> navigation.navigate("StartYourTrip")}>
+        <TouchableOpacity style={styles.acceptBtn}>
           <Text style={styles.acceptText}>Accept</Text>
         </TouchableOpacity>
+
+        {/* TOGGLE (ON DUTY / OFF DUTY) */}
+        <TouchableOpacity
+          style={[
+            styles.toggleContainer,
+            { backgroundColor: isOnDuty ? '#16A34A' : '#BDBDBD' },
+          ]}
+          onPress={() => setIsOnDuty(!isOnDuty)}
+        >
+          <Text style={styles.toggleText}>
+            {isOnDuty ? 'ON DUTY' : 'OFF DUTY'}
+          </Text>
+
+          <View
+            style={[
+              styles.toggleCircle,
+              { alignSelf: isOnDuty ? 'flex-end' : 'flex-start' },
+            ]}
+          />
+        </TouchableOpacity>
+
       </View>
 
     </SafeAreaView>

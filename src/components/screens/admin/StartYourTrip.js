@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import {
   View,
-  Text,
   StyleSheet,
-  TouchableOpacity,
-  SafeAreaView,
-  ScrollView,
   Image,
+  SafeAreaView,
+  TouchableOpacity,
+  Text,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 
@@ -15,127 +14,46 @@ const StartYourTrip = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
+      
+      {/* MAP BACKGROUND */}
+      <View style={styles.mapContainer}>
+        <Image
+          source={require('../../../assets/map-placeholder.png')} // replace with your image
+          style={styles.map}
+          resizeMode="cover"
+        />
 
-      {/* HEADER */}
-      <View style={styles.header}>
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          style={styles.backBtn}
-        >
-          <Icon name="chevron-left" size={24} color="#1F2937" />
-        </TouchableOpacity>
-
-        <Text style={styles.headerTitle}>You Start a Trip</Text>
+        {/* PIN MARKER */}
+        <View style={styles.pinWrapper}>
+          <View style={styles.shadow} />
+          <Icon name="map-pin" size={48} color="#E53935" />
+        </View>
       </View>
 
-      {/* CONTENT */}
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
+      {/* TOP LEFT BACK BUTTON */}
+      <TouchableOpacity style={styles.backBtn}>
+        <Icon name="arrow-left" size={22} color="#333333" />
+      </TouchableOpacity>
 
-        {/* MAP */}
-        <View style={styles.map}>
-           <Image
-                 source={require('../../../assets/city_map.png')}
-                 style={styles.map}
-                 resizeMode="cover"
-               />
-        </View>
+      {/* TOGGLE (ON DUTY / OFF DUTY) */}
+      <TouchableOpacity
+        style={[
+          styles.toggleContainer,
+          { backgroundColor: isOnDuty ? '#16A34A' : '#BDBDBD' },
+        ]}
+        onPress={() => setIsOnDuty(!isOnDuty)}
+      >
+        <Text style={styles.toggleText}>
+          {isOnDuty ? 'ON DUTY' : 'OFF DUTY'}
+        </Text>
 
-        {/* PICKUP STATUS */}
-        <View style={styles.statusCard}>
-          <View style={{ flex: 1 }}>
-            <Text style={styles.statusTitle}>Pickup in 1 min</Text>
-            <Text style={styles.statusSub}>
-              Almost reached in passenger destination
-            </Text>
-          </View>
-          <Text style={styles.bikeIcon}>🏍️</Text>
-        </View>
-
-        {/* PASSENGER PIN */}
-        <View style={styles.section}>
-          <Text style={styles.sectionLabel}>Passenger Pin</Text>
-
-          <View style={styles.pinRow}>
-            {[0, 0, 0, 7].map((digit, index) => (
-              <View key={index} style={styles.pinBox}>
-                <Text style={styles.pinDigit}>{digit}</Text>
-              </View>
-            ))}
-          </View>
-        </View>
-
-        {/* DRIVER CARD */}
-        <View style={styles.driverCard}>
-
-          {/* DRIVER HEADER */}
-          <View style={styles.driverHeader}>
-            <View style={{ flex: 1 }}>
-              <Text style={styles.driverName}>Dexter</Text>
-              <Text style={styles.driverPhone}>9941166608</Text>
-            </View>
-
-            {/* AVATAR */}
-            <View style={styles.avatarWrapper}>
-              <View style={styles.avatar}>
-                <Text style={styles.avatarText}>D</Text>
-              </View>
-
-              <View style={styles.ratingBadge}>
-                <Text style={styles.ratingText}>4.8</Text>
-              </View>
-            </View>
-          </View>
-
-          {/* PRICE */}
-          <View style={styles.priceRow}>
-            <Text style={styles.cashText}>Cash</Text>
-            <Text style={styles.priceText}>₹100 + 20</Text>
-          </View>
-
-          {/* MESSAGE BUTTON */}
-          <TouchableOpacity style={styles.messageBtn}
-          onPress={()=> navigation.navigate("MessageWithRider")}>
-            <Icon name="message-circle" size={16} color="#374151" />
-            <Text style={styles.messageText}>Message Dexter</Text>
-          </TouchableOpacity>
-
-        </View>
-
-        {/* PICKUP LOCATION */}
-        <View style={styles.section}>
-          <Text style={styles.sectionLabel}>Pickup From</Text>
-
-          <View style={styles.locationCard}>
-            <Text style={styles.locationTitle}>AGS Villivakkam</Text>
-            <Text style={styles.locationSub}>
-              Amman Koll st, Rajiv Gandhi Nagar, Chennai-600049
-            </Text>
-          </View>
-        </View>
-
-        {/* CANCEL */}
-        <View style={styles.cancelSection}>
-          <TouchableOpacity
-          onPress={()=> navigation.navigate("CancelReason")}>
-            <Text style={styles.cancelText}>Cancel Ride</Text>
-          </TouchableOpacity>
-        </View>
-
-        {/* ISSUE */}
-        <View style={styles.issueRow}>
-          <View style={styles.issueLeft}>
-            <View style={styles.issueIcon}>
-              <Text style={styles.issueIconText}>?</Text>
-            </View>
-            <Text style={styles.issueText}>Issue with Pickup?</Text>
-          </View>
-
-          <TouchableOpacity style={styles.feedbackBtn}>
-            <Text style={styles.feedbackText}>Share feedback →</Text>
-          </TouchableOpacity>
-        </View>
-
-      </ScrollView>
+        <View
+          style={[
+            styles.toggleCircle,
+            { alignSelf: isOnDuty ? 'flex-end' : 'flex-start' },
+          ]}
+        />
+      </TouchableOpacity>
 
     </SafeAreaView>
   );
@@ -146,294 +64,73 @@ export default StartYourTrip;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
-  },
-
-  /* HEADER */
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    borderBottomWidth: 1,
-    borderColor: '#E5E7EB',
-  },
-
-  backBtn: {
-    marginRight: 8,
-  },
-
-  headerTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#111827',
-  },
-
-  scrollContainer: {
-    paddingBottom: 100,
+    backgroundColor: '#F5F5F5',
   },
 
   /* MAP */
+  mapContainer: {
+    flex: 1,
+  },
+
   map: {
-    margin: 16,
-    height: 160,
-    borderRadius: 12,
-    backgroundColor: '#E5E7EB',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-
-  mapPin: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
-    backgroundColor: '#EF4444',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-
-  pinText: {
-    color: '#FFFFFF',
-    fontSize: 18,
-  },
-
-  /* STATUS */
-  statusCard: {
-    marginHorizontal: 16,
-    marginBottom: 16,
-    backgroundColor: '#F3F4F6',
-    borderRadius: 12,
-    padding: 16,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-
-  statusTitle: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#111827',
-  },
-
-  statusSub: {
-    fontSize: 12,
-    color: '#6B7280',
-    marginTop: 4,
-  },
-
-  bikeIcon: {
-    fontSize: 20,
+    width: '100%',
+    height: '100%',
   },
 
   /* PIN */
-  section: {
-    marginHorizontal: 16,
-    marginBottom: 16,
-  },
-
-  sectionLabel: {
-    fontSize: 14,
-    fontWeight: '600',
-    marginBottom: 8,
-    color: '#111827',
-  },
-
-  pinRow: {
-    flexDirection: 'row',
-  },
-
-  pinBox: {
-    width: 48,
-    height: 48,
-    backgroundColor: '#F3F4F6',
-    borderRadius: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: 8,
-  },
-
-  pinDigit: {
-    fontSize: 18,
-    fontWeight: '700',
-  },
-
-  /* DRIVER */
-  driverCard: {
-    marginHorizontal: 16,
-    marginBottom: 16,
-    backgroundColor: '#F3F4F6',
-    borderRadius: 12,
-    padding: 16,
-  },
-
-  driverHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 12,
-  },
-
-  driverName: {
-    fontSize: 16,
-    fontWeight: '600',
-  },
-
-  driverPhone: {
-    fontSize: 12,
-    color: '#6B7280',
-  },
-
-  avatarWrapper: {
-    position: 'relative',
-  },
-
-  avatar: {
-    width: 64,
-    height: 64,
-    borderRadius: 32,
-    backgroundColor: '#9CA3AF',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-
-  avatarText: {
-    fontSize: 24,
-    fontWeight: '700',
-  },
-
-  ratingBadge: {
+  pinWrapper: {
     position: 'absolute',
-    bottom: -4,
-    right: -4,
-    width: 28,
-    height: 28,
-    borderRadius: 14,
+    top: '45%',
+    left: '50%',
+    transform: [{ translateX: -24 }, { translateY: -48 }],
+    alignItems: 'center',
+  },
+
+  shadow: {
+    position: 'absolute',
+    bottom: -6,
+    width: 30,
+    height: 10,
+    borderRadius: 20,
+    backgroundColor: 'rgba(0,0,0,0.2)',
+  },
+
+  /* BACK BUTTON */
+  backBtn: {
+    position: 'absolute',
+    top: 16,
+    left: 16,
+    width: 44,
+    height: 44,
+    borderRadius: 22,
     backgroundColor: '#FFFFFF',
     justifyContent: 'center',
     alignItems: 'center',
-  },
 
-  ratingText: {
-    fontSize: 12,
-    fontWeight: '700',
-  },
-
-  priceRow: {
-    borderTopWidth: 1,
-    borderColor: '#E5E7EB',
-    paddingVertical: 8,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-
-  cashText: {
-    fontSize: 12,
-    color: '#6B7280',
-  },
-
-  priceText: {
-    fontSize: 16,
-    fontWeight: '700',
-  },
-
-  messageBtn: {
-    marginTop: 12,
-    borderWidth: 1,
-    borderColor: '#D1D5DB',
-    borderRadius: 10,
-    paddingVertical: 12,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-
-  messageText: {
-    marginLeft: 8,
-    fontSize: 14,
-    fontWeight: '600',
-  },
-
-  /* LOCATION */
-  locationCard: {
-    backgroundColor: '#F3F4F6',
-    padding: 12,
-    borderRadius: 10,
-  },
-
-  locationTitle: {
-    fontSize: 14,
-    fontWeight: '600',
-  },
-
-  locationSub: {
-    fontSize: 12,
-    color: '#6B7280',
-    marginTop: 4,
-  },
-
-  /* CANCEL */
-  cancelSection: {
-    alignItems: 'center',
-    paddingVertical: 12,
-    borderBottomWidth: 1,
-    borderColor: '#E5E7EB',
-  },
-
-  cancelText: {
-    color: '#DC2626',
-    fontWeight: '600',
-  },
-
-  /* ISSUE */
-  issueRow: {
-    padding: 16,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-
-  issueLeft: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-
-  issueIcon: {
-    width: 24,
-    height: 24,
-    borderRadius: 12,
-    backgroundColor: '#3B82F6',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: 8,
-  },
-
-  issueIconText: {
-    color: '#FFFFFF',
-    fontSize: 12,
-  },
-
-  issueText: {
-    fontSize: 14,
-  },
-
-  feedbackText: {
-    color: '#2563EB',
-    fontWeight: '600',
+    shadowColor: '#000',
+    shadowOpacity: 0.05,
+    shadowRadius: 8,
+    shadowOffset: { width: 0, height: 2 },
+    elevation: 3,
   },
 
   /* TOGGLE */
   toggleContainer: {
     position: 'absolute',
-    bottom: 16,
+    bottom: 24,
     left: 16,
     right: 16,
     height: 48,
     borderRadius: 999,
-    paddingHorizontal: 16,
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
+    paddingHorizontal: 16,
+    justifyContent: 'space-between',
   },
 
   toggleText: {
     color: '#FFFFFF',
+    fontSize: 16,
     fontWeight: '600',
   },
 

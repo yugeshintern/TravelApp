@@ -15,7 +15,7 @@ const AdminIntroScreen = ({ navigation }) => {
     }, 2500);
 
     return () => clearTimeout(timer);
-  }, []);
+  },);
 
   return (
     <View style={styles.container}>

@@ -135,7 +135,6 @@ import AdminEditProfile from '../components/screens/admin/AdminEditProfile';
 
 
 
-
 const Stack = createNativeStackNavigator();
 
 export default function AppNavigator() {

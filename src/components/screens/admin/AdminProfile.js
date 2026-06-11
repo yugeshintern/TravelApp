@@ -97,7 +97,7 @@ const AdminProfile = ({ navigation }) => {
           </View>
 
           <Image
-            source={require('../../../assets/scooty.png')} // replace with your asset
+            source={require('../../../assets/scooter.png')} // replace with your asset
             style={styles.bannerImage}
           />
         </View>
