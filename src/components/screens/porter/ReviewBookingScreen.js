@@ -197,7 +197,10 @@ const ReviewBookingScreen = ({ navigation }) => {
 
           <View style={styles.separator} />
 
-          <TouchableOpacity style={styles.smallBtn}>
+          <TouchableOpacity
+            style={styles.smallBtn}
+            onPress={() => navigation.navigate('Coupons')}
+          >
             <Text style={styles.smallText}>
               % Ride50
             </Text>

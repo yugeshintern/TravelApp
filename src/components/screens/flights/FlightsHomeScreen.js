@@ -11,6 +11,7 @@ import Icon from 'react-native-vector-icons/Feather';
 
 const FlightsHomeScreen = ({ navigation }) => {
   const [tripType, setTripType] = useState('oneway');
+  const [selectedFare, setSelectedFare] = useState('');
 
   return (
     <View style={styles.container}>
@@ -110,36 +111,106 @@ const FlightsHomeScreen = ({ navigation }) => {
         </TouchableOpacity>
 
         {/* SPECIAL FARES */}
-        <Text style={styles.section}>Special Fares</Text>
+        {/* SPECIAL FARES */}
+<Text style={styles.section}>Special Fares</Text>
 
-        <View style={styles.chipRow}>
-          {[
-            'Senior Citizen',
-            'Armed Forces',
-            'Doctor and Nurses',
-          ].map((item, i) => (
-            <View key={i} style={styles.chip}>
-              <Text style={styles.chipTitle}>{item}</Text>
-              <Text style={styles.chipSub}>Up to ₹600 off</Text>
-            </View>
-          ))}
-        </View>
+<View style={styles.chipRow}>
+  {[
+    {
+      title: 'Senior Citizen',
+      sub: 'Up to ₹600 off',
+    },
+    {
+      title: 'Armed Forces',
+      sub: 'Up to ₹600 off',
+    },
+    {
+      title: 'Doctor and Nurses',
+      sub: 'Up to ₹600 off',
+    },
+  ].map((item, i) => {
+    const isSelected = selectedFare === item.title;
 
-        <View style={styles.chipRow}>
-          <View style={styles.blueChip}>
-            <Text style={styles.blueTitle}>Travelling for work?</Text>
-            <Text style={styles.blueSub}>
-              Unlock Extra Savings & Benefits
-            </Text>
-          </View>
+    return (
+      <TouchableOpacity
+        key={i}
+        activeOpacity={0.8}
+        onPress={() =>
+          setSelectedFare(isSelected ? '' : item.title)
+        }
+        style={[
+          styles.chip,
+          isSelected && styles.selectedChip,
+        ]}
+      >
+        <Text
+          style={[
+            styles.chipTitle,
+            isSelected && styles.selectedTitle,
+          ]}
+        >
+          {item.title}
+        </Text>
 
-          <View style={styles.chip}>
-            <Text style={styles.chipTitle}>Student</Text>
-            <Text style={styles.greenSub}>
-              Extra discounts/baggage
-            </Text>
-          </View>
-        </View>
+        <Text
+          style={[
+            styles.chipSub,
+            isSelected && styles.selectedSub,
+          ]}
+        >
+          {item.sub}
+        </Text>
+      </TouchableOpacity>
+    );
+  })}
+</View>
+
+<View style={styles.chipRow}>
+  {[
+    {
+      title: 'Travelling for work?',
+      sub: 'Unlock Extra Savings & Benefits',
+    },
+    {
+      title: 'Student',
+      sub: 'Extra discounts/baggage',
+    },
+  ].map((item, i) => {
+    const isSelected = selectedFare === item.title;
+
+    return (
+      <TouchableOpacity
+        key={i}
+        activeOpacity={0.8}
+        onPress={() =>
+          setSelectedFare(isSelected ? '' : item.title)
+        }
+        style={[
+          styles.chip,
+          isSelected && styles.selectedChip,
+        ]}
+      >
+        <Text
+          style={[
+            styles.chipTitle,
+            isSelected && styles.selectedTitle,
+          ]}
+        >
+          {item.title}
+        </Text>
+
+        <Text
+          style={[
+            styles.chipSub,
+            isSelected && styles.selectedSub,
+          ]}
+        >
+          {item.sub}
+        </Text>
+      </TouchableOpacity>
+    );
+  })}
+</View>
 
         <View style={{ height: 120 }} />
       </ScrollView>
@@ -220,6 +291,24 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#000',
   },
+  selectedChip: {
+  backgroundColor: '#EAF8EE',
+  borderColor: '#16A34A',
+},
+
+selectedTitle: {
+  color: '#16A34A',
+},
+
+selectedSub: {
+  color: '#16A34A',
+},
+
+selectedBlueChip: {
+  backgroundColor: '#E8F1FF',
+  borderColor: '#2F80ED',
+},
+
 
   row: {
     flexDirection: 'row',
@@ -270,21 +359,41 @@ const styles = StyleSheet.create({
   },
 
   swap: {
-    position: 'absolute',
-    top: '35%',
-    left: '48%',
-    width: 32,
-    height: 32,
-    borderRadius: 16,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    elevation: 2,
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: [
+    { translateX: -18 },
+    { translateY: -18 },
+  ],
+
+  width: 36,
+  height: 36,
+  borderRadius: 18,
+
+  backgroundColor: '#FFFFFF',
+
+  alignItems: 'center',
+  justifyContent: 'center',
+
+  borderWidth: 1,
+  borderColor: '#E3E3E3',
+
+  shadowColor: '#000',
+  shadowOpacity: 0.08,
+  shadowRadius: 4,
+  shadowOffset: {
+    width: 0,
+    height: 2,
   },
 
+  elevation: 3,
+  zIndex: 20,
+},
+
   directionIcon: {
-  width: 16,
-  height: 16,
+  width: 15,
+  height: 15,
   resizeMode: 'contain',
 },
 

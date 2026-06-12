@@ -4,6 +4,7 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
+Pressable,
 } from 'react-native';
 
 const TravellerClassScreen = ({ navigation }) => {
@@ -49,80 +50,115 @@ const TravellerClassScreen = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.overlay}>
-      <View style={styles.sheet}>
-        {/* TITLE */}
-        <Text style={styles.title}>Traveller & Class</Text>
+  <Pressable
+    style={styles.overlay}
+    onPress={() => navigation.goBack()}
+  >
+    <Pressable
+      style={styles.sheet}
+      onPress={(e) => e.stopPropagation()}
+    >
+      {/* TITLE */}
+      <Text style={styles.title}>Traveller & Class</Text>
 
-        <Text style={styles.subTitle}>
-          Add Number of Travellers
-        </Text>
+      <Text style={styles.subTitle}>
+        Add Number of Travellers
+      </Text>
 
-        {/* ADULTS */}
-        <View style={styles.row}>
-          <View>
-            <Text style={styles.label}>Adults</Text>
-            <Text style={styles.desc}>
-              12 yrs & above on the day of travel
-            </Text>
-          </View>
-          <Counter value={adults} setValue={setAdults} min={1} />
+      {/* ADULTS */}
+      <View style={styles.row}>
+        <View>
+          <Text style={styles.label}>Adults</Text>
+          <Text style={styles.desc}>
+            12 yrs & above on the day of travel
+          </Text>
         </View>
 
-        {/* CHILDREN */}
-        <View style={styles.row}>
-          <View>
-            <Text style={styles.label}>Children</Text>
-            <Text style={styles.desc}>
-              2 – 12 yrs on the day of travel
-            </Text>
-          </View>
-          <Counter value={children} setValue={setChildren} />
-        </View>
-
-        {/* INFANTS */}
-        <View style={styles.row}>
-          <View>
-            <Text style={styles.label}>Infants</Text>
-            <Text style={styles.desc}>
-              Under 2 yrs on the day of travel
-            </Text>
-          </View>
-          <Counter value={infants} setValue={setInfants} />
-        </View>
-
-        {/* CABIN */}
-        <Text style={styles.section}>Choose Cabin Class</Text>
-
-        <View style={styles.cabinRow}>
-          <CabinBtn
-            label="Economy/Premium Economy"
-            value="eco"
-          />
-          <CabinBtn
-            label="Premium Economy"
-            value="prem"
-          />
-        </View>
-
-        <View style={styles.cabinRow}>
-          <CabinBtn label="Business" value="bus" />
-          <CabinBtn label="First Class" value="first" />
-        </View>
-
-        {/* CTA */}
-        <TouchableOpacity
-  style={styles.cta}
-  onPress={() => navigation.goBack()}
->
-  <Text style={styles.ctaText}>Done</Text>
-</TouchableOpacity>
+        <Counter
+          value={adults}
+          setValue={setAdults}
+          min={1}
+        />
       </View>
-    </View>
-  );
+
+      {/* CHILDREN */}
+      <View style={styles.row}>
+        <View>
+          <Text style={styles.label}>Children</Text>
+
+          <Text style={styles.desc}>
+            2 – 12 yrs on the day of travel
+          </Text>
+        </View>
+
+        <Counter
+          value={children}
+          setValue={setChildren}
+        />
+      </View>
+
+      {/* INFANTS */}
+      <View style={styles.row}>
+        <View>
+          <Text style={styles.label}>Infants</Text>
+
+          <Text style={styles.desc}>
+            Under 2 yrs on the day of travel
+          </Text>
+        </View>
+
+        <Counter
+          value={infants}
+          setValue={setInfants}
+        />
+      </View>
+
+      {/* CABIN */}
+      <Text style={styles.section}>
+        Choose Cabin Class
+      </Text>
+
+      <View style={styles.cabinRow}>
+        <CabinBtn
+          label="Economy/Premium Economy"
+          value="eco"
+        />
+
+        <CabinBtn
+          label="Premium Economy"
+          value="prem"
+        />
+      </View>
+
+      <View style={styles.cabinRow}>
+        <CabinBtn
+          label="Business"
+          value="bus"
+        />
+
+        <CabinBtn
+          label="First Class"
+          value="first"
+        />
+      </View>
+
+      {/* CTA */}
+      <TouchableOpacity
+        style={styles.cta}
+        onPress={() => navigation.goBack()}
+      >
+        <Text style={styles.ctaText}>
+          Done
+        </Text>
+      </TouchableOpacity>
+    </Pressable>
+  </Pressable>
+);
 };
 
 export default TravellerClassScreen;
+
+
 const styles = StyleSheet.create({
   overlay: {
     flex: 1,

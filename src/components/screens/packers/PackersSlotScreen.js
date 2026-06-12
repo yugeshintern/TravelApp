@@ -5,8 +5,8 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
+  Image,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Feather';
 
 const slots = {
   morning: [
@@ -34,12 +34,35 @@ const PackersSlotScreen = ({ navigation }) => {
   const [selectedTab, setSelectedTab] = useState('morning');
   const [selectedSlot, setSelectedSlot] = useState(null);
 
+  const handleSlotSelect = (time) => {
+    setSelectedSlot(time);
+
+    navigation.navigate('PackersConfirm', {
+      selectedSlot: time,
+      selectedTab,
+      selectedDate: '24 Feb 2026',
+    });
+  };
+
   return (
     <View style={styles.container}>
 
+      {/* TOP OVERLAY CLICK */}
+      <TouchableOpacity
+        activeOpacity={1}
+        style={styles.overlayArea}
+        onPress={() => navigation.goBack()}
+      />
+
       {/* BACK */}
-      <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>
-        <Icon name="arrow-left" size={20} />
+      <TouchableOpacity
+        style={styles.backBtn}
+        onPress={() => navigation.goBack()}
+      >
+        <Image
+          source={require('../../../assets/back.png')}
+          style={styles.backIcon}
+        />
       </TouchableOpacity>
 
       {/* BOTTOM SHEET */}
@@ -49,9 +72,23 @@ const PackersSlotScreen = ({ navigation }) => {
 
         {/* DATE */}
         <View style={styles.dateRow}>
-          <Icon name="chevron-left" size={20} />
+
+          <TouchableOpacity>
+            <Image
+              source={require('../../../assets/left.png')}
+              style={styles.arrowIcon}
+            />
+          </TouchableOpacity>
+
           <Text style={styles.date}>24 Feb 2026</Text>
-          <Icon name="chevron-right" size={20} />
+
+          <TouchableOpacity>
+            <Image
+              source={require('../../../assets/right.png')}
+              style={styles.arrowIcon}
+            />
+          </TouchableOpacity>
+
         </View>
 
         {/* TABS */}
@@ -66,14 +103,32 @@ const PackersSlotScreen = ({ navigation }) => {
                 style={[styles.tab, active && styles.activeTab]}
                 onPress={() => setSelectedTab(item)}
               >
-                <Icon
-                  name={item === 'morning' ? 'cloud' : item === 'afternoon' ? 'sun' : 'sunset'}
-                  size={16}
-                  color={active ? '#0F766E' : '#777'}
+
+                <Image
+                  source={
+                    item === 'morning'
+                      ? require('../../../assets/morning.png')
+                      : item === 'afternoon'
+                      ? require('../../../assets/afternoon.png')
+                      : require('../../../assets/evening.png')
+                  }
+                  style={[
+                    styles.tabIcon,
+                    {
+                      tintColor: active ? '#0F766E' : '#777',
+                    },
+                  ]}
                 />
-                <Text style={[styles.tabText, active && { color: '#0F766E' }]}>
+
+                <Text
+                  style={[
+                    styles.tabText,
+                    active && { color: '#0F766E' },
+                  ]}
+                >
                   {item.charAt(0).toUpperCase() + item.slice(1)}
                 </Text>
+
                 <Text style={styles.subText}>
                   {item === 'morning'
                     ? '8AM-12PM'
@@ -95,15 +150,17 @@ const PackersSlotScreen = ({ navigation }) => {
               <TouchableOpacity
                 key={index}
                 style={styles.slotRow}
-                onPress={() => setSelectedSlot(time)}
+                onPress={() => handleSlotSelect(time)}
               >
                 <Text style={styles.slotText}>{time}</Text>
 
                 {/* RADIO BUTTON */}
-                <View style={[
-                  styles.radio,
-                  isSelected && styles.radioSelected
-                ]}>
+                <View
+                  style={[
+                    styles.radio,
+                    isSelected && styles.radioSelected,
+                  ]}
+                >
                   {isSelected && <View style={styles.innerDot} />}
                 </View>
               </TouchableOpacity>
@@ -112,8 +169,16 @@ const PackersSlotScreen = ({ navigation }) => {
         </ScrollView>
 
         {/* BUTTON */}
-        <TouchableOpacity style={styles.button}
-        onPress={() => navigation.navigate("PackersConfirm")}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() =>
+            navigation.navigate('PackersConfirm', {
+              selectedSlot,
+              selectedTab,
+              selectedDate: '24 Feb 2026',
+            })
+          }
+        >
           <Text style={styles.buttonText}>Confirm slot</Text>
         </TouchableOpacity>
 
@@ -123,6 +188,7 @@ const PackersSlotScreen = ({ navigation }) => {
 };
 
 export default PackersSlotScreen;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -130,16 +196,44 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
 
+  overlayArea: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    height: '25%',
+  },
+
   backBtn: {
     position: 'absolute',
     top: 50,
     left: 16,
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+    width: 42,
+    height: 42,
+    borderRadius: 21,
     backgroundColor: '#EDEDED',
     justifyContent: 'center',
     alignItems: 'center',
+    zIndex: 10,
+  },
+
+  backIcon: {
+    width: 18,
+    height: 18,
+    resizeMode: 'contain',
+  },
+
+  arrowIcon: {
+    width: 18,
+    height: 18,
+    resizeMode: 'contain',
+  },
+
+  tabIcon: {
+    width: 18,
+    height: 18,
+    resizeMode: 'contain',
+    marginBottom: 4,
   },
 
   sheet: {
@@ -167,6 +261,7 @@ const styles = StyleSheet.create({
   date: {
     marginHorizontal: 10,
     fontWeight: '600',
+    fontSize: 16,
   },
 
   tabRow: {
@@ -178,7 +273,7 @@ const styles = StyleSheet.create({
   tab: {
     flex: 1,
     marginHorizontal: 4,
-    padding: 12,
+    paddingVertical: 12,
     borderRadius: 12,
     borderWidth: 1,
     borderColor: '#ddd',
@@ -193,6 +288,8 @@ const styles = StyleSheet.create({
   tabText: {
     fontWeight: '600',
     marginTop: 4,
+    fontSize: 16,
+    color: '#000',
   },
 
   subText: {
@@ -211,14 +308,15 @@ const styles = StyleSheet.create({
   },
 
   slotText: {
-    fontSize: 14,
+    fontSize: 16,
     fontWeight: '500',
+    color: '#000',
   },
 
   radio: {
-    width: 22,
-    height: 22,
-    borderRadius: 11,
+    width: 24,
+    height: 24,
+    borderRadius: 12,
     borderWidth: 1.5,
     borderColor: '#ccc',
     justifyContent: 'center',
@@ -247,6 +345,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#fff',
     fontWeight: '600',
-    fontSize: 16,
+    fontSize: 18,
   },
 });

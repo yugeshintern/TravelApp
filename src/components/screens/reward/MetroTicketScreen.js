@@ -7,8 +7,14 @@ import {
   Image,
 } from "react-native";
 
-export default function MetroTicketScreen({ navigation }) {
+export default function MetroTicketScreen({ navigation, route }) {
   const [count, setCount] = useState(1);
+
+  const { from, to } = route.params || {};
+
+const pricePerTicket = 50;
+
+const totalAmount = count * pricePerTicket;
 
   return (
     <View style={styles.container}>
@@ -31,14 +37,18 @@ export default function MetroTicketScreen({ navigation }) {
       <View style={styles.routeCard}>
         <View style={styles.row}>
           <View style={styles.greenDot} />
-          <Text style={styles.station}>Guindy</Text>
+          <Text style={styles.station}>
+  {from || "From"}
+</Text>
         </View>
 
         <View style={styles.line} />
 
         <View style={styles.row}>
           <View style={styles.redDot} />
-          <Text style={styles.station}>Ekkattuthangal</Text>
+          <Text style={styles.station}>
+  {to || "To"}
+</Text>
         </View>
       </View>
 
@@ -86,7 +96,9 @@ export default function MetroTicketScreen({ navigation }) {
       <View style={styles.bottom}>
         <View style={styles.rowBetween}>
           <Text style={styles.total}>Total Fare</Text>
-          <Text style={styles.amount}>₹100</Text>
+          <Text style={styles.amount}>
+  ₹{totalAmount}
+</Text>
         </View>
 
         <TouchableOpacity style={styles.payBtn}

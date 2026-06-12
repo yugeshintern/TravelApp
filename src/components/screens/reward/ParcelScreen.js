@@ -1,22 +1,69 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
   StyleSheet,
   TouchableOpacity,
   TextInput,
+  FlatList,
   Image,
 } from "react-native";
 
 export default function ParcelScreen({ navigation }) {
+
+  const [dropLocation, setDropLocation] = useState("");
+const [suggestions, setSuggestions] = useState([]);
+
+const searchLocation = async (text) => {
+  setDropLocation(text);
+
+  if (text.length < 3) {
+    setSuggestions([]);
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(
+        text
+      )}&format=json&addressdetails=1&limit=8`,
+      {
+        headers: {
+          "User-Agent": "ParcelApp",
+        },
+      }
+    );
+
+    const data = await response.json();
+
+    setSuggestions(data);
+  } catch (error) {
+    console.log("Location Search Error:", error);
+  }
+};
+
+const selectLocation = (item) => {
+  const selectedCoords = {
+    lat: parseFloat(item.lat),
+    lng: parseFloat(item.lon),
+  };
+
+  setDropLocation(item.display_name);
+
+  setSuggestions([]);
+
+  navigation.navigate("DropLocation", {
+    selectedPlace: item.display_name.split(",")[0],
+    selectedAddress: item.display_name,
+    latitude: selectedCoords.lat,
+    longitude: selectedCoords.lng,
+  });
+};
   return (
     <View style={styles.container}>
       {/* BACK */}
-      <TouchableOpacity
-        style={styles.backBtn}
-        onPress={() => navigation.goBack()}
-      >
-        <TouchableOpacity
+      {/* BACK */}
+<TouchableOpacity
   style={styles.backBtn}
   onPress={() => navigation.goBack()}
 >
@@ -25,7 +72,6 @@ export default function ParcelScreen({ navigation }) {
     style={styles.backIcon}
   />
 </TouchableOpacity>
-      </TouchableOpacity>
 
       {/* HEADER */}
       <View style={styles.header}>
@@ -74,14 +120,55 @@ export default function ParcelScreen({ navigation }) {
   style={styles.searchIcon}
 />
               <TextInput
-                placeholder="Search drop address"
-                placeholderTextColor="#666"
-                style={styles.input}
-              />
+  value={dropLocation}
+  placeholder="Search drop address"
+  placeholderTextColor="#666"
+  autoCorrect={false}
+  autoCapitalize="none"
+  style={styles.input}
+  onChangeText={searchLocation}
+/>
             </View>
           </View>
         </View>
       </TouchableOpacity>
+
+      {suggestions.length > 0 && (
+  <View style={styles.suggestionContainer}>
+    <FlatList
+      keyboardShouldPersistTaps="handled"
+      data={suggestions}
+      keyExtractor={(item) => item.place_id.toString()}
+      renderItem={({ item }) => (
+        <TouchableOpacity
+          style={styles.suggestionItem}
+          onPress={() => selectLocation(item)}
+        >
+          <Image
+            source={require("../../../assets/loc-icon.png")}
+            style={styles.suggestionIcon}
+          />
+
+          <View style={{ flex: 1 }}>
+            <Text
+              numberOfLines={1}
+              style={styles.suggestionTitle}
+            >
+              {item.display_name.split(",")[0]}
+            </Text>
+
+            <Text
+              numberOfLines={2}
+              style={styles.suggestionSubtitle}
+            >
+              {item.display_name}
+            </Text>
+          </View>
+        </TouchableOpacity>
+      )}
+    />
+  </View>
+)}
     </View>
   );
 }
@@ -95,22 +182,76 @@ const styles = StyleSheet.create({
 
   backBtn: {
   position: "absolute",
-  top: 55,
+  top: 60,
   left: 20,
-  zIndex: 10,
+  zIndex: 100,
   width: 42,
   height: 42,
   borderRadius: 21,
   backgroundColor: "#fff",
   justifyContent: "center",
   alignItems: "center",
-  elevation: 3,
+  elevation: 4,
+
+  shadowColor: "#000",
+  shadowOpacity: 0.1,
+  shadowRadius: 5,
+  shadowOffset: {
+    width: 0,
+    height: 2,
+  },
 },
 
 backIcon: {
   width: 18,
   height: 18,
   resizeMode: "contain",
+},
+
+suggestionContainer: {
+  backgroundColor: "#fff",
+  borderRadius: 16,
+  marginHorizontal: 15,
+  marginTop: 10,
+  maxHeight: 260,
+  elevation: 5,
+
+  shadowColor: "#000",
+  shadowOpacity: 0.08,
+  shadowRadius: 6,
+  shadowOffset: {
+    width: 0,
+    height: 2,
+  },
+
+  overflow: "hidden",
+},
+
+suggestionItem: {
+  flexDirection: "row",
+  alignItems: "center",
+  padding: 14,
+  borderBottomWidth: 1,
+  borderBottomColor: "#f0f0f0",
+},
+
+suggestionIcon: {
+  width: 18,
+  height: 18,
+  resizeMode: "contain",
+  marginRight: 10,
+},
+
+suggestionTitle: {
+  fontSize: 15,
+  fontWeight: "600",
+  color: "#222",
+},
+
+suggestionSubtitle: {
+  fontSize: 12,
+  color: "#777",
+  marginTop: 2,
 },
 
 banner: {

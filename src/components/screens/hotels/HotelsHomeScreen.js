@@ -17,27 +17,23 @@ const HotelsHomeScreen = ({ navigation }) => {
       {/* HEADER */}
       <View style={styles.header}>
 
-        <TouchableOpacity
-          style={styles.backBtn}
-          onPress={() => navigation.goBack()}
-        >
-          <TouchableOpacity
-  style={styles.backBtn}
-  onPress={() => navigation.goBack()}
->
-  <Image
-    source={require("../../../assets/back.png")}
-    style={styles.backIcon}
-  />
-</TouchableOpacity>
-        </TouchableOpacity>
+  <TouchableOpacity
+    style={styles.backBtn}
+    onPress={() => navigation.goBack()}
+  >
+    <Image
+      source={require("../../../assets/back.png")}
+      style={styles.backIcon}
+    />
+  </TouchableOpacity>
 
-        <Text style={styles.headerTitle}>
-          Hotels Booking
-        </Text>
+  <Text style={styles.headerTitle}>
+    Hotels Booking
+  </Text>
 
-        <View style={{ width: 52 }} />
-      </View>
+  <View style={{ width: 42 }} />
+
+</View>
 
       {/* HOTEL TITLE */}
       <View style={styles.titleRow}>
@@ -75,7 +71,7 @@ const HotelsHomeScreen = ({ navigation }) => {
           <TouchableOpacity style={styles.mapBtn}>
 
             <Image
-              source={require('../../../assets/beta.png')}
+              source={require('../../../assets/directions.png')}
               style={styles.mapIcon}
             />
 
@@ -156,23 +152,39 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
 
-    paddingHorizontal: 24,
-    marginTop: 58,
+    paddingHorizontal: 20,
+    marginTop: 50,
   },
 
   backBtn: {
-    width: 52,
-    height: 52,
-    borderRadius: 26,
+    width: 42,
+    height: 42,
+    borderRadius: 21,
 
     backgroundColor: '#EEF1F1',
 
     alignItems: 'center',
     justifyContent: 'center',
+
+    elevation: 3,
+
+    shadowColor: '#000',
+    shadowOpacity: 0.08,
+    shadowRadius: 5,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+  },
+
+  backIcon: {
+    width: 18,
+    height: 18,
+    resizeMode: 'contain',
   },
 
   headerTitle: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: '700',
     color: '#333',
   },
@@ -182,43 +194,44 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
 
-    marginTop: 54,
-    paddingHorizontal: 28,
+    marginTop: 42,
+    paddingHorizontal: 24,
   },
 
   hotelIconWrap: {
-    width: 44,
-    height: 44,
+    width: 40,
+    height: 40,
 
     alignItems: 'center',
     justifyContent: 'center',
   },
 
   hotelIcon: {
-    width: 36,
-    height: 36,
+    width: 30,
+    height: 30,
     resizeMode: 'contain',
   },
 
   title: {
-    fontSize: 22,
+    fontSize: 18,
     fontWeight: '700',
     color: '#000',
 
-    marginLeft: 14,
+    marginLeft: 12,
+    flexShrink: 1,
   },
 
   /* CARD */
   card: {
     backgroundColor: '#FFFFFF',
 
-    marginHorizontal: 26,
-    marginTop: 38,
+    marginHorizontal: 20,
+    marginTop: 30,
 
-    borderRadius: 28,
+    borderRadius: 26,
 
-    paddingTop: 26,
-    paddingBottom: 24,
+    paddingTop: 22,
+    paddingBottom: 20,
 
     shadowColor: '#000',
     shadowOpacity: 0.08,
@@ -238,21 +251,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
 
-    paddingHorizontal: 28,
+    paddingHorizontal: 20,
   },
 
   locationLeft: {
     flex: 1,
+    paddingRight: 10,
   },
 
   label: {
-    fontSize: 14,
+    fontSize: 13,
     color: '#7A7A7A',
-    marginBottom: 8,
+    marginBottom: 6,
   },
 
   city: {
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: '700',
     color: '#000',
   },
@@ -266,23 +280,23 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#D7D7D7',
 
-    borderRadius: 26,
+    borderRadius: 24,
 
-    paddingHorizontal: 18,
-    paddingVertical: 12,
+    paddingHorizontal: 14,
+    paddingVertical: 10,
 
     backgroundColor: '#FFF',
   },
 
   mapIcon: {
-    width: 18,
-    height: 18,
+    width: 16,
+    height: 16,
     resizeMode: 'contain',
-    marginRight: 8,
+    marginRight: 6,
   },
 
   mapText: {
-    fontSize: 14,
+    fontSize: 13,
     color: '#2C318F',
     fontWeight: '600',
   },
@@ -292,7 +306,7 @@ const styles = StyleSheet.create({
     height: 1,
     backgroundColor: '#ECECEC',
 
-    marginTop: 24,
+    marginTop: 20,
   },
 
   /* BOTTOM ROW */
@@ -304,26 +318,26 @@ const styles = StyleSheet.create({
   /* LEFT */
   leftSection: {
     flex: 1,
-    paddingTop: 28,
-    paddingHorizontal: 28,
+    paddingTop: 24,
+    paddingHorizontal: 20,
   },
 
   date: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: '700',
     color: '#222',
   },
 
   sub: {
-    marginTop: 10,
+    marginTop: 8,
 
-    fontSize: 15,
+    fontSize: 14,
     color: '#7B7B7B',
   },
 
   /* TODAY BTN */
   todayBtn: {
-    marginTop: 24,
+    marginTop: 22,
 
     borderWidth: 1.5,
     borderColor: '#4D8DFF',
@@ -334,13 +348,13 @@ const styles = StyleSheet.create({
 
     alignSelf: 'flex-start',
 
-    paddingHorizontal: 32,
-    paddingVertical: 12,
+    paddingHorizontal: 24,
+    paddingVertical: 10,
   },
 
   todayText: {
     color: '#4D8DFF',
-    fontSize: 15,
+    fontSize: 14,
     fontWeight: '700',
   },
 
@@ -352,24 +366,24 @@ const styles = StyleSheet.create({
 
   /* RIGHT */
   rightSection: {
-    width: 150,
+    width: '38%',
 
     alignItems: 'flex-end',
 
-    paddingTop: 28,
-    paddingHorizontal: 24,
+    paddingTop: 24,
+    paddingHorizontal: 20,
   },
 
   room: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: '700',
     color: '#222',
   },
 
   subRight: {
-    marginTop: 10,
+    marginTop: 8,
 
-    fontSize: 15,
+    fontSize: 14,
     color: '#7B7B7B',
   },
 
@@ -377,12 +391,15 @@ const styles = StyleSheet.create({
   searchBtn: {
     backgroundColor: '#087F86',
 
-    marginHorizontal: 70,
-    marginTop: -28,
+    alignSelf: 'center',
 
-    borderRadius: 36,
+    width: '68%',
 
-    paddingVertical: 20,
+    marginTop: -24,
+
+    borderRadius: 34,
+
+    paddingVertical: 18,
 
     alignItems: 'center',
 
@@ -400,7 +417,7 @@ const styles = StyleSheet.create({
 
   searchText: {
     color: '#FFF',
-    fontSize: 22,
+    fontSize: 18,
     fontWeight: '700',
   },
 });

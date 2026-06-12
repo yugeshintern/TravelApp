@@ -1,5 +1,4 @@
-import React from 'react';
-import {
+import React, { useState } from 'react';import {
   View,
   Text,
   StyleSheet,
@@ -9,6 +8,7 @@ import {
 } from 'react-native';
 
 const MultiCityFlightsScreen = ({ navigation }) => {
+  const [selectedFare, setSelectedFare] = useState('');
   return (
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -64,42 +64,195 @@ const MultiCityFlightsScreen = ({ navigation }) => {
         </TouchableOpacity>
 
         {/* SPECIAL FARES */}
-        <Text style={styles.sectionTitle}>Special Fares</Text>
+<Text style={styles.sectionTitle}>Special Fares</Text>
 
-        <View style={styles.fareRow}>
-          <View style={styles.fareChip}>
-            <Text style={styles.fareTitle}>Senior Citizen</Text>
-            <Text style={styles.green}>Up to ₹600 off</Text>
-          </View>
+<View style={styles.fareRow}>
 
-          <View style={styles.fareChip}>
-            <Text style={styles.fareTitle}>Armed Forces</Text>
-            <Text style={styles.green}>Up to ₹600 off</Text>
-          </View>
+  {/* Senior Citizen */}
+  <TouchableOpacity
+    style={[
+      styles.fareChip,
+      selectedFare === 'Senior Citizen' &&
+        styles.activeGreenChip,
+    ]}
+    onPress={() =>
+      setSelectedFare(
+        selectedFare === 'Senior Citizen'
+          ? ''
+          : 'Senior Citizen'
+      )
+    }
+  >
+    <Text
+      style={[
+        styles.fareTitle,
+        selectedFare === 'Senior Citizen' &&
+          styles.activeGreenText,
+      ]}
+    >
+      Senior Citizen
+    </Text>
 
-          <View style={styles.fareChip}>
-            <Text style={styles.fareTitle}>Doctor and Nurses</Text>
-            <Text style={styles.green}>Up to ₹600 off</Text>
-          </View>
-        </View>
+    <Text
+      style={[
+        styles.green,
+        selectedFare === 'Senior Citizen' &&
+          styles.activeGreenText,
+      ]}
+    >
+      Up to ₹600 off
+    </Text>
+  </TouchableOpacity>
 
-        <View style={styles.fareRow}>
-          <View style={styles.blueChip}>
-            <Text style={styles.blueTitle}>
-              Travelling for work?
-            </Text>
-            <Text style={styles.blueSub}>
-              Unlock Extra Savings & Benefits
-            </Text>
-          </View>
+  {/* Armed Forces */}
+  <TouchableOpacity
+    style={[
+      styles.fareChip,
+      selectedFare === 'Armed Forces' &&
+        styles.activeGreenChip,
+    ]}
+    onPress={() =>
+      setSelectedFare(
+        selectedFare === 'Armed Forces'
+          ? ''
+          : 'Armed Forces'
+      )
+    }
+  >
+    <Text
+      style={[
+        styles.fareTitle,
+        selectedFare === 'Armed Forces' &&
+          styles.activeGreenText,
+      ]}
+    >
+      Armed Forces
+    </Text>
 
-          <View style={styles.fareChip}>
-            <Text style={styles.fareTitle}>Student</Text>
-            <Text style={styles.green}>
-              Extra discounts/baggage
-            </Text>
-          </View>
-        </View>
+    <Text
+      style={[
+        styles.green,
+        selectedFare === 'Armed Forces' &&
+          styles.activeGreenText,
+      ]}
+    >
+      Up to ₹600 off
+    </Text>
+  </TouchableOpacity>
+
+  {/* Doctor */}
+  <TouchableOpacity
+    style={[
+      styles.fareChip,
+      selectedFare === 'Doctor' &&
+        styles.activeGreenChip,
+    ]}
+    onPress={() =>
+      setSelectedFare(
+        selectedFare === 'Doctor'
+          ? ''
+          : 'Doctor'
+      )
+    }
+  >
+    <Text
+      style={[
+        styles.fareTitle,
+        selectedFare === 'Doctor' &&
+          styles.activeGreenText,
+      ]}
+    >
+      Doctor and Nurses
+    </Text>
+
+    <Text
+      style={[
+        styles.green,
+        selectedFare === 'Doctor' &&
+          styles.activeGreenText,
+      ]}
+    >
+      Up to ₹600 off
+    </Text>
+  </TouchableOpacity>
+
+</View>
+
+<View style={styles.fareRow}>
+
+  {/* Travelling for work */}
+  <TouchableOpacity
+    style={[
+      styles.fareChip,
+      selectedFare === 'Travelling for work?' &&
+        styles.activeGreenChip,
+    ]}
+    onPress={() =>
+      setSelectedFare(
+        selectedFare === 'Travelling for work?'
+          ? ''
+          : 'Travelling for work?'
+      )
+    }
+  >
+    <Text
+      style={[
+        styles.fareTitle,
+        selectedFare === 'Travelling for work?' &&
+          styles.activeGreenText,
+      ]}
+    >
+      Travelling for work?
+    </Text>
+
+    <Text
+      style={[
+        styles.green,
+        selectedFare === 'Travelling for work?' &&
+          styles.activeGreenText,
+      ]}
+    >
+      Unlock Extra Savings & Benefits
+    </Text>
+  </TouchableOpacity>
+
+  {/* Student */}
+  <TouchableOpacity
+    style={[
+      styles.fareChip,
+      selectedFare === 'Student' &&
+        styles.activeGreenChip,
+    ]}
+    onPress={() =>
+      setSelectedFare(
+        selectedFare === 'Student'
+          ? ''
+          : 'Student'
+      )
+    }
+  >
+    <Text
+      style={[
+        styles.fareTitle,
+        selectedFare === 'Student' &&
+          styles.activeGreenText,
+      ]}
+    >
+      Student
+    </Text>
+
+    <Text
+      style={[
+        styles.green,
+        selectedFare === 'Student' &&
+          styles.activeGreenText,
+      ]}
+    >
+      Extra discounts/baggage
+    </Text>
+  </TouchableOpacity>
+
+</View>
 
         <View style={{ height: 120 }} />
       </ScrollView>
@@ -129,6 +282,24 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     marginBottom: 20,
   },
+
+  activeGreenChip: {
+  backgroundColor: '#EAF8EE',
+  borderColor: '#22C55E',
+},
+
+activeGreenText: {
+  color: '#16A34A',
+},
+
+activeBlueChip: {
+  backgroundColor: '#EEF5FF',
+  borderColor: '#2F80ED',
+},
+
+activeBlueText: {
+  color: '#2F80ED',
+},
 
   backBtn: {
     width: 36,

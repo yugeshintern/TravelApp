@@ -78,21 +78,21 @@ export default DriverEntryScreen;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#F7F7F7',
-    paddingHorizontal: 20,
-  },
+  flex: 1,
+  backgroundColor: '#F7F7F7',
+  paddingHorizontal: 20,
+  paddingTop: 25,
+},
 
   /* BACK BUTTON */
   backBtn: {
-    marginTop: 10,
-    width: 42,
-    height: 42,
-    borderRadius: 21,
-    backgroundColor: '#EDEDED',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
+  width: 42,
+  height: 42,
+  borderRadius: 21,
+  backgroundColor: '#EDEDED',
+  justifyContent: 'center',
+  alignItems: 'center',
+},
 
   /* IMAGE */
   imageContainer: {

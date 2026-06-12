@@ -283,23 +283,26 @@ const styles = StyleSheet.create({
 
   /* PROMO CARD */
   promoCard: {
-    marginTop: 26,
-    marginHorizontal: 20,
-    backgroundColor: '#F7DC82',
-    borderRadius: 24,
-    padding: 18,
-    flexDirection: 'row',
-    alignItems: 'center',
+  marginTop: 26,
+  marginHorizontal: 20,
+  backgroundColor: '#F7DC82',
+  borderRadius: 24,
+  paddingLeft: 18,
+  paddingRight: 6,
+  paddingVertical: 18,
+  flexDirection: 'row',
+  alignItems: 'center',
+  overflow: 'hidden',
 
-    shadowColor: '#000',
-    shadowOpacity: 0.06,
-    shadowRadius: 8,
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    elevation: 4,
+  shadowColor: '#000',
+  shadowOpacity: 0.06,
+  shadowRadius: 8,
+  shadowOffset: {
+    width: 0,
+    height: 2,
   },
+  elevation: 4,
+},
 
   promoLeft: {
     flex: 1,
@@ -325,20 +328,23 @@ const styles = StyleSheet.create({
   },
 
   promoImage: {
-    width: 150,
-    height: 90,
-    resizeMode: 'contain',
-  },
+  width: 230,
+  height: 125,
+  resizeMode: 'contain',
+  marginRight: -10,
+  marginBottom: -8,
+},
 
   cornerText: {
-    position: 'absolute',
-    top: 16,
-    right: 16,
-    fontSize: 13,
-    fontWeight: '700',
-    color: '#FFFFFF',
-    textAlign: 'right',
-  },
+  position: 'absolute',
+  top: 14,
+  right: 14,
+  fontSize: 12,
+  fontWeight: '700',
+  color: '#FFFFFF',
+  textAlign: 'right',
+  lineHeight: 16,
+},
 
   /* FESTIVAL BANNER */
   festivalBanner: {

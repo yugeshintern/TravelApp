@@ -7,7 +7,6 @@ import {
   ScrollView,
   Image,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Feather';
 
 const OrderSummaryScreen = ({ navigation }) => {
   return (
@@ -16,11 +15,15 @@ const OrderSummaryScreen = ({ navigation }) => {
 
         {/* HEADER */}
         <View style={styles.header}>
+
           <TouchableOpacity
             style={styles.backBtn}
             onPress={() => navigation.goBack()}
           >
-            <Icon name="arrow-left" size={20} />
+            <Image
+              source={require('../../../assets/back.png')}
+              style={styles.backIcon}
+            />
           </TouchableOpacity>
 
           <Text style={styles.title}>Order summary</Text>
@@ -61,47 +64,60 @@ const OrderSummaryScreen = ({ navigation }) => {
 
         {/* MINI TRUCK */}
         <View style={styles.offerRow}>
+
           <View style={styles.iconCircle}>
             <Image
-              source={{ uri: 'https://cdn-icons-png.flaticon.com/512/1995/1995574.png' }}
-              style={styles.iconImg}
+              source={require('../../../assets/truck-ic.png')}
+              style={styles.offerIcon}
             />
           </View>
 
           <View style={styles.offerText}>
             <Text style={styles.offerTitle}>Mini truck</Text>
+
             <Text style={styles.offerDesc}>
               TATA Ace (7L x 4.8W x 4.8H)
             </Text>
           </View>
+
         </View>
 
         {/* LABOUR */}
         <View style={styles.offerRow}>
+
           <View style={styles.iconCircle}>
-            <Icon name="user" size={26} />
+            <Image
+              source={require('../../../assets/labour.png')}
+              style={styles.offerIcon}
+            />
           </View>
 
           <View style={styles.offerText}>
             <Text style={styles.offerTitle}>Labour</Text>
+
             <Text style={styles.offerDesc}>
               1 Dedicated labour along with the driver for loading & unloading assistance
             </Text>
           </View>
+
         </View>
 
       </ScrollView>
 
       {/* BUTTON */}
-      <TouchableOpacity style={styles.button}
-      onPress={()=> navigation.navigate("Payments")}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('Payments')}
+      >
         <Text style={styles.buttonText}>Book Now</Text>
       </TouchableOpacity>
+
     </View>
   );
 };
 
 export default OrderSummaryScreen;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -116,17 +132,24 @@ const styles = StyleSheet.create({
   backBtn: {
     position: 'absolute',
     left: 16,
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+    width: 42,
+    height: 42,
+    borderRadius: 21,
     backgroundColor: '#EDEDED',
     justifyContent: 'center',
     alignItems: 'center',
   },
 
+  backIcon: {
+    width: 18,
+    height: 18,
+    resizeMode: 'contain',
+  },
+
   title: {
     fontSize: 18,
     fontWeight: '700',
+    color: '#000',
   },
 
   section: {
@@ -148,6 +171,7 @@ const styles = StyleSheet.create({
   value: {
     fontSize: 18,
     fontWeight: '700',
+    color: '#000',
   },
 
   subText: {
@@ -176,6 +200,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     marginTop: 30,
     marginHorizontal: 16,
+    color: '#000',
   },
 
   offerRow: {
@@ -196,9 +221,9 @@ const styles = StyleSheet.create({
     marginRight: 14,
   },
 
-  iconImg: {
-    width: 32,
-    height: 32,
+  offerIcon: {
+    width: 30,
+    height: 30,
     resizeMode: 'contain',
   },
 
@@ -209,6 +234,7 @@ const styles = StyleSheet.create({
   offerTitle: {
     fontSize: 16,
     fontWeight: '600',
+    color: '#000',
   },
 
   offerDesc: {

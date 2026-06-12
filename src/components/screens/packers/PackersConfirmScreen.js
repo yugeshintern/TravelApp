@@ -6,12 +6,20 @@ import {
   TouchableOpacity,
   ScrollView,
   TextInput,
+  Image,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Feather';
 
 const dates = ['24 Tue', '25 Wed', '26 Thu', '27 Fri', '28 Sat'];
 
-const PackersConfirmScreen = ({ navigation }) => {
+const PackersConfirmScreen = ({ navigation, route }) => {
+
+  // SLOT DATA FROM PREVIOUS PAGE
+  const selectedSlot =
+    route?.params?.selectedSlot || '11:00 AM - 12:00 PM';
+
+  const selectedDateFromSlot =
+    route?.params?.selectedDate || '28 Feb';
+
   const [selectedDate, setSelectedDate] = useState('24 Tue');
   const [addons, setAddons] = useState([]);
 
@@ -41,11 +49,15 @@ const PackersConfirmScreen = ({ navigation }) => {
 
         {/* HEADER */}
         <View style={styles.header}>
+
           <TouchableOpacity
             style={styles.backBtn}
             onPress={() => navigation.goBack()}
           >
-            <Icon name="arrow-left" size={20} />
+            <Image
+              source={require('../../../assets/back.png')}
+              style={styles.backIcon}
+            />
           </TouchableOpacity>
 
           <Text style={styles.title}>Packers & Movers</Text>
@@ -53,11 +65,32 @@ const PackersConfirmScreen = ({ navigation }) => {
 
         {/* STEPPER */}
         <View style={styles.stepRow}>
-          <View style={styles.done}><Icon name="check" size={14} color="#fff" /></View>
+
+          <View style={styles.done}>
+            <Image
+              source={require('../../../assets/check-step.png')}
+              style={styles.stepIcon}
+            />
+          </View>
+
           <View style={styles.line} />
-          <View style={styles.done}><Icon name="check" size={14} color="#fff" /></View>
+
+          <View style={styles.done}>
+            <Image
+              source={require('../../../assets/check-step.png')}
+              style={styles.stepIcon}
+            />
+          </View>
+
           <View style={styles.line} />
-          <View style={styles.active}><Icon name="calendar" size={14} color="#fff" /></View>
+
+          <View style={styles.active}>
+            <Image
+              source={require('../../../assets/calendar-step-g.png')}
+              style={styles.stepIcon}
+            />
+          </View>
+
         </View>
 
         {/* DATE */}
@@ -93,11 +126,14 @@ const PackersConfirmScreen = ({ navigation }) => {
 
           return (
             <View key={item} style={styles.addonRow}>
+
               <View style={{ flex: 1 }}>
                 <Text style={styles.addonTitle}>{item}</Text>
+
                 <Text style={styles.addonPrice}>
                   ₹{addonPrices[item]}
                 </Text>
+
                 <Text style={styles.desc}>
                   Incl. protective material for essential safety
                 </Text>
@@ -110,13 +146,16 @@ const PackersConfirmScreen = ({ navigation }) => {
                 ]}
                 onPress={() => toggleAddon(item)}
               >
-                <Text style={[
-                  styles.addText,
-                  selected && { color: '#fff' }
-                ]}>
+                <Text
+                  style={[
+                    styles.addText,
+                    selected && { color: '#fff' },
+                  ]}
+                >
                   {selected ? 'Added' : 'Add'}
                 </Text>
               </TouchableOpacity>
+
             </View>
           );
         })}
@@ -125,42 +164,65 @@ const PackersConfirmScreen = ({ navigation }) => {
         <Text style={styles.section}>Coupons & offers</Text>
 
         <View style={styles.couponRow}>
+
           <TextInput
             placeholder="Enter code here"
+            placeholderTextColor="#000"
             style={styles.input}
           />
+
           <TouchableOpacity style={styles.applyBtn}>
             <Text style={styles.applyText}>Apply</Text>
           </TouchableOpacity>
+
         </View>
 
         {/* SUMMARY CARD */}
         <View style={styles.summaryCard}>
-          <Icon name="calendar" size={18} />
+
+          <Image
+            source={require('../../../assets/calender.png')}
+            style={styles.summaryIcon}
+          />
+
           <Text style={styles.summaryText}>
-            Shifting on: <Text style={styles.highlight}>28 Feb</Text> / 11:00 AM – 12:00 PM
+            Shifting on:{' '}
+            <Text style={styles.highlight}>
+              {selectedDateFromSlot}
+            </Text>{' '}
+            / {selectedSlot}
           </Text>
+
         </View>
 
       </ScrollView>
 
       {/* BOTTOM */}
       <View style={styles.bottom}>
+
         <View style={styles.totalRow}>
           <Text style={styles.totalText}>Total Amount</Text>
           <Text style={styles.totalPrice}>₹{total}</Text>
         </View>
 
-        <TouchableOpacity style={styles.button}
-        onPress={() => navigation.navigate("PackersBookingDetails")}>
-          <Text style={styles.buttonText}>Confirm Your Book</Text>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() =>
+            navigation.navigate('PackersBookingDetails')
+          }
+        >
+          <Text style={styles.buttonText}>
+            Confirm Your Book
+          </Text>
         </TouchableOpacity>
+
       </View>
     </View>
   );
 };
 
 export default PackersConfirmScreen;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -175,17 +237,24 @@ const styles = StyleSheet.create({
   backBtn: {
     position: 'absolute',
     left: 16,
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+    width: 42,
+    height: 42,
+    borderRadius: 21,
     backgroundColor: '#EDEDED',
     justifyContent: 'center',
     alignItems: 'center',
   },
 
+  backIcon: {
+    width: 18,
+    height: 18,
+    resizeMode: 'contain',
+  },
+
   title: {
     fontSize: 18,
     fontWeight: '700',
+    color: '#000',
   },
 
   stepRow: {
@@ -212,6 +281,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
+  stepIcon: {
+    width: 16,
+    height: 16,
+    resizeMode: 'contain',
+    tintColor: '#fff',
+  },
+
   line: {
     flex: 1,
     borderWidth: 1,
@@ -224,6 +300,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     marginHorizontal: 16,
     marginTop: 10,
+    color: '#000',
   },
 
   month: {
@@ -249,10 +326,12 @@ const styles = StyleSheet.create({
 
   dateText: {
     fontWeight: '600',
+    color: '#000',
   },
 
   price: {
     marginTop: 4,
+    color: '#000',
   },
 
   addonRow: {
@@ -263,11 +342,13 @@ const styles = StyleSheet.create({
   addonTitle: {
     fontSize: 15,
     fontWeight: '600',
+    color: '#000',
   },
 
   addonPrice: {
     marginTop: 6,
     fontWeight: '600',
+    color: '#000',
   },
 
   desc: {
@@ -303,6 +384,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#EDEDED',
     borderRadius: 25,
     paddingHorizontal: 16,
+    color: '#000',
   },
 
   applyBtn: {
@@ -315,6 +397,7 @@ const styles = StyleSheet.create({
 
   applyText: {
     fontWeight: '600',
+    color: '#000',
   },
 
   summaryCard: {
@@ -326,9 +409,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
+  summaryIcon: {
+    width: 18,
+    height: 18,
+    resizeMode: 'contain',
+  },
+
   summaryText: {
     marginLeft: 10,
     fontSize: 14,
+    color: '#000',
   },
 
   highlight: {
@@ -351,11 +441,13 @@ const styles = StyleSheet.create({
   totalText: {
     fontSize: 16,
     fontWeight: '600',
+    color: '#000',
   },
 
   totalPrice: {
     fontSize: 16,
     fontWeight: '700',
+    color: '#000',
   },
 
   button: {

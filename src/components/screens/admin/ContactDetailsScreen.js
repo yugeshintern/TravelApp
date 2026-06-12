@@ -50,20 +50,28 @@ const ContactDetailsScreen = ({ navigation }) => {
         />
       </View>
 
-      {/* CHANGE NUMBER BUTTON */}
-      <TouchableOpacity style={styles.secondaryBtn}
-      onPress={() => navigation.navigate('RegisterNewContact')}
-      >
-        <Text style={styles.secondaryText}>Changed registered number</Text>
-      </TouchableOpacity>
+      <View style={styles.bottomContainer}>
 
-      {/* PROCEED BUTTON */}
-      <TouchableOpacity
-        style={styles.primaryBtn}
-        onPress={() => navigation.navigate('Whichcity')} // update route
-      >
-        <Text style={styles.primaryText}>Proceed</Text>
-      </TouchableOpacity>
+  {/* CHANGE NUMBER BUTTON */}
+  <TouchableOpacity
+    style={styles.secondaryBtn}
+    onPress={() => navigation.navigate('RegisterNewContact')}
+  >
+    <Text style={styles.secondaryText}>
+      Change registered number
+    </Text>
+  </TouchableOpacity>
+
+  {/* PROCEED BUTTON */}
+  <TouchableOpacity
+    style={styles.primaryBtn}
+    activeOpacity={0.8}
+    onPress={() => navigation.navigate('Whichcity')}
+  >
+    <Text style={styles.primaryText}>Proceed</Text>
+  </TouchableOpacity>
+
+</View>
 
     </SafeAreaView>
   );
@@ -73,10 +81,17 @@ export default ContactDetailsScreen;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#F7F7F7',
-    paddingHorizontal: 20,
-  },
+  flex: 1,
+  backgroundColor: '#F7F7F7',
+  paddingHorizontal: 20,
+  paddingTop: 20,
+  paddingBottom: 30,
+},
+
+bottomContainer: {
+  marginTop: 'auto',
+  paddingBottom: 10,
+},
 
   /* BACK */
   backBtn: {

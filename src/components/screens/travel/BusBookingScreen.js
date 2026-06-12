@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -8,11 +8,84 @@ import {
   Image,
   ScrollView,
   ImageBackground,
+  FlatList,
 } from "react-native";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
-export default function BusBookingScreen({
-  navigation,
-}) {
+export default function BusBookingScreen({ navigation, route }) {
+  const [fromCity, setFromCity] = useState("");
+const [toCity, setToCity] = useState("");
+
+
+const [activeField, setActiveField] = useState(null);
+
+const [search, setSearch] = useState("");
+const [suggestions, setSuggestions] = useState([]);
+
+const [showDatePicker, setShowDatePicker] =
+  useState(false);
+
+const [journeyDate, setJourneyDate] =
+  useState(new Date());
+
+  const searchCity = async (text, field) => {
+  setActiveField(field);
+
+  if (field === "from") {
+    setFromCity(text);
+  } else {
+    setToCity(text);
+  }
+
+  if (text.length < 3) {
+    setSuggestions([]);
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(
+        text
+      )}&format=json&addressdetails=1&limit=10`,
+      {
+        headers: {
+          "User-Agent": "Vibeo-App",
+        },
+      }
+    );
+
+    const data = await response.json();
+
+    setSuggestions(data);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const selectCity = (item) => {
+
+  const cityName =
+    item.display_name.split(",")[0];
+
+  const coords = {
+    lat: Number(item.lat),
+    lng: Number(item.lon),
+  };
+
+  if (activeField === "from") {
+    setFromCity(cityName);
+    
+  }
+
+  if (activeField === "to") {
+    setToCity(cityName);
+    
+  }
+
+  setSuggestions([]);
+  setActiveField(null);
+};
+
   return (
     <ScrollView
       style={styles.container}
@@ -30,83 +103,190 @@ export default function BusBookingScreen({
           />
         </TouchableOpacity>
 
-        <Text style={styles.title}>
-          Bus Tickets
-        </Text>
+        <Text style={styles.title}>Bus Tickets</Text>
       </View>
 
       {/* FROM TO CARD */}
-      <View style={styles.card}>
-        {/* FROM */}
-        <View style={styles.row}>
-          <View style={styles.greenDot} />
+      <View      >
+        <View style={styles.card}>
+          {/* FROM */}
+          <View style={styles.row}>
+  <View style={styles.greenDot} />
 
-          <Text style={styles.placeholder}>
-            From
-          </Text>
-        </View>
+  <TextInput
+    value={fromCity}
+    placeholder="From"
+    placeholderTextColor="#444"
+    style={styles.locationInput}
+    onFocus={() =>
+      setActiveField("from")
+    }
+    onChangeText={(text) =>
+      searchCity(text, "from")
+    }
+  />
+</View>
 
-        <View style={styles.divider} />
 
-        {/* TO */}
-        <View style={styles.row}>
-          <View style={styles.redDot} />
+          <View style={styles.divider} />
 
-          <Text style={styles.placeholder}>
-            To
-          </Text>
-        </View>
+          {/* TO */}
+          <View style={styles.row}>
+  <View style={styles.redDot} />
 
-        <View style={styles.divider} />
+  <TextInput
+    value={toCity}
+    placeholder="To"
+    placeholderTextColor="#444"
+    style={styles.locationInput}
+    onFocus={() =>
+      setActiveField("to")
+    }
+    onChangeText={(text) =>
+      searchCity(text, "to")
+    }
+  />
+</View>
 
-        {/* DATE */}
-        <View style={styles.row}>
-          <Image
-            source={require("../../../assets/calender.png")}
-            style={styles.calendarIcon}
-          />
+          <View style={styles.divider} />
 
-          <View style={{ marginLeft: 12 }}>
-            <Text style={styles.dateLabel}>
-              Date of Journey
-            </Text>
+          {/* DATE */}
+          <TouchableOpacity
+            style={styles.row}
+            onPress={() => setShowDatePicker(true)}
+          >
+            <Image
+              source={require("../../../assets/calender.png")}
+              style={styles.calendarIcon}
+            />
 
-            <Text style={styles.date}>
-              26 Feb, 2026
-            </Text>
-          </View>
+            <View style={{ marginLeft: 12 }}>
+              <Text style={styles.dateLabel}>Date of Journey</Text>
+
+              <Text style={styles.date}>
+                {journeyDate.toLocaleDateString("en-GB", {
+                  day: "2-digit",
+                  month: "short",
+                  year: "numeric",
+                })}
+              </Text>
+            </View>
+          </TouchableOpacity>
         </View>
       </View>
 
+      {suggestions.length > 0 && (
+  <View style={styles.suggestionContainer}>
+    <FlatList
+      keyboardShouldPersistTaps="handled"
+      data={suggestions}
+      keyExtractor={(item) =>
+        item.place_id.toString()
+      }
+      renderItem={({ item }) => (
+        <TouchableOpacity
+          style={styles.suggestionItem}
+          onPress={() =>
+            selectCity(item)
+          }
+        >
+          <Image
+            source={require("../../../assets/loc-icon.png")}
+            style={styles.suggestionIcon}
+          />
+
+          <View style={{ flex: 1 }}>
+            <Text
+              numberOfLines={1}
+              style={styles.suggestionTitle}
+            >
+              {item.display_name.split(",")[0]}
+            </Text>
+
+            <Text
+              numberOfLines={2}
+              style={styles.suggestionSubtitle}
+            >
+              {item.display_name}
+            </Text>
+          </View>
+        </TouchableOpacity>
+      )}
+    />
+  </View>
+)}
+
       {/* SEARCH BAR */}
+      
+        <TouchableOpacity
+  style={styles.searchBar}
+  onPress={() => {
+
+  if (!fromCity.trim()) {
+    alert("Please select From location");
+    return;
+  }
+
+  if (!toCity.trim()) {
+    alert("Please select To location");
+    return;
+  }
+
+  navigation.navigate("SearchBus", {
+    fromCity,
+    toCity,
+
+    
+    journeyDate: journeyDate.toISOString(),
+  });
+}}
+>
+  <Image
+    source={require("../../../assets/search-icon.png")}
+    style={styles.searchIcon}
+  />
+
+  <Text style={styles.searchButtonText}>
+    Search Buses
+  </Text>
+</TouchableOpacity>
+
+           
+
+      {/* PROMO CARD */}
       <TouchableOpacity
         activeOpacity={0.9}
         onPress={() =>
-          navigation.navigate("SearchBus")
+          navigation.navigate("BusList", {
+            fromCity,
+            toCity,
+            journeyDate,
+          })
         }
       >
-        <View style={styles.searchBar}>
-          <Image
-            source={require("../../../assets/search-icon.png")}
-            style={styles.searchIcon}
-          />
-
-          <TextInput
-            placeholder="Search Buses"
-            placeholderTextColor="#6b7280"
-            style={styles.searchInput}
-          />
-        </View>
+        <ImageBackground
+          source={require("../../../assets/bus-tour-bg.png")}
+          style={styles.promoCard}
+          imageStyle={styles.promoBg}
+        >
+        </ImageBackground>
       </TouchableOpacity>
 
-      {/* PROMO CARD */}
-      <ImageBackground
-        source={require("../../../assets/bus-tour-bg.png")}
-        style={styles.promoCard}
-        imageStyle={styles.promoBg}
-      >
-        
-      </ImageBackground>
+      {showDatePicker && (
+        <DateTimePicker
+          value={journeyDate}
+          mode="date"
+          display="default"
+          minimumDate={new Date()}
+          onChange={(event, selectedDate) => {
+            setShowDatePicker(false);
+
+            if (selectedDate) {
+              setJourneyDate(selectedDate);
+            }
+          }}
+        />
+      )}
     </ScrollView>
   );
 }
@@ -137,6 +317,55 @@ const styles = StyleSheet.create({
     alignItems: "center",
     elevation: 2,
   },
+
+  locationInput: {
+  flex: 1,
+  fontSize: 18,
+  color: "#222",
+  paddingVertical: 0,
+},
+
+suggestionContainer: {
+  backgroundColor: "#fff",
+  marginHorizontal: 20,
+  marginTop: 10,
+  borderRadius: 16,
+  maxHeight: 250,
+  elevation: 5,
+},
+
+suggestionItem: {
+  flexDirection: "row",
+  alignItems: "center",
+  padding: 14,
+  borderBottomWidth: 1,
+  borderBottomColor: "#f2f2f2",
+},
+
+suggestionIcon: {
+  width: 18,
+  height: 18,
+  marginRight: 10,
+  resizeMode: "contain",
+},
+
+suggestionTitle: {
+  fontSize: 15,
+  fontWeight: "600",
+},
+
+suggestionSubtitle: {
+  fontSize: 12,
+  color: "#777",
+  marginTop: 2,
+},
+
+searchButtonText: {
+  marginLeft: 12,
+  fontSize: 18,
+  fontWeight: "600",
+  color: "#222",
+},
 
   backIcon: {
     width: 18,

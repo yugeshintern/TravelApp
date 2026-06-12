@@ -12,7 +12,16 @@ import {
 
 export default function PassengerDetailsScreen({
   navigation,
+  route,
 }) {
+
+  const {
+    fromCity = "Tambaram",
+    toCity = "Salem",
+    journeyDate,
+  } = route.params || {};
+
+
   const [whatsapp, setWhatsapp] =
     useState(false);
 
@@ -64,23 +73,17 @@ export default function PassengerDetailsScreen({
             />
           </TouchableOpacity>
 
-          <View
-            style={styles.routeContainer}
-          >
-            <Text style={styles.route}>
-              Tambaram
-            </Text>
+          <Text style={styles.route}>
+  {fromCity}
+</Text>
 
-            <Text
-              style={styles.arrow}
-            >
-              →
-            </Text>
+<Text style={styles.arrow}>
+  →
+</Text>
 
-            <Text style={styles.route}>
-              Salem
-            </Text>
-          </View>
+<Text style={styles.route}>
+  {toCity}
+</Text>
         </View>
 
         {/* STEP */}
@@ -92,13 +95,13 @@ export default function PassengerDetailsScreen({
         <View style={styles.card}>
           <View style={styles.tripRow}>
             <View>
-              <Text style={styles.time}>
-                26 Feb 00:00
-              </Text>
+              <Text style={styles.dateText}>
+  {journeyDate}
+</Text>
 
               <Text style={styles.sub}>
-                Tambaram
-              </Text>
+  {fromCity}
+</Text>
             </View>
 
             <Text
@@ -108,18 +111,15 @@ export default function PassengerDetailsScreen({
             </Text>
 
             <View>
-              <Text style={styles.time}>
-                26 Feb 05:20
-              </Text>
+              <Text style={styles.dateText}>
+  {journeyDate}
+</Text>
 
               <Text style={styles.sub}>
-                Near Salem
-              </Text>
+  {toCity}
+</Text>
 
-              <Text style={styles.sub}>
-                Kondalampatti Bye
-                pass
-              </Text>
+              
             </View>
           </View>
 
