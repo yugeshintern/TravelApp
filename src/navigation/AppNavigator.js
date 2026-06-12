@@ -99,36 +99,6 @@ import PackersConfirmScreen from '../components/screens/packers/PackersConfirmSc
 import PackersBookingDetailsScreen from '../components/screens/packers/PackersBookingDetailsScreen';
 import OrderSummaryScreen from '../components/screens/packers/OrderSummaryScreen';
 
-import AdminIntroScreen from '../components/screens/admin/AdminIntroScreen';
-import LocationPermissionScreen from '../components/screens/admin/LocationPermissionScreen';
-import LanguageSelectionScreen from '../components/screens/admin/LanguageSelectionScreen';
-import DriverEntryScreen from '../components/screens/admin/DriverEntryScreen';
-import ContactDetailsScreen from '../components/screens/admin/ContactDetailsScreen';
-import RegisterNewContactScreen from '../components/screens/admin/RegisterNewContactScreen';
-import EnterOTPScreen from '../components/screens/admin/EnterOTPScreen';
-import WhichCityScreen from '../components/screens/admin/WhichCityScreen';
-import SearchCityScreen from '../components/screens/admin/SearchCityScreen';
-import SelectAdminVehicleScreen from '../components/screens/admin/SelectAdminVehicleScreen';
-import RideOrPorterScreen from '../components/screens/admin/RideOrPorterScreen';
-import DriverLicenseScreen from '../components/screens/admin/DriverLicenseScreen';
-import TakeSelfieScreen from '../components/screens/admin/TakeSelfieScreen';
-import ConfirmSelfieScreen from '../components/screens/admin/ConfirmSelfieScreen';
-import EditProfileScreen from '../components/screens/admin/EditProfileScreen';
-import VehicleDetailsScreen from '../components/screens/admin/VehicleDetailsScreen';
-import AadharProfile from '../components/screens/admin/AadharProfile';
-import PermitUpload from '../components/screens/admin/PermitUpload';
-import VehicleInsuranceUpload from '../components/screens/admin/VehicleInsuranceUpload';
-import FitnessCertificate from '../components/screens/admin/FitnessCertificate';
-import DutyDashboard from '../components/screens/admin/DutyDashboard';
-import AdminNotification from '../components/screens/admin/AdminNotification';
-import GoOnDuty from '../components/screens/admin/GoOnDuty';
-import OnDutyDashboard from '../components/screens/admin/OnDutyDashboard';
-import OrderPage from '../components/screens/admin/OrderPage';
-import StartYourTrip from '../components/screens/admin/StartYourTrip';
-import RidePaymentComplete from '../components/screens/admin/RidePaymentComplete';
-import AdminProfile from '../components/screens/admin/AdminProfile';
-import AdminEditProfile from '../components/screens/admin/AdminEditProfile';
-
 
 
 
@@ -236,37 +206,7 @@ export default function AppNavigator() {
       <Stack.Screen name="PackersBookingDetails" component={PackersBookingDetailsScreen} options={{ headerShown: false }}/>
       <Stack.Screen name="OrderSummary" component={OrderSummaryScreen} options={{ headerShown: false }}/>
       
-      <Stack.Screen name="AdminIntro" component={AdminIntroScreen} options={{ headerShown: false }}/>
-      <Stack.Screen name="LocationPermission" component={LocationPermissionScreen} options={{ headerShown: false }}/>
-      <Stack.Screen name="LanguageSelection" component={LanguageSelectionScreen} options={{ headerShown: false }}/>
-      <Stack.Screen name="DriverEntry" component={DriverEntryScreen} options={{ headerShown: false }}/>
-      <Stack.Screen name="ContactDetails" component={ContactDetailsScreen} options={{ headerShown: false }}/>
-      <Stack.Screen name="RegisterNewContact" component={RegisterNewContactScreen} options={{ headerShown: false }}/>
-      <Stack.Screen name="EnterOTP" component={EnterOTPScreen} options={{ headerShown: false }}/>
-      <Stack.Screen name="Whichcity" component={WhichCityScreen} options={{ headerShown: false }}/>
-      <Stack.Screen name="searchcity" component={SearchCityScreen} options={{ headerShown: false }}/>
-      <Stack.Screen name="selectAdminvehicle" component={SelectAdminVehicleScreen} options={{ headerShown: false }}/>
-      <Stack.Screen name="RideOrPorter" component={RideOrPorterScreen} options={{ headerShown: false }}/>
-      <Stack.Screen name="DriverLicense" component={DriverLicenseScreen} options={{ headerShown: false }}/>
-      <Stack.Screen name="TakeSelfie" component={TakeSelfieScreen} options={{ headerShown: false }}/>
-      <Stack.Screen name="ConfirmSelfie" component={ConfirmSelfieScreen} options={{ headerShown: false }}/>
-      <Stack.Screen name="EditProfile" component={EditProfileScreen} options={{ headerShown: false }}/>
-      <Stack.Screen name="VehicleDetails" component={VehicleDetailsScreen} options={{ headerShown: false }}/>
-      <Stack.Screen name="AadharProfile" component={AadharProfile} options={{ headerShown: false }}/>
-      <Stack.Screen name="PermitUpload" component={PermitUpload}  options={{ headerShown: false }}/>
-      <Stack.Screen name="VehicleInsuranceUpload" component={VehicleInsuranceUpload} options={{ headerShown: false }}/>
-      <Stack.Screen name="FitnessCertificate" component={FitnessCertificate} options={{ headerShown: false }}/>
-      <Stack.Screen name="DutyDashboard" component={DutyDashboard} options={{ headerShown: false }}/>
-      <Stack.Screen name="AdminNotification" component={AdminNotification} options={{ headerShown: false }}/>
-      <Stack.Screen name="GoOnDuty" component={GoOnDuty} options={{ headerShown: false }}/>
-      <Stack.Screen name="OnDutyDashboard" component={OnDutyDashboard} options={{ headerShown: false }}/>
-      <Stack.Screen name="OrderPage" component={OrderPage} options={{ headerShown: false }}/>
-      <Stack.Screen name="StartYourTrip" component={StartYourTrip} options={{ headerShown: false }}/>
-      <Stack.Screen name="RidePaymentComplete" component={RidePaymentComplete} options={{ headerShown: false }}/>
-      <Stack.Screen name="AdminProfile" component={AdminProfile} options={{ headerShown: false }}/>
-      <Stack.Screen name="AdminEditProfile" component={AdminEditProfile} options={{ headerShown: false }}/>
-
-
+      
     </Stack.Navigator>
   );
 }

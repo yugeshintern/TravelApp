@@ -12,7 +12,74 @@ import {
 } from "react-native";
 
 export default function DropLocationScreen({ navigation }) {
+  const [pickup, setPickup] = useState("");
   const [drop, setDrop] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+  const [activeField, setActiveField] = useState(null);
+  const [pickupLocation, setPickupLocation] = useState(null);
+  const [dropLocation, setDropLocation] = useState(null);
+
+  const searchLocation = async (
+  text,
+  field
+) => {
+  setActiveField(field);
+
+  if (field === "pickup") {
+    setPickup(text);
+  } else {
+    setDrop(text);
+  }
+
+  if (text.length < 3) {
+    setSuggestions([]);
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(
+        text
+      )}&format=json&addressdetails=1&limit=10`,
+      {
+        headers: {
+          "User-Agent": "Vibeo-App",
+        },
+      }
+    );
+
+    const data = await response.json();
+
+    setSuggestions(data);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const selectLocation = (item) => {
+  const cityName =
+    item.display_name.split(",")[0];
+
+  const locationData = {
+    name: cityName,
+    fullAddress: item.display_name,
+    lat: Number(item.lat),
+    lng: Number(item.lon),
+  };
+
+  if (activeField === "pickup") {
+    setPickup(cityName);
+    setPickupLocation(locationData);
+  }
+
+  if (activeField === "drop") {
+    setDrop(cityName);
+    setDropLocation(locationData);
+  }
+
+  setSuggestions([]);
+  setActiveField(null);
+};
 
   const locations = [
     {
@@ -81,19 +148,35 @@ export default function DropLocationScreen({ navigation }) {
             <TouchableOpacity
     style={styles.locRow}
     activeOpacity={0.8}
-    onPress={() => navigation.navigate("AddressDetails")}
-  ></TouchableOpacity>
-            <Text style={styles.inputTop}>Your Current Location</Text>
+    onPress={() => navigation.navigate("AddressDetails")} >
+    </TouchableOpacity>
+      <TextInput
+            placeholder="Pickup Location"
+            placeholderTextColor="#888"
+            value={pickup}
+            onFocus={() =>
+              setActiveField("pickup")
+            }
+            onChangeText={(text) =>
+              searchLocation(text, "pickup")
+            }
+            style={styles.input}
+          />
 
-            <View style={styles.separator} />
+          <View style={styles.separator} />
 
-            <TextInput
-              placeholder="Drop Location"
-              placeholderTextColor="#888"
-              value={drop}
-              onChangeText={setDrop}
-              style={styles.input}
-            />
+          <TextInput
+            placeholder="Drop Location"
+            placeholderTextColor="#888"
+            value={drop}
+            onFocus={() =>
+              setActiveField("drop")
+            }
+            onChangeText={(text) =>
+              searchLocation(text, "drop")
+            }
+            style={styles.input}
+          />
           </View>
         </View>
       </View>
@@ -117,13 +200,46 @@ export default function DropLocationScreen({ navigation }) {
         </TouchableOpacity>
       </View>
 
-      {/* LIST */}
-      <FlatList
-        data={locations}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={renderItem}
-        contentContainerStyle={{ paddingTop: 10 }}
-      />
+{suggestions.length > 0 && (
+  <View style={styles.suggestionContainer}>
+    <FlatList
+      keyboardShouldPersistTaps="handled"
+      data={suggestions}
+      keyExtractor={(item) =>
+        item.place_id.toString()
+      }
+      renderItem={({ item }) => (
+        <TouchableOpacity
+          style={styles.suggestionItem}
+          onPress={() =>
+            selectLocation(item)
+          }
+        >
+          <Image
+            source={require("../../../assets/loc-icon.png")}
+            style={styles.locationIcon}
+          />
+
+          <View style={{ flex: 1 }}>
+            <Text
+              numberOfLines={1}
+              style={styles.locTitle}
+            >
+              {item.display_name.split(",")[0]}
+            </Text>
+
+            <Text
+              numberOfLines={2}
+              style={styles.locSub}
+            >
+              {item.display_name}
+            </Text>
+          </View>
+        </TouchableOpacity>
+      )}
+    />
+  </View>
+)}
 
       {/* FLOAT SEARCH BUTTON */}
       <TouchableOpacity style={styles.fab}>
@@ -303,4 +419,19 @@ fabIcon: {
     justifyContent: "center",
     elevation: 4,
   },
+  suggestionContainer: {
+  backgroundColor: "#fff",
+  borderRadius: 18,
+  marginTop: 10,
+  maxHeight: 250,
+  elevation: 4,
+},
+
+suggestionItem: {
+  flexDirection: "row",
+  alignItems: "center",
+  padding: 14,
+  borderBottomWidth: 1,
+  borderBottomColor: "#eee",
+},
 });

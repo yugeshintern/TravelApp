@@ -196,7 +196,7 @@ setSuggestions(filtered);
             style={styles.mapBtn}
           >
             <Image
-              source={require("../../../assets/selectmap.png")}
+              source={require("../../../assets/directions.png")}
               style={styles.mapIcon}
             />
 
