@@ -67,7 +67,7 @@ const OrderSummaryScreen = ({ navigation }) => {
 
           <View style={styles.iconCircle}>
             <Image
-              source={require('../../../assets/truck-ic.png')}
+              source={require('../../../assets/tataace.png')}
               style={styles.offerIcon}
             />
           </View>

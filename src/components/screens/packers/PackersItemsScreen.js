@@ -180,14 +180,12 @@ activeStepIcon: {
   width: 18,
   height: 18,
   resizeMode: 'contain',
-  tintColor: '#fff',
 },
 
 inactiveStepIcon: {
   width: 18,
   height: 18,
   resizeMode: 'contain',
-  tintColor: '#9CA3AF',
 },
 
   title: {

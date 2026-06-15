@@ -58,8 +58,9 @@ const restrictedItemsRight = [
 ];
 
 export default function SelectGoodsTypeScreen({
-  navigation,
+  navigation,route
 }) {
+  const { pickup, drop } = route.params ?? {};
   const [selected, setSelected] = useState([]);
 
   const toggleSelection = (id) => {
@@ -188,7 +189,10 @@ export default function SelectGoodsTypeScreen({
         <TouchableOpacity
           style={styles.ctaBtn}
           onPress={() =>
-            navigation.navigate("ReviewBooking")
+            navigation.navigate("ReviewBooking",{
+              pickup:pickup,
+              drop:drop
+            })
           }
         >
           <Text style={styles.ctaText}>

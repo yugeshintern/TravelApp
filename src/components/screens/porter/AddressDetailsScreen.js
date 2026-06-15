@@ -10,9 +10,11 @@ import {
   ImageBackground,
 } from "react-native";
 
-export default function AddressAddingScreen({ navigation }) {
+export default function AddressAddingScreen({ navigation,route}) {
   const [selected, setSelected] = useState("home");
   const [useMyNumber, setUseMyNumber] = useState(false);
+
+  const { pickup, drop } = route.params;
 
   const Chip = ({ label, value, icon }) => (
   <TouchableOpacity
@@ -40,7 +42,7 @@ export default function AddressAddingScreen({ navigation }) {
       {/* MAP PLACEHOLDER */}
       {/* MAP BACKGROUND */}
 <ImageBackground
-  source={require("../../../assets/review_bg.png")}
+  source={require("../../../assets/city_map.png")}
   style={styles.map}
   resizeMode="cover"
 >
@@ -66,10 +68,9 @@ export default function AddressAddingScreen({ navigation }) {
   style={styles.locationIcon}
 />
               <View style={{ marginLeft: 8 }}>
-                <Text style={styles.title}>Sholinganallur</Text>
-                <Text style={styles.sub}>
-                  Chennai, Tamil Nadu, India
-                </Text>
+                <Text>{drop.name}</Text>
+                <Text style={styles.sub}>{drop.fullAddress}</Text>
+                <Text style={styles.sub}>Lat: {drop.lat}, Lng: {drop.lng}</Text>
               </View>
             </View>
 
@@ -135,7 +136,10 @@ export default function AddressAddingScreen({ navigation }) {
           {/* BUTTON */}
           <TouchableOpacity
   style={styles.button}
-  onPress={() => navigation.navigate("SelectVehicle")}
+  onPress={() => navigation.navigate("SelectVehicle",{
+    pickup: pickup,
+    drop: drop,
+  })}
 >
             <Text style={styles.buttonText}>
               Confirm drop details

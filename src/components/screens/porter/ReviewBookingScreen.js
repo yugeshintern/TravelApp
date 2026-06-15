@@ -8,7 +8,8 @@ import {
   Image,
 } from "react-native";
 
-const ReviewBookingScreen = ({ navigation }) => {
+const ReviewBookingScreen = ({ navigation, route}) => {
+  const { pickup, drop } = route.params ?? {};
   return (
     <View style={styles.container}>
       {/* HEADER */}
@@ -210,7 +211,10 @@ const ReviewBookingScreen = ({ navigation }) => {
         <TouchableOpacity
           style={styles.cta}
           onPress={() =>
-            navigation.navigate("LookingForRider")
+            navigation.navigate("LookingForRider",{
+              pickup:pickup,
+              drop:drop
+            })
           }
         >
           <Text style={styles.ctaText}>

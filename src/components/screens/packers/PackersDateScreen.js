@@ -237,7 +237,6 @@ activeStepIcon: {
   width: 18,
   height: 18,
   resizeMode: 'contain',
-  tintColor: '#fff',
 },
 
   title: {
