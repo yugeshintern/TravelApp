@@ -40,7 +40,15 @@ const generateSeats = () => {
   return seats;
 };
 
-const FlightSeatSelectionScreen = ({ navigation }) => {
+const FlightSeatSelectionScreen = ({ navigation,route }) => {
+
+  const {
+  bookingData,
+  flight,
+  traveller,
+  totalFare
+} = route.params || {};
+
   const [seats, setSeats] = useState(generateSeats());
   const [selectedSeat, setSelectedSeat] = useState('11F');
 
@@ -84,7 +92,10 @@ const FlightSeatSelectionScreen = ({ navigation }) => {
 
         <View>
           <Text style={styles.tripLabel}>Trip to</Text>
-          <Text style={styles.tripCity}>Chennai</Text>
+          <Text style={styles.tripCity}>
+              {bookingData?.to?.city}
+          </Text>
+
         </View>
       </View>
 
@@ -121,7 +132,15 @@ const FlightSeatSelectionScreen = ({ navigation }) => {
         </View>
 
         <TouchableOpacity style={styles.cta}
-        onPress={()=> navigation.navigate("MealSelection")}>
+        onPress={() =>
+  navigation.navigate("MealSelection", {
+    bookingData,
+    flight,
+    traveller,
+    selectedSeat,
+    totalFare,
+  })
+}>
           <Text style={styles.ctaText}>Next</Text>
         </TouchableOpacity>
       </View>

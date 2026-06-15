@@ -9,7 +9,16 @@ import {
 
 import Icon from 'react-native-vector-icons/Feather';
 
-const MealSelectionScreen = ({ navigation }) => {
+const MealSelectionScreen = ({ navigation ,route }) => {
+
+  const {
+ bookingData,
+ flight,
+ traveller,
+ selectedSeat,
+ totalFare
+} = route.params || {};
+
   const [selected, setSelected] = useState('nonveg');
 
   return (
@@ -29,7 +38,9 @@ const MealSelectionScreen = ({ navigation }) => {
 
         <View>
           <Text style={styles.tripLabel}>Trip to</Text>
-          <Text style={styles.tripCity}>Chennai</Text>
+          <Text style={styles.tripCity}>
+             {bookingData?.to?.city}
+        </Text>
         </View>
       </View>
 
@@ -133,7 +144,16 @@ const MealSelectionScreen = ({ navigation }) => {
 
         <TouchableOpacity
           style={styles.cta}
-          onPress={() => navigation.navigate('Payments')}
+          onPress={() =>
+  navigation.navigate("Payments", {
+    bookingData,
+    flight,
+    traveller,
+    selectedSeat,
+    meal: selected,
+    totalFare,
+  })
+}
         >
           <Text style={styles.ctaText}>
             Continue booking

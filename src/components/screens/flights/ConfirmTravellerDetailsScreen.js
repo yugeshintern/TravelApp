@@ -9,7 +9,14 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 
-const ConfirmTravellerDetailsScreen = ({ navigation }) => {
+const ConfirmTravellerDetailsScreen = ({ navigation , route }) => {
+  const {
+    bookingData,
+    flight,
+    traveller,
+    totalFare,
+  } = route.params || {};
+
   const [selected, setSelected] = useState(false);
 
   return (
@@ -30,7 +37,9 @@ const ConfirmTravellerDetailsScreen = ({ navigation }) => {
 
           <View>
             <Text style={styles.tripLabel}>Trip to</Text>
-            <Text style={styles.tripCity}>Chennai</Text>
+            <Text style={styles.tripCity}>
+              {bookingData?.to?.city}
+            </Text>
           </View>
         </View>
 
@@ -42,7 +51,9 @@ const ConfirmTravellerDetailsScreen = ({ navigation }) => {
     style={styles.airIndiaLogo}
   />
 </View>
-          <Text style={styles.airline}>Air India | AI-537</Text>
+          <Text style={styles.airline}>
+            {flight?.airline} | AI-537
+        </Text>
         </View>
 
         {/* TIME */}
@@ -139,7 +150,9 @@ const ConfirmTravellerDetailsScreen = ({ navigation }) => {
             <View style={styles.tickBox}>
               <Icon name="check" size={14} color="#2F80ED" />
             </View>
-            <Text style={styles.travellerName}>Dexter</Text>
+            <Text style={styles.travellerName}>
+              {traveller?.name}
+            </Text>
           </View>
 
           <Text style={styles.bookingText}>
@@ -170,11 +183,20 @@ const ConfirmTravellerDetailsScreen = ({ navigation }) => {
       <View style={styles.footer}>
         <View style={styles.priceRow}>
           <Text>For 1 Adult</Text>
-          <Text style={styles.bold}>₹5,718</Text>
+          <Text style={styles.bold}>
+              ₹{totalFare}
+          </Text>
         </View>
 
         <TouchableOpacity style={styles.cta}
-        onPress={()=> navigation.navigate("FlightSeatSelection")}>
+        onPress={() =>
+  navigation.navigate("FlightSeatSelection", {
+    bookingData,
+    flight,
+    traveller,
+    totalFare,
+  })
+}>
           <Text style={styles.ctaText}>Continue</Text>
         </TouchableOpacity>
       </View>

@@ -8,7 +8,16 @@ import {
   Image,
 } from "react-native";
 
-export default function PaymentsScreen({ navigation }) {
+export default function PaymentsScreen({ navigation,route }) {
+const {
+ bookingData,
+ flight,
+ traveller,
+ selectedSeat,
+ meal,
+ totalFare
+} = route.params || {};
+
   const [selected, setSelected] = useState("cash");
 
   const Radio = ({ value }) => (
@@ -37,7 +46,10 @@ export default function PaymentsScreen({ navigation }) {
         {/* TOTAL */}
         <View style={styles.rowBetween}>
           <Text style={styles.total}>Total Fare</Text>
-          <Text style={styles.amount}>₹287</Text>
+          <Text style={styles.amount}>
+            ₹{totalFare}
+        </Text>
+        
         </View>
 
         <View style={styles.dashed} />

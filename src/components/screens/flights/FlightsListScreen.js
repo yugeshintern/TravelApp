@@ -8,62 +8,212 @@ import {
   Image,
 } from 'react-native';
 
-const flightsData = [
-  { id: 1, airline: 'Air India', color: '#E21B23' },
-  { id: 2, airline: 'IndiGo', color: '#1A2B8C' },
-  { id: 3, airline: 'Air India', color: '#E21B23' },
-  { id: 4, airline: 'IndiGo', color: '#1A2B8C' },
-  { id: 5, airline: 'IndiGo', color: '#1A2B8C' },
-  { id: 6, airline: 'Air India', color: '#E21B23' },
-];
+const generateFlights = (fromAirport, toAirport) => {
+  const airlines = [
+    {
+      name: 'Air India',
+      logo: 'airindia',
+      prefix: 'AI',
+    },
+    {
+      name: 'IndiGo',
+      logo: 'indigo',
+      prefix: '6E',
+    },
+  ];
 
-const FlightsListScreen = ({ navigation }) => {
+  const departureTimes = [
+    '05:30',
+    '07:15',
+    '09:10',
+    '11:45',
+    '13:20',
+    '15:45',
+    '17:10',
+    '19:30',
+    '21:00',
+  ];
+
+  return departureTimes.map((time, index) => {
+    const airline =
+      airlines[index % airlines.length];
+
+    const baseHour =
+      parseInt(time.split(':')[0]);
+
+    const baseMinute =
+      parseInt(time.split(':')[1]);
+
+    // random duration between 2h-4h
+    const durationHours =
+      Math.floor(Math.random() * 2) + 2;
+
+    const durationMinutes =
+      [10, 20, 30, 45][
+        Math.floor(Math.random() * 4)
+      ];
+
+    const arrivalHour =
+      (baseHour + durationHours) % 24;
+
+    const arrivalMinute =
+      (baseMinute + durationMinutes) % 60;
+
+    const arrivalTime = `${String(
+      arrivalHour
+    ).padStart(2, '0')}:${String(
+      arrivalMinute
+    ).padStart(2, '0')}`;
+
+    return {
+      id: index + 1,
+
+      airline: airline.name,
+
+      flightNo: `${airline.prefix}-${Math.floor(
+        Math.random() * 900 + 100
+      )}`,
+
+      departureTime: time,
+
+      arrivalTime,
+
+      duration: `${durationHours}h ${durationMinutes}m`,
+
+      stop:
+        Math.random() > 0.7
+          ? '1 Stop'
+          : 'Non stop',
+
+      price:
+        Math.floor(Math.random() * 4000) +
+        3500,
+
+      departureAirport:
+        fromAirport?.name || '',
+
+      arrivalAirport:
+        toAirport?.name || '',
+
+      departureCode:
+        fromAirport?.code || '',
+
+      arrivalCode:
+        toAirport?.code || '',
+    };
+  });
+};
+
+
+
+const FlightsListScreen = ({ navigation, route }) => {
+  const { bookingData } = route.params || {};
+
+  const formatDate = (date) => {
+    if (!date) return '';
+
+    const d = new Date(date);
+
+    return d.toLocaleDateString('en-IN', {
+      day: '2-digit',
+      month: 'short',
+    });
+  };
+
+  const flightsData = generateFlights(
+  bookingData?.from,
+  bookingData?.to
+);
+
   const renderItem = ({ item }) => (
     <TouchableOpacity
-    style={styles.card}
-    onPress={() =>
-      navigation.navigate("FlightDetails", { flight: item })
-    }
-  >
-      {/* TOP ROW */}
+      style={styles.card}
+      onPress={() =>
+        navigation.navigate('FlightDetails', {
+          flight: item,
+          bookingData,
+        })
+      }
+    >
+      {/* TOP */}
       <View style={styles.topRow}>
         <View style={styles.logoContainer}>
-  <Image
-    source={
-      item.airline === 'Air India'
-        ? require("../../../assets/airindia.png")
-        : require("../../../assets/indigo.png")
-    }
-    style={styles.airlineLogo}
-  />
-</View>
+          <Image
+            source={
+              item.airline === 'Air India'
+                ? require('../../../assets/airindia.png')
+                : require('../../../assets/indigo.png')
+            }
+            style={styles.airlineLogo}
+          />
+        </View>
 
-        <Text style={styles.airline}>{item.airline}</Text>
+        <View>
+          <Text style={styles.airline}>
+            {item.airline}
+          </Text>
+
+          <Text style={styles.flightNo}>
+            {item.flightNo}
+          </Text>
+        </View>
       </View>
 
       {/* TIME ROW */}
       <View style={styles.timeRow}>
         {/* LEFT */}
         <View>
-          <Text style={styles.time}>15:45</Text>
-          <Text style={styles.city}>New Delhi</Text>
+          <Text style={styles.time}>
+            {item.departureTime}
+          </Text>
+
+          <Text style={styles.city}>
+            {item.departureCode}
+          </Text>
+
+          <Text
+            style={styles.airportText}
+            numberOfLines={1}
+          >
+            {item.departureAirport}
+          </Text>
         </View>
 
         {/* CENTER */}
         <View style={styles.durationContainer}>
-          <Text style={styles.duration}>2h 45m</Text>
+          <Text style={styles.duration}>
+            {item.duration}
+          </Text>
+
           <View style={styles.line} />
-          <Text style={styles.stop}>Non stop</Text>
+
+          <Text style={styles.stop}>
+            {item.stop}
+          </Text>
         </View>
 
         {/* RIGHT */}
-        <View>
-          <Text style={styles.time}>18:30</Text>
-          <Text style={styles.city}>Chennai</Text>
+        <View style={{ alignItems: 'flex-end' }}>
+          <Text style={styles.time}>
+            {item.arrivalTime}
+          </Text>
+
+          <Text style={styles.city}>
+            {item.arrivalCode}
+          </Text>
+
+          <Text
+            style={styles.airportText}
+            numberOfLines={1}
+          >
+            {item.arrivalAirport}
+          </Text>
         </View>
 
         {/* PRICE */}
-        <Text style={styles.price}>₹5,718</Text>
+        <Text style={styles.price}>
+          ₹{item.price}
+        </Text>
       </View>
 
       {/* OFFER */}
@@ -78,34 +228,47 @@ const FlightsListScreen = ({ navigation }) => {
       {/* HEADER */}
       <View style={styles.header}>
         <TouchableOpacity
-  style={styles.backBtn}
-  onPress={() => navigation.goBack()}
->
-  <Image
-    source={require("../../../assets/back.png")}
-    style={styles.backIcon}
-  />
-</TouchableOpacity>
+          style={styles.backBtn}
+          onPress={() => navigation.goBack()}
+        >
+          <Image
+            source={require('../../../assets/back.png')}
+            style={styles.backIcon}
+          />
+        </TouchableOpacity>
 
-        <View>
-          <Text style={styles.route}>New Delhi → Chennai</Text>
+        <View style={{ flex: 1, marginLeft: 10 }}>
+          <Text style={styles.route}>
+            {bookingData?.from?.city} →{' '}
+            {bookingData?.to?.city}
+          </Text>
+
           <Text style={styles.subHeader}>
-            1 Adult | Economy
+            {bookingData?.travellers?.adults}{' '}
+            Adult •{' '}
+            {bookingData?.travellers?.cabin}
           </Text>
         </View>
 
         <View style={styles.dateChip}>
-          <Text style={styles.dateText}>26 FEB</Text>
+          <Text style={styles.dateText}>
+            {formatDate(
+              bookingData?.departureDate
+            )}
+          </Text>
         </View>
       </View>
 
-              {/* LIST */}
-        <FlatList
-          data={flightsData}
-          keyExtractor={(item) => item.id.toString()}
-          showsVerticalScrollIndicator={false}
-          renderItem={renderItem}
-        />
+      {/* FLIGHT LIST */}
+      
+      <FlatList
+        data={flightsData}
+        keyExtractor={(item) =>
+          item.id.toString()
+        }
+        renderItem={renderItem}
+        showsVerticalScrollIndicator={false}
+      />
     </View>
   );
 };
@@ -248,4 +411,15 @@ airlineLogo: {
     fontSize: 12,
     fontWeight: '600',
   },
+  flightNo: {
+  fontSize: 12,
+  color: '#777',
+},
+
+airportText: {
+  fontSize: 10,
+  color: '#888',
+  width: 90,
+  marginTop: 2,
+},
 });

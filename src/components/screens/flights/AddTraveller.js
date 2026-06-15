@@ -10,9 +10,13 @@ import {
   Image,
 } from 'react-native';
 
-const AddTraveller = ({ navigation }) => {
-  const [gender, setGender] = useState(null);
-  const [wheelchair, setWheelchair] = useState(false);
+const AddTraveller = ({ navigation , route }) => {
+    const { bookingData, flight, totalFare } = route.params || {};
+
+    const [name, setName] = useState('');
+    const [age, setAge] = useState('');
+    const [gender, setGender] = useState(null);
+    const [wheelchair, setWheelchair] = useState(false);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -74,15 +78,17 @@ const AddTraveller = ({ navigation }) => {
         </View>
 
         {/* INPUTS */}
-        <TextInput
+          <TextInput
           placeholder="Name"
-          placeholderTextColor="#8A8A8A"
+          value={name}
+          onChangeText={setName}
           style={styles.input}
         />
 
         <TextInput
           placeholder="Age"
-          placeholderTextColor="#8A8A8A"
+          value={age}
+          onChangeText={setAge}
           style={styles.input}
         />
 
@@ -119,7 +125,19 @@ const AddTraveller = ({ navigation }) => {
 
         {/* BUTTON */}
         <TouchableOpacity style={styles.button}
-        onPress={()=> navigation.navigate("ConfirmTravellerDetails")}>
+        onPress={() =>
+  navigation.navigate("ConfirmTravellerDetails", {
+    bookingData,
+    flight,
+    totalFare,
+    traveller: {
+      name,
+      age,
+      gender,
+      wheelchair,
+    }
+  })
+}>
           <Text style={styles.buttonText}>Confirm</Text>
         </TouchableOpacity>
 

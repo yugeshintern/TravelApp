@@ -8,7 +8,8 @@ import {
   Image,
 } from 'react-native';
 
-const FlightDetailsScreen = ({ navigation }) => {
+const FlightDetailsScreen = ({ navigation , route }) => {
+  const { flight, bookingData } = route.params || {};
   const [selected, setSelected] = useState(false);
 
 const baseFare = 5718;
@@ -35,7 +36,9 @@ const totalFare = selected
 
           <View>
             <Text style={styles.tripLabel}>Trip to</Text>
-            <Text style={styles.tripCity}>Chennai</Text>
+            <Text style={styles.tripCity}>
+                 {bookingData?.to?.city}
+            </Text>
           </View>
         </View>
 
@@ -47,7 +50,10 @@ const totalFare = selected
     style={styles.airIndiaLogo}
   />
 </View>
-          <Text style={styles.airline}>Air India | AI-537</Text>
+          <Text style={styles.airline}>
+              {flight?.airline} | AI-537
+          </Text>
+
         </View>
 
         {/* TIME */}
@@ -162,7 +168,13 @@ const totalFare = selected
 </Text>
 
         <TouchableOpacity style={styles.cta}
-        onPress={()=> navigation.navigate("AddTraveller")}>
+        onPress={() =>
+              navigation.navigate("AddTraveller", {
+                bookingData,
+                flight,
+                totalFare,
+              })
+            }>
           <Text style={styles.ctaText}>Continue</Text>
         </TouchableOpacity>
       </View>
