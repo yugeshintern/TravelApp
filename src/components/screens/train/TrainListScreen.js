@@ -15,7 +15,15 @@ const trains = [
   { id: '3' },
 ];
 
-const TrainListScreen = ({ navigation }) => {
+const TrainListScreen = ({ navigation,
+  route, }) => {
+
+    const {
+    fromStation,
+    toStation,
+    journeyDate,
+  } = route.params;
+
   return (
     <View style={styles.container}>
 
@@ -37,10 +45,14 @@ const TrainListScreen = ({ navigation }) => {
         </TouchableOpacity>
 
         <Text style={styles.routeText}>
-          MS - Chennai Egmore  →  TCN - Tiruchendur
-        </Text>
+  {fromStation}
+  {"  →  "}
+  {toStation}
+</Text>
 
-        <Text style={styles.date}>26 Feb, Thu</Text>
+        <Text style={styles.date}>
+  {journeyDate}
+</Text>
       </View>
 
       {/* DATE TABS */}
@@ -73,7 +85,15 @@ const TrainListScreen = ({ navigation }) => {
         keyExtractor={(item) => item.id}
        renderItem={({ item }) => (
             <TouchableOpacity
-              onPress={() => navigation.navigate("TrainAvailability", { trainId: item.id })}
+              onPress={() => navigation.navigate(
+  "TrainAvailability",
+  {
+    trainId: item.id,
+    fromStation,
+    toStation,
+    journeyDate,
+  }
+)}
             >
               <TrainCard item={item} />
             </TouchableOpacity>

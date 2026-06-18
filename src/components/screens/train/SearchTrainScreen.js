@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -10,13 +10,62 @@ import {
 } from 'react-native';
 
 const stations = [
-  { code: 'MS', name: 'Chennai Egmore', state: 'Chennai - Tamilnadu' },
-  { code: 'TCN', name: 'Tiruchendur', state: 'Tiruchendur - Tamilnadu' },
-  { code: 'PUNE', name: 'Pune Jn', state: 'Pune - Maharashtra' },
-  { code: 'ST', name: 'Surat', state: 'Surat - Gujarat' },
+  {
+    code: "MAS",
+    name: "Chennai Central",
+    state: "Chennai"
+  },
+  {
+    code: "TBM",
+    name: "Tambaram",
+    state: "Chennai"
+  },
+  {
+    code: "MDU",
+    name: "Madurai Junction",
+    state: "Madurai"
+  },
+  {
+    code: "SA",
+    name: "Salem Junction",
+    state: "Salem"
+  },
+  {
+    code: "CBE",
+    name: "Coimbatore Junction",
+    state: "Coimbatore"
+  },
+  {
+    code: "SBC",
+    name: "Bengaluru City",
+    state: "Bengaluru"
+  },
 ];
 
-const SearchTrainScreen = ({ navigation }) => {
+const SearchTrainScreen = ({ navigation, route }) => {
+
+  const {
+    field,
+    fromStation,
+    toStation,
+    journeyDate,
+  } = route.params;
+
+  const [search,
+    setSearch] =
+    React.useState("");
+
+    const filteredStations =
+  stations.filter(item =>
+    item.code
+      .toLowerCase()
+      .includes(search.toLowerCase()) ||
+
+    item.name
+      .toLowerCase()
+      .includes(search.toLowerCase())
+  );
+
   return (
     <View style={styles.container}>
 
@@ -33,9 +82,12 @@ const SearchTrainScreen = ({ navigation }) => {
           />
         </TouchableOpacity>
 
-        <Text style={styles.headerTitle}>
-          Search Trains
-        </Text>
+        <TextInput
+  placeholder="Search Station"
+  value={search}
+  onChangeText={setSearch}
+  style={styles.input}
+/>
 
         <View style={styles.placeholder} />
 
@@ -108,11 +160,48 @@ const SearchTrainScreen = ({ navigation }) => {
 
       {/* STATIONS LIST */}
       <FlatList
-        data={stations}
+        data={
+  search
+    ? filteredStations
+    : stations
+}
         keyExtractor={(item) => item.code}
         showsVerticalScrollIndicator={false}
         renderItem={({ item }) => (
-          <TouchableOpacity style={styles.stationItem}>
+          <TouchableOpacity
+  style={styles.stationItem}
+  onPress={() => {
+
+    if (
+      field === "from"
+    ) {
+
+      navigation.navigate(
+        "TrainBooking",
+        {
+          fromStation:
+            `${item.code} - ${item.name}`,
+          toStation,
+          journeyDate,
+        }
+      );
+
+    } else {
+
+      navigation.navigate(
+        "TrainBooking",
+        {
+          fromStation,
+          toStation:
+            `${item.code} - ${item.name}`,
+          journeyDate,
+        }
+      );
+
+    }
+
+  }}
+>
 
             <Image
               source={require('../../../assets/location-icon.png')}
