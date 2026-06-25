@@ -11,14 +11,31 @@ export default function VehicleChoosing({ navigation, route }) {
   const [selected, setSelected] = useState(0);
   const [loading, setLoading] = useState(false);
 
-  const dropLocation = route.params?.dropLocation;
-  const customerId = route.params?.customerId || "USER_ID_HERE";
+  // ── Normalize params from both Home and SearchLocation ──────────────────
+  // Home passes:   dropLocation = { address, latitude, longitude }
+  // Search passes: dropLocation = string, dropLat, dropLng (flat params)
+  const rawDrop = route.params?.dropLocation;
+  const dropLocation =
+    rawDrop && typeof rawDrop === "object"
+      ? rawDrop
+      : {
+          address: rawDrop ?? "Selected Location",
+          latitude: route.params?.dropLat,
+          longitude: route.params?.dropLng,
+        };
 
-  const currentLocation = {
-    address: "Current Location",
-    latitude: 13.0827,
-    longitude: 80.2707,
-  };
+  const rawPickup = route.params?.pickupLocation;
+  const pickupLocation =
+    rawPickup && typeof rawPickup === "object"
+      ? rawPickup
+      : {
+          address: rawPickup ?? "Current Location",
+          latitude: route.params?.pickupLat,
+          longitude: route.params?.pickupLng,
+        };
+  // ────────────────────────────────────────────────────────────────────────
+
+  const customerId = route.params?.customerId || "USER_ID_HERE";
 
   const vehicles = [
     { name: "Bike", desc: "Quick Bike rides\n4 mins away Drop 1:20 pm", price: "₹287", old: "₹307" },
@@ -38,8 +55,8 @@ export default function VehicleChoosing({ navigation, route }) {
 
       const payload = {
         customerId,
-        pickupLocation: currentLocation.address,
-        dropLocation: dropLocation?.address,
+        pickupLocation: pickupLocation.address,
+        dropLocation: dropLocation.address,
         vehicleType: selectedVehicle.name,
         amount: parseInt(selectedVehicle.price.replace("₹", "")),
         distance: 0,
@@ -80,17 +97,17 @@ export default function VehicleChoosing({ navigation, route }) {
             </head><body><div id="map"></div>
             <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
             <script>
-              var map = L.map('map').setView([${Number(dropLocation?.latitude) || 13.0827},${Number(dropLocation?.longitude) || 80.2707}],14);
+              var map = L.map('map').setView([${Number(dropLocation.latitude) || 13.0827},${Number(dropLocation.longitude) || 80.2707}],14);
               L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19}).addTo(map);
-              L.marker([${Number(dropLocation?.latitude) || 13.0827},${Number(dropLocation?.longitude) || 80.2707}])
-                .addTo(map).bindPopup("${dropLocation?.address || "Selected Location"}").openPopup();
+              L.marker([${Number(dropLocation.latitude) || 13.0827},${Number(dropLocation.longitude) || 80.2707}])
+                .addTo(map).bindPopup("${dropLocation.address}").openPopup();
             </script></body></html>
           `,
         }}
       />
 
       <View style={styles.overlay}>
-        <Text style={styles.overlayText}>📍 {dropLocation?.address || "Selected Location"}</Text>
+        <Text style={styles.overlayText}>📍 {dropLocation.address}</Text>
       </View>
 
       <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>
@@ -102,7 +119,7 @@ export default function VehicleChoosing({ navigation, route }) {
 
         <View style={styles.locationBox}>
           <Text style={styles.locationTitle}>Drop Location</Text>
-          <Text style={styles.locationAddress}>{dropLocation?.address || "No location selected"}</Text>
+          <Text style={styles.locationAddress}>{dropLocation.address}</Text>
         </View>
 
         <FlatList
@@ -152,7 +169,10 @@ export default function VehicleChoosing({ navigation, route }) {
           onPress={handleBookRide}
           disabled={loading}
         >
-          {loading ? <ActivityIndicator color="#fff" /> : <Text style={styles.bookText}>Book {vehicles[selected].name}</Text>}
+          {loading
+            ? <ActivityIndicator color="#fff" />
+            : <Text style={styles.bookText}>Book {vehicles[selected].name}</Text>
+          }
         </TouchableOpacity>
       </View>
     </View>
@@ -167,23 +187,38 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(0,0,0,0.6)", padding: 10, borderRadius: 12,
   },
   overlayText: { color: "#fff", fontWeight: "600" },
-  backBtn: { position: "absolute", top: 40, left: 15, backgroundColor: "#fff", padding: 10, borderRadius: 25, elevation: 3 },
+  backBtn: {
+    position: "absolute", top: 40, left: 15,
+    backgroundColor: "#fff", padding: 10, borderRadius: 25, elevation: 3,
+  },
   backIcon: { width: 18, height: 18, resizeMode: "contain" },
   vehicleIcon: { width: 26, height: 26, resizeMode: "contain" },
-  sheet: { flex: 1, backgroundColor: "#fff", borderTopLeftRadius: 20, borderTopRightRadius: 20, padding: 15 },
+  sheet: {
+    flex: 1, backgroundColor: "#fff",
+    borderTopLeftRadius: 20, borderTopRightRadius: 20, padding: 15,
+  },
   offer: { textAlign: "center", color: "green", marginBottom: 10, fontWeight: "600" },
   locationBox: { backgroundColor: "#f3f4f6", padding: 12, borderRadius: 12, marginBottom: 12 },
   locationTitle: { fontSize: 12, color: "#666", marginBottom: 4 },
   locationAddress: { fontWeight: "600", color: "#111" },
-  vehicleCard: { flexDirection: "row", alignItems: "center", padding: 12, marginBottom: 8, borderRadius: 10 },
+  vehicleCard: {
+    flexDirection: "row", alignItems: "center",
+    padding: 12, marginBottom: 8, borderRadius: 10,
+  },
   selectedCard: { borderWidth: 1, borderColor: "#0f766e", backgroundColor: "#f0fdfa" },
-  iconBox: { width: 40, height: 40, backgroundColor: "#eee", borderRadius: 20, justifyContent: "center", alignItems: "center", marginRight: 10 },
+  iconBox: {
+    width: 40, height: 40, backgroundColor: "#eee",
+    borderRadius: 20, justifyContent: "center", alignItems: "center", marginRight: 10,
+  },
   name: { fontWeight: "600", fontSize: 14 },
   desc: { fontSize: 12, color: "#666" },
   price: { fontWeight: "600" },
   old: { textDecorationLine: "line-through", fontSize: 12, color: "#999" },
   paymentRow: { flexDirection: "row", justifyContent: "space-between", marginVertical: 10 },
-  chip: { borderWidth: 1, borderColor: "#0f766e", borderRadius: 20, paddingHorizontal: 15, paddingVertical: 6 },
+  chip: {
+    borderWidth: 1, borderColor: "#0f766e",
+    borderRadius: 20, paddingHorizontal: 15, paddingVertical: 6,
+  },
   bookBtn: { backgroundColor: "#0f766e", padding: 15, borderRadius: 30, alignItems: "center" },
   bookText: { color: "#fff", fontWeight: "600", fontSize: 16 },
 });
