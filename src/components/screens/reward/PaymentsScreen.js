@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Linking, Alert } from "react-native";
 import {
   View,
  Text,
@@ -19,6 +20,42 @@ const {
 } = route.params || {};
 
   const [selected, setSelected] = useState("cash");
+
+
+  const UPI = {
+  gpay: "com.google.android.apps.nbu.paisa.user",
+  paytm: "net.one97.paytm",
+};
+
+const openUPIApp = async (app, amount) => {
+  const upiId = "yourupiid@oksbi"; // Replace with your actual UPI ID
+  const name = "Travel App";
+  const note = "Flight Booking Payment";
+
+  let url = "";
+
+  if (app === "gpay") {
+    // Google Pay specific deep link
+    url = `tez://upi/pay?pa=${upiId}&pn=${name}&am=${amount}&cu=INR&tn=${note}`;
+  } else if (app === "paytm") {
+    // Paytm specific deep link
+    url = `paytmmp://pay?pa=${upiId}&pn=${name}&am=${amount}&cu=INR&tn=${note}`;
+  }
+
+  try {
+    const supported = await Linking.canOpenURL(url);
+    if (supported) {
+      await Linking.openURL(url);
+    } else {
+      Alert.alert(
+        `${app === "gpay" ? "GPay" : "Paytm"} not installed`,
+        "Please install the app first."
+      );
+    }
+  } catch (error) {
+    Alert.alert("Error", "Something went wrong. Please try again.");
+  }
+};
 
   const Radio = ({ value }) => (
     <View style={[styles.radio, selected === value && styles.radioActive]} />
@@ -101,7 +138,10 @@ const {
         <View style={styles.card}>
           <TouchableOpacity
   style={styles.rowBetween}
-  onPress={() => setSelected("paytm")}
+  onPress={() => {
+    setSelected("paytm");
+    openUPIApp("paytm", totalFare);
+}}
 >
   <View style={styles.paymentRow}>
     <Image
@@ -125,7 +165,10 @@ const {
 
           <TouchableOpacity
   style={styles.rowBetween}
-  onPress={() => setSelected("gpay")}
+  onPress={() => {
+    setSelected("gpay");
+    openUPIApp("gpay", totalFare);
+}}
 >
   <View style={styles.paymentRow}>
     <Image
