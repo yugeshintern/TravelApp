@@ -231,7 +231,7 @@ const styles = StyleSheet.create({
     borderRadius: 26,
 
     paddingTop: 22,
-    paddingBottom: 20,
+    paddingBottom: 36,
 
     shadowColor: '#000',
     shadowOpacity: 0.08,
@@ -389,31 +389,30 @@ const styles = StyleSheet.create({
 
   /* SEARCH BUTTON */
   searchBtn: {
-    backgroundColor: '#087F86',
+  backgroundColor: '#087F86',
 
-    alignSelf: 'center',
+  alignSelf: 'center',
 
-    width: '68%',
+  width: '68%',
 
-    marginTop: -24,
+  marginTop: -8,   // <-- was -24
 
-    borderRadius: 34,
+  borderRadius: 34,
 
-    paddingVertical: 18,
+  paddingVertical: 18,
 
-    alignItems: 'center',
+  alignItems: 'center',
 
-    shadowColor: '#000',
-    shadowOpacity: 0.15,
-    shadowRadius: 6,
-
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-
-    elevation: 6,
+  shadowColor: '#000',
+  shadowOpacity: 0.15,
+  shadowRadius: 6,
+  shadowOffset: {
+    width: 0,
+    height: 3,
   },
+
+  elevation: 6,
+},
 
   searchText: {
     color: '#FFF',
