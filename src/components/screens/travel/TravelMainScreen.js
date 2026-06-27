@@ -179,16 +179,27 @@ const styles = StyleSheet.create({
   },
 
   backBtn: {
-    marginTop: 55,
-    marginLeft: 20,
-    width: 42,
-    height: 42,
-    borderRadius: 25,
-    backgroundColor: "#ffffff",
-    justifyContent: "center",
-    alignItems: "center",
-    elevation: 5,
+  position: "absolute",
+  top: 58,      // Adjust vertically
+  left: 24,     // Adjust horizontally
+  width: 52,
+  height: 52,
+  borderRadius: 26,
+  backgroundColor: "#FFFFFF",
+  justifyContent: "center",
+  alignItems: "center",
+
+  shadowColor: "#000",
+  shadowOpacity: 0.12,
+  shadowOffset: {
+    width: 0,
+    height: 3,
   },
+  shadowRadius: 6,
+  elevation: 6,
+
+  zIndex: 10,
+},
 
   backIcon: {
     width: 18,

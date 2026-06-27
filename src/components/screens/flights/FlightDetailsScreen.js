@@ -19,6 +19,22 @@ const totalFare = selected
   ? baseFare + flexFare
   : baseFare;
 
+  const formatDate = (date) => {
+
+    if(!date) return "";
+
+    return new Date(date).toLocaleDateString(
+        "en-IN",
+        {
+            weekday:"short",
+            day:"2-digit",
+            month:"short",
+            year:"2-digit",
+        }
+    );
+
+};
+
   return (
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -51,7 +67,7 @@ const totalFare = selected
   />
 </View>
           <Text style={styles.airline}>
-              {flight?.airline} | AI-537
+              {flight?.airline} | {flight?.flightNo}
           </Text>
 
         </View>
@@ -59,20 +75,20 @@ const totalFare = selected
         {/* TIME */}
         <View style={styles.timeRow}>
           <View>
-            <Text style={styles.time}>15:45</Text>
-            <Text style={styles.date}>Thu, 26 Feb 26</Text>
-            <Text style={styles.city}>New Delhi</Text>
+            <Text style={styles.time}>{flight?.departureTime}</Text>
+            <Text style={styles.date}>{formatDate(bookingData?.departureDate)}</Text>
+            <Text style={styles.city}>{bookingData?.from?.city}</Text>
             <Text style={styles.airport}>
-              Indira Gandhi International Airport Terminal T3
+              {bookingData?.from?.name}
             </Text>
           </View>
 
           <View>
-            <Text style={styles.time}>18:35</Text>
-            <Text style={styles.date}>Thu, 26 Feb 26</Text>
-            <Text style={styles.city}>Chennai</Text>
+            <Text style={styles.time}>{flight?.arrivalTime}</Text>
+            <Text style={styles.date}>{formatDate(bookingData?.returnDate)}</Text>
+            <Text style={styles.city}>{bookingData?.to?.city}</Text>
             <Text style={styles.airport}>
-              Chennai International Airport Terminal T4
+              {bookingData?.to?.name}
             </Text>
           </View>
         </View>
@@ -93,12 +109,12 @@ const totalFare = selected
           </View>
 
           <View style={styles.policyRow}>
-            <Text>Now - 26 Feb, 19:30</Text>
+            <Text>Now - {formatDate(bookingData?.departureDate)}</Text>
             <Text style={styles.bold}>₹ 5,600</Text>
           </View>
 
           <View style={styles.policyRow}>
-            <Text>26 Feb, 19:30 - 21:30</Text>
+            <Text>{formatDate(bookingData?.departureDate)}, 19:30 - 21:30</Text>
             <Text style={styles.bold}>₹ 5,718</Text>
           </View>
         </View>

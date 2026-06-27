@@ -52,30 +52,74 @@ const ConfirmTravellerDetailsScreen = ({ navigation , route }) => {
   />
 </View>
           <Text style={styles.airline}>
-            {flight?.airline} | AI-537
-        </Text>
+  {flight?.airline} | {flight?.flightNo}
+</Text>
         </View>
 
         {/* TIME */}
         <View style={styles.timeRow}>
-          <View>
-            <Text style={styles.time}>15:45</Text>
-            <Text style={styles.date}>Thu, 26 Feb 26</Text>
-            <Text style={styles.city}>New Delhi</Text>
-            <Text style={styles.airport}>
-              Indira Gandhi International Airport Terminal T3
-            </Text>
-          </View>
+  {/* Departure */}
+  <View>
+    <Text style={styles.time}>
+      {flight?.departureTime}
+    </Text>
 
-          <View>
-            <Text style={styles.time}>18:35</Text>
-            <Text style={styles.date}>Thu, 26 Feb 26</Text>
-            <Text style={styles.city}>Chennai</Text>
-            <Text style={styles.airport}>
-              Chennai International Airport Terminal T4
-            </Text>
-          </View>
-        </View>
+    <Text style={styles.date}>
+      {bookingData?.departureDate
+        ? new Date(
+            bookingData.departureDate
+          ).toLocaleDateString("en-IN", {
+            weekday: "short",
+            day: "2-digit",
+            month: "short",
+            year: "2-digit",
+          })
+        : ""}
+    </Text>
+
+    <Text style={styles.city}>
+      {bookingData?.from?.city}
+    </Text>
+
+    <Text
+      style={styles.airport}
+      numberOfLines={3}
+    >
+      {bookingData?.from?.name}
+    </Text>
+  </View>
+
+  {/* Arrival */}
+  <View>
+    <Text style={styles.time}>
+      {flight?.arrivalTime}
+    </Text>
+
+    <Text style={styles.date}>
+      {bookingData?.departureDate
+        ? new Date(
+            bookingData.departureDate
+          ).toLocaleDateString("en-IN", {
+            weekday: "short",
+            day: "2-digit",
+            month: "short",
+            year: "2-digit",
+          })
+        : ""}
+    </Text>
+
+    <Text style={styles.city}>
+      {bookingData?.to?.city}
+    </Text>
+
+    <Text
+      style={styles.airport}
+      numberOfLines={3}
+    >
+      {bookingData?.to?.name}
+    </Text>
+  </View>
+</View>
 
         {/* CANCELLATION */}
         <View style={styles.card}>
@@ -283,7 +327,7 @@ timeRow: {
   time: { fontSize: 18, fontWeight: '700' },
   date: { fontSize: 12, color: '#777' },
   city: { fontSize: 16, fontWeight: '600', marginTop: 4 },
-  airport: { fontSize: 12, color: '#777', width: 150 },
+  airport: { fontSize: 12, color: '#777', width: 150,marginTop: 2, },
 
   card: {
     backgroundColor: '#fff',

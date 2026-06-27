@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import {
   View,
   Text,
@@ -53,11 +53,18 @@ const generateFlights = (fromAirport, toAirport) => {
         Math.floor(Math.random() * 4)
       ];
 
-    const arrivalHour =
-      (baseHour + durationHours) % 24;
+    const totalMinutes =
+  baseMinute + durationMinutes;
 
-    const arrivalMinute =
-      (baseMinute + durationMinutes) % 60;
+const arrivalMinute =
+  totalMinutes % 60;
+
+const arrivalHour =
+  (
+    baseHour +
+    durationHours +
+    Math.floor(totalMinutes / 60)
+  ) % 24;
 
     const arrivalTime = `${String(
       arrivalHour
@@ -120,9 +127,12 @@ const FlightsListScreen = ({ navigation, route }) => {
     });
   };
 
-  const flightsData = generateFlights(
-  bookingData?.from,
-  bookingData?.to
+  const flightsData = useMemo(() =>
+  generateFlights(
+    bookingData?.from,
+    bookingData?.to
+  ),
+  [bookingData]
 );
 
   const renderItem = ({ item }) => (
@@ -246,7 +256,15 @@ const FlightsListScreen = ({ navigation, route }) => {
           <Text style={styles.subHeader}>
             {bookingData?.travellers?.adults}{' '}
             Adult •{' '}
-            {bookingData?.travellers?.cabin}
+            {
+bookingData?.travellers?.cabin === "eco"
+?"Economy"
+:bookingData?.travellers?.cabin === "bus"
+?"Business"
+:bookingData?.travellers?.cabin === "prem"
+?"Premium Economy"
+:"First Class"
+}
           </Text>
         </View>
 
@@ -416,10 +434,10 @@ airlineLogo: {
   color: '#777',
 },
 
-airportText: {
-  fontSize: 10,
-  color: '#888',
-  width: 90,
-  marginTop: 2,
-},
+airportText:{
+    fontSize:10,
+    color:"#888",
+    width:120,
+    marginTop:2,
+}
 });

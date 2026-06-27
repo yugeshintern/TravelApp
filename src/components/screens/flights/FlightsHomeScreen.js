@@ -310,14 +310,16 @@ const FlightsHomeScreen = ({ navigation }) => {
           style={styles.cta}
           onPress={() =>
             navigation.navigate('FlightsList', {
-              from: fromAirport,
-              to: toAirport,
-              departureDate,
-              returnDate,
-              travellers,
-              tripType,
-              specialFare: selectedFare,
-            })
+  bookingData: {
+    from: fromAirport,
+    to: toAirport,
+    departureDate,
+    returnDate,
+    travellers,
+    tripType,
+    specialFare: selectedFare,
+  },
+})
           }
         >
           <Text style={styles.ctaText}>Search Flights</Text>
