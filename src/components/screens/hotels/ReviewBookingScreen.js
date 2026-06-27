@@ -1,4 +1,6 @@
-import React from 'react';
+import {
+  Platform,
+} from "react-native";
 import {
   View,
   Text,
@@ -20,7 +22,10 @@ const ReviewBooking = ({ navigation }) => {
           style={styles.backButton}
           onPress={() => navigation.goBack()}
         >
-          <Icon name="arrow-left" size={22} color="#333333" />
+          <Image
+  source={require("../../../assets/back.png")}
+  style={styles.backIcon}
+/>
         </TouchableOpacity>
 
         <View style={styles.headerCenter}>
@@ -274,13 +279,15 @@ const styles = StyleSheet.create({
 
   /* HEADER */
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 16,
-    paddingTop: 16,
-    paddingBottom: 12,
-  },
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+
+  paddingHorizontal: 16,
+
+  paddingTop: Platform.OS === "android" ? 50 : 16,
+  paddingBottom: 12,
+},
 
   backButton: {
     width: 44,
@@ -294,6 +301,12 @@ const styles = StyleSheet.create({
   headerCenter: {
     alignItems: 'center',
   },
+
+  backIcon: {
+  width: 20,
+  height: 20,
+  resizeMode: "contain",
+},
 
   headerTitle: {
     fontSize: 22,
@@ -313,7 +326,7 @@ const styles = StyleSheet.create({
 
   scrollContainer: {
     paddingHorizontal: 16,
-    paddingBottom: 180,
+    paddingBottom: 230,
   },
 
   /* CARD */
@@ -596,7 +609,7 @@ const styles = StyleSheet.create({
   /* BOTTOM BAR */
   bottomBar: {
     position: 'absolute',
-    bottom: 88,
+    bottom: 100,
     left: 0,
     right: 0,
     backgroundColor: '#FFFFFF',
@@ -642,7 +655,7 @@ const styles = StyleSheet.create({
   /* BUTTON */
   buttonContainer: {
     position: 'absolute',
-    bottom: 18,
+    bottom: 24,
     left: 16,
     right: 16,
   },
