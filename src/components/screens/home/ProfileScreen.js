@@ -100,9 +100,9 @@ export default function ProfileScreen({navigation}) {
   <View style={styles.userRow}>
 
     <Image
-      source={require("../../../assets/profile-con.png")}
-      style={styles.menuIcon}
-    />
+  source={require("../../../assets/profile-con.png")}
+  style={styles.profileIcon}
+/>
 
     <View style={{ marginLeft: 12, flex: 1 }}>
       <TouchableOpacity
@@ -123,9 +123,9 @@ export default function ProfileScreen({navigation}) {
 
   <View style={styles.userRow}>
     <Image
-      source={require("../../../assets/star.png")}
-      style={styles.menuIcon}
-    />
+  source={require("../../../assets/star.png")}
+  style={styles.profileIcon}
+/>
 
     <Text style={styles.rating}>5.00 My Rating</Text>
 
@@ -192,15 +192,18 @@ export default function ProfileScreen({navigation}) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "#f3f4f6",
-  },
+  flex: 1,
+  backgroundColor: "#f3f4f6",
+  paddingTop: 45, // adjust between 35-50 as needed
+},
 
   headerRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    padding: 15,
-  },
+  flexDirection: "row",
+  alignItems: "center",
+  paddingHorizontal: 15,
+  paddingTop: 55,   // <-- add this
+  paddingBottom: 15,
+},
 
   backBtn: {
     backgroundColor: "#e5e7eb",
@@ -230,22 +233,31 @@ const styles = StyleSheet.create({
   menuLeft: {
   flexDirection: "row",
   alignItems: "center",
+  flex: 1,
 },
 menuIcon: {
-  width: 22,
-  height: 22,
+  width: 28,
+  height: 28,
   resizeMode: "contain",
+  marginRight: 16,
 },
 arrowIcon: {
-  width: 18,
-  height: 18,
+  width: 20,
+  height: 20,
   resizeMode: "contain",
-  tintColor: "#444",
+  tintColor: "#555",
 },
 bannerImage: {
   width: 75,
   height: 75,
   resizeMode: "contain",
+},
+
+profileIcon: {
+  width: 34,
+  height: 34,
+  resizeMode: "contain",
+  marginRight: 14,
 },
 
   userRow: {
@@ -287,8 +299,10 @@ bannerImage: {
   },
 
   menuText: {
-    fontSize: 14,
-  },
+  fontSize: 18,
+  fontWeight: "600",
+  color: "#222",
+},
 
   banner: {
     backgroundColor: "#fef3c7",
