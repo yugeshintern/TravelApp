@@ -432,12 +432,12 @@ const s = StyleSheet.create({
 
   /* Header */
   header: {
-    marginTop: 18,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingHorizontal: 20,
-  },
+  marginTop: 50,
+  flexDirection: "row",
+  alignItems: "center",
+  justifyContent: "space-between",
+  paddingHorizontal: 20,
+},
   backBtn: {
     width: 42, height: 42, borderRadius: 21,
     backgroundColor: "#E9E9E9",

@@ -112,23 +112,28 @@ const styles = StyleSheet.create({
   },
 
   headerRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    padding: 15,
-  },
+  flexDirection: "row",
+  alignItems: "center",
+  paddingHorizontal: 15,
+  paddingTop: 55,
+  paddingBottom: 15,
+},
 
   backBtn: {
-    backgroundColor: "#e5e7eb",
-    padding: 8,
-    borderRadius: 20,
-    marginRight: 10,
-  },
+  width: 44,
+  height: 44,
+  borderRadius: 22,
+  backgroundColor: "#e5e7eb",
+  alignItems: "center",
+  justifyContent: "center",
+  marginRight: 12,
+},
 
   header: {
-    fontSize: 16,
-    fontWeight: "600",
-  },
-
+  fontSize: 18,
+  fontWeight: "700",
+  color: "#222",
+},
   content: {
     padding: 15,
     paddingBottom: 40,
