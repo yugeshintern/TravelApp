@@ -74,7 +74,11 @@ export default function SearchLocation({ navigation }) {
 
     setDropCoords(newDropCoords);
 
-    if (pickupLocation && pickupCoords) {
+    if (
+  pickupLocation?.trim() &&
+  pickupCoords &&
+  newDropCoords
+) {
       navigation.navigate("VehicleChoosing", {
         pickupLocation,
         dropLocation: item.display_name,
@@ -91,22 +95,57 @@ export default function SearchLocation({ navigation }) {
   setSuggestions([]);
 };
 
+const selectRecentLocation = (item) => {
+  const coords = {
+    lat: item.lat,
+    lng: item.lon,
+  };
+
+  if (activeField === "pickup") {
+    setPickupLocation(item.title);
+    setPickupCoords(coords);
+  } else {
+    setDropLocation(item.title);
+    setDropCoords(coords);
+
+    if (pickupLocation && pickupCoords) {
+      navigation.navigate("VehicleChoosing", {
+        pickupLocation,
+        dropLocation: item.title,
+
+        pickupLat: pickupCoords.lat,
+        pickupLng: pickupCoords.lng,
+
+        dropLat: coords.lat,
+        dropLng: coords.lng,
+      });
+    }
+  }
+};
+
   const locations = [
-    {
-      title: "Egmore Railway Station",
-      subtitle:
-        "Gandhi Irwin Road, Egmore, Chennai, Tamil Nadu, India",
-    },
-    {
-      title: "Koyambedu Bus Stand",
-      subtitle:
-        "Koyambedu bus terminus, Koyambedu, Chennai, Tamil Nadu",
-    },
-    {
-      title: "Phoenix Marketcity",
-      subtitle: "Velachery Road, Velachery, Chennai",
-    },
-  ];
+  {
+    title: "Egmore Railway Station",
+    subtitle:
+      "Gandhi Irwin Road, Egmore, Chennai, Tamil Nadu, India",
+    lat: 13.0733,
+    lon: 80.2610,
+  },
+  {
+    title: "Koyambedu Bus Stand",
+    subtitle:
+      "Koyambedu bus terminus, Koyambedu, Chennai, Tamil Nadu",
+    lat: 13.0698,
+    lon: 80.1946,
+  },
+  {
+    title: "Phoenix Marketcity",
+    subtitle:
+      "Velachery Road, Velachery, Chennai",
+    lat: 12.9916,
+    lon: 80.2184,
+  },
+];
 
   return (
     <View style={styles.container}>
@@ -253,13 +292,7 @@ export default function SearchLocation({ navigation }) {
           renderItem={({ item }) => (
             <TouchableOpacity
               style={styles.locationItem}
-              onPress={() => {
-                if (activeField === "pickup") {
-                  setPickupLocation(item.title);
-                } else {
-                  setDropLocation(item.title);
-                }
-              }}
+              onPress={() => selectRecentLocation(item)}
             >
               <Image
                 source={require("../../../assets/timer-icon.png")}
@@ -298,11 +331,12 @@ const styles = StyleSheet.create({
   },
 
   topBar: {
-    height: 48,
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 12,
-  },
+  height: 48,
+  justifyContent: "center",
+  alignItems: "center",
+  marginTop: 35,
+  marginBottom: 18,
+},
 
   backBtn: {
     position: "absolute",

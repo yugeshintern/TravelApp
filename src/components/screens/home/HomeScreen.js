@@ -18,19 +18,25 @@ export default function HomeScreen({ navigation }) {
   const [suggestions, setSuggestions] = useState([]);
 
   const locations = [
-    {
-      name: "Egmore Railway Station",
-      sub: "Gandhi Irwin Road, Chennai",
-    },
-    {
-      name: "Koyambedu Bus Stand",
-      sub: "Koyambedu, Chennai",
-    },
-    {
-      name: "Phoenix Marketcity",
-      sub: "Velachery Road, Chennai",
-    },
-  ];
+  {
+    name: "Egmore Railway Station",
+    sub: "Gandhi Irwin Road, Chennai",
+    lat: 13.0733,
+    lon: 80.2610,
+  },
+  {
+    name: "Koyambedu Bus Stand",
+    sub: "Koyambedu, Chennai",
+    lat: 13.0698,
+    lon: 80.1946,
+  },
+  {
+    name: "Phoenix Marketcity",
+    sub: "Velachery Road, Chennai",
+    lat: 12.9916,
+    lon: 80.2184,
+  },
+];
 
   const navItems = [
     {
@@ -94,7 +100,7 @@ export default function HomeScreen({ navigation }) {
       return;
     }
 
-    const locationData = {
+      const locationData = {
       address: description,
       latitude: parseFloat(selectedPlace.lat),
       longitude: parseFloat(selectedPlace.lon),
@@ -112,6 +118,18 @@ export default function HomeScreen({ navigation }) {
   } catch (error) {
     console.log("SELECT PLACE ERROR:", error);
   }
+};
+
+const selectRecentLocation = (location) => {
+  const locationData = {
+    address: location.name,
+    latitude: location.lat,
+    longitude: location.lon,
+  };
+
+  navigation.navigate("VehicleChoosing", {
+    dropLocation: locationData,
+  });
 };
 
   return (
@@ -199,7 +217,12 @@ export default function HomeScreen({ navigation }) {
         {/* RECENT LOCATIONS */}
         <View style={styles.locationList}>
           {locations.map((loc, i) => (
-            <View key={i} style={styles.locationItem}>
+            <TouchableOpacity
+  key={i}
+  style={styles.locationItem}
+  activeOpacity={0.8}
+  onPress={() => selectRecentLocation(loc)}
+>
               <Image
                 source={require("../../../assets/timer-icon.png")}
                 style={styles.clockIcon}
@@ -209,7 +232,7 @@ export default function HomeScreen({ navigation }) {
                 <Text style={styles.locTitle}>{loc.name}</Text>
                 <Text style={styles.locSub}>{loc.sub}</Text>
               </View>
-            </View>
+            </TouchableOpacity>
           ))}
         </View>
 
