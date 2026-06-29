@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   ScrollView,
   Image,
+  StatusBar,
   SafeAreaView,
 } from "react-native";
 
@@ -206,19 +207,21 @@ export default function SelectGoodsTypeScreen({
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "#F7F7F7",
-    paddingTop: 10,
-  },
+  flex: 1,
+  backgroundColor: "#F7F7F7",
+},
 
   /* HEADER */
   header: {
-    flexDirection: "row",
-    alignItems: "center",
-    paddingHorizontal: 18,
-    paddingTop: 14,
-    paddingBottom: 18,
-  },
+  flexDirection: "row",
+  alignItems: "center",
+
+  paddingHorizontal: 18,
+
+  paddingTop: (StatusBar.currentHeight || 20) + 14,
+
+  paddingBottom: 18,
+},
 
   backBtn: {
     width: 42,

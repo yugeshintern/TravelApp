@@ -7,6 +7,7 @@ import {
   FlatList,
   Image,
   SafeAreaView,
+  StatusBar,
 } from "react-native";
 
 const VEHICLES = [
@@ -126,13 +127,14 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#f5f5f5", paddingTop: 10 },
 
   header: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingHorizontal: 18,
-    paddingTop: 14,
-    paddingBottom: 18,
-  },
+  flexDirection: "row",
+  alignItems: "center",
+  justifyContent: "space-between",
+
+  paddingHorizontal: 18,
+  paddingTop: (StatusBar.currentHeight || 20) + 10,
+  paddingBottom: 18,
+},
 
   backBtn: {
     width: 44, height: 44, borderRadius: 22,
