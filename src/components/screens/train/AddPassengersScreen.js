@@ -219,30 +219,43 @@ const styles = StyleSheet.create({
 
   /* Header */
   header: {
-  marginTop: 50, // Increased top padding
+  paddingTop: 52,          // 👈 space for status bar
   paddingHorizontal: 20,
   paddingBottom: 18,
+
   alignItems: 'center',
+
   backgroundColor: '#FFF',
+
   borderBottomLeftRadius: 20,
   borderBottomRightRadius: 20,
+
   elevation: 3,
   shadowColor: '#000',
   shadowOpacity: 0.07,
   shadowRadius: 8,
-  shadowOffset: { width: 0, height: 2 },
+  shadowOffset: {
+    width: 0,
+    height: 2,
+  },
 },
 
   backBtn: {
   position: 'absolute',
-  left: 16,
-  top: 50, // Match the header spacing
+
+  top: 52,
+  left: 18,
+
   width: 42,
   height: 42,
   borderRadius: 21,
-  backgroundColor: '#EDEDED',
+
+  backgroundColor: '#EEF1F1',
+
   justifyContent: 'center',
   alignItems: 'center',
+
+  zIndex: 100,
 },
   backIcon: { width: 18, height: 18, resizeMode: 'contain' },
 
@@ -250,7 +263,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '700',
     color: '#333',
-    marginTop: 8,
+    
   },
 
   subTitle: {
