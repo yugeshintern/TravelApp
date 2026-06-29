@@ -12,6 +12,20 @@ import Icon from 'react-native-vector-icons/Feather';
 const RoomSelectionScreen = ({ navigation }) => {
   const [selected, setSelected] = useState(1);
 
+
+  const roomOptions = {
+  1: {
+    price: 5718,
+    tax: 337,
+  },
+  2: {
+    price: 6373,
+    tax: 367,
+  },
+};
+
+const currentRoom = roomOptions[selected];
+
   return (
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -88,68 +102,99 @@ const RoomSelectionScreen = ({ navigation }) => {
 
         {/* OPTION 1 */}
         <View style={styles.optionCard}>
-          <Text style={styles.optionTitle}>1. Room With Free Cancellation</Text>
+  <Text style={styles.optionTitle}>
+    1. Room With Free Cancellation
+  </Text>
 
-          <Text style={styles.green}>
-            ✓ Free Cancellation before 04 Mar 01:59 PM
-          </Text>
+  <Text style={styles.green}>
+    ✓ Free Cancellation before 04 Mar 01:59 PM
+  </Text>
 
-          <View style={styles.priceRow}>
-            <View>
-              {selected === 1 && (
-                <Text style={styles.selected}>✔ Selected</Text>
-              )}
-            </View>
+  <View style={styles.priceRow}>
 
-            <View style={{ alignItems: 'flex-end' }}>
-              <Text style={styles.price}>₹ 5,718</Text>
-              <Text style={styles.tax}>+ ₹337 Taxes & Fees</Text>
-            </View>
-          </View>
-        </View>
+    {selected === 1 ? (
+      <Text style={styles.selected}>✔ Selected</Text>
+    ) : (
+      <TouchableOpacity
+        style={styles.selectBtn}
+        onPress={() => setSelected(1)}
+      >
+        <Text style={styles.selectText}>Select</Text>
+      </TouchableOpacity>
+    )}
+
+    <View style={{ alignItems: "flex-end" }}>
+      <Text style={styles.price}>₹ 5,718</Text>
+      <Text style={styles.tax}>+ ₹337 Taxes & Fees</Text>
+    </View>
+
+  </View>
+</View>
 
         {/* OPTION 2 */}
         <View style={styles.optionCard}>
-          <Text style={styles.optionTitle}>2. Room With Free Cancellation</Text>
+  <Text style={styles.optionTitle}>
+    2. Room With Free Cancellation
+  </Text>
 
-          <Text style={styles.sub}>• Free Breakfast</Text>
+  <Text style={styles.sub}>
+    • Free Breakfast
+  </Text>
 
-          <Text style={styles.green}>
-            ✓ Free Cancellation before 04 Mar 01:59 PM
-          </Text>
+  <Text style={styles.green}>
+    ✓ Free Cancellation before 04 Mar 01:59 PM
+  </Text>
 
-          <View style={styles.priceRow}>
-            <TouchableOpacity
-              style={styles.selectBtn}
-              onPress={() => setSelected(2)}
-            >
-              <Text style={styles.selectText}>Select</Text>
-            </TouchableOpacity>
+  <View style={styles.priceRow}>
 
-            <View style={{ alignItems: 'flex-end' }}>
-              <Text style={styles.price}>₹ 6,373</Text>
-              <Text style={styles.tax}>+ ₹367 Taxes & Fees</Text>
-            </View>
-          </View>
-        </View>
+    {selected === 2 ? (
+      <Text style={styles.selected}>✔ Selected</Text>
+    ) : (
+      <TouchableOpacity
+        style={styles.selectBtn}
+        onPress={() => setSelected(2)}
+      >
+        <Text style={styles.selectText}>Select</Text>
+      </TouchableOpacity>
+    )}
+
+    <View style={{ alignItems: "flex-end" }}>
+      <Text style={styles.price}>₹ 6,373</Text>
+      <Text style={styles.tax}>+ ₹367 Taxes & Fees</Text>
+    </View>
+
+  </View>
+</View>
 
       </ScrollView>
 
       {/* BOTTOM */}
       <View style={styles.bottom}>
         <View>
-          <Text style={styles.offer}>1 offer applied</Text>
-          <Text style={styles.tax}>+ ₹337 Taxes & Fees per night</Text>
-        </View>
+  <Text style={styles.offer}>1 offer applied</Text>
+  <Text style={styles.tax}>
+    + ₹{currentRoom.tax} Taxes & Fees per night
+  </Text>
+</View>
 
-        <View>
-          <Text style={styles.price}>₹5,718</Text>
-          <Text style={styles.sub}>1 Room | Fits 2 Adults</Text>
-        </View>
+<View style={{ alignItems: "flex-end" }}>
+  <Text style={styles.price}>
+    ₹{currentRoom.price.toLocaleString("en-IN")}
+  </Text>
+  <Text style={styles.sub}>
+    1 Room | Fits 2 Adults
+  </Text>
+</View>
       </View>
 
       <TouchableOpacity style={styles.button}
-      onPress={()=> navigation.navigate("HotelReviewBookingScreen")}>
+      onPress={() =>
+  navigation.navigate("HotelReviewBookingScreen", {
+    selectedRoom: selected,
+    roomPrice: currentRoom.price,
+    roomTax: currentRoom.tax,
+  })
+}>
         <Text style={styles.buttonText}>Continue</Text>
       </TouchableOpacity>
 
