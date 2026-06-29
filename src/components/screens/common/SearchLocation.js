@@ -74,22 +74,7 @@ export default function SearchLocation({ navigation }) {
 
     setDropCoords(newDropCoords);
 
-    if (
-  pickupLocation?.trim() &&
-  pickupCoords &&
-  newDropCoords
-) {
-      navigation.navigate("VehicleChoosing", {
-        pickupLocation,
-        dropLocation: item.display_name,
-
-        pickupLat: pickupCoords.lat,
-        pickupLng: pickupCoords.lng,
-
-        dropLat: newDropCoords.lat,
-        dropLng: newDropCoords.lng,
-      });
-    }
+    setDropCoords(newDropCoords);
   }
 
   setSuggestions([]);
@@ -108,18 +93,7 @@ const selectRecentLocation = (item) => {
     setDropLocation(item.title);
     setDropCoords(coords);
 
-    if (pickupLocation && pickupCoords) {
-      navigation.navigate("VehicleChoosing", {
-        pickupLocation,
-        dropLocation: item.title,
-
-        pickupLat: pickupCoords.lat,
-        pickupLng: pickupCoords.lng,
-
-        dropLat: coords.lat,
-        dropLng: coords.lng,
-      });
-    }
+    setDropCoords(coords);
   }
 };
 
@@ -305,6 +279,27 @@ const selectRecentLocation = (item) => {
             </TouchableOpacity>
           )}
         />
+        {pickupCoords && dropCoords && (
+  <TouchableOpacity
+    style={styles.searchButton}
+    onPress={() =>
+      navigation.navigate("VehicleChoosing", {
+        pickupLocation,
+        dropLocation,
+
+        pickupLat: pickupCoords.lat,
+        pickupLng: pickupCoords.lng,
+
+        dropLat: dropCoords.lat,
+        dropLng: dropCoords.lng,
+      })
+    }
+  >
+    <Text style={styles.searchButtonText}>
+      SEARCH
+    </Text>
+  </TouchableOpacity>
+)}
       </View>
     </View>
   );
@@ -321,6 +316,27 @@ const styles = StyleSheet.create({
     color: "#2563eb",
     margin: 16,
   },
+
+  searchButton: {
+  marginTop: 18,
+  marginBottom: 25,
+
+  backgroundColor: "#0F7A6C",
+
+  borderRadius: 30,
+
+  paddingVertical: 16,
+
+  alignItems: "center",
+
+  elevation: 5,
+},
+
+searchButtonText: {
+  color: "#fff",
+  fontSize: 17,
+  fontWeight: "700",
+},
 
   card: {
     flex: 1,
