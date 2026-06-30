@@ -5,6 +5,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   FlatList,
+  Image,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 
@@ -86,9 +87,15 @@ const FlightSeatSelectionScreen = ({ navigation,route }) => {
 
       {/* HEADER */}
       <View style={styles.header}>
-        <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>
-          <Icon name="arrow-left" size={20} />
-        </TouchableOpacity>
+        <TouchableOpacity
+  style={styles.backBtn}
+  onPress={() => navigation.goBack()}
+>
+  <Image
+    source={require("../../../assets/back.png")}
+    style={styles.backIcon}
+  />
+</TouchableOpacity>
 
         <View>
           <Text style={styles.tripLabel}>Trip to</Text>
@@ -170,6 +177,12 @@ const styles = StyleSheet.create({
   marginRight: 18,
 },
 
+backIcon: {
+  width: 20,
+  height: 20,
+  resizeMode: "contain",
+},
+
   tripLabel: {
   fontSize: 15,
   color: '#8A8A8A',
@@ -191,33 +204,35 @@ tripCity: {
 },
 
   columns: {
-  flexDirection: 'row',
-  justifyContent: 'space-between',
+  flexDirection: "row",
+  justifyContent: "space-between",
+  paddingHorizontal: 26,
   marginTop: 28,
-  paddingHorizontal: 30,
-  marginBottom: 8,
+  marginBottom: 10,
 },
 
   columnText: {
-  width: 44,
-  textAlign: 'center',
-  fontWeight: '700',
-  color: '#444',
+  width: 54,
+  textAlign: "center",
+  fontWeight: "700",
+  color: "#444",
   fontSize: 16,
 },
 
   grid: {
-  paddingHorizontal: 20,
+  paddingHorizontal: 18,
   paddingBottom: 170,
-  alignItems: 'center',
 },
 
   seat: {
   width: 54,
-  height: 54,
-  borderRadius: 12,
-  marginHorizontal: 7,
-  marginVertical: 9,
+  height: 55,
+  borderRadius: 10,
+  borderWidth: 1,
+  borderColor: "#D7D7D7",
+
+  marginHorizontal: 6,
+  marginVertical: 7,
 },
 
   footer: {
