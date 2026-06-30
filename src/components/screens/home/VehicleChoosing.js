@@ -1,19 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View, Text, StyleSheet, TouchableOpacity,
   FlatList, Image, ActivityIndicator, Alert,
 } from "react-native";
 import { WebView } from "react-native-webview";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createOrder } from "../../../utils/api";
 import { getSocket } from "../../../utils/socket";
 
 export default function VehicleChoosing({ navigation, route }) {
   const [selected, setSelected] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [customerId, setCustomerId] = useState(route.params?.customerId || null);
 
   // ── Normalize params from both Home and SearchLocation ──────────────────
-  // Home passes:   dropLocation = { address, latitude, longitude }
-  // Search passes: dropLocation = string, dropLat, dropLng (flat params)
   const rawDrop = route.params?.dropLocation;
   const dropLocation =
     rawDrop && typeof rawDrop === "object"
@@ -35,7 +35,50 @@ export default function VehicleChoosing({ navigation, route }) {
         };
   // ────────────────────────────────────────────────────────────────────────
 
-  const customerId = route.params?.customerId || "USER_ID_HERE";
+  // ✅ Resolve the logged-in user's real ID
+  useEffect(() => {
+    const fetchUser = async () => {
+      if (customerId) return; // already have an ID, skip
+
+      try {
+        // Fast path: we already saved this at login
+        const storedUserId = await AsyncStorage.getItem("userId");
+        if (storedUserId) {
+          setCustomerId(storedUserId);
+          return;
+        }
+
+        // Fallback: fetch fresh from server using the token
+        const token = await AsyncStorage.getItem("token");
+        console.log("🔑 TOKEN VALUE:", token);
+
+        if (!token) {
+          Alert.alert("Session expired", "Please log in again.");
+          navigation.navigate("Login");
+          return;
+        }
+
+        const res = await fetch("https://traveladmin.duckdns.org/authuser/user-me", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const data = await res.json();
+        console.log("👤 Fetched user profile:", data);
+
+        if (!data?.user?._id) {
+          Alert.alert("Session expired", "Please log in again.");
+          navigation.navigate("Login");
+          return;
+        }
+
+        setCustomerId(data.user._id);
+        await AsyncStorage.setItem("userId", data.user._id); // cache for next time
+      } catch (err) {
+        console.log("❌ Failed to fetch user:", err);
+        Alert.alert("Error", "Could not verify your account. Please check your connection.");
+      }
+    };
+    fetchUser();
+  }, []);
 
   const vehicles = [
     { name: "Bike", desc: "Quick Bike rides\n4 mins away Drop 1:20 pm", price: "₹287", old: "₹307" },
@@ -48,13 +91,18 @@ export default function VehicleChoosing({ navigation, route }) {
   ];
 
   const handleBookRide = async () => {
+    if (!customerId) {
+      Alert.alert("Please wait", "Still loading your profile, try again in a moment.");
+      return;
+    }
+
     try {
       setLoading(true);
       const selectedVehicle = vehicles[selected];
       const socket = getSocket();
 
       const payload = {
-        customerId,
+        userId: customerId,
         pickupLocation: pickupLocation.address,
         dropLocation: dropLocation.address,
         vehicleType: selectedVehicle.name,

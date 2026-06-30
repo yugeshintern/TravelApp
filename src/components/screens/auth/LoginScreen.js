@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -9,29 +9,21 @@ import {
   Alert,
   ActivityIndicator,
 } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import AppInput from '../../inputs/AppInput';
 import PrimaryButton from '../../buttons/PrimaryButton';
 import SocialLoginRow from '../../../components/common/SocialLoginRow';
 import TealBlob from '../../../components/common/TealBlob';
-import {AuthContext} from '../../../context/AuthContext';
 
 const LoginScreen = ({navigation}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const auth = useContext(AuthContext);
-  if (!auth) {
-    console.log('AuthContext is undefined ❌');
-    return null;
-  }
-  const {login} = auth;
-
   const handleLogin = async () => {
     if (!username || !password) {
       return Alert.alert('Error', 'Please enter username and password');
     }
-
     setLoading(true);
     try {
       const response = await fetch(
@@ -42,11 +34,16 @@ const LoginScreen = ({navigation}) => {
           body: JSON.stringify({username, password}),
         },
       );
-
       const data = await response.json();
 
       if (data.success) {
-        login({name: data.user.username, token: data.token});
+        // ✅ Save token + username directly to AsyncStorage
+        await AsyncStorage.setItem('token', data.token);
+        await AsyncStorage.setItem('username', data.user.username);
+        await AsyncStorage.setItem('userId', data.user.id); // id, not _id (per your login route)
+
+        console.log('✅ Logged in & token saved:', data.user.username);
+
         navigation.navigate('Location');
       } else {
         Alert.alert('Error', data.message || 'Login failed');
@@ -69,7 +66,6 @@ const LoginScreen = ({navigation}) => {
           <Text style={styles.title}>Hello!</Text>
           <Text style={styles.subtitle}>Welcome to Travel App</Text>
         </View>
-
         <View style={styles.form}>
           <AppInput
             placeholder="Enter User Name"
@@ -85,20 +81,16 @@ const LoginScreen = ({navigation}) => {
             onChangeText={setPassword}
             secureTextEntry
           />
-
           <TouchableOpacity style={styles.forgot}>
             <Text style={styles.forgotText}>Forgot Password</Text>
           </TouchableOpacity>
-
           {loading ? (
             <ActivityIndicator color="#1B7F79" size="large" />
           ) : (
             <PrimaryButton label="Login" onPress={handleLogin} />
           )}
         </View>
-
         <SocialLoginRow label="or Log in with" />
-
         <View style={styles.signupRow}>
           <Text style={styles.signupText}>Don't have an Account? </Text>
           <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
