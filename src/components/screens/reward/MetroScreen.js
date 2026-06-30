@@ -61,17 +61,7 @@ export default function MetroScreen({ navigation }) {
         <Text style={styles.title}>Select metro stations</Text>
 
         {/* INPUT CARD */}
-        <LinearGradient
-  
-colors={[
-"#FFF1E7",
-"#FFDCC9",
-"#FFCCB8"
-]}
-  start={{ x: 0, y: 0 }}
-  end={{ x: 1, y: 1 }}
-  style={styles.inputCard}
->
+        <View style={styles.inputCard}>
 
   {/* FROM */}
   <TouchableOpacity
@@ -125,7 +115,7 @@ colors={[
 </TouchableOpacity>
   )}
 
-</LinearGradient>
+</View>
 
         {/* STATIONS */}
         {stations.map((item, index) => (
@@ -146,26 +136,7 @@ colors={[
   }}
 >
 
-<LinearGradient
-  colors={
-    index % 6 === 0
-      ? ["#F8FFF8", "#E3FFF8", "#D6F9FF"]
-      : index % 6 === 1
-      ? ["#F5FAFF", "#E6F2FF", "#DCEBFF"]
-      : index % 6 === 2
-      ? ["#FFF9EF", "#FFF3D9", "#FFEBC0"]
-      : index % 6 === 3
-      ? ["#FFF7F7", "#FFEAEA", "#FFDCDC"]
-      : index % 6 === 4
-      ? ["#F9F5FF", "#F1ECFF", "#E8E0FF"]
-      : ["#F7FFF7", "#EAFCEA", "#DCF7DC"]
-  }
-
-  start={{ x: 0, y: 0 }}
-  end={{ x: 1, y: 1 }}
-
-  style={styles.stationRow}
->
+<View style={styles.stationRow}>
 
   <View style={{ flexDirection: "row", alignItems: "center", flex: 1 }}>
     <Image
@@ -183,7 +154,7 @@ colors={[
     style={styles.stationArrow}
   />
 
-</LinearGradient>
+</View>
 
 </TouchableOpacity>
 ))}
@@ -257,9 +228,11 @@ const styles = StyleSheet.create({
 },
 
 stationArrow: {
-  width: 16,
-  height: 16,
-  tintColor: "#94A3B8",
+  width: 18,
+
+  height: 18,
+
+  tintColor: "#B0B8C5",
 },
 
   content: {
@@ -316,25 +289,40 @@ pinIcon: {
   marginRight: 12,
 },
   title: {
-  fontSize: 18,
+  fontSize: 22,
+
   fontWeight: "700",
-  color: "#111827",
-  marginBottom: 14,
+
+  color: "#1E293B",
+
+  marginBottom: 18,
 },
 
   inputCard: {
-  borderRadius: 24,
+  backgroundColor: "#FFFFFF",
+
+  borderRadius: 22,
+
   padding: 18,
+
   marginBottom: 20,
 
-  shadowColor: "#D85D5D",
-  shadowOpacity: 0.22,
-  shadowRadius: 18,
+  borderWidth: 1,
+
+  borderColor: "#ECECEC",
+
+  shadowColor: "#000",
+
+  shadowOpacity: 0.06,
+
+  shadowRadius: 8,
+
   shadowOffset: {
     width: 0,
-    height: 8,
+    height: 4,
   },
-  elevation: 10,
+
+  elevation: 3,
 },
 
   row: {
@@ -349,7 +337,7 @@ pinIcon: {
 
   fontWeight: "600",
 
-  color: "#374151",
+  color: "#2F3640",
 },
 
   greenDot: {
@@ -369,7 +357,7 @@ pinIcon: {
   divider: {
   height: 1,
 
-  backgroundColor: "#E5E7EB",
+  backgroundColor: "#EEEEEE",
 
   marginVertical: 16,
 
@@ -377,6 +365,7 @@ pinIcon: {
 },
 
   stationRow: {
+  backgroundColor: "#FFFFFF",
 
   flexDirection: "row",
 
@@ -384,37 +373,40 @@ pinIcon: {
 
   justifyContent: "space-between",
 
-  paddingVertical: 12,
+  paddingVertical: 15,
 
   paddingHorizontal: 18,
 
   marginBottom: 12,
 
-  borderRadius: 20,
+  borderRadius: 18,
 
   borderWidth: 1,
 
-  borderColor: "#E9EEF4",
+  borderColor: "#ECECEC",
 
   shadowColor: "#000",
 
-  shadowOpacity: 0.08,
+  shadowOpacity: 0.05,
 
-  shadowRadius: 7,
+  shadowRadius: 6,
 
   shadowOffset: {
     width: 0,
     height: 3,
   },
 
-  elevation: 5,
+  elevation: 2,
 },
 
 
   station: {
   flex: 1,
-  fontSize: 16,      // was 20
+
+  fontSize: 16,
+
   fontWeight: "600",
-  color: "#1E293B",
+
+  color: "#334155",
 },
 });

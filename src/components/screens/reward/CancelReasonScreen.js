@@ -25,11 +25,7 @@ export default function CancelReasonScreen({ navigation }) {
     <View style={styles.container}>
       {/* MAP BACKGROUND (FAKE) */}
       {/* MAP BACKGROUND */}
-        <Image
-          source={require("../../../assets/review_bg.png")}
-          style={styles.map}
-        >
-        </Image>
+        
 
         {/* BACK BUTTON */}
         <TouchableOpacity
